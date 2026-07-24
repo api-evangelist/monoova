@@ -1,0 +1,47 @@
+generated: '2026-07-24'
+method: searched
+source: >-
+  https://developer.monoova.com/test-payments-in-sandbox,
+  https://developer.monoova.com/sign-up-to-sandbox, and the OpenAPI
+  descriptions.
+test_vs_live:
+  model: separate-environment
+  detail: >-
+    The sandbox is a fully separate environment with its own portal and its own
+    API keys. Live access is granted only after Monoova's compliance process and
+    formal sign-off on the sandbox integration.
+  portal: https://sandbox.monoova.com/user/login
+  cost: free / self-serve
+hosts:
+  payments_sandbox: https://api.m-pay.com.au
+  payto_card_sandbox: https://sand-api.monoova.com
+credentials:
+  model: >-
+    Obtain a sandbox API key from the Sandbox Portal under MANAGE > ACCOUNTS.
+    Core Payments uses HTTP Basic with the API key as username (password left
+    blank; Monoova supplies a password only for OneShotSecurityToken flows).
+    PayTo/Card mint a 24h Bearer token from the token endpoint.
+magic_values:
+  mechanism: >-
+    In the sandbox, the CENTS portion of the transaction amount drives the
+    simulated response/reason code — e.g. $5.19 / $10.19 / $50.19 (cents .19)
+    triggers reason code M019 "Requested By Customer" with action Decline; a
+    whole-dollar amount (.00) is Approved. This lets integrators deterministically
+    exercise approve/decline and every NPP mandate reason code without live rails.
+  examples:
+    - cents: '.00'
+      code: '-'
+      result: Approve (Agreement Approved)
+    - cents: '.01'
+      code: M001
+      result: Decline (Invalid Debtor Account Number)
+    - cents: '.19'
+      code: M019
+      result: Decline (Requested By Customer)
+    - cents: '.22'
+      code: M022
+      result: Decline (Mandate Cancelled Due To Fraud)
+  see: errors/monoova-decline-codes.yml
+notes: >-
+  All decline/reject reason codes documented in errors/monoova-decline-codes.yml
+  are reproducible in the sandbox via the cents-suffix trigger scheme above.

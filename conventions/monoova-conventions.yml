@@ -1,0 +1,45 @@
+generated: '2026-07-24'
+method: searched
+source: >-
+  https://developer.monoova.com/authentication and the three Monoova OpenAPI
+  specifications.
+authentication:
+  style: >-
+    HTTP Basic (API key as username) for the core Payments API; short-lived
+    (24h) Bearer tokens for PayTo and Card Payments, minted via a token endpoint
+    called with HTTP Basic (mAccount number as username, API key as password).
+  lockout: 5 failed sign-ins / 10 failed token generations
+  see: authentication/monoova-authentication.yml
+idempotency:
+  supported: false
+  note: >-
+    No Idempotency-Key header or idempotent-retry contract is documented across
+    the Payments, PayTo, or Card Payments specifications. Transaction de-dup is
+    handled by client-supplied unique reference ids on some operations, but
+    there is no general idempotency-key mechanism, so no Idempotency pointer is
+    emitted.
+pagination:
+  style: page-number
+  params:
+    - pageNumber
+    - pageSize
+  scope: reporting and list endpoints (e.g. mAccount transactions, reports)
+error_envelope:
+  shape: '{ traceId, errors: [{ errorCode, errorMessage }] }'
+  rfc9457: false
+  see: errors/monoova-problem-types.yml
+versioning:
+  scheme: per-product
+  detail: >-
+    Payments API is versioned in the path/spec (v5.29); PayTo and Card Payments
+    are v1. No global API version header.
+  see: lifecycle/monoova-lifecycle.yml
+request_tracing:
+  field: traceId
+  note: Returned in error bodies for correlation with Monoova trace logs.
+rate_limit_signaling:
+  documented: false
+  note: No published rate-limit headers or quotas in the specs or docs.
+webhooks:
+  supported: true
+  see: asyncapi/monoova-webhooks.yml

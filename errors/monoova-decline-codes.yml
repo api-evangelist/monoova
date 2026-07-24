@@ -1,0 +1,316 @@
+generated: '2026-07-24'
+method: searched
+source: openapi/monoova-payto.yml tag descriptions (Payment Initiation Reject Reason Codes; Mandate Status Reason Codes) +
+  https://developer.monoova.com/payto-status-and-error-codes
+context: NPP PayTo mandate/payment reason codes. Complements errors/monoova-problem-types.yml (API-level errors).
+envelope_field: reasonCode (on payment initiation / mandate status notifications)
+reproducible_in_sandbox: Yes - via the cents-suffix amount trigger; see sandbox/monoova-sandbox.yml
+payment_initiation_reject_reason_codes:
+- code: R001
+  meaning: Creditor agent is not online
+  action: Decline
+- code: R002
+  meaning: Account to be debited does not exist
+  action: Decline
+- code: R003
+  meaning: Account to be Credited does not exist
+  action: Decline
+- code: R004
+  meaning: The original Payer Customer Account number is closed
+  action: Decline
+- code: R005
+  meaning: Account exists but is blocked
+  action: Decline
+- code: R006
+  meaning: Account is now closed
+  action: Decline
+- code: R007
+  meaning: Debtor account type is invalid
+  action: Decline
+- code: R008
+  meaning: Creditor account type is invalid
+  action: Decline
+- code: R009
+  meaning: Payer account is not valid
+  action: Decline
+- code: R010
+  meaning: Transaction has been forbidden
+  action: Decline
+- code: R011
+  meaning: Payment was rejected by the payee
+  action: Decline
+- code: R012
+  meaning: Debtor account cannot be debited
+  action: Decline
+- code: R013
+  meaning: Use of zero-dollar payment initiation requests is prohibited.
+  action: Decline
+- code: R014
+  meaning: The amount requested is greater than the maximum NPP limit of $99,999,999,999
+  action: Decline
+- code: R015
+  meaning: Specified message amount is a non-processable currency outside of existing agreement
+  action: Decline
+- code: R016
+  meaning: Amount of funds available to cover specified message amount is insufficient
+  action: Decline
+- code: R017
+  meaning: Specified transaction amount is less than agreed minimum.
+  action: Decline
+- code: R018
+  meaning: Amount received is not the amount agreed or expected
+  action: Decline
+- code: R019
+  meaning: The amount in the NPP Payment Initiation Request is missing or invalid
+  action: Decline
+- code: R020
+  meaning: Number of transactions at the Group level is invalid or missing
+  action: Decline
+- code: R021
+  meaning: The amount requested in the NPP Payment Initiation Request exceeds the agreed limit
+  action: Decline
+- code: R022
+  meaning: Reject the NPP Payment Initiation Request as the Creditor is unknown to Debtor
+  action: Decline
+- code: R023
+  meaning: End customer specified is not known at associated Sort/National Bank Code or does no longer exist in the books
+  action: Decline
+- code: R024
+  meaning: Debtor Name not provided
+  action: Decline
+- code: R025
+  meaning: Creditor Name not provided
+  action: Decline
+- code: R026
+  meaning: Number of decimal points not compatible with the currency
+  action: Decline
+- code: R027
+  meaning: Required Compulsory Element Missing
+  action: Decline
+- code: R029
+  meaning: Cancellation requested by the Debtor
+  action: Decline
+- code: R030
+  meaning: The CreationDateTime in the Group Header is not as per the required format
+  action: Decline
+- code: R031
+  meaning: The Business Service does not support future dated NPP Payment Initiation Requests
+  action: Decline
+- code: R032
+  meaning: Check with Monoova on possible Outage. Retry again after sometime.
+  action: Decline
+- code: R033
+  meaning: Check with Monoova on possible Outage. Retry again after sometime.
+  action: Decline
+- code: R034
+  meaning: End to End Id missing or invalid for catsct payment Instruction.
+  action: Decline
+- code: R035
+  meaning: Invalid or not applicable character set
+  action: Decline
+- code: R036
+  meaning: Creditor Reference Must be equal to End to End Id of payment instruction for catsct
+  action: Decline
+- code: R037
+  meaning: Check with Monoova on possible Outage. Retry again after sometime.
+  action: Decline
+- code: R038
+  meaning: Payer institution is unavailable
+  action: Decline
+- code: R039
+  meaning: Payer institution is unavailable
+  action: Decline
+- code: R040
+  meaning: Payer institution is unavailable
+  action: Decline
+- code: R041
+  meaning: Payer PayId is not valid. Update the payment agreement with a valid PayId to proceed with payment initiation
+  action: Decline
+- code: R042
+  meaning: Payer PayId is not valid. Update the payment agreement with a valid PayId to proceed with payment initiation
+  action: Decline
+- code: R043
+  meaning: Payer BSB is not valid. Update the payment agreement with a valid BSB to proceed with payment initiation
+  action: Decline
+- code: R044
+  meaning: Payer BSB is not valid. Update the payment agreement with a valid BSB to proceed with payment initiation
+  action: Decline
+- code: R045
+  meaning: BO Service Code is not valid. Modify the Mandate with the correct BO Service Code
+  action: Decline
+- code: R046
+  meaning: BO Service Code is not valid. Modify the Mandate with the correct BO Service Code
+  action: Decline
+- code: R047
+  meaning: Payer is no longer reachable on NPP. Cancel the Mandate
+  action: Decline
+- code: R048
+  meaning: Payer is no longer reachable on NPP. Cancel the Mandate
+  action: Decline
+- code: R049
+  meaning: Payee Account Details are not present in Mandate and Client also has not provided Creditor Account Details in the
+    Initiation Request. Either Modify the Mandate or provide the Creditor Account Details in the Request
+  action: Decline
+- code: R050
+  meaning: Creditor PayId has been ported, amend the payment agreement to reflect correct PayId institution
+  action: Decline
+- code: R051
+  meaning: Payer PayId has been ported, amend the payment agreement to reflect correct PayId institution
+  action: Decline
+- code: R052
+  meaning: Payee account details in the payment initiation do not match the payment agreement
+  action: Decline
+- code: R053
+  meaning: Payee PayId in the payment initiation do not match the payment agreement
+  action: Decline
+- code: R054
+  meaning: Verify the details of the Mandate, if creditor details are not present, it must be provided in input request
+  action: Decline
+- code: R055
+  meaning: Unable to locate Payment Instruction record
+  action: Decline
+- code: R056
+  meaning: Mandate validation failed. Verify the details of the Mandate
+  action: Decline
+- code: R057
+  meaning: Verify the details of the Mandate, if creditor account/alias details are correct, don't send creditor account/alias
+    details in input request
+  action: Decline
+- code: R058
+  meaning: Verify the status of previous payment instruction if it is valid for business retry
+  action: Decline
+- code: R059
+  meaning: The NPP Payment Initiation Request did not contain a MandateId
+  action: Decline
+- code: R060
+  meaning: Invalid Payment Agreement
+  action: Decline
+- code: R061
+  meaning: Payment Agreement is expired
+  action: Decline
+- code: R062
+  meaning: Reason has not been specified by end customer
+  action: Decline
+- code: R063
+  meaning: Permission to process this payment is not granted
+  action: Decline
+- code: R064
+  meaning: Payer institution is unavailable. Please try again later.
+  action: Decline
+- code: R065
+  meaning: The BIC identifier in the Message Payload is invalid or missing
+  action: Decline
+- code: R066
+  meaning: Due to specific service offered by the Debtor Agent
+  action: Decline
+- code: R067
+  meaning: The Creditor did not appear on the Debtors whitelist
+  action: Decline
+- code: R068
+  meaning: The Creditor did appear on the Debtors blacklist
+  action: Decline
+- code: R069
+  meaning: The NPP Payment Initiation Request was rejected because the number of transactions requested exceeds the Debtor
+    Agent offering.
+  action: Decline
+- code: R070
+  meaning: The NPP Payment Initiation Request was rejected because the total value of transactions requested exceeds the Debtor
+    Agent offering.             R999          Unexpected System Error
+  action: Decline
+mandate_status_reason_codes:
+- code: M001
+  meaning: Invalid Debtor AccountNumber
+  action: Decline
+- code: M002
+  meaning: Closed Account Number
+  action: Decline
+- code: M003
+  meaning: Closed Debtor AccountNumber
+  action: Decline
+- code: M004
+  meaning: Blocked Account
+  action: Decline
+- code: M005
+  meaning: Invalid Debtor AccountType
+  action: Decline
+- code: M006
+  meaning: Transaction Forbidden
+  action: Decline
+- code: M007
+  meaning: Transaction Not Supported
+  action: Decline
+- code: M008
+  meaning: Not Allowed Currency
+  action: Decline
+- code: M009
+  meaning: Invalid Amount
+  action: Decline
+- code: M010
+  meaning: Amount Exceeds Agreed Limit
+  action: Decline
+- code: M011
+  meaning: Contract Amended
+  action: Decline
+- code: M012
+  meaning: Contract Cancellation Initiated By Debtor
+  action: Decline
+- code: M013
+  meaning: Contract Expired
+  action: Decline
+- code: M014
+  meaning: Mandate Suspended Final Collection
+  action: Decline
+- code: M015
+  meaning: Mandate Suspended Once Off Collection
+  action: Decline
+- code: M016
+  meaning: End Customer Deceased
+  action: Decline
+- code: M017
+  meaning: No Mandate Service By Agent
+  action: Decline
+- code: M018
+  meaning: No Mandate Service On Customer
+  action: Decline
+- code: M019
+  meaning: Requested By Customer
+  action: Decline
+- code: M020
+  meaning: Requested By Initiating Party
+  action: Decline
+- code: M021
+  meaning: Mandate Expired
+  action: Decline
+- code: M022
+  meaning: Mandate Cancelled Due To Fraud
+  action: Decline
+- code: M023
+  meaning: Not Specified Reason Customer Generated
+  action: Decline
+- code: M024
+  meaning: Not Specified Reason Agent Generated
+  action: Decline
+- code: M025
+  meaning: Mandate Suspended 7 Consecutive Unsuccessful Collections
+  action: Decline
+- code: M026
+  meaning: Narrative
+  action: Decline
+- code: M027
+  meaning: No Answer From Customer
+  action: Decline
+- code: M028
+  meaning: Regulatory Reason
+  action: Decline
+- code: M029
+  meaning: Specific Service offered by Debtor Agent
+  action: Decline
+- code: M030
+  meaning: Creditor not on Whitelist of Debtor
+  action: Decline
+- code: M031
+  meaning: Creditor on Blacklist of Debtor
+  action: Decline
+- code: M032
+  meaning: Unknown end Customer
+  action: Decline

@@ -1,0 +1,26 @@
+generated: '2026-07-24'
+method: searched
+source: >-
+  https://api-docs.monoova.com/ (spec versions) and
+  https://monoova.statuspage.io
+versioning:
+  scheme: per-product
+  current:
+    payments: v5.29
+    payto: v1
+    card_payments: v1
+  docs: https://developer.monoova.com/overview
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: >-
+    No published deprecation policy or RFC 8594 Sunset/Deprecation header
+    support was found. Individual operations are versioned per product (e.g.
+    MWalletClose_V1) rather than via a documented deprecation program, so no
+    Deprecation pointer is emitted.
+sla:
+  url: null
+  uptime_target: null
+  note: No public SLA/uptime target document found for the developer API.
+status_page: https://monoova.statuspage.io
+deprecated_operations: []

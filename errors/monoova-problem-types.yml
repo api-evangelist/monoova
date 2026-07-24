@@ -1,0 +1,86 @@
+generated: '2026-07-24'
+method: derived
+source: openapi/ (4xx/5xx responses)
+format: custom-json
+envelope:
+  note: Monoova errors return a JSON body with a top-level traceId and an errors[] array of {errorCode,
+    errorMessage}. Not RFC 9457 problem+json.
+  fields:
+  - field: traceId
+    type: string
+    note: Trace id for logs; populated for errors
+  - field: errors[].errorCode
+    type: string
+    note: Monoova error code (e.g. NOS_VL_EVTNAME_REQUIRED, CCM_AMOUNT_INVALID)
+  - field: errors[].errorMessage
+    type: string
+    note: Human-readable message
+problems:
+- status: 400
+  title: Bad Request
+  description: Error
+  source_spec: openapi/monoova-cc.yml
+- status: 403
+  title: Forbidden
+  description: Error
+  source_spec: openapi/monoova-cc.yml
+- status: 404
+  title: Not Found
+  description: Error
+  source_spec: openapi/monoova-cc.yml
+- status: 422
+  title: Unprocessable Entity
+  description: Async Request Failed
+  source_spec: openapi/monoova-cc.yml
+- status: 500
+  title: Internal Server Error
+  description: Error
+  source_spec: openapi/monoova-cc.yml
+- status: 502
+  title: Bad Gateway
+  description: Error
+  source_spec: openapi/monoova-cc.yml
+- status: 504
+  title: Gateway Timeout
+  description: Error
+  source_spec: openapi/monoova-cc.yml
+- status: 400
+  title: Bad Request
+  description: Bad request
+  source_spec: openapi/monoova-payments.yml
+- status: 404
+  title: Not Found
+  description: Ledger not found
+  source_spec: openapi/monoova-payments.yml
+- status: 500
+  title: Internal Server Error
+  description: Internal Server Error
+  source_spec: openapi/monoova-payments.yml
+- status: 400
+  title: Bad Request
+  description: Error
+  source_spec: openapi/monoova-payto.yml
+- status: 403
+  title: Forbidden
+  description: Error
+  source_spec: openapi/monoova-payto.yml
+- status: 404
+  title: Not Found
+  description: Error
+  source_spec: openapi/monoova-payto.yml
+- status: 422
+  title: Unprocessable Entity
+  description: Rejected
+  source_spec: openapi/monoova-payto.yml
+- status: 500
+  title: Internal Server Error
+  description: Error
+  source_spec: openapi/monoova-payto.yml
+- status: 502
+  title: Bad Gateway
+  description: Error
+  source_spec: openapi/monoova-payto.yml
+- status: 504
+  title: Gateway Timeout
+  description: Error
+  source_spec: openapi/monoova-payto.yml

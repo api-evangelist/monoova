@@ -1,0 +1,21 @@
+generated: '2026-07-24'
+method: derived
+source: openapi/monoova-cc.yml, openapi/monoova-payments.yml, openapi/monoova-payto.yml
+summary:
+  types:
+  - http
+schemes:
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  sources:
+  - openapi/monoova-cc.yml
+  - openapi/monoova-payto.yml
+- name: BasicAuth
+  type: http
+  scheme: basic
+  sources:
+  - openapi/monoova-cc.yml
+  - openapi/monoova-payments.yml
+  - openapi/monoova-payto.yml

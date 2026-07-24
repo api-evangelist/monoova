@@ -1,0 +1,1071 @@
+generated: '2026-07-24'
+method: derived
+source: Binds candidate MCP tools to backing OpenAPI operationIds. No GraphQL or hosted MCP; all bindings
+  are 1:1 REST.
+surfaces:
+  openapi:
+  - openapi/monoova-payments.yml
+  - openapi/monoova-payto.yml
+  - openapi/monoova-cc.yml
+  graphql: null
+  mcp:
+    status: candidate
+    gated: false
+crosswalk:
+- tool: BPAYValidate
+  category: BPAY
+  rest:
+  - BPAYValidate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: BPAYGetBiller
+  category: BPAY
+  rest:
+  - BPAYGetBiller
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: BPAYGetReceipts
+  category: BPAY
+  rest:
+  - BPAYGetReceipts
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: BPAYGetBillers
+  category: BPAY
+  rest:
+  - BPAYGetBillers
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: BPAYGetHistory
+  category: BPAY
+  rest:
+  - BPAYGetHistory
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: BPAYReceivablesReport
+  category: BPAY
+  rest:
+  - BPAYReceivablesReport
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: TransactionExecute
+  category: Financial
+  rest:
+  - TransactionExecute
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: TransactionValidate
+  category: Financial
+  rest:
+  - TransactionValidate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: TransactionStatusByUid
+  category: Financial
+  rest:
+  - TransactionStatusByUid
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: TransactionStatusByDate
+  category: Financial
+  rest:
+  - TransactionStatusByDate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: GetUnclearedFundsByDate
+  category: Financial
+  rest:
+  - GetUnclearedFundsByDate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: MAccountCreate
+  category: mAccount
+  rest:
+  - MAccountCreate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: MAccountClose
+  category: mAccount
+  rest:
+  - MAccountClose
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: MAccountGetFinancials
+  category: mAccount
+  rest:
+  - MAccountGetFinancials
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: MAccountGet
+  category: mAccount
+  rest:
+  - MAccountGet
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: MAccountList
+  category: mAccount
+  rest:
+  - MAccountList
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: MAccountSendStatement
+  category: mAccount
+  rest:
+  - MAccountSendStatement
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: MAccountTransactions
+  category: mAccount
+  rest:
+  - MAccountTransactions
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: MAccountUpdate
+  category: mAccount
+  rest:
+  - MAccountUpdate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: MWalletCreate
+  category: mWallet
+  rest:
+  - MWalletCreate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: MWalletClose_V1
+  category: mWallet
+  rest:
+  - MWalletClose_V1
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: MWalletGetFinancials
+  category: mWallet
+  rest:
+  - MWalletGetFinancials
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: MWalletReopen
+  category: mWallet
+  rest:
+  - MWalletReopen
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: MWalletResetPin
+  category: mWallet
+  rest:
+  - MWalletResetPin
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: MWalletSearch
+  category: mWallet
+  rest:
+  - MWalletSearch
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: MWalletTransactions
+  category: mWallet
+  rest:
+  - MWalletTransactions
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: MWalletUpdate
+  category: mWallet
+  rest:
+  - MWalletUpdate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: LedgerCreate
+  category: Ledger Account
+  rest:
+  - LedgerCreate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: LedgerClose
+  category: Ledger Account
+  rest:
+  - LedgerClose
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: LedgerBalance
+  category: Ledger Account
+  rest:
+  - LedgerBalance
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: LedgerTransactions
+  category: Ledger Account
+  rest:
+  - LedgerTransactions
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: LedgerFinancials
+  category: Ledger Account
+  rest:
+  - LedgerFinancials
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: LedgerAllAccounts
+  category: Ledger Account
+  rest:
+  - LedgerAllAccounts
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: PublicPing
+  category: Public Endpoints
+  rest:
+  - PublicPing
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: PublicCertificate
+  category: Public Endpoints
+  rest:
+  - PublicCertificate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: PublicCertificatePublicKey
+  category: Public Endpoints
+  rest:
+  - PublicCertificatePublicKey
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReportSettlement
+  category: Reports
+  rest:
+  - ReportSettlement
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReportStatement
+  category: Reports
+  rest:
+  - ReportStatement
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: SecurityCreateOneShotSecurityToken
+  category: Security
+  rest:
+  - SecurityCreateOneShotSecurityToken
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: SecuritySignInAccountSettings
+  category: Security
+  rest:
+  - SecuritySignInAccountSettings
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: TokenCreateAustralianBankAccount
+  category: Token
+  rest:
+  - TokenCreateAustralianBankAccount
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: TokenCreateBPAY
+  category: Token
+  rest:
+  - TokenCreateBPAY
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: TokenDelete
+  category: Token
+  rest:
+  - TokenDelete
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: TokenGet
+  category: Token
+  rest:
+  - TokenGet
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: TokenList
+  category: Token
+  rest:
+  - TokenList
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: TokenUpdateAustralianBankAccount
+  category: Token
+  rest:
+  - TokenUpdateAustralianBankAccount
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: TokenUpdateBPAY
+  category: Token
+  rest:
+  - TokenUpdateBPAY
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: TokenValidate
+  category: Token
+  rest:
+  - TokenValidate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ToolsPing
+  category: Tools
+  rest:
+  - ToolsPing
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ToolsBsbValidate
+  category: Tools
+  rest:
+  - ToolsBsbValidate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ToolsAbnValidate
+  category: Tools
+  rest:
+  - ToolsAbnValidate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ToolsSendEmailToIssuer
+  category: Tools
+  rest:
+  - ToolsSendEmailToIssuer
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: VerifyNPPAccountPayIdInitiate
+  category: Verify
+  rest:
+  - VerifyNPPAccountPayIdInitiate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: VerifyAccountInitiate
+  category: Verify
+  rest:
+  - VerifyAccountInitiate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: VerifyAccountValidate
+  category: Verify
+  rest:
+  - VerifyAccountValidate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: VerifyAccountGet
+  category: Verify
+  rest:
+  - VerifyAccountGet
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: VerifyAccountList
+  category: Verify
+  rest:
+  - VerifyAccountList
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: VerifyAccountUpdate
+  category: Verify
+  rest:
+  - VerifyAccountUpdate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReceivablesCreate
+  category: Automatcher (Bank Account Receivables)
+  rest:
+  - ReceivablesCreate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReceivablesStatus
+  category: Automatcher (Bank Account Receivables)
+  rest:
+  - ReceivablesStatus
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReceivablesStatusByBank
+  category: Automatcher (Bank Account Receivables)
+  rest:
+  - ReceivablesStatusByBank
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReceivablesStatusByClientID
+  category: Automatcher (Bank Account Receivables)
+  rest:
+  - ReceivablesStatusByClientID
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReceivablesReportDate
+  category: Automatcher (Bank Account Receivables)
+  rest:
+  - ReceivablesReportDate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: PayToReceivablesReportDate
+  category: Automatcher (Bank Account Receivables)
+  rest:
+  - PayToReceivablesReportDate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReceivablesReportLastSettlement
+  category: Automatcher (Bank Account Receivables)
+  rest:
+  - ReceivablesReportLastSettlement
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReceivablesListAccounts
+  category: Automatcher (Bank Account Receivables)
+  rest:
+  - ReceivablesListAccounts
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReceivablesBatchCreate
+  category: Automatcher (Bank Account Receivables)
+  rest:
+  - ReceivablesBatchCreate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReceivablesbatchStatus
+  category: Automatcher (Bank Account Receivables)
+  rest:
+  - ReceivablesbatchStatus
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReceivablesRefund
+  category: Automatcher (Bank Account Receivables)
+  rest:
+  - ReceivablesRefund
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReceivablesProcessDirectDebit
+  category: Automatcher (Bank Account Receivables)
+  rest:
+  - ReceivablesProcessDirectDebit
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReceivablesInboundDirectDebitReportDate
+  category: Automatcher (Bank Account Receivables)
+  rest:
+  - ReceivablesInboundDirectDebitReportDate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReceivablesProcessRtgsImt
+  category: Automatcher (Bank Account Receivables)
+  rest:
+  - ReceivablesProcessRtgsImt
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReceivablesRTGSIMTReportDate
+  category: Automatcher (Bank Account Receivables)
+  rest:
+  - ReceivablesRTGSIMTReportDate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReceivablesCreateWhitelistSourceAccount
+  category: Whitelisting for Automatcher (Bank Account Receivables)
+  rest:
+  - ReceivablesCreateWhitelistSourceAccount
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReceivablesUpdateWhitelistSourceAccount
+  category: Whitelisting for Automatcher (Bank Account Receivables)
+  rest:
+  - ReceivablesUpdateWhitelistSourceAccount
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReceivablesListWhitelistSourceAccounts
+  category: Whitelisting for Automatcher (Bank Account Receivables)
+  rest:
+  - ReceivablesListWhitelistSourceAccounts
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReceivablesRejectedTransactionsReport
+  category: Whitelisting for Automatcher (Bank Account Receivables)
+  rest:
+  - ReceivablesRejectedTransactionsReport
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReconciliationRulesCreate
+  category: Reconciliation Rules
+  rest:
+  - ReconciliationRulesCreate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReconciliationRulesCancel
+  category: Reconciliation Rules
+  rest:
+  - ReconciliationRulesCancel
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReconciliationRulesSearchByDate
+  category: Reconciliation Rules
+  rest:
+  - ReconciliationRulesSearchByDate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReconciliationRulesSearchByID
+  category: Reconciliation Rules
+  rest:
+  - ReconciliationRulesSearchByID
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReceivablesRegisterPayID
+  category: PayID
+  rest:
+  - ReceivablesRegisterPayID
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReceivablesUpdatePayIdStatus
+  category: PayID
+  rest:
+  - ReceivablesUpdatePayIdStatus
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReceivablesUpdatePayIdName
+  category: PayID
+  rest:
+  - ReceivablesUpdatePayIdName
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReceivablesPayIdEnquiry
+  category: PayID
+  rest:
+  - ReceivablesPayIdEnquiry
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: SubscriptionsCreate
+  category: Subscriptions
+  rest:
+  - SubscriptionsCreate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: SubscriptionsUpdate
+  category: Subscriptions
+  rest:
+  - SubscriptionsUpdate
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: SubscriptionsList
+  category: Subscriptions
+  rest:
+  - SubscriptionsList
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: SubscriptionsDelete
+  category: Subscriptions
+  rest:
+  - SubscriptionsDelete
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: SubscriptionsResendV2
+  category: Subscriptions
+  rest:
+  - SubscriptionsResendV2
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: SubscriptionsReport
+  category: Subscriptions
+  rest:
+  - SubscriptionsReport
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: ReceivablesReceivePaymentWebhook
+  category: Webhooks
+  rest:
+  - ReceivablesReceivePaymentWebhook
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: DirectDebitClearanceWebhook
+  category: Webhooks
+  rest:
+  - DirectDebitClearanceWebhook
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: PayToReceivePaymentWebhook
+  category: Webhooks
+  rest:
+  - PayToReceivePaymentWebhook
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: InboundDirectCreditWebhook
+  category: Webhooks
+  rest:
+  - InboundDirectCreditWebhook
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: InboundDirectDebitWebhook
+  category: Webhooks
+  rest:
+  - InboundDirectDebitWebhook
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: DirectEntryDishonour
+  category: Webhooks
+  rest:
+  - DirectEntryDishonour
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: PendingInboundRtgsImt
+  category: Webhooks
+  rest:
+  - PendingInboundRtgsImt
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: InboundRtgsImtStatus
+  category: Webhooks
+  rest:
+  - InboundRtgsImtStatus
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: NppReturn
+  category: Webhooks
+  rest:
+  - NppReturn
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: NppPaymentStatus
+  category: Webhooks
+  rest:
+  - NppPaymentStatus
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: InboundDirectCreditRejections
+  category: Webhooks
+  rest:
+  - InboundDirectCreditRejections
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: NPPCreditRejections
+  category: Webhooks
+  rest:
+  - NPPCreditRejections
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payments.yml
+- tool: post-paymentagreement
+  category: Manage Payment Agreements
+  rest:
+  - post-paymentagreement
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: get-paymentagreement
+  category: Reporting
+  rest:
+  - get-paymentagreement
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: patch-paymentagreement-id-unilateral
+  category: Manage Payment Agreements
+  rest:
+  - patch-paymentagreement-id-unilateral
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: patch-paymentagreement-id-bilateral
+  category: Manage Payment Agreements
+  rest:
+  - patch-paymentagreement-id-bilateral
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: patch-paymentagreement-id-status
+  category: Manage Payment Agreements
+  rest:
+  - patch-paymentagreement-id-status
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: patch-paymentagreement-id-recall
+  category: Manage Payment Agreements
+  rest:
+  - patch-paymentagreement-id-recall
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: get-paymentagreement-id
+  category: Reporting
+  rest:
+  - get-paymentagreement-id
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: post-paymentinstruction
+  category: Initiate a Payment
+  rest:
+  - post-paymentinstruction
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: get-paymentinstruction
+  category: Reporting
+  rest:
+  - get-paymentinstruction
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: get-paymentinstruction-paymentinitiationid
+  category: Reporting
+  rest:
+  - get-paymentinstruction-paymentinitiationid
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: get-async-paymentagreement-status
+  category: PayTo Async API
+  rest:
+  - get-async-paymentagreement-status
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: get-async-paymentinitiation-status
+  category: PayTo Async API
+  rest:
+  - get-async-paymentinitiation-status
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: post-paymentagreement-async
+  category: PayTo Async API
+  rest:
+  - post-paymentagreement-async
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: post-async-paymentinstruction
+  category: PayTo Async API
+  rest:
+  - post-async-paymentinstruction
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: patch-async-paymentagreement-id-unilateral
+  category: PayTo Async API
+  rest:
+  - patch-async-paymentagreement-id-unilateral
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: patch-async-paymentagreement-id-bilateral
+  category: PayTo Async API
+  rest:
+  - patch-async-paymentagreement-id-bilateral
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: patch-async-paymentagreement-id-status
+  category: PayTo Async API
+  rest:
+  - patch-async-paymentagreement-id-status
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: patch-async-paymentagreement-id-recall
+  category: PayTo Async API
+  rest:
+  - patch-async-paymentagreement-id-recall
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: PaymentAgreementNotification
+  category: Webhooks
+  rest:
+  - PaymentAgreementNotification
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: PaymentInstructionStatusNotification
+  category: Webhooks
+  rest:
+  - PaymentInstructionStatusNotification
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: AsyncRequestNotification
+  category: Webhooks
+  rest:
+  - AsyncRequestNotification
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: getAllSubscriptions
+  category: Notification Management
+  rest:
+  - getAllSubscriptions
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: post-subscription
+  category: Notification Management
+  rest:
+  - post-subscription
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: get-subscription
+  category: Notification Management
+  rest:
+  - get-subscription
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: delete-subscription-id
+  category: Notification Management
+  rest:
+  - delete-subscription-id
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: put-subscription
+  category: Notification Management
+  rest:
+  - put-subscription
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: get-webhookschedule
+  category: Notification Management
+  rest:
+  - get-webhookschedule
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: post-webhookschedule-resend-eventid
+  category: Notification Management
+  rest:
+  - post-webhookschedule-resend-eventid
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: oauth-v1/token
+  category: Generate a Bearer Token
+  rest:
+  - oauth-v1/token
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-payto.yml
+- tool: generate-clientSession
+  category: Generate a Client Session
+  rest:
+  - generate-clientSession
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-cc.yml
+- tool: createPayment
+  category: Create Payment Using Token
+  rest:
+  - createPayment
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-cc.yml
+- tool: get-transaction-by-id
+  category: Get Transaction By Id
+  rest:
+  - get-transaction-by-id
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-cc.yml
+- tool: get-transaction-by-date-range
+  category: Get Transaction By Date Range
+  rest:
+  - get-transaction-by-date-range
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-cc.yml
+- tool: getPaymentMethodTokenDetails
+  category: Get Payment Method Token Details
+  rest:
+  - getPaymentMethodTokenDetails
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-cc.yml
+- tool: request-refund-transaction
+  category: Request Refund Transaction
+  rest:
+  - request-refund-transaction
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-cc.yml
+- tool: async-request-status
+  category: Get Async Request Status
+  rest:
+  - async-request-status
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-cc.yml
+- tool: updatePaymentMethodTokenStatus
+  category: Update Payment Method Token Status
+  rest:
+  - updatePaymentMethodTokenStatus
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-cc.yml
+- tool: PaymentStatusNotification
+  category: Webhooks
+  rest:
+  - PaymentStatusNotification
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-cc.yml
+- tool: RefundStatusNotification
+  category: Webhooks
+  rest:
+  - RefundStatusNotification
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-cc.yml
+- tool: AsyncRequestNotification
+  category: Webhooks
+  rest:
+  - AsyncRequestNotification
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-cc.yml
+- tool: post-subscription
+  category: Notification Management
+  rest:
+  - post-subscription
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-cc.yml
+- tool: get-subscription
+  category: Notification Management
+  rest:
+  - get-subscription
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-cc.yml
+- tool: delete-subscription-id
+  category: Notification Management
+  rest:
+  - delete-subscription-id
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-cc.yml
+- tool: put-subscription
+  category: Notification Management
+  rest:
+  - put-subscription
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-cc.yml
+- tool: get-webhookschedule
+  category: Notification Management
+  rest:
+  - get-webhookschedule
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-cc.yml
+- tool: post-webhookschedule-resend-eventid
+  category: Notification Management
+  rest:
+  - post-webhookschedule-resend-eventid
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-cc.yml
+- tool: oauth-v1/token
+  category: Generate a Bearer Token
+  rest:
+  - oauth-v1/token
+  binding: rest
+  confidence: high
+  source_spec: openapi/monoova-cc.yml
+mcp_only: []
+coverage:
+  tools_named: 150
+  tools_bound: 150
+  mcp_only: 0
+  rest_ops_total: 150
+  rest_ops_with_tool: 150

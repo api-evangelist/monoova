@@ -1,0 +1,48 @@
+generated: '2026-07-24'
+method: derived
+source: >-
+  Derived from the Monoova OpenAPI security schemes/tags and searched from
+  https://www.monoova.com/security (SOC 2, PCI DSS) and the NPP posture.
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: >-
+      No oauth2 securityScheme; auth is HTTP Basic (API key) plus short-lived
+      Bearer tokens minted via Basic auth.
+  - id: openid-connect
+    conforms: false
+    evidence: No openid-configuration discovery document served.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors use a custom { traceId, errors[] } envelope, not
+      application/problem+json.
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: No Sunset/Deprecation header support documented.
+  - id: iso20022
+    conforms: partial
+    evidence: >-
+      Underlying NPP clearing uses ISO 20022 at the scheme layer, but Monoova
+      abstracts it behind a RESTful JSON API; no ISO 20022 message schemas are
+      exposed in the public specs.
+  - id: npp-osko
+    conforms: true
+    evidence: Direct NPP connectivity with Osko real-time A2A and PayID addressing.
+  - id: payto
+    conforms: true
+    evidence: NPP PayTo mandated-debit service implemented (dedicated PayTo API).
+  - id: bpay
+    conforms: true
+    evidence: BPAY biller/payment operations in the Payments API.
+  - id: pci-dss
+    conforms: true
+    evidence: PCI DSS listed on https://www.monoova.com/security; browser-side Card SDK reduces merchant PCI scope.
+  - id: soc2
+    conforms: true
+    evidence: SOC 2 listed on https://www.monoova.com/security.
+compliance_program:
+  published: true
+  certifications: [SOC 2, PCI DSS]
+  licensing: Monoova Global Payments Pty Ltd (AFSL 421414), AUSTRAC-enrolled
+  url: https://www.monoova.com/security

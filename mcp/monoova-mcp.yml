@@ -1,0 +1,459 @@
+generated: '2026-07-24'
+method: derived
+status: candidate
+source: Derived from Monoova OpenAPI operations; no official hosted MCP server was found.
+server:
+  name: monoova
+  transport: http
+  note: Candidate surface — Monoova publishes no official MCP server as of this date.
+tools:
+- name: BPAYValidate
+  description: Validate a BPAY transaction
+  source_operation: openapi/monoova-payments.yml#BPAYValidate
+- name: BPAYGetBiller
+  description: Get BPAY biller code details
+  source_operation: openapi/monoova-payments.yml#BPAYGetBiller
+- name: BPAYGetReceipts
+  description: Get BPAY receipts
+  source_operation: openapi/monoova-payments.yml#BPAYGetReceipts
+- name: BPAYGetBillers
+  description: Search for BPAY billers
+  source_operation: openapi/monoova-payments.yml#BPAYGetBillers
+- name: BPAYGetHistory
+  description: Get a wallet's BPAY History
+  source_operation: openapi/monoova-payments.yml#BPAYGetHistory
+- name: BPAYReceivablesReport
+  description: BPAY Receivables Report
+  source_operation: openapi/monoova-payments.yml#BPAYReceivablesReport
+- name: TransactionExecute
+  description: Process a transaction
+  source_operation: openapi/monoova-payments.yml#TransactionExecute
+- name: TransactionValidate
+  description: Validate a transaction
+  source_operation: openapi/monoova-payments.yml#TransactionValidate
+- name: TransactionStatusByUid
+  description: Get transaction status by UID
+  source_operation: openapi/monoova-payments.yml#TransactionStatusByUid
+- name: TransactionStatusByDate
+  description: Get transaction status by Date
+  source_operation: openapi/monoova-payments.yml#TransactionStatusByDate
+- name: GetUnclearedFundsByDate
+  description: Get Uncleared Transactions by Date
+  source_operation: openapi/monoova-payments.yml#GetUnclearedFundsByDate
+- name: MAccountCreate
+  description: Create an mAccount
+  source_operation: openapi/monoova-payments.yml#MAccountCreate
+- name: MAccountClose
+  description: Close an mAccount
+  source_operation: openapi/monoova-payments.yml#MAccountClose
+- name: MAccountGetFinancials
+  description: Get mAccount Balance
+  source_operation: openapi/monoova-payments.yml#MAccountGetFinancials
+- name: MAccountGet
+  description: Get mAccount details
+  source_operation: openapi/monoova-payments.yml#MAccountGet
+- name: MAccountList
+  description: List as issuer
+  source_operation: openapi/monoova-payments.yml#MAccountList
+- name: MAccountSendStatement
+  description: Send a statement
+  source_operation: openapi/monoova-payments.yml#MAccountSendStatement
+- name: MAccountTransactions
+  description: Get transactions by mAccount
+  source_operation: openapi/monoova-payments.yml#MAccountTransactions
+- name: MAccountUpdate
+  description: Update mAccount details
+  source_operation: openapi/monoova-payments.yml#MAccountUpdate
+- name: MWalletCreate
+  description: Create an mWallet
+  source_operation: openapi/monoova-payments.yml#MWalletCreate
+- name: MWalletClose_V1
+  description: Close an mWallet
+  source_operation: openapi/monoova-payments.yml#MWalletClose_V1
+- name: MWalletGetFinancials
+  description: Get mWallet Balance
+  source_operation: openapi/monoova-payments.yml#MWalletGetFinancials
+- name: MWalletReopen
+  description: Reopen a closed mWallet
+  source_operation: openapi/monoova-payments.yml#MWalletReopen
+- name: MWalletResetPin
+  description: Reset an mWallet PIN
+  source_operation: openapi/monoova-payments.yml#MWalletResetPin
+- name: MWalletSearch
+  description: mWallet search
+  source_operation: openapi/monoova-payments.yml#MWalletSearch
+- name: MWalletTransactions
+  description: Get transactions by mWallet
+  source_operation: openapi/monoova-payments.yml#MWalletTransactions
+- name: MWalletUpdate
+  description: Update mWallet details
+  source_operation: openapi/monoova-payments.yml#MWalletUpdate
+- name: LedgerCreate
+  description: Create a new ledger account
+  source_operation: openapi/monoova-payments.yml#LedgerCreate
+- name: LedgerClose
+  description: Close a ledger account
+  source_operation: openapi/monoova-payments.yml#LedgerClose
+- name: LedgerBalance
+  description: Retrieve the current balance of a ledger
+  source_operation: openapi/monoova-payments.yml#LedgerBalance
+- name: LedgerTransactions
+  description: Retrieve transactions for a ledger
+  source_operation: openapi/monoova-payments.yml#LedgerTransactions
+- name: LedgerFinancials
+  description: Retrieve financial details of a ledger
+  source_operation: openapi/monoova-payments.yml#LedgerFinancials
+- name: LedgerAllAccounts
+  description: Retrieve all ledger accounts
+  source_operation: openapi/monoova-payments.yml#LedgerAllAccounts
+- name: PublicPing
+  description: Ping
+  source_operation: openapi/monoova-payments.yml#PublicPing
+- name: PublicCertificate
+  description: Webhook Signing Certificate
+  source_operation: openapi/monoova-payments.yml#PublicCertificate
+- name: PublicCertificatePublicKey
+  description: Retrieve Public Key
+  source_operation: openapi/monoova-payments.yml#PublicCertificatePublicKey
+- name: ReportSettlement
+  description: Get all transactions in a daily settlement
+  source_operation: openapi/monoova-payments.yml#ReportSettlement
+- name: ReportStatement
+  description: Get all successful transactions for a date
+  source_operation: openapi/monoova-payments.yml#ReportStatement
+- name: SecurityCreateOneShotSecurityToken
+  description: Create OneShot security Token
+  source_operation: openapi/monoova-payments.yml#SecurityCreateOneShotSecurityToken
+- name: SecuritySignInAccountSettings
+  description: Get Sign-in account fees & permissions
+  source_operation: openapi/monoova-payments.yml#SecuritySignInAccountSettings
+- name: TokenCreateAustralianBankAccount
+  description: Create bank account token
+  source_operation: openapi/monoova-payments.yml#TokenCreateAustralianBankAccount
+- name: TokenCreateBPAY
+  description: Create BPAY token
+  source_operation: openapi/monoova-payments.yml#TokenCreateBPAY
+- name: TokenDelete
+  description: Delete token
+  source_operation: openapi/monoova-payments.yml#TokenDelete
+- name: TokenGet
+  description: Get token details
+  source_operation: openapi/monoova-payments.yml#TokenGet
+- name: TokenList
+  description: List tokens by mAccount
+  source_operation: openapi/monoova-payments.yml#TokenList
+- name: TokenUpdateAustralianBankAccount
+  description: Update bank account token
+  source_operation: openapi/monoova-payments.yml#TokenUpdateAustralianBankAccount
+- name: TokenUpdateBPAY
+  description: Update BPAY token
+  source_operation: openapi/monoova-payments.yml#TokenUpdateBPAY
+- name: TokenValidate
+  description: Validate token
+  source_operation: openapi/monoova-payments.yml#TokenValidate
+- name: ToolsPing
+  description: Ping (test authentication)
+  source_operation: openapi/monoova-payments.yml#ToolsPing
+- name: ToolsBsbValidate
+  description: Validate a BSB
+  source_operation: openapi/monoova-payments.yml#ToolsBsbValidate
+- name: ToolsAbnValidate
+  description: Validate an ABN
+  source_operation: openapi/monoova-payments.yml#ToolsAbnValidate
+- name: ToolsSendEmailToIssuer
+  description: Email an issuer
+  source_operation: openapi/monoova-payments.yml#ToolsSendEmailToIssuer
+- name: VerifyNPPAccountPayIdInitiate
+  description: Initiate a NPP verification transaction
+  source_operation: openapi/monoova-payments.yml#VerifyNPPAccountPayIdInitiate
+- name: VerifyAccountInitiate
+  description: Initiate a DE Verification Transaction
+  source_operation: openapi/monoova-payments.yml#VerifyAccountInitiate
+- name: VerifyAccountValidate
+  description: Complete an account verification
+  source_operation: openapi/monoova-payments.yml#VerifyAccountValidate
+- name: VerifyAccountGet
+  description: Get a verification token's details
+  source_operation: openapi/monoova-payments.yml#VerifyAccountGet
+- name: VerifyAccountList
+  description: List verified bank accounts
+  source_operation: openapi/monoova-payments.yml#VerifyAccountList
+- name: VerifyAccountUpdate
+  description: Update a verified bank account
+  source_operation: openapi/monoova-payments.yml#VerifyAccountUpdate
+- name: ReceivablesCreate
+  description: Create an Automatcher (Receivables) Account
+  source_operation: openapi/monoova-payments.yml#ReceivablesCreate
+- name: ReceivablesStatus
+  description: Set Account Status
+  source_operation: openapi/monoova-payments.yml#ReceivablesStatus
+- name: ReceivablesStatusByBank
+  description: Get Account Status By BankAccount
+  source_operation: openapi/monoova-payments.yml#ReceivablesStatusByBank
+- name: ReceivablesStatusByClientID
+  description: Get Account Status By ClientUniqueId
+  source_operation: openapi/monoova-payments.yml#ReceivablesStatusByClientID
+- name: ReceivablesReportDate
+  description: Report
+  source_operation: openapi/monoova-payments.yml#ReceivablesReportDate
+- name: PayToReceivablesReportDate
+  description: PayTo Receivables Report
+  source_operation: openapi/monoova-payments.yml#PayToReceivablesReportDate
+- name: ReceivablesReportLastSettlement
+  description: Last Settlement
+  source_operation: openapi/monoova-payments.yml#ReceivablesReportLastSettlement
+- name: ReceivablesListAccounts
+  description: List Accounts
+  source_operation: openapi/monoova-payments.yml#ReceivablesListAccounts
+- name: ReceivablesBatchCreate
+  description: Batch Create
+  source_operation: openapi/monoova-payments.yml#ReceivablesBatchCreate
+- name: ReceivablesbatchStatus
+  description: Batch Status
+  source_operation: openapi/monoova-payments.yml#ReceivablesbatchStatus
+- name: ReceivablesRefund
+  description: Receivables Refund
+  source_operation: openapi/monoova-payments.yml#ReceivablesRefund
+- name: ReceivablesProcessDirectDebit
+  description: Process Direct Debit
+  source_operation: openapi/monoova-payments.yml#ReceivablesProcessDirectDebit
+- name: ReceivablesInboundDirectDebitReportDate
+  description: Inbound Direct Debit Report
+  source_operation: openapi/monoova-payments.yml#ReceivablesInboundDirectDebitReportDate
+- name: ReceivablesProcessRtgsImt
+  description: Receive Swift Transfers (RTGS/IMT transactions)
+  source_operation: openapi/monoova-payments.yml#ReceivablesProcessRtgsImt
+- name: ReceivablesRTGSIMTReportDate
+  description: RTGS/IMT Report
+  source_operation: openapi/monoova-payments.yml#ReceivablesRTGSIMTReportDate
+- name: ReceivablesCreateWhitelistSourceAccount
+  description: Create Whitelist Source Account
+  source_operation: openapi/monoova-payments.yml#ReceivablesCreateWhitelistSourceAccount
+- name: ReceivablesUpdateWhitelistSourceAccount
+  description: Update Whitelist Source Account
+  source_operation: openapi/monoova-payments.yml#ReceivablesUpdateWhitelistSourceAccount
+- name: ReceivablesListWhitelistSourceAccounts
+  description: List Whitelist Source Accounts
+  source_operation: openapi/monoova-payments.yml#ReceivablesListWhitelistSourceAccounts
+- name: ReceivablesRejectedTransactionsReport
+  description: Rejected Transactions Report
+  source_operation: openapi/monoova-payments.yml#ReceivablesRejectedTransactionsReport
+- name: ReconciliationRulesCreate
+  description: Create Reconciliation Rule
+  source_operation: openapi/monoova-payments.yml#ReconciliationRulesCreate
+- name: ReconciliationRulesCancel
+  description: Cancel Reconciliation Rule
+  source_operation: openapi/monoova-payments.yml#ReconciliationRulesCancel
+- name: ReconciliationRulesSearchByDate
+  description: Get the list of Reconciliation Rules by Date/Time
+  source_operation: openapi/monoova-payments.yml#ReconciliationRulesSearchByDate
+- name: ReconciliationRulesSearchByID
+  description: Get Reconciliation Rule By ID
+  source_operation: openapi/monoova-payments.yml#ReconciliationRulesSearchByID
+- name: ReceivablesRegisterPayID
+  description: Register PayID
+  source_operation: openapi/monoova-payments.yml#ReceivablesRegisterPayID
+- name: ReceivablesUpdatePayIdStatus
+  description: Update a PayID's status
+  source_operation: openapi/monoova-payments.yml#ReceivablesUpdatePayIdStatus
+- name: ReceivablesUpdatePayIdName
+  description: Update a PayID's name
+  source_operation: openapi/monoova-payments.yml#ReceivablesUpdatePayIdName
+- name: ReceivablesPayIdEnquiry
+  description: PayID Enquiry
+  source_operation: openapi/monoova-payments.yml#ReceivablesPayIdEnquiry
+- name: SubscriptionsCreate
+  description: Subscribe to new Webhook
+  source_operation: openapi/monoova-payments.yml#SubscriptionsCreate
+- name: SubscriptionsUpdate
+  description: Update an existing Webhook
+  source_operation: openapi/monoova-payments.yml#SubscriptionsUpdate
+- name: SubscriptionsList
+  description: List all existing webhooks
+  source_operation: openapi/monoova-payments.yml#SubscriptionsList
+- name: SubscriptionsDelete
+  description: Unsubscribe from an existing webhook
+  source_operation: openapi/monoova-payments.yml#SubscriptionsDelete
+- name: SubscriptionsResendV2
+  description: Request resending of a notification using webhookId
+  source_operation: openapi/monoova-payments.yml#SubscriptionsResendV2
+- name: SubscriptionsReport
+  description: Webhook notifications report
+  source_operation: openapi/monoova-payments.yml#SubscriptionsReport
+- name: ReceivablesReceivePaymentWebhook
+  description: Receive Payment Webhook
+  source_operation: openapi/monoova-payments.yml#ReceivablesReceivePaymentWebhook
+- name: DirectDebitClearanceWebhook
+  description: Direct Debit Clearance Webhook
+  source_operation: openapi/monoova-payments.yml#DirectDebitClearanceWebhook
+- name: PayToReceivePaymentWebhook
+  description: Pay To Receive Payment Webhook
+  source_operation: openapi/monoova-payments.yml#PayToReceivePaymentWebhook
+- name: InboundDirectCreditWebhook
+  description: Receive Inbound Direct Credits Webhook
+  source_operation: openapi/monoova-payments.yml#InboundDirectCreditWebhook
+- name: InboundDirectDebitWebhook
+  description: Receive Inbound Direct Debits  Webhook
+  source_operation: openapi/monoova-payments.yml#InboundDirectDebitWebhook
+- name: DirectEntryDishonour
+  description: Receive Direct Entry Dishonours Webhook
+  source_operation: openapi/monoova-payments.yml#DirectEntryDishonour
+- name: PendingInboundRtgsImt
+  description: Receive Pending Rtgs/Imt Webhook
+  source_operation: openapi/monoova-payments.yml#PendingInboundRtgsImt
+- name: InboundRtgsImtStatus
+  description: Receive Rtgs/Imt status Webhook
+  source_operation: openapi/monoova-payments.yml#InboundRtgsImtStatus
+- name: NppReturn
+  description: Receive Npp Payment Return Webhook
+  source_operation: openapi/monoova-payments.yml#NppReturn
+- name: NppPaymentStatus
+  description: Receive Npp Payment Status Webhook
+  source_operation: openapi/monoova-payments.yml#NppPaymentStatus
+- name: InboundDirectCreditRejections
+  description: Inbound Direct Credit Rejections Webhook
+  source_operation: openapi/monoova-payments.yml#InboundDirectCreditRejections
+- name: NPPCreditRejections
+  description: NPP Credit Rejections Webhook
+  source_operation: openapi/monoova-payments.yml#NPPCreditRejections
+- name: post-paymentagreement
+  description: Create a Payment Agreement
+  source_operation: openapi/monoova-payto.yml#post-paymentagreement
+- name: get-paymentagreement
+  description: Get Payment Agreements by Date Range
+  source_operation: openapi/monoova-payto.yml#get-paymentagreement
+- name: patch-paymentagreement-id-unilateral
+  description: Unilateral Amendment
+  source_operation: openapi/monoova-payto.yml#patch-paymentagreement-id-unilateral
+- name: patch-paymentagreement-id-bilateral
+  description: Bilateral Amendment
+  source_operation: openapi/monoova-payto.yml#patch-paymentagreement-id-bilateral
+- name: patch-paymentagreement-id-status
+  description: Amend Payment Agreement Status
+  source_operation: openapi/monoova-payto.yml#patch-paymentagreement-id-status
+- name: patch-paymentagreement-id-recall
+  description: Recall a Payment Agreement
+  source_operation: openapi/monoova-payto.yml#patch-paymentagreement-id-recall
+- name: get-paymentagreement-id
+  description: Get Payment Agreement by UniqueId
+  source_operation: openapi/monoova-payto.yml#get-paymentagreement-id
+- name: post-paymentinstruction
+  description: Payment Instruction
+  source_operation: openapi/monoova-payto.yml#post-paymentinstruction
+- name: get-paymentinstruction
+  description: Get Payment Instructions By Date Range
+  source_operation: openapi/monoova-payto.yml#get-paymentinstruction
+- name: get-paymentinstruction-paymentinitiationid
+  description: Get Payment Instruction By UniqueId
+  source_operation: openapi/monoova-payto.yml#get-paymentinstruction-paymentinitiationid
+- name: get-async-paymentagreement-status
+  description: Get Async Payment Agreement Request Status
+  source_operation: openapi/monoova-payto.yml#get-async-paymentagreement-status
+- name: get-async-paymentinitiation-status
+  description: Get Async Payment Instruction Request Status
+  source_operation: openapi/monoova-payto.yml#get-async-paymentinitiation-status
+- name: post-paymentagreement-async
+  description: Create a Payment Agreement Async
+  source_operation: openapi/monoova-payto.yml#post-paymentagreement-async
+- name: post-async-paymentinstruction
+  description: Create Payment Instruction Async
+  source_operation: openapi/monoova-payto.yml#post-async-paymentinstruction
+- name: patch-async-paymentagreement-id-unilateral
+  description: Unilateral Amendment Async
+  source_operation: openapi/monoova-payto.yml#patch-async-paymentagreement-id-unilateral
+- name: patch-async-paymentagreement-id-bilateral
+  description: Bilateral Amendment Async
+  source_operation: openapi/monoova-payto.yml#patch-async-paymentagreement-id-bilateral
+- name: patch-async-paymentagreement-id-status
+  description: Amend Payment Agreement Status Async
+  source_operation: openapi/monoova-payto.yml#patch-async-paymentagreement-id-status
+- name: patch-async-paymentagreement-id-recall
+  description: Recall a Payment Agreement Async
+  source_operation: openapi/monoova-payto.yml#patch-async-paymentagreement-id-recall
+- name: PaymentAgreementNotification
+  description: Payment Agreement Notification
+  source_operation: openapi/monoova-payto.yml#PaymentAgreementNotification
+- name: PaymentInstructionStatusNotification
+  description: Payment Instruction Status Notification
+  source_operation: openapi/monoova-payto.yml#PaymentInstructionStatusNotification
+- name: AsyncRequestNotification
+  description: Asynchronous Request Notification
+  source_operation: openapi/monoova-payto.yml#AsyncRequestNotification
+- name: getAllSubscriptions
+  description: Get All Subscriptions
+  source_operation: openapi/monoova-payto.yml#getAllSubscriptions
+- name: post-subscription
+  description: Create a subscription
+  source_operation: openapi/monoova-payto.yml#post-subscription
+- name: get-subscription
+  description: Get Subscription by Id
+  source_operation: openapi/monoova-payto.yml#get-subscription
+- name: delete-subscription-id
+  description: Delete a subscription
+  source_operation: openapi/monoova-payto.yml#delete-subscription-id
+- name: put-subscription
+  description: Update a subscription
+  source_operation: openapi/monoova-payto.yml#put-subscription
+- name: get-webhookschedule
+  description: Get Webhooks
+  source_operation: openapi/monoova-payto.yml#get-webhookschedule
+- name: post-webhookschedule-resend-eventid
+  description: Request a resend
+  source_operation: openapi/monoova-payto.yml#post-webhookschedule-resend-eventid
+- name: oauth-v1/token
+  description: Token
+  source_operation: openapi/monoova-payto.yml#oauth-v1/token
+- name: generate-clientSession
+  description: Generate a Client Session
+  source_operation: openapi/monoova-cc.yml#generate-clientSession
+- name: createPayment
+  description: Create a Payment using Token
+  source_operation: openapi/monoova-cc.yml#createPayment
+- name: get-transaction-by-id
+  description: Get Transaction By Id
+  source_operation: openapi/monoova-cc.yml#get-transaction-by-id
+- name: get-transaction-by-date-range
+  description: Get Transaction By Date Range
+  source_operation: openapi/monoova-cc.yml#get-transaction-by-date-range
+- name: getPaymentMethodTokenDetails
+  description: Get Payment Method Token Details
+  source_operation: openapi/monoova-cc.yml#getPaymentMethodTokenDetails
+- name: request-refund-transaction
+  description: Request Refund Transaction (Async)
+  source_operation: openapi/monoova-cc.yml#request-refund-transaction
+- name: async-request-status
+  description: Get Async Request Status
+  source_operation: openapi/monoova-cc.yml#async-request-status
+- name: updatePaymentMethodTokenStatus
+  description: Update Status of Payment Method Token
+  source_operation: openapi/monoova-cc.yml#updatePaymentMethodTokenStatus
+- name: PaymentStatusNotification
+  description: Payment Status Notification
+  source_operation: openapi/monoova-cc.yml#PaymentStatusNotification
+- name: RefundStatusNotification
+  description: Refund Status Notification
+  source_operation: openapi/monoova-cc.yml#RefundStatusNotification
+- name: AsyncRequestNotification
+  description: Asynchronous Request Notification
+  source_operation: openapi/monoova-cc.yml#AsyncRequestNotification
+- name: post-subscription
+  description: Create a subscription
+  source_operation: openapi/monoova-cc.yml#post-subscription
+- name: get-subscription
+  description: GET Subscription
+  source_operation: openapi/monoova-cc.yml#get-subscription
+- name: delete-subscription-id
+  description: DELETE a subscription
+  source_operation: openapi/monoova-cc.yml#delete-subscription-id
+- name: put-subscription
+  description: Update a subscription
+  source_operation: openapi/monoova-cc.yml#put-subscription
+- name: get-webhookschedule
+  description: GET Webhooks
+  source_operation: openapi/monoova-cc.yml#get-webhookschedule
+- name: post-webhookschedule-resend-eventid
+  description: Request a resend
+  source_operation: openapi/monoova-cc.yml#post-webhookschedule-resend-eventid
+- name: oauth-v1/token
+  description: Token
+  source_operation: openapi/monoova-cc.yml#oauth-v1/token

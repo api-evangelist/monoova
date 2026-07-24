@@ -1,0 +1,74 @@
+generated: '2026-07-24'
+method: searched
+source: >-
+  Webhooks tags/paths in the three Monoova OpenAPI specs +
+  https://developer.monoova.com/webhooks
+spec_type: Webhooks
+asyncapi: null
+note: >-
+  Monoova documents webhooks as HTTP POST callbacks to a subscriber-supplied
+  target URL but publishes no AsyncAPI document. Subscriptions are managed via
+  the Payments API Subscriptions endpoints (create/list/update webhook
+  subscriptions).
+delivery:
+  transport: https-post
+  subscription_managed_via: openapi/monoova-payments.yml (Subscriptions tag)
+  target: subscriber-supplied callback URL (per event type)
+events:
+  payments:
+    - event: NPPReceivePayment
+      operationId: ReceivablesReceivePaymentWebhook
+      when: Payment received via the NPP rail.
+    - event: DirectDebitClearance
+      operationId: DirectDebitClearanceWebhook
+      when: Direct debit clears/settles.
+    - event: PayToReceivePayment
+      operationId: PayToReceivePaymentWebhook
+      when: Funds received via a PayTo agreement.
+    - event: InboundDirectCredit
+      operationId: InboundDirectCreditWebhook
+      when: Inbound direct credit received.
+    - event: InboundDirectDebit
+      operationId: InboundDirectDebitWebhook
+      when: Inbound direct debit received.
+    - event: DirectEntryDishonour
+      operationId: DirectEntryDishonour
+      when: A direct entry payment is dishonoured.
+    - event: PendingInboundRtgsImt
+      operationId: PendingInboundRtgsImt
+      when: Pending RTGS/IMT inbound payment.
+    - event: InboundRtgsImtStatus
+      operationId: InboundRtgsImtStatus
+      when: RTGS/IMT inbound payment status change.
+    - event: NppReturn
+      operationId: NppReturn
+      when: An NPP payment return is received.
+    - event: NppPaymentStatus
+      operationId: NppPaymentStatus
+      when: NPP payment status change.
+    - event: InboundDirectCreditRejections
+      operationId: InboundDirectCreditRejections
+      when: Inbound direct credit is rejected.
+    - event: NppCreditRejections
+      operationId: NPPCreditRejections
+      when: NPP credit is rejected.
+  payto:
+    - event: PaymentAgreementNotification
+      operationId: PaymentAgreementNotification
+      when: PayTo payment agreement (mandate) state change.
+    - event: PaymentInstructionStatusNotification
+      operationId: PaymentInstructionStatusNotification
+      when: PayTo payment instruction status change.
+    - event: AsyncRequestNotification
+      operationId: AsyncRequestNotification
+      when: Result of an asynchronous PayTo request.
+  card_payments:
+    - event: PaymentStatusNotification
+      operationId: PaymentStatusNotification
+      when: Card payment status change.
+    - event: RefundStatusNotification
+      operationId: RefundStatusNotification
+      when: Card refund status change.
+    - event: AsyncRequestNotification
+      operationId: AsyncRequestNotification
+      when: Result of an asynchronous card request.

@@ -1,0 +1,23 @@
+generated: '2026-07-24'
+method: searched
+source: https://developer.monoova.com/card-payments
+components:
+  - name: Monoova Card SDK
+    family: card-payments
+    type: hosted-js-widget
+    description: >-
+      Browser-side JavaScript SDK that renders a hosted, PCI-scope-reducing card
+      capture surface for the Card Payments API. Tokenises card details in the
+      browser so raw PAN never touches the merchant server; the resulting
+      payment method token is then charged via the Card Payments API.
+    docs:
+      - https://developer.monoova.com/card-payments
+      - https://developer.monoova.com/customising-the-card-sdk
+    customisable: true
+    note: >-
+      Styling/behaviour of the embedded card form is configurable per the
+      "Customising the Card SDK" documentation.
+notes: >-
+  Distinct from the server-side SDKs in packages/. Monoova's only documented
+  client-side embeddable UI component is the Card SDK; no broader element
+  library or embedded dashboard is published.

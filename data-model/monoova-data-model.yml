@@ -1,0 +1,68 @@
+generated: '2026-07-24'
+method: derived
+source: openapi/ (components.schemas + tag structure)
+note: 'Entity graph derived from the three Monoova specs. Schema count: 180 (payments) / 46 (payto) /
+  33 (cc).'
+entities:
+- name: mAccount
+  domain: payments
+  description: Named financial account (parent in the account hierarchy).
+- name: mWallet
+  domain: payments
+  description: Sub-account / wallet held under an mAccount.
+- name: LedgerAccount
+  domain: payments
+  description: Ledger account for internal fund tracking.
+- name: Transaction
+  domain: payments
+  description: Movement of funds across a rail (NPP/DE/BPAY/card).
+- name: PayID
+  domain: payments
+  description: NPP addressing alias mapped to an account.
+- name: AutomatcherRule
+  domain: payments
+  description: Bank-account receivables reconciliation rule.
+- name: Subscription
+  domain: payments
+  description: Webhook subscription for event notifications.
+- name: PaymentAgreement
+  domain: payto
+  description: PayTo mandate authorising future debits.
+- name: PaymentInitiation
+  domain: payto
+  description: A debit initiated against a PayTo agreement.
+- name: PaymentMethodToken
+  domain: card
+  description: Tokenised card stored for reuse.
+- name: CardPayment
+  domain: card
+  description: A card payment / refund transaction.
+relationships:
+- from: mWallet
+  to: mAccount
+  type: belongs_to
+  via: mAccountNumber
+- from: Transaction
+  to: mAccount
+  type: belongs_to
+  via: mAccountNumber
+- from: PayID
+  to: mAccount
+  type: belongs_to
+  via: mAccountNumber
+- from: PaymentInitiation
+  to: PaymentAgreement
+  type: belongs_to
+  via: agreementId
+- from: CardPayment
+  to: PaymentMethodToken
+  type: belongs_to
+  via: paymentMethodToken
+- from: Subscription
+  to: mAccount
+  type: belongs_to
+  via: mAccountNumber
+- from: AutomatcherRule
+  to: mAccount
+  type: belongs_to
+  via: mAccountNumber

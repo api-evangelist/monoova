@@ -1,0 +1,24 @@
+generated: '2026-07-24'
+method: searched
+note: >-
+  Probed the /.well-known/ discovery surface on every Monoova host. None are
+  served (all 404). Recorded for auditability; no WellKnown/SecurityTxt pointer
+  is emitted because no document was found.
+hosts_probed:
+  - https://api.mpay.com.au
+  - https://api.monoova.com
+  - https://developer.monoova.com
+  - https://www.monoova.com
+documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /security.txt
+    status: 404

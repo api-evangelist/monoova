@@ -1,0 +1,13 @@
+generated: '2026-07-24'
+method: searched
+probe: true
+source: https://www.monoova.com/security
+url: https://www.monoova.com/security
+certifications:
+- SOC 2
+- PCI DSS
+evidence:
+- source: https://www.monoova.com/security
+  keywords:
+  - soc 2
+  - pci-dss

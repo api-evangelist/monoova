@@ -1,0 +1,36 @@
+generated: '2026-07-24'
+method: searched
+source: >-
+  GitHub org github.com/monoova, NuGet, and the Monoova developer docs (Card SDK).
+packages:
+  - language: csharp
+    registry: github
+    name: monoova/merchantSDK
+    url: https://github.com/monoova/merchantSDK
+    description: >-
+      Merchant SDK supporting deployment of the Monoova Online Card Payment
+      Service (server-side C#).
+    official: true
+  - language: php
+    registry: github
+    name: monoova/MonoovaWoocommerce
+    url: https://github.com/monoova/MonoovaWoocommerce
+    description: WooCommerce payment gateway plugin for Monoova.
+    official: true
+  - language: dotnet
+    registry: nuget
+    name: MonoovaAdapter
+    url: https://www.nuget.org/packages/MonoovaAdapter
+    install: dotnet add package MonoovaAdapter
+    project_url: https://www.monoova.com/
+    official: false
+    note: >-
+      Published to NuGet by an individual author (Ran Tao) with monoova.com as
+      the project URL; treated as community/unconfirmed rather than a
+      first-party org-published library.
+notes: >-
+  Monoova ships no first-party npm, PyPI, Maven, RubyGems, Packagist, or
+  crates.io client library. The primary integration surface is the RESTful JSON
+  API directly; the C# Merchant SDK and WooCommerce plugin above are the only
+  org-published code artifacts. A browser-side hosted Card SDK (JS) is
+  documented separately and captured in components/monoova-components.yml.

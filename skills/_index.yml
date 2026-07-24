@@ -1,0 +1,22 @@
+generated: '2026-07-24'
+method: generated
+source: >-
+  Grounded in verified operationIds across the three Monoova OpenAPI specs plus
+  conventions/, errors/, and sandbox/ artifacts.
+skills:
+  - file: monoova-receive-via-payid.md
+    name: Receive real-time funds into a virtual account via PayID
+    api: openapi/monoova-payments.yml
+    operations: [MAccountCreate, ReceivablesRegisterPayID, SubscriptionsCreate, ReceivablesReceivePaymentWebhook, MAccountGetFinancials]
+  - file: monoova-pay-out-npp.md
+    name: Make a real-time outbound payment (NPP/Osko)
+    api: openapi/monoova-payments.yml
+    operations: [TransactionValidate, TransactionExecute, TransactionStatusByUid]
+  - file: monoova-payto-mandate-and-debit.md
+    name: Create a PayTo agreement and debit against it
+    api: openapi/monoova-payto.yml
+    operations: [post-paymentagreement, get-paymentagreement-id, post-paymentinstruction, get-paymentinstruction-paymentinitiationid]
+  - file: monoova-accept-card-payment.md
+    name: Accept a tokenised card payment
+    api: openapi/monoova-cc.yml
+    operations: [generate-clientSession, createPayment, get-transaction-by-id, request-refund-transaction]
