@@ -1,0 +1,145 @@
+aid: monoova
+name: Monoova
+review:
+  question: Does Monoova publish a real public developer portal with downloadable OpenAPI specifications?
+  answer: true
+  date: '2026-07-24'
+  reviewer: API Evangelist
+findings:
+  summary: |
+    Monoova is a genuinely API-first Australian payments platform with a public,
+    unauthenticated developer surface. The primary developer portal is at
+    https://developer.monoova.com/ (HTTP 200, Next.js), organised into Getting
+    Started, Send Payments (NPP/Osko, Direct Credit, BPAY, Payment Tokens,
+    Internal Transfers), Receive Payments (Electronic Payments, Direct Debit,
+    BPAY, PayTo, Card Payments, Payment Links), Manage (Automatcher, Account
+    Verification, Confirmation of Payee, Webhooks), Reporting, and Tools. The
+    interactive API reference is a separate Redoc single-page app at
+    https://api-docs.monoova.com/ (HTTP 200). Three downloadable OpenAPI 3.0
+    specifications are served as static assets from that reference and were
+    harvested verbatim (see specs[] below). A public Postman workspace exists at
+    https://www.postman.com/monoova/monoova-api. A free self-serve sandbox is
+    open to anyone at https://sandbox.monoova.com/. Home market is Australia;
+    Monoova connects directly to the New Payments Platform (NPP) for real-time
+    account-to-account payments with PayID addressing and PayTo mandated debits.
+    Operating entity: Monoova Global Payments Pty Ltd (ACN 106 249 852 | AFSL
+    421414), enrolled with AUSTRAC.
+  developerPortal:
+    url: https://developer.monoova.com/
+    httpStatus: 200
+    confirmed: true
+    note: Real Next.js developer portal; some slug paths soft-404 (return 200 with a "CONTENT NOT FOUND" body), so each cited path was individually confirmed to render real content.
+  apiReference:
+    url: https://api-docs.monoova.com/
+    httpStatus: 200
+    tooling: Redocly/Redoc single-page app
+  specs:
+    - file: openapi/monoova-payments.yml
+      title: Monoova Payments API
+      version: v5.29
+      openapi: '3.0.0'
+      paths: 103
+      servers:
+        - https://api.mpay.com.au
+        - https://api.m-pay.com.au
+      source: https://api-docs.monoova.com/static/media/openapi.d9dad6cecd26120ea589.yaml
+      httpStatus: 200
+      fetched: '2026-07-24'
+      verbatim: true
+      note: Downloaded verbatim; parses cleanly as OpenAPI 3.0 with no modification.
+    - file: openapi/monoova-payto.yml
+      title: Monoova PayTo API
+      version: v1
+      openapi: '3.0.0'
+      paths: 24
+      servers:
+        - https://api.monoova.com
+        - https://sand-api.monoova.com
+      source: https://api-docs.monoova.com/static/media/openapiPayTo.0f647d2bab917d5c40d6.yaml
+      httpStatus: 200
+      fetched: '2026-07-24'
+      verbatim: false
+      note: >-
+        Content preserved verbatim except literal TAB characters embedded inside
+        HTML tables in description strings were expanded to spaces. The tabs made
+        the source invalid strict YAML (rejected by PyYAML though tolerated by
+        the js-yaml loader Redoc uses); expansion is content-preserving and lets
+        the spec parse as OpenAPI 3.0.
+    - file: openapi/monoova-cc.yml
+      title: Monoova Card Payments API
+      version: v1
+      openapi: '3.0.0'
+      paths: 16
+      servers:
+        - https://api.monoova.com
+        - https://sand-api.monoova.com
+      source: https://api-docs.monoova.com/static/media/openapiCC.96fb2a03066b976b4b02.yaml
+      httpStatus: 200
+      fetched: '2026-07-24'
+      verbatim: false
+      note: Same TAB-in-HTML-description normalization as the PayTo spec; otherwise verbatim.
+  authModel:
+    scheme: HTTP Basic + short-lived Bearer token
+    detail: >-
+      Most financial and reporting endpoints (the core Payments API) use HTTP
+      Basic authentication with the API key supplied as the username and no
+      password. PayTo and Card Payments endpoints use short-lived Bearer tokens
+      that expire after 24 hours; a token is minted by calling a dedicated token
+      endpoint with HTTP Basic auth (mAccount number as username, API key as
+      password). Account lockout after repeated failed attempts (5 on login, 10
+      on token generation). No OAuth2 authorization-code flow, no OpenID Connect
+      discovery document, and no mTLS/FAPI surface is documented for the public
+      API.
+    wellKnown:
+      openidConfiguration: not served
+      oauthAuthorizationServer: not served
+  webhooks:
+    documented: true
+    note: All three specs declare Webhooks tags/paths; a Receive Payment webhook and payment/mandate event notifications are documented. No AsyncAPI document is published.
+  postman:
+    workspace: https://www.postman.com/monoova/monoova-api
+    public: true
+    note: Public Postman workspace including a Monoova Payments Platform collection and a Monoova PayTo API collection.
+  graphql:
+    present: false
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.mpay.com.au
+      documented: true
+      note: Core Payments API production host (sandbox https://api.m-pay.com.au).
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.monoova.com
+      documented: true
+      note: PayTo and Card Payments APIs production host (sandbox https://sand-api.monoova.com).
+  homeMarket: Australia
+  rails:
+    - NPP (New Payments Platform) real-time account-to-account, via Osko
+    - PayID addressing
+    - PayTo mandated debits
+    - BPAY
+    - Direct Entry (Direct Credit / Direct Debit)
+    - Card acquiring (incl. Apple Pay / Google Pay)
+  standardsPosture: >-
+    Australian domestic rails operated over the NPP (Australian Payments Plus).
+    NPP clearing uses ISO 20022 messaging at the scheme layer, but Monoova
+    abstracts this behind its own RESTful JSON API; no ISO 20022 message schemas
+    are exposed directly in the public specifications.
+sources:
+  - url: https://developer.monoova.com/
+    type: DeveloperPortal
+    httpStatus: 200
+  - url: https://api-docs.monoova.com/
+    type: APIReference
+    httpStatus: 200
+  - url: https://developer.monoova.com/authentication
+    type: Documentation
+    httpStatus: 200
+    note: Authentication and security model (Basic auth + 24h Bearer tokens).
+  - url: https://www.postman.com/monoova/monoova-api
+    type: Postman
+    httpStatus: 200
+  - url: https://www.monoova.com/
+    type: Website
+    httpStatus: 200

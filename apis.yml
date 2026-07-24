@@ -1,0 +1,138 @@
+aid: monoova
+url: https://raw.githubusercontent.com/api-evangelist/monoova/refs/heads/main/apis.yml
+name: Monoova
+kind: company
+description: >-
+  Monoova is an Australian payments platform that lets businesses receive,
+  manage, and pay funds in AUD across every domestic rail through a single set
+  of RESTful JSON APIs. Operated by Monoova Global Payments Pty Ltd (AFSL
+  421414) and enrolled with AUSTRAC, it connects directly to the New Payments
+  Platform (real-time account-to-account transfers via NPP/Osko, PayID
+  addressing, and PayTo mandated debits) alongside BPAY, direct entry
+  (credit/debit), card acquiring, and Apple Pay / Google Pay. Its Automatcher
+  reconciliation engine, virtual mAccount/mWallet hierarchies, Confirmation of
+  Payee, account verification, payment tokenisation, and webhook-driven
+  reporting target fintechs, marketplaces, payroll, lending, remittance, and
+  SaaS businesses (customers include Wise, Nium, Finder, and Sharesies).
+  Monoova is genuinely API-first: it ships a public developer portal, a Redoc
+  API reference, downloadable OpenAPI specifications, and a public Postman
+  workspace, plus a free self-serve sandbox.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Payments
+- Australia
+- Real-Time Payments
+- NPP
+- PayTo
+- PayID
+- Account-to-Account
+- BPAY
+- Card Payments
+- Money Movement
+- Virtual Accounts
+- Cross-Border
+created: '2026-07-24'
+modified: '2026-07-24'
+specificationVersion: '0.19'
+apis:
+- aid: monoova:monoova-payments-api
+  name: Monoova Payments API
+  description: >-
+    Monoova's core Payments API (v5.29) to receive, manage, and pay AUD across
+    all Australian payment rails - real-time transfers via NPP/Osko, direct
+    credit and direct debit, BPAY, card payments, and PayID. Includes the
+    Automatcher bank-account receivables engine, virtual mAccount and mWallet
+    hierarchies, ledger accounts, financial and reconciliation reporting,
+    account verification, payment tokenisation, and webhooks. Authenticated with
+    HTTP Basic auth (API key as the username).
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Payments
+  - NPP
+  - PayID
+  - BPAY
+  - Automatcher
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-payments.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+- aid: monoova:monoova-payto-api
+  name: Monoova PayTo API
+  description: >-
+    Monoova's PayTo API (v1) for the New Payments Platform's mandated
+    account-to-account debit service - create and manage payment agreements
+    (mandates), initiate payments against them, handle mandate and payment
+    status lifecycles, and receive notifications and webhooks. Authenticated
+    with short-lived (24h) Bearer tokens obtained via HTTP Basic auth.
+  humanURL: https://developer.monoova.com/payto
+  baseURL: https://api.monoova.com
+  tags:
+  - PayTo
+  - Real-Time Payments
+  - Mandates
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-payto.yml
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+- aid: monoova:monoova-card-payments-api
+  name: Monoova Card Payments API
+  description: >-
+    Monoova's Card Payments API (v1) for accepting card payments, including
+    tokenised card flows and webhook notifications for payment events.
+    Authenticated with short-lived (24h) Bearer tokens obtained via HTTP Basic
+    auth.
+  humanURL: https://developer.monoova.com/card-payments
+  baseURL: https://api.monoova.com
+  tags:
+  - Card Payments
+  - Acquiring
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-cc.yml
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+common:
+- type: Website
+  url: https://www.monoova.com/
+- type: DeveloperPortal
+  url: https://developer.monoova.com/
+- type: Documentation
+  url: https://developer.monoova.com/
+- type: APIReference
+  url: https://api-docs.monoova.com/
+- type: GettingStarted
+  url: https://developer.monoova.com/getting-started
+- type: Authentication
+  url: https://developer.monoova.com/authentication
+- type: Postman
+  url: https://www.postman.com/monoova/monoova-api
+- type: StatusPage
+  url: https://monoova.statuspage.io
+- type: Blog
+  url: https://www.monoova.com/blog
+- type: GitHubOrganization
+  url: https://github.com/monoova
+- type: LinkedIn
+  url: https://www.linkedin.com/company/monoova
+- type: SignUp
+  url: https://sandbox.monoova.com/
+- type: Support
+  url: https://www.monoova.com/contact
+- type: TermsOfService
+  url: https://www.monoova.com/terms-of-use
+- type: PrivacyPolicy
+  url: https://www.monoova.com/privacy-policy
+- type: Security
+  url: https://www.monoova.com/security
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
