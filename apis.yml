@@ -52,8 +52,6 @@ apis:
     url: https://developer.monoova.com/overview
   - type: APIReference
     url: https://api-docs.monoova.com/
-  - type: Overlay
-    url: overlays/monoova-monoova-payments-overlay.yaml
 - aid: monoova:monoova-payto-api
   name: Monoova PayTo API
   description: Monoova's PayTo API (v1) for the New Payments Platform's mandated account-to-account debit
@@ -73,8 +71,6 @@ apis:
     url: https://developer.monoova.com/payto
   - type: APIReference
     url: https://api-docs.monoova.com/
-  - type: Overlay
-    url: overlays/monoova-monoova-payto-overlay.yaml
 - aid: monoova:monoova-card-payments-api
   name: Monoova Card Payments API
   description: Monoova's Card Payments API (v1) for accepting card payments, including tokenised card
@@ -92,9 +88,9 @@ apis:
     url: https://developer.monoova.com/card-payments
   - type: APIReference
     url: https://api-docs.monoova.com/
-  - type: Overlay
-    url: overlays/monoova-monoova-cc-overlay.yaml
 common:
+- type: Overlay
+  url: overlays/monoova-cc-overlay.yaml
 - type: TrustCenter
   url: security/monoova-trust-center.yml
 - type: DomainSecurity
