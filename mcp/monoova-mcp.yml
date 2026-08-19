@@ -457,3 +457,9 @@ tools:
 - name: oauth-v1/token
   description: Token
   source_operation: openapi/monoova-cc.yml#oauth-v1/token
+deployment:
+  mode: none
+  verified: derived
+  tools: 150
+  checked: '2026-08-12'
+  source: catalog MCP census

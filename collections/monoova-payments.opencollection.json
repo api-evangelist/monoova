@@ -1,0 +1,2285 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Monoova Payments API",
+    "version": "v5.29"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "BPAY",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Validate a BPAY transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/bpay/v1/validate/:billerCode",
+            "params": [
+              {
+                "name": "billerCode",
+                "value": "",
+                "type": "path",
+                "description": "This is the BPAY biller code that was requested. billerCode must be numeric"
+              },
+              {
+                "name": "custRef",
+                "value": "",
+                "type": "query",
+                "description": "BPAY Customer Reference Number. If this field is empty this denotes that the customerReferenceNumber is variable for each bill and should not be reused."
+              },
+              {
+                "name": "amount",
+                "value": "",
+                "type": "query",
+                "description": "Bill amount to be validated. <strong> Note if CustRef is not provided, amount will not validate as it is dependent on both the CRN and Biller. </strong> The maximum value of the field is $9999999999.99."
+              }
+            ]
+          },
+          "docs": "This API validates the BPAY Biller Code and optionally the BPAY Customer Reference Number and Amount. For a complete BPAY validation the BPAY Biller Code, BPAY Customer Reference Number and Amount must be supplied. When fully validated a BPAY financial transaction should be made as soon as practicable as some BPAY combinations are date sensitive. BPAY validation uses the BPAY subsystem error codes. <br/> Sample URL:&nbsp; https://api.mpay.com.au/bpay/v1/validate/{billerCode}?custRef={CRN}&amount"
+        },
+        {
+          "info": {
+            "name": "Get BPAY biller code details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/bpay/v1/biller/:billerCode",
+            "params": [
+              {
+                "name": "billerCode",
+                "value": "",
+                "type": "path",
+                "description": "This is the BPAY biller code that was requested. billerCode must be numeric"
+              }
+            ]
+          },
+          "docs": "This API returns extended information for the BPAY biller. Status will be “UnknownBillerCode” if Biller Code is invalid."
+        },
+        {
+          "info": {
+            "name": "Get BPAY receipts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/bpay/v1/receipts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API returns the list of BPAY receipts. <br/> <strong> Note&#58;</strong>  Filters - One of the below options should be provided by customer. <br/> 1) uniqueReferenceNumber <br/> 2) billerCode + referenceNumber + date"
+        },
+        {
+          "info": {
+            "name": "Search for BPAY billers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/bpay/v1/billers",
+            "params": [
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "The search string"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "The actual number of records skipped."
+              },
+              {
+                "name": "take",
+                "value": "",
+                "type": "query",
+                "description": "The number of records that were requested."
+              }
+            ]
+          },
+          "docs": "This API returns an array of BPAY billers matched to the case insensitive search string. The system matches on the billerLongName and billerShortName. Use skip and take to page through result set. Skip and take will be changed back to their defaults if they are over-range. Status will be “UnknownBillerCode” if there are no matches."
+        },
+        {
+          "info": {
+            "name": "Get a wallet's BPAY History",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/bpay/v1/history/:accountNumber",
+            "params": [
+              {
+                "name": "accountNumber",
+                "value": "",
+                "type": "path",
+                "description": "associated 'mWallet' 16 digit number"
+              },
+              {
+                "name": "take",
+                "value": "",
+                "type": "query",
+                "description": "The number of records that were requested."
+              }
+            ]
+          },
+          "docs": "This API returns the mWallets history of BPAY payments. The returned history list is sorted by the count property of the BPAYHistoryItem descending."
+        },
+        {
+          "info": {
+            "name": "BPAY Receivables Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/bpay/v1/bpayInReport/:date",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "path",
+                "description": "Format:&nbsp; 'yyyy-MM-dd'. The date for which Monoova received the BPAY Receivable transactions."
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip. 1 is the first record."
+              },
+              {
+                "name": "take",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to take."
+              }
+            ]
+          },
+          "docs": "Returns a report of all received  BPAY transactions for the day with associated details. If requested multiple times on the current date (calendar day, AEDT), the report is cumulative. E.g. if, on the same day, a report is requested at 10am and another one at 1pm, the report at 1pm will contain all the transactions already contained in the 10am report, in addition to any new transactions. <br/> <br/> The report is an application/octet-stream, columns are comma separated. Where a comma(,) or doub"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Financial",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Process a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/financial/v2/transaction/execute",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The purpose of the execute API is to debit a source for funds then distribute those funds to one or more supplied disbursement accounts. You can use the <a href=\"/payments#operation/TransactionValidate\"> /financial/v2/transaction/validate </a> endpoint to determine if the parameters are correct. <br/> <br/> <strong> NPP Payment Pending Status</strong> <br/> If you are returned a status of ‘Pending’ for an NPP payout, this means that we are waiting for confirmation that the payment has been proce"
+        },
+        {
+          "info": {
+            "name": "Validate a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/financial/v2/transaction/validate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "You can use this API to determine if the parameters are correct. The body is the same as <a href=\"/payments#operation/TransactionExecute\"> /financial/v2/transaction/execute </a> endpoint. The callerUniqueReference will be reusable after the validate call is complete. <br/> <strong> Note&#58;</strong>  You don't need to call this endpoint before an execute as all transactions will be validated before they execute. This is useful if you are using a new rail and want to check your parameters."
+        },
+        {
+          "info": {
+            "name": "Get transaction status by UID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/financial/v2/status/:uniqueReference",
+            "params": [
+              {
+                "name": "uniqueReference",
+                "value": "",
+                "type": "path",
+                "description": "This is your uniqueReference that was passed in when the transaction was executed"
+              }
+            ]
+          },
+          "docs": "This API returns the status of a previous transaction. This is important because a directDebit transaction could be dishonoured up to 3 days after the transaction was executed. We recommend <a href=\"/payments#tag/Subscriptions\"> subscribing to a webhook </a> to notify you when an dishonour transaction is made."
+        },
+        {
+          "info": {
+            "name": "Get transaction status by Date",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/financial/v2/status/:startDate/:endDate",
+            "params": [
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "path",
+                "description": "This is the startDate. date format should be 'yyyy-MM-dd'"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "path",
+                "description": "This is the endDate. date format should be 'yyyy-MM-dd'"
+              }
+            ]
+          },
+          "docs": "This API returns the status of the specific date of the transactions. This is important because a directDebit transaction could be dishonoured up to 3 days after the transaction was executed."
+        },
+        {
+          "info": {
+            "name": "Get Uncleared Transactions by Date",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/reports/v1/unclearedFunds/:startDate",
+            "params": [
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "path",
+                "description": "Start Date in ISO8601 date-time format."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End Date in ISO8601 date-time format. Defaults to startDate + 24 hours if not provided."
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Page number to be returned. Defaults to 1 if not provided."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page. Defaults to 50, maximum allowed value is 200."
+              }
+            ]
+          },
+          "docs": "This API endpoint can be used to get details of uncleared direct debit transactions.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "mAccount",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an mAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/mAccount/v1/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API creates an mAccount."
+        },
+        {
+          "info": {
+            "name": "Close an mAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/mAccount/v1/close/:accountNumber",
+            "params": [
+              {
+                "name": "accountNumber",
+                "value": "",
+                "type": "path",
+                "description": "16-Digit account number that uniquely identifies the mAccount"
+              }
+            ]
+          },
+          "docs": "This API closes an mAccount."
+        },
+        {
+          "info": {
+            "name": "Get mAccount Balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/mAccount/v1/financials/:accountNumber",
+            "params": [
+              {
+                "name": "accountNumber",
+                "value": "",
+                "type": "path",
+                "description": "16-Digit account number that uniquely identifies the mAccount"
+              }
+            ]
+          },
+          "docs": "This API will return the current financials for an mAccount."
+        },
+        {
+          "info": {
+            "name": "Get mAccount details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/mAccount/v1/get/:accountNumber",
+            "params": [
+              {
+                "name": "accountNumber",
+                "value": "",
+                "type": "path",
+                "description": "16-Digit account number that uniquely identifies the mAccount"
+              }
+            ]
+          },
+          "docs": "This API gets details of an mAccount. Property details.options will contain ALL options and their current values."
+        },
+        {
+          "info": {
+            "name": "List as issuer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/mAccount/v1/listAsIssuer"
+          },
+          "docs": "Returns a list of 16-Digit mAccounts that you own."
+        },
+        {
+          "info": {
+            "name": "Send a statement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/mAccount/v1/sendStatement",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API generates a detailed pdf statement for delivery via email."
+        },
+        {
+          "info": {
+            "name": "Get transactions by mAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/mAccount/v1/transactions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API generates a transaction details."
+        },
+        {
+          "info": {
+            "name": "Update mAccount details",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/mAccount/v1/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API updates a mAccount."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "mWallet",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an mWallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/mWallet/v1/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API creates a new mWallet. This creation process has been mandated by BPAY Pty Ltd as part of the license to use BPAY as a payment method. Ideally client software should mask the pin from the merchant and get the customer to key in the pin number twice to ensure accuracy and to maintain privacy. The pin and the Date of Birth Fields are the ultimate authentication fields that a customer has to allow the payment. If the customer forgets their pin then it can be reset using the ResetPin functi"
+        },
+        {
+          "info": {
+            "name": "Close an mWallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/mWallet/v1/close/:accountNumber/:pin",
+            "params": [
+              {
+                "name": "accountNumber",
+                "value": "",
+                "type": "path",
+                "description": "16-Digit account number that uniquely identifies the mWallet"
+              },
+              {
+                "name": "pin",
+                "value": "",
+                "type": "path",
+                "description": "4 digit numerical pin."
+              }
+            ]
+          },
+          "docs": "This API will set an account to be closed and no further financial transactions can be performed in the Engine."
+        },
+        {
+          "info": {
+            "name": "Get mWallet Balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/mWallet/v1/financials/:accountNumber/:pin",
+            "params": [
+              {
+                "name": "accountNumber",
+                "value": "",
+                "type": "path",
+                "description": "16-Digit account number that uniquely identifies the mWallet"
+              },
+              {
+                "name": "pin",
+                "value": "",
+                "type": "path",
+                "description": "4 digit numerical pin."
+              }
+            ]
+          },
+          "docs": "This API will return the current financials for an mWallet."
+        },
+        {
+          "info": {
+            "name": "Reopen a closed mWallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/mWallet/v1/reopen/:accountNumber/:pin",
+            "params": [
+              {
+                "name": "accountNumber",
+                "value": "",
+                "type": "path",
+                "description": "16-Digit account number that uniquely identifies the mWallet"
+              },
+              {
+                "name": "pin",
+                "value": "",
+                "type": "path",
+                "description": "4 digit numerical pin."
+              }
+            ]
+          },
+          "docs": "This API will reopen an mWallet that was closed."
+        },
+        {
+          "info": {
+            "name": "Reset an mWallet PIN",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/mWallet/v1/resetPin",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API resets a customer's mWallet PIN. The Date of Birth is used to authenticate the user. This API should be used when a customer has forgotten their pin."
+        },
+        {
+          "info": {
+            "name": "mWallet search",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/mWallet/v1/search",
+            "params": [
+              {
+                "name": "identifier",
+                "value": "",
+                "type": "query",
+                "description": "Mobile phone number, email address, landline number or the 16-Digit mWallet account number"
+              }
+            ]
+          },
+          "docs": "This API returns an array of mWallets whose authentication fields match the search criteria specified by the identifier. Mobile phone, land line and 16 - Digit mWallet account numbers have all non - numbers stripped and email address is converted to lower case. This is the first function to call when trying to identify a customer with an mWallet. The key piece of information returned for each mWallet is the unique accountNumber that is used in later calls and in the payment gateway."
+        },
+        {
+          "info": {
+            "name": "Get transactions by mWallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/mWallet/v1/transactions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API will return an array of transactions for an mWallet between two dates. Paging is supported by using the skip and take properties of the mWalletTransactionRequestDetails class. The information retrieved is in real - time and represents the same details as displayed on an mAccounts financial statement."
+        },
+        {
+          "info": {
+            "name": "Update mWallet details",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/mWallet/v1/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API updates an mWallet. This update process has been mandated by BPAY Pty Ltd as part of the license to use BPAY as a payment method. The pin or dateOfBirth Dates are not updatable."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Ledger Account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a new ledger account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/ledger/v1/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new, active ledger with a linked automatcher. This endpoint also allows you to link an existing automatcher to the ledger by passing an existing bankAccountNumber. Optionally, you can also specify a BSB. If no existing automatcher is linked, a new one will be created.</br></br> If you wish to link a PayID to the automatcher you will need to use the PayID endpoints.</br></br> The API response will vary based on whether a new automatcher is being created, or an existing automatcher is bei"
+        },
+        {
+          "info": {
+            "name": "Close a ledger account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/ledger/v1/close",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Close a ledger when it’s no longer required. For this endpoint to be used the ledger account balance must be $0, otherwise an error will be returned.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve the current balance of a ledger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/ledger/v1/balance/:ledgerAccountNumber",
+            "params": [
+              {
+                "name": "ledgerAccountNumber",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Query the current balance of a single ledger. This endpoint also returns a lightweight set of fields related to the ledger account, such as the status and creation date.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve transactions for a ledger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/ledger/v1/transactions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Return the transactions for a ledger account between two dates. This endpoint returns an array of transaction line items along with a running balance.</br></br> The query can be customised to order, skip and fetch as many records as required. Paging is controlled using the skip and take attributes. By default, the query will return the last months records in descending order.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve financial details of a ledger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/ledger/v1/financials",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint returns the automatcher details and financials for a ledger. The financials include the available balance, allowed spend & and allowed load, and the maximum balance that can be held within the ledger account.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve all ledger accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/ledger/v1/allAccounts",
+            "params": [
+              {
+                "name": "includeClosed",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a list of all ledgers attached to the requestors mAccount, with options to include closed accounts in the query. If no ledger accounts exist, an empty array will be returned.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Public Endpoints",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ping",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/public/v1/ping"
+          },
+          "docs": "The primary purpose of the ping API is to validate that the system is up and running. No Authentication is required."
+        },
+        {
+          "info": {
+            "name": "Webhook Signing Certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/public/v1/certificate"
+          },
+          "docs": "This endpoint returns the current X.509 certificate, which contains the public key that you can use to verify messages sent by Monoova.</br>\nThe certificate returned is short-lived (1-year validity) and should be updated accordingly.\n</br></br>\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve Public Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/public/v1/certificate/public-key"
+          },
+          "docs": "This endpoint returns the public key used by Monoova to sign messages.The public key is encoded as a hexadecimal string.</br> This public key should be expected to change every 1 year and should be updated accordingly."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all transactions in a daily settlement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/reports/v1/settlement/:date",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "path",
+                "description": "Date is represented by ISO8601 – ‘2016-03-01’ for 1st March 2016."
+              }
+            ]
+          },
+          "docs": "You may choose to set your mAccounts to settle automatically every day. If so, the mAccount balance will be brought to zero at 4pm (Sydney time) each business day. Any positive balance will be disbursed to the bank account you have linked; any negative balance will be direct debited from the bank account you have linked. Transactions on weekends, public holidays and after 4pm won’t appear in the settlement report until after 4pm the next business day. <br> This report returns an array of actual "
+        },
+        {
+          "info": {
+            "name": "Get all successful transactions for a date",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/reports/v1/statement/:date",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "path",
+                "description": "Date is represented by ISO8601 – ‘2016-03-01’ for 1st March 2016."
+              }
+            ]
+          },
+          "docs": "This API returns all successful transactions on the given date. Date is represented by ISO8601 – ‘2016-03-01’ for 1st March 2016."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Security",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create OneShot security Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/security/v1/createOneShotSecurityToken/:timeOutMin",
+            "params": [
+              {
+                "name": "timeOutMin",
+                "value": "",
+                "type": "path",
+                "description": "Each token has an expiry time between 1 and 15 minutes"
+              },
+              {
+                "name": "Claims",
+                "value": "",
+                "type": "query",
+                "description": "This is Optional. Passing a 'Token' in parameter to generate restricted Token which only allows user to create Token. Currently Available parameters are 'Admin', 'Reporting' and 'Token'"
+              }
+            ]
+          },
+          "docs": "This API returns a security token that can be used only once or until it expires. \nThe purpose of this token is that it can be embedded in a web form to enable you to make a single call to the Engine without exposing your Sign-In Account credentials.\nWhen setting your security credentials to call any of the APIs in this document (except for security/v1/createOneShotSecurityToken), \nset the Username to the returned OneShotSecurityToken and set the password to anything as it will be ignored.\n"
+        },
+        {
+          "info": {
+            "name": "Get Sign-in account fees & permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/security/v1/signInAccountSettings"
+          },
+          "docs": "This API returns the fees and permissions that have been given to the Sign-In Account."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Token",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create bank account token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/token/v1/createAustralianBankAccount",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API creates a token representing an Australian Bank Account by passing a TokenAustralianBankAccountPayload class in the body."
+        },
+        {
+          "info": {
+            "name": "Create BPAY token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/token/v1/createBPAY",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API creates a token representing BPAY details by passing a TokenBPAYPayload class in the body."
+        },
+        {
+          "info": {
+            "name": "Delete token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mpay.com.au/token/v1/delete/:token",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "The text (GUID) that identifies the token."
+              }
+            ]
+          },
+          "docs": "This API will delete the payload attached to the specified token."
+        },
+        {
+          "info": {
+            "name": "Get token details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/token/v1/get/:token",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "The text (GUID) that identifies the token."
+              }
+            ]
+          },
+          "docs": "This API will return the payload attached to the specified token."
+        },
+        {
+          "info": {
+            "name": "List tokens by mAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/token/v1/list/:accountNumber",
+            "params": [
+              {
+                "name": "accountNumber",
+                "value": "",
+                "type": "path",
+                "description": "16-Digit account number that uniquely identifies the mAccount"
+              }
+            ]
+          },
+          "docs": "This API will return a list of all tokens associated with the provided mWallet or mAccount."
+        },
+        {
+          "info": {
+            "name": "Update bank account token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/token/v1/updateAustralianBankAccount",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API provides the ability to update the payload associated with an existing token. For this API, the payload to update is a TokenAustralianBankAccount class."
+        },
+        {
+          "info": {
+            "name": "Update BPAY token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/token/v1/updateBPAY",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API provides the ability to update the payload associated with an existing token. For this API, the payload to update is a TokenBPAY class."
+        },
+        {
+          "info": {
+            "name": "Validate token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/token/v1/validate/:token",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "The text (GUID) that identifies the token."
+              }
+            ]
+          },
+          "docs": "This API validates a token by passing a Token in the body."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Tools",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ping (test authentication)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/tools/v1/ping"
+          },
+          "docs": "The primary purpose of the ping API is to validate your credentials as well validate that the Engine servers are up and running."
+        },
+        {
+          "info": {
+            "name": "Validate a BSB",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/tools/v1/bsbValidate/:bsbNumber",
+            "params": [
+              {
+                "name": "bsbNumber",
+                "value": "",
+                "type": "path",
+                "description": "BSB (Bank-State-Branch) number. The format is a string in the following format:&nbsp;‘999-999’."
+              }
+            ]
+          },
+          "docs": "The purpose of this API is to return details about a BSB (Bank-State-Branch) number. The format is a string in the following format:&nbsp;‘999-999’."
+        },
+        {
+          "info": {
+            "name": "Validate an ABN",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/tools/v1/abnValidate/:abnNumber",
+            "params": [
+              {
+                "name": "abnNumber",
+                "value": "",
+                "type": "path",
+                "description": "ABN (Australian Business Number)"
+              }
+            ]
+          },
+          "docs": "The purpose of this API is to validate that an ABN (Australian Business Number) is correct and determine if it’s valid.&nbsp; This API makes a call to the Australian Business Registry returning current details about the company.&nbsp; An ABN is defined as a string of eleven numeric digits.Spaces are allowed but no other characters.&nbsp; If the resulting status property contains ‘Ok’ then examine the property isAbnValid.&nbsp; The property isCharity will be true if the entity is an active regist"
+        },
+        {
+          "info": {
+            "name": "Email an issuer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/tools/v1/sendEmailToIssuer",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The purpose of this API is to provide email functionality for your application to send emails to the Sign-In Accounts Issuer."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Verify",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Initiate a NPP verification transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/verify/v2/aba/initiate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates a verification transaction against a designated bank account or PayID via NPP rail using the v2 endpoint."
+        },
+        {
+          "info": {
+            "name": "Initiate a DE Verification Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/verify/v1/aba/initiate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Inititiates a verification transaction against a designated bank account."
+        },
+        {
+          "info": {
+            "name": "Complete an account verification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/verify/v1/aba/validate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validates a code against a token generated via the initiate call. After 3 failed attempts the token will get locked for 1 hour. Users can retry with same token after 1 hour or initiate a new verification anytime."
+        },
+        {
+          "info": {
+            "name": "Get a verification token's details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/verify/v1/aba/get/:token",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "Generated Token from verify/v1/aba/initiate (Initiates a verification transaction)"
+              }
+            ]
+          },
+          "docs": "Return details for a specific verification token."
+        },
+        {
+          "info": {
+            "name": "List verified bank accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/verify/v1/aba/list"
+          },
+          "docs": "Get a list of all verified bank accounts."
+        },
+        {
+          "info": {
+            "name": "Update a verified bank account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/verify/v1/aba/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the following fields for a verified account&#39;s without reverifying the bank account. Bank Account Title, Has DDR authority"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Automatcher (Bank Account Receivables)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an Automatcher (Receivables) Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/receivables/v1/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new bank-account number. For the creation of batches of account numbers, please see <a href=\"/payments#operation/ReceivablesBatchCreate\"> /receivables/v1/batchCreate </a> These account numbers can be used along with the returned BSB to receive payments from any bank in Australia. Payments to an invalid bank-account number, i.e. one that has not been created, will be returned by Monoova to the remitting institution. Each account number has a check digit to minimize common payer errors s"
+        },
+        {
+          "info": {
+            "name": "Set Account Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/receivables/v1/status",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Bank accounts can be active or inactive. Inactive accounts will have all payments rejected and returned to the payer. Status can be called using either bank account number or clientuniqueId."
+        },
+        {
+          "info": {
+            "name": "Get Account Status By BankAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/receivables/v1/statusByBankAccount/:bankAccountNumber",
+            "params": [
+              {
+                "name": "bankAccountNumber",
+                "value": "",
+                "type": "path",
+                "description": "The bank account number generated."
+              },
+              {
+                "name": "bsb",
+                "value": "",
+                "type": "query",
+                "description": "Optional BSB parameter specifying the branch identifier for Australian banks. Accepts either 6 digits or with a hyphen as \"XXX-XXX\". If not specified, the service will use the MAccount’s configured ‘Default BSB’. If a ‘Default BSB’ has not been configured, then the Monoova ‘Default BSB’ will be used."
+              }
+            ]
+          },
+          "docs": "Returns the status of a bank account number. Without changing the status, this API is used for checking the status of a bank account. Status can be called using either bankaccount number or clientUniqueId."
+        },
+        {
+          "info": {
+            "name": "Get Account Status By ClientUniqueId",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/receivables/v1/statusByClientID/:clientUniqueId",
+            "params": [
+              {
+                "name": "clientUniqueId",
+                "value": "",
+                "type": "path",
+                "description": "An identifier assigned to the account."
+              },
+              {
+                "name": "bsb",
+                "value": "",
+                "type": "query",
+                "description": "Optional BSB parameter specifying the branch identifier for Australian banks. Accepts either 6 digits or with a hyphen as \"XXX-XXX\". If not specified, the service will use the MAccount’s configured ‘Default BSB’. If a ‘Default BSB’ has not been configured, then the Monoova ‘Default BSB’ will be used."
+              }
+            ]
+          },
+          "docs": "Returns the status of a bank account number. Without changing the status, this API is used for checking the status of a bank account.\nStatus can be called using either bankAccount number or clientUniqueId.\n"
+        },
+        {
+          "info": {
+            "name": "Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/receivables/v6/report/:date",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "path",
+                "description": "Format:&nbsp; 'yyyyMMddHHmmss'. This becomes the start date of the report if report is being fetched for a date range."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "Format:&nbsp; yyyyMMddHHmmss. Use this to fetch the report for a date range."
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip. 0 is the first record."
+              },
+              {
+                "name": "take",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to take. If endDate is provided maximum take is 10000."
+              },
+              {
+                "name": "accountNumber",
+                "value": "",
+                "type": "query",
+                "description": "Payee bank account number."
+              },
+              {
+                "name": "clientUniqueId",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifier for the account."
+              },
+              {
+                "name": "transactionType",
+                "value": "",
+                "type": "query",
+                "description": "Possible Values:&nbsp; 'DE' or 'NPP'."
+              },
+              {
+                "name": "transactionCode",
+                "value": "",
+                "type": "query",
+                "description": "Industry standard transaction code. only applicable for DE. Possible values:&nbsp; “13” for Debit, “50” for credit.Refer to Direct entry standard for definitions 51-57."
+              },
+              {
+                "name": "payId",
+                "value": "",
+                "type": "query",
+                "description": "Email address for the PayID."
+              },
+              {
+                "name": "payIdName",
+                "value": "",
+                "type": "query",
+                "description": "Name displayed to the payers."
+              }
+            ]
+          },
+          "docs": "Returns a report of all received transactions for the day with associated details, this includes Direct Entry and NPP Receivables. If requested multiple times on the current date (calendar day, AEDT), the report is cumulative. E.g. if, on the same day, a report is requested at 10am and another one at 1pm, the report at 1pm will contain all the transactions already contained in the 10am report, in addition to any new transactions. Direct Entry transactions arrive in batches 7 times throughout the"
+        },
+        {
+          "info": {
+            "name": "PayTo Receivables Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/paytoreceivables/v1/report/:date",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "path",
+                "description": "Format:&nbsp; 'yyyyMMddHHmmss'. This becomes the start date of the report if report is being fetched for a date range."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "Format:&nbsp; yyyyMMddHHmmss. Use this to fetch the report for a date range."
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip. 0 is the first record."
+              },
+              {
+                "name": "take",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to take. If endDate is provided maximum take is 10000."
+              },
+              {
+                "name": "accountNumber",
+                "value": "",
+                "type": "query",
+                "description": "Payee bank account number."
+              },
+              {
+                "name": "clientUniqueId",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifier for the account."
+              },
+              {
+                "name": "transactionType",
+                "value": "",
+                "type": "query",
+                "description": "Possible Values:&nbsp; 'DE' or 'NPP'."
+              },
+              {
+                "name": "transactionCode",
+                "value": "",
+                "type": "query",
+                "description": "Industry standard transaction code. only applicable for DE. Possible values:&nbsp; “13” for Debit, “50” for credit.Refer to Direct entry standard for definitions 51-57."
+              },
+              {
+                "name": "payId",
+                "value": "",
+                "type": "query",
+                "description": "Email address for the PayID."
+              },
+              {
+                "name": "payIdName",
+                "value": "",
+                "type": "query",
+                "description": "Name displayed to the payers."
+              }
+            ]
+          },
+          "docs": "Returns a report of PayTo transactions for the day with associated details. If requested multiple times on the current date (calendar day, AEDT), the report is cumulative. E.g. if, on the same day, a report is requested at 10am and another one at 1pm, the report at 1pm will contain all the transactions already contained in the 10am report, in addition to any new transactions. PayTo Transactions may arrive at anytime, we recommend <a href=\"/payments#tag/Subscriptions\"> subscribing to a webhook </"
+        },
+        {
+          "info": {
+            "name": "Last Settlement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/receivables/v1/reportLastSettlement"
+          },
+          "docs": "Returns the latest settlement for received funds. We suggest using this as a lightweight polling endpoint to establish when new transactions have been received. Transactions arrive in batches."
+        },
+        {
+          "info": {
+            "name": "List Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/receivables/v1/listAccounts"
+          },
+          "docs": "List Accounts will return a list of all account numbers you have linked to your Sign in. <br/> <br/>"
+        },
+        {
+          "info": {
+            "name": "Batch Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/receivables/v1/batchCreate"
+          },
+          "docs": "The batch create API has the same functionality as the <a href=\"/payments#operation/ReceivablesCreate\"> /receivables/v1/create  </a> endpoint however it allows you to create up to 50,000 accounts in a single call by submitting a file. We recommend this for circumstances where > 100 accounts need to be created within a short time period.\nCreation of accounts with isActive=true is restricted to 1000. Multiple batches cannot be requested at the same time, you have to wait for the completion of a ba"
+        },
+        {
+          "info": {
+            "name": "Batch Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/receivables/v1/batchStatus"
+          },
+          "docs": "The batch Status API functions similarly to the <a href=\"/payments#operation/ReceivablesStatus\"> /receivables/v1/Status </a> API,\nhowever it allows you to update accounts in batch.\nYou can only update 1000 records per request. Multiple batches cannot be requested at the same time,\nyou have to wait for the completion of a batch before requesting a new one.\n<br/>\n<br/>\n"
+        },
+        {
+          "info": {
+            "name": "Receivables Refund",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/receivables/v2/refund",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The refund API allows the transfer funds back to the payer for transactions received via EFT. The funds are sent to details as supplied by the payer institution. Please note that not all institutions provide valid payer details, in some cases the refund will not be successful. NPP payments can only be refunded 5 minutes after receiving the original payment. <br/>"
+        },
+        {
+          "info": {
+            "name": "Process Direct Debit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/receivables/v1/processdirectdebit",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Automatcher accounts can also process direct debits from external organisations against them. By default this behaviour is disabled. If configured to allow direct debits, a notification will be sent when an external party attempts to debit one of your accounts, and if accepted, the funds will be deducted from your sign in mAccount. <br><br> Notification of a pending direct debit are sent via a <a href=\"/payments#operation/InboundDirectDebitWebhook\"> callback </a> or a <a href=\"/payments#operatio"
+        },
+        {
+          "info": {
+            "name": "Inbound Direct Debit Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/receivables/v2/inbounddirectdebitreport/:date",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "path",
+                "description": "date format should be 'yyyy-MM-dd' format."
+              }
+            ]
+          },
+          "docs": "The report is an application/octet-stream, columns are comma separated. Where a comma(,) or double quote(\") is present in any of the below fields, the field will be encased in double quotes and/or escaped as per <a href=\"https://tools.ietf.org/html/rfc4180\" target=\"_blank\">RFC4180</a><br> . <table class=\"tb\"> <tr> <td class=\"td\"> Transaction ID </td> <td class=\"td\"> Batch ID </td> <td class=\"td\"> DateTime </td> <td class=\"td\"> Status </td> <td class=\"td\"> RejectionReason </td> <td class=\"td\"> BS"
+        },
+        {
+          "info": {
+            "name": "Receive Swift Transfers (RTGS/IMT transactions)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/receivables/v1/processRtgsImt",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Automatcher accounts can be configurated to receive Swift Transfers. This includes both RTGS (Real Time Gross Settlement) and IMT (International Money Transfers). <br><br> If the account is not configured to receive Swift Transfers, the transaction will be automatically rejected on our end. If configured to allow RTGS/IMT transactions, a notification will be sent when an external party attempts to credit to one of your accounts, and if accepted, the funds will be credited to your sign in mAccoun"
+        },
+        {
+          "info": {
+            "name": "RTGS/IMT Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/receivables/v2/rtgsimtReport/:date",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "path",
+                "description": "This becomes the start date of the report if report is being fetched for a date range. Date format should be 'yyyy-MM-dd' format."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "Use this to fetch the report for a date range. Date format should be 'yyyy-MM-dd' format"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip. 1 is the first record.Value should be greater than 0"
+              },
+              {
+                "name": "take",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to take. If endDate is provided maximum take is 10000."
+              }
+            ]
+          },
+          "docs": "Returns a report of all received transactions for the day with associated details, this includes RTGS (real-time gross settlement) and International Money Transfer. If requested multiple times on the current date (calendar day, AEDT), the report is cumulative. E.g. if, on the same day, a report is requested at 10am and another one at 1pm, the report at 1pm will contain all the transactions already contained in the 10am report, in addition to any new transactions. <br/> <br/> The report is an app"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Whitelisting for Automatcher (Bank Account Receivables)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Whitelist Source Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/receivables/v1/whitelisting/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this API to create a new whitelist entry for an automatcher account. Multiple source bank account numbers or bank account names can be whitelisted against each Automatcher number. The system will automatically return payments if the payment details do not match one of the entries.<br/><br/> Make sure to set the account status to “Enabled” to accept payments for the set of rules defined, the status can always be updated if the rule no longer applies using the update endpoint. <br/>"
+        },
+        {
+          "info": {
+            "name": "Update Whitelist Source Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/receivables/v1/whitelisting/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this endpoint to change the status of a whitelisted source account."
+        },
+        {
+          "info": {
+            "name": "List Whitelist Source Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/receivables/v1/whitelisting/list/:automatcherBankAccountNumber",
+            "params": [
+              {
+                "name": "automatcherBankAccountNumber",
+                "value": "",
+                "type": "path",
+                "description": "Valid receivables bank account number belonging to the Sign-in mAccount."
+              },
+              {
+                "name": "bsb",
+                "value": "",
+                "type": "query",
+                "description": "Optional BSB parameter specifying the branch identifier for Australian banks. Accepts either 6 digits or with a hyphen as \"XXX-XXX\". If not specified, the service will use the MAccount’s configured ‘Default BSB’. If a ‘Default BSB’ has not been configured, then the Monoova ‘Default BSB’ will be used."
+              }
+            ]
+          },
+          "docs": "This endpoint will list all whitelisted source account details linked to the queried Automatcher account number."
+        },
+        {
+          "info": {
+            "name": "Rejected Transactions Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/receivables/v2/rejectedTransactions/:startDate",
+            "params": [
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "path",
+                "description": "date format should be 'yyyy-MM-dd' format."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date of the range for the report, format 'yyyy-MM-dd'. If not provided, data for the day specified in Start Date will be returned."
+              },
+              {
+                "name": "transactionType",
+                "value": "",
+                "type": "query",
+                "description": "Filter for the transaction type. Possible values are 'DE' or 'NPP'."
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination. Defaults to 1 if not provided."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return per page. Defaults to 50 if not provided. Maximum allowed is 200."
+              }
+            ]
+          },
+          "docs": "Returns a report of all rejected transactions for the day with associated details, this includes Direct Entry and NPP Receivables. If requested multiple times on the current date (calendar day, AEDT), the report is cumulative. <table class=\"tb\"> <tr> <td class=\"td\"> ID </td> <td class=\"td\"> Batch ID </td> <td class=\"td\"> Datetime </td> <td class=\"td\"> BSB </td> <td class=\"td\"> AccountNumber </td> <td class=\"td\"> AccountName </td> <td class=\"td\"> PayId </td> <td class=\"td\"> PayId Name </td> <td c"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reconciliation Rules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Reconciliation Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/receivables/v1/reconciliationrules/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this API to create new reconciliation rules. Multiple entries can be created for an ABA or PayId for the same or different amount. The system will automatically return payments if the payment details do not match one of the entries. In case there are duplicate entries, payment will be matched with the oldest active rule.<br/> An optional Expiry Date Time can be specified for each rule. If expiry date is not provided, this will be defaulted as per pre-decided setup."
+        },
+        {
+          "info": {
+            "name": "Cancel Reconciliation Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.mpay.com.au/receivables/v1/reconciliationrules/:ReconciliationRuleReference",
+            "params": [
+              {
+                "name": "ReconciliationRuleReference",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This API can be used to cancel an active Reconciliation Rule. The system will automatically return payments if the payment details match a cancelled reconciliation rule. <br/> <br/> <ul> <li>This API will mark the status of Reconciliation Rules as Cancelled.</li> <li>Only Reconciliation Rules in Received status can be Cancelled.</li> </ul>"
+        },
+        {
+          "info": {
+            "name": "Get the list of Reconciliation Rules by Date/Time",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/receivables/v1/reconciliationrules/list/:dateTime",
+            "params": [
+              {
+                "name": "dateTime",
+                "value": "",
+                "type": "path",
+                "description": "Example 2020-03-15 <br/> date format should be 'yyyy-MM-dd' format."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "Optional - If not provided we will provide data for the day specified in Start Date. <br/> Maximum range allowed is 1 month"
+              },
+              {
+                "name": "payId",
+                "value": "",
+                "type": "query",
+                "description": "string <= 256 characters"
+              },
+              {
+                "name": "ABA",
+                "value": "",
+                "type": "query",
+                "description": "Number combination of BSB + Account number with any special characters 802985123456789"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "possible Values - <br/> <ul> <li>Received - Initial Status</li> <li>InProgress - Matching Payment is being processed </li> <li>Expired - Rule expired</li> <li>Processed - Matching Payment processed</li> <li>Cancelled - User cancelled the rule</li> </ul>"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Optional - If not provided, it is defaulted to 1"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Optional - If not provided, page size will be defaulted to 50 (Configuration). Maximum allowed is 200 (Configuration)."
+              }
+            ]
+          },
+          "docs": "This API can be used to search for a list of reconciliation rules. Customer will be allowed to search for rules for a date range of upto a month. If End Date is not provided, the system will return records for the day specified in Start Date."
+        },
+        {
+          "info": {
+            "name": "Get Reconciliation Rule By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/receivables/v1/reconciliationrules/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ReconciliationRuleReference. The unique identifier for the Reconciliation Rule."
+              }
+            ]
+          },
+          "docs": "This API is used to retrieve a single Reconciliation Rule based on its ID. The ReconciliationRuleReference should belong to the signin merchant."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "PayID",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Register PayID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/receivables/v1/payid/registerpayid",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows the registration of a PayID against an account number. We recommend leaving 10 seconds before registering a PayID to ensure an account number has been enabled for NPP. The domains that can be used to register a PayID are restricted. Custom domains are supported but must first be approved, please contact us for configuration. The default domain is monoova.me, if the PayID field is left blank we will generate a check-digited PayID on the Monoova domain."
+        },
+        {
+          "info": {
+            "name": "Update a PayID's status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/receivables/v1/payid/updatePayIdStatus",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "A PayID in the port status can be moved to another automatcher. To do this, change the status to port then submit a new Register PayID request for the preferred automatcher. The PayID will be relocated and automatically enabled."
+        },
+        {
+          "info": {
+            "name": "Update a PayID's name",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/receivables/v1/payid/updatePayIdName",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this endpoint to change the name of a PayID."
+        },
+        {
+          "info": {
+            "name": "PayID Enquiry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/receivables/v1/payid/payIdEnquiry",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns the details of a of a PayID. You must own the PayID to view its information."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Subscribe to new Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/subscriptions/v1/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new URL to which callbacks will be sent."
+        },
+        {
+          "info": {
+            "name": "Update an existing Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/subscriptions/v1/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing URL or toggles its status."
+        },
+        {
+          "info": {
+            "name": "List all existing webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/subscriptions/v1/list"
+          },
+          "docs": "Returns a list of all webhooks registered."
+        },
+        {
+          "info": {
+            "name": "Unsubscribe from an existing webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mpay.com.au/subscriptions/v1/delete/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "This is the Id of the Subscription you want to delete"
+              }
+            ]
+          },
+          "docs": "Permanently deletes a webhook."
+        },
+        {
+          "info": {
+            "name": "Request resending of a notification using webhookId",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/subscriptions/v2/resend/:WebhookId",
+            "params": [
+              {
+                "name": "WebhookId",
+                "value": "",
+                "type": "path",
+                "description": "Unique Id to identify this webhook notification."
+              }
+            ]
+          },
+          "docs": "Resends the associated webhook for the provided webhook ID"
+        },
+        {
+          "info": {
+            "name": "Webhook notifications report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mpay.com.au/subscriptions/v1/report/:date",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "path",
+                "description": "date format should be 'yyyy-MM-dd' format."
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip. 0 is the first record."
+              },
+              {
+                "name": "take",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to take. If endDate is provided maximum take is 10000."
+              }
+            ]
+          },
+          "docs": "Provides a historical array of previously sent webhooks"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Receive Payment Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/RECEIVEPAYMENTWEBHOOK_TARGET_URL",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer <TOKEN>"
+              },
+              {
+                "name": "Verification-Signature",
+                "value": "e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak="
+              },
+              {
+                "name": "Webhookid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "When an NPP payment is received, Monoova will send a callback with the below format. To subscribe to a webhook use the <a href=\"/payments#tag/Subscriptions\"> Subscriptions </a> APIs. Event name:&nbsp;<strong>NPPReceivePayment</strong> <br/>"
+        },
+        {
+          "info": {
+            "name": "Direct Debit Clearance Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/DIRECTDEBITCLEARANCEWEBHOOK_TARGET_URL",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer <TOKEN>"
+              },
+              {
+                "name": "Verification-Signature",
+                "value": "e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGLjzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDnrzZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak="
+              },
+              {
+                "name": "Webhookid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Receive a daily notification with a list of all direct debit transactions cleared on that day. To subscribe to this webhook, use the <a href=\"/payments#tag/Subscriptions\">Subscriptions</a> APIs.\nEvent name: <strong>DirectDebitClearance</strong>.\n<br/>\n"
+        },
+        {
+          "info": {
+            "name": "Pay To Receive Payment Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/PAYTORECEIVEPAYMENTWEBHOOK_TARGET_URL",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer <TOKEN>"
+              },
+              {
+                "name": "Verification-Signature",
+                "value": "e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak="
+              },
+              {
+                "name": "Webhookid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "When an NPP payment is received, Monoova will send a callback with the below format. To subscribe to a webhook use the <a href=\"/payments#tag/Subscriptions\"> Subscriptions </a> APIs. Event name:&nbsp;<strong>PayToReceivePayment</strong> <br/>"
+        },
+        {
+          "info": {
+            "name": "Receive Inbound Direct Credits Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/INBOUNDDIRECTCREDITWEBHOOK_TARGET_URL",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer <TOKEN>"
+              },
+              {
+                "name": "Verification-Signature",
+                "value": "e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak="
+              },
+              {
+                "name": "Webhookid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Subscribing to the direct credit event webhook will allow us to notify you when an inbound direct credit is received on one of your accounts. As direct credits arrive in batches, you will receive the data in an JSON array with multiple transactions multiple times per day. Event name:&nbsp;<strong>InboundDirectCredit</strong> <br/>"
+        },
+        {
+          "info": {
+            "name": "Receive Inbound Direct Debits  Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/INBOUNDDIRECTDEBITWEBHOOK_TARGET_URL",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer <TOKEN>"
+              },
+              {
+                "name": "Verification-Signature",
+                "value": "e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak="
+              },
+              {
+                "name": "Webhookid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Subscribing to the direct debit event webhook will allow us to notify you when an inbound direct debit is received on one of your accounts. As direct debits arrive in batches, you will receive the data in an JSON array with multiple transactions multiple times per day. Event name:&nbsp;<strong>InboundDirectDebit</strong> <br/> <br/> Note:&nbsp; Source account details do not appear by default, please contact Monoova for further information <br/>"
+        },
+        {
+          "info": {
+            "name": "Receive Direct Entry Dishonours Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/DIRECTENTRYDISHONOURSWEBHOOK_TARGET_URL",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer <TOKEN>"
+              },
+              {
+                "name": "Verification-Signature",
+                "value": "e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak="
+              },
+              {
+                "name": "Webhookid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Subscribing to the direct entry dishonours event webhook will allow us to notify you when an dishonour transaction is made. Event name:&nbsp;<strong>DirectEntryDishonour</strong> <br/>"
+        },
+        {
+          "info": {
+            "name": "Receive Pending Rtgs/Imt Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/PENDINGRTGSIMTWEBHOOK_TARGET_URL",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer <TOKEN>"
+              },
+              {
+                "name": "Verification-Signature",
+                "value": "e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak="
+              },
+              {
+                "name": "Webhookid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Subscribing to the Pending RTGS/IMT event webhook will allow us to notify you when a RTGS/IMT transaction is received on one of your accounts. As RTGS/IMT transaction arrive in batches, you will receive the data in an JSON array with multiple transactions multiple times per day. Event name:&nbsp;<strong>PendingInboundRtgsImt</strong> <br/>"
+        },
+        {
+          "info": {
+            "name": "Receive Rtgs/Imt status Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/RTGSIMTWEBHOOKSTATUSWEBHOOK_TARGET_URL",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer <TOKEN>"
+              },
+              {
+                "name": "Verification-Signature",
+                "value": "e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak="
+              },
+              {
+                "name": "Webhookid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Subscribing to the RTGS/IMT status event webhook will allow us to notify you when status of an RTGS/IMT transaction changes. Event name:&nbsp;<strong>InboundRtgsImtStatus</strong> <br/>"
+        },
+        {
+          "info": {
+            "name": "Receive Npp Payment Return Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/RECEIVENPPPAYMENTRETURNWEBHOOK_TARGET_URL",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer <TOKEN>"
+              },
+              {
+                "name": "Verification-Signature",
+                "value": "e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak="
+              },
+              {
+                "name": "Webhookid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Subscribing to the npp return event webhook will allow us to notify you when an npp payment gets returned is made. Event name:&nbsp;<strong>NppReturn</strong> <br/>"
+        },
+        {
+          "info": {
+            "name": "Receive Npp Payment Status Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/NPPPAYMENTSTATUSWEBHOOK_TARGET_URL",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer <TOKEN>"
+              },
+              {
+                "name": "Verification-Signature",
+                "value": "e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak="
+              },
+              {
+                "name": "Webhookid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Subscribing to the npp payment status event webhook will allow us to notify you when the status of a pending NPP Payment gets updated. Event name:&nbsp;<strong>NppPaymentStatus</strong> <br/> <strong>Note:&nbsp; </strong> Receive an NPP Payment Status Webhook notification when the status of an NPP payment changes so you don’t need to poll for updates. The \"Pending\" status is not reported by this webhook.<br/>"
+        },
+        {
+          "info": {
+            "name": "Inbound Direct Credit Rejections Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/INBOUNDDIRECTCREDITREJECTIONSWEBHOOK_TARGET_URL",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer <TOKEN>"
+              },
+              {
+                "name": "Verification-Signature",
+                "value": "e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak="
+              },
+              {
+                "name": "Webhookid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Subscribing to the inbound direct credit rejection event webhook will allow us to notify you when an inbound direct credit intended for an ABA/PayId belonging to you is rejected because they didn't match any active reconciliation rule or the payer account was not included in your whitelist. As direct credits arrive in batches, you will receive the data in an JSON array with multiple transactions multiple times during the day. To subscribe to a webhook use the <a href=\"/payments#tag/Subscriptions"
+        },
+        {
+          "info": {
+            "name": "NPP Credit Rejections Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mpay.com.au/NPPCREDITCREDITREJECTIONSWEBHOOK_TARGET_URL",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer <TOKEN>"
+              },
+              {
+                "name": "Verification-Signature",
+                "value": "e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak="
+              },
+              {
+                "name": "Webhookid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "When an NPP payment  intended for an ABA/PayId belonging to you is rejected because they didnt match any active reconciliation rule, Monoova will send a callback with the below format. To subscribe to a webhook use the <a href=\"/payments#tag/Subscriptions\"> Subscriptions </a> APIs. Event name:&nbsp; <strong> NPPCreditRejections </strong> <br/>"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

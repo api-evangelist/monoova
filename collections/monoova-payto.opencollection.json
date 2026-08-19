@@ -1,0 +1,686 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Monoova PayTo API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reporting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Payment Agreements by Date Range",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.monoova.com/au/payto/pam-v1/PaymentAgreement",
+            "params": [
+              {
+                "name": "createdStartDate",
+                "value": "",
+                "type": "query",
+                "description": "Start Date. </br>Required. ISO8601 date-time"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Page to be returned after records are split as per pageSize. <br/> Optional, If not provided, it is defaulted to 1."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page. </br> Optional, If not provided page size will be defaulted to 50. Maximum allowed value is 200."
+              },
+              {
+                "name": "createdEndDate",
+                "value": "",
+                "type": "query",
+                "description": "End Date. Optional, if not provided it will be defaulted to createdStartDate +24 hours. ISO8601 date-time"
+              }
+            ]
+          },
+          "docs": "Previously created Payment Agreements can be retrieved individually date range."
+        },
+        {
+          "info": {
+            "name": "Get Payment Agreement by UniqueId",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.monoova.com/au/payto/pam-v1/paymentAgreement/:paymentAgreementUID",
+            "params": [
+              {
+                "name": "paymentAgreementUID",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Previously created Payment Agreements can be retrieved individually via uniqueId"
+        },
+        {
+          "info": {
+            "name": "Get Payment Instructions By Date Range",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.monoova.com/au/payto/pas-v1/paymentInstruction",
+            "params": [
+              {
+                "name": "createdStartDate",
+                "value": "",
+                "type": "query",
+                "description": "Required. Format - ISO8601 date-time."
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page </br> Optional, If not provided, value will be defaulted to 1."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page. </br> Optional, If not provided page size will be defaulted to 50. Maximum allowed value is 200."
+              },
+              {
+                "name": "createdEndDate",
+                "value": "",
+                "type": "query",
+                "description": "Start Date. </br>Optional, if not provided it will be defaulted to createdStartDate.  ISO8601 date-time"
+              }
+            ]
+          },
+          "docs": "Previously created Payment initiations can be retrieved individually via date range."
+        },
+        {
+          "info": {
+            "name": "Get Payment Instruction By UniqueId",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.monoova.com/au/payto/pas-v1/paymentinstruction/:paymentInitiationUID",
+            "params": [
+              {
+                "name": "paymentInitiationUID",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Previously created Payment initiations can be retrieved individually via uniqueId."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Manage Payment Agreements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a Payment Agreement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.monoova.com/au/payto/pam-v1/PaymentAgreement",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The purpose of this endpoint is to create a payment agreement. An agreement can only initiate payments once the Payer approves it. Payers must respond by the respondByTime specified while creating the mandate. If respondByTime is not provided, it will be defaulted to 5 days for the Payer to approve or decline a payment agreement.</br> </br> <strong>Rate Limit</strong></br> Payment Agreement and Initiation endpoints have rate limits applied at a service level. If you process at volumes that surpa"
+        },
+        {
+          "info": {
+            "name": "Unilateral Amendment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.monoova.com/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/unilateral",
+            "params": [
+              {
+                "name": "paymentAgreementUID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Unilateral changes to a payment agreement can be done without the payer’s approval. The only fields that can be changed unilaterally are the payee object and agreement descriptions."
+        },
+        {
+          "info": {
+            "name": "Bilateral Amendment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.monoova.com/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/bilateral",
+            "params": [
+              {
+                "name": "paymentAgreementUID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Bilateral changes can't be done without the payer’s approval. Changes can be made to payment terms. Changes made using this end point will only get reflected after payer approves the change.  Until new terms are approved, payment agreement will be active with its last approved terms."
+        },
+        {
+          "info": {
+            "name": "Amend Payment Agreement Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.monoova.com/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/status",
+            "params": [
+              {
+                "name": "paymentAgreementUID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows the initiator to change the status of a payment agreement. Available statuses are `active`, `pause`, or `cancel`.</br>\n</br>\n<h3>Status Reason Code</h3>\n<style type=\"text/css\">\n.tb { table-layout:auto; width:200px;!important }\n.td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important}\n</style>\n<table class=\"tb\">\n<tr><th> Code </th><th> Reason </th></tr>\n<tr><td>AC02</td><td>Invalid Debtor Account Number</td></tr>\n<tr><td>AC04</td><td>Closed Account Number</"
+        },
+        {
+          "info": {
+            "name": "Recall a Payment Agreement",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.monoova.com/au/payto/pam-v1/paymentAgreement/:PaymentAgreementUID/recall/:actionIdentification",
+            "params": [
+              {
+                "name": "PaymentAgreementUID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionIdentification",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "The purpose of this operation is to recall a pending payment agreement before it is approved or declined by the payer servicer/customer."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Initiate a Payment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Payment Instruction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.monoova.com/au/payto/pas-v1/paymentInstruction",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Once a valid payment agreement has approved by the payer this endpoint is used to create a payment initiation, which creates real time pull payments.<br/> You are allowed a maximum of 5 failed initiations in a 24 hour period, if you reach this limit you will need to wait until the next day to retry."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "PayTo Async API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Async Payment Agreement Request Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.monoova.com/au/payto/pam-v1/PaymentAgreementAsync/Request/:uniqueRequestId",
+            "params": [
+              {
+                "name": "uniqueRequestId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Queries the status of an asynchronous API request for creating a payment agreement. This endpoint requires the {uniqueRequestId} returned by the original Async API call. There is no request body.\n"
+        },
+        {
+          "info": {
+            "name": "Get Async Payment Instruction Request Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.monoova.com/au/payto/pas-v1/PaymentInstructionAsync/Request/:uniqueRequestId",
+            "params": [
+              {
+                "name": "uniqueRequestId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Queries the status of an asynchronous API request, such as \"Initiate Payment Async\". This endpoint requires the {uniqueRequestId} returned by the original Async API call. No request body is needed.\n"
+        },
+        {
+          "info": {
+            "name": "Create a Payment Agreement Async",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.monoova.com/au/payto/pam-v1/PaymentAgreementAsync",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The purpose of this endpoint is to asynchronously create a payment agreement. The API returns as soon as the creation request has been captured and validated for background processing.\n\nThe async API follows the Microsoft [async-request-reply pattern](https://learn.microsoft.com/en-us/azure/architecture/patterns/async-request-reply).\n\nFollowing a successful call, the status of the background request can be monitored using [Get Async Request Status (Payment Instruction)](#tag/PayTo-Async-API/oper"
+        },
+        {
+          "info": {
+            "name": "Create Payment Instruction Async",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.monoova.com/au/payto/pas-v1/PaymentInstructionAsync",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The purpose of this endpoint is to asynchronously create a payment instruction. The API returns as soon as the creation request has been captured and validated for background processing.\n\nThe async API follows the Microsoft [async-request-reply pattern](https://learn.microsoft.com/en-us/azure/architecture/patterns/async-request-reply).\n\nFollowing a successful call, the status of the background request can be monitored using the [Get Async Request Status (Payment Instruction)](#tag/PayTo-Async-AP"
+        },
+        {
+          "info": {
+            "name": "Unilateral Amendment Async",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.monoova.com/au/payto/pam-v1/PaymentAgreementAsync/:paymentAgreementUID/unilateral",
+            "params": [
+              {
+                "name": "paymentAgreementUID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The purpose of this endpoint is to asynchronously amend a payment agreement that does not require approval from the Payer.  The API returns as soon as the amend request has been captured and validated for background processing.\nThe request payload and business rules/validations are identical to the synchronous API."
+        },
+        {
+          "info": {
+            "name": "Bilateral Amendment Async",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.monoova.com/au/payto/pam-v1/PaymentAgreementAsync/:paymentAgreementUID/bilateral",
+            "params": [
+              {
+                "name": "paymentAgreementUID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The purpose of this endpoint is to asynchronously amend a payment agreement which requires approval from the Payer. Changes made using this end point will only get reflected after payer approves the change.  The API returns as soon as the amend request has been captured and validated for background processing.\nThe request payload and business rules/validations are identical to the synchronous API."
+        },
+        {
+          "info": {
+            "name": "Amend Payment Agreement Status Async",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.monoova.com/au/payto/pam-v1/PaymentAgreementAsync/:paymentAgreementUID/status",
+            "params": [
+              {
+                "name": "paymentAgreementUID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows the initiator to change the status of a payment agreement. Available statuses are active, pause or cancel.  The API returns as soon as the amend request has been captured and validated for background processing.\nThe request payload and business rules/validations are identical to the synchronous API."
+        },
+        {
+          "info": {
+            "name": "Recall a Payment Agreement Async",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.monoova.com/au/payto/pam-v1/PaymentAgreementAsync/:PaymentAgreementUID/recall/:actionIdentification",
+            "params": [
+              {
+                "name": "PaymentAgreementUID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionIdentification",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "The purpose of this endpoint is to asynchronously recall a pending PAG creation/amendment action before it is approved or declined by payer servicer/customer. We will cancel the action uniquely identified by actionIdentification.  The API returns as soon as the recall request has been captured and validated for background processing.\nThe request payload and business rules/validations are identical to the synchronous API."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Payment Agreement Notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.monoova.com/WEBHOOK_TARGET_URL",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer <TOKEN>"
+              },
+              {
+                "name": "Verification-Signature",
+                "value": "e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak="
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": " <p> When a payer makes a change to a payment agreement (for example authorising or cancelling a payment agreement through their banking app) payment agreement, Monoova will send a webhook to notify the initiator. Payment Agreement webhooks will provide the data included in the create payment agreement schema <br/> Event name: PaymentAgreementNotification </p></br> These webhook can be subscribed using API's provided in <a href='/payTo#tag/Notification-Management'>Notification Management</a>. "
+        },
+        {
+          "info": {
+            "name": "Payment Instruction Status Notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.monoova.com/Webhook_Payment_Instruction_Status_URL",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer <TOKEN>"
+              },
+              {
+                "name": "Verification-Signature",
+                "value": "e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak="
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": " <p> Clients need to implement an API endpoint on their system to receive PaymentInstructionStatus notifications from Monoova. <br/> Event name: PaymentInstructionNotification </p></br> These webhook can be subscribed using API's provided in <a href='/payTo#tag/Notification-Management'>Notification Management</a>. "
+        },
+        {
+          "info": {
+            "name": "Asynchronous Request Notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.monoova.com/WEBHOOK_ASYNC_REQUEST_URL",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer <TOKEN>"
+              },
+              {
+                "name": "Verification-Signature",
+                "value": "e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak="
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This webhook can be subscribed using API's provided in <a href='/payTo#tag/Notification-Management'>Notification Management</a>. </br> Event name - <b>AsyncJobResultNotification</b>"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Notification Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.monoova.com/au/core/notification-v1/Subscription"
+          },
+          "docs": "Retrieves details of all subscriptions."
+        },
+        {
+          "info": {
+            "name": "Create a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.monoova.com/au/core/notification-v1/Subscription",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a subscription"
+        },
+        {
+          "info": {
+            "name": "Get Subscription by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.monoova.com/au/core/notification-v1/Subscription/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Gets the Subscription corresponding to the subscriptionId."
+        },
+        {
+          "info": {
+            "name": "Update a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.monoova.com/au/core/notification-v1/Subscription/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a subscription"
+        },
+        {
+          "info": {
+            "name": "Delete a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.monoova.com/au/core/notification-v1/Subscription/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a subscription"
+        },
+        {
+          "info": {
+            "name": "Get Webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.monoova.com/au/core/notification-v1/Notification",
+            "params": [
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Format - date-time (as date-time in RFC3339)."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Format - int32."
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Format - int32."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "Format - date-time (as date-time in RFC3339)."
+              }
+            ]
+          },
+          "docs": "Get Webhooks"
+        },
+        {
+          "info": {
+            "name": "Request a resend",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.monoova.com/au/core/notification-v1/Notification/resend/:eventId",
+            "params": [
+              {
+                "name": "eventId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Request a resend"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Generate a Bearer Token",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.monoova.com/au/security/oauth-v1/Token",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "</br><p> This endpoint will generate a bearer token which is required to call the Monoova PayTo endpoints. Bearer tokens are valid for 24 hours so they need to be regenerated every 24 hours. Once a bearer token has been generated payment agreements can be created, and payments initiated against those agreements. </p></br> This API endpoint uses BASIC Authentication. </br> <style type=\"text/css\"> .tb { table-layout:auto; width:200px;!important } .td { overflow:hidden; white-space:nowrap; text-ove"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

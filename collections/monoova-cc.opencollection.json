@@ -1,0 +1,516 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Monoova Card Payments API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Generate a Client Session",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate a Client Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.monoova.com/au/card/ccm/CreditCardTransaction/token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint is used to generate a client session token which is required to render the payment screen. All the fields are mandatory and will be passed on to the issuer while creating payments.</br>"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Create Payment Using Token",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a Payment using Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.monoova.com/au/card/ccm/CreditCardTransaction/payment",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint is used to create payments using tokens."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Get Transaction By Id",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Transaction By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.monoova.com/au/card/ccm/CreditCardTransaction/:clientTransactionUniqueReference",
+            "params": [
+              {
+                "name": "clientTransactionUniqueReference",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This endpoint can be used to get details of payments and refunds. clientTransactionUniqueReference used to initiate these transactions can be used to get details.</br>"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Get Transaction By Date Range",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Transaction By Date Range",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.monoova.com/au/card/ccm/CreditCardTransaction/",
+            "params": [
+              {
+                "name": "createdStartDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "createdEndDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "This API endpoint can be used to get details of transactions created in a date range</br>"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Get Payment Method Token Details",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Payment Method Token Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.monoova.com/au/card/ccm/PaymentMethodToken",
+            "params": [
+              {
+                "name": "createdStartDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date in ISO 8601 DateTime format. Required unless customerId is provided."
+              },
+              {
+                "name": "createdEndDate",
+                "value": "",
+                "type": "query",
+                "description": "End date in ISO 8601 DateTime format."
+              },
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "query",
+                "description": "Customer ID. Required unless createStartDate is provided."
+              },
+              {
+                "name": "clientPaymentTokenUniqueReference",
+                "value": "",
+                "type": "query",
+                "description": "Client Payment Token Unique Reference."
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Start page for retrieval."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return."
+              }
+            ]
+          },
+          "docs": "This endpoint can be used to get details of payment method tokens created using the payment method token vaulting."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Request Refund Transaction",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Request Refund Transaction (Async)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.monoova.com/au/card/ccm/CreditCardTransactionAsync/refund",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint can be used to request a refund of the payment. This is an asynchronous process and can take up to 3 business days.  This request can be raised for both settled and unsettled payments. </br> A webhook will be initiated to notify customers about the status change. </br> For settled payments, a separate refund transaction will be created. Original payment status will not be affected. Partial refunds are supported. Multiple partial refund requests can be initiated for payment as long "
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Get Async Request Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Async Request Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.monoova.com/au/card/ccm/CreditCardTransactionAsync/request/:uniqueRequestId",
+            "params": [
+              {
+                "name": "uniqueRequestId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This endpoint can be used to get the status of the asynchronous refund request. The final status of the asynchronous request is marked as completed after we successfully initiate a refund request from our side. This does not indicate the status of the settlement process and money movement in case of a refund. <br/> Inorder to get the detailed status of the refund request , please use the <a href=\"/cards#operation/get-transaction-by-id\" >Credit Card - Get Transaction By Id</a> or <a href=\"/cards#"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Update Payment Method Token Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update Status of Payment Method Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.monoova.com/au/card/ccm/PaymentMethodToken/:customerId/:clientPaymentTokenReference",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Customer ID as specified in Credit Card - Generate Client Session."
+              },
+              {
+                "name": "clientPaymentTokenReference",
+                "value": "",
+                "type": "path",
+                "description": "Client Payment Token Unique Reference as specified in Credit Card - Generate Client Session."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint can be used to update the status of a paymentMethodToken."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Payment Status Notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.monoova.com/WEBHOOK_TARGET_URL",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer <TOKEN>"
+              },
+              {
+                "name": "Verification-Signature",
+                "value": "e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGLjzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDnrz6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak="
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<p>When the status of the payment changes, Monoova will send a webhook to notify the customer. Webhook will be triggered for the below statuses:</p>\n<ul>\n  <li>Failed</li>\n  <li>Declined</li>\n  <li>Settlement Complete</li>\n  <li>Cancelled</li>\n</ul>\n<p>Additionally, “interim” webhooks will be triggered when surcharging is in effect for the client, once the payment is authorised for a new client session. This is the point at which the surcharging information becomes available and can be communica"
+        },
+        {
+          "info": {
+            "name": "Refund Status Notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.monoova.com/WEBHOOK_REFUND_STATUS_URL",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer <TOKEN>"
+              },
+              {
+                "name": "Verification-Signature",
+                "value": "e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak="
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<p> When the status of the refund changes, Monoova will send a webhook to notify the customer.  Webhook will be triggered for the below status </p> <ul> <li>Failed</li> <li>Declined</li> <li>Settlement Complete</li>\n</ul> </br> These webhook can be subscribed using API's provided in <a href='/payTo#tag/Notification-Management'>Notification Management</a>. </br> Event name - <b>CreditCardRefundNotification</b>"
+        },
+        {
+          "info": {
+            "name": "Asynchronous Request Notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.monoova.com/WEBHOOK_ASYNC_REQUEST_URL",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer <TOKEN>"
+              },
+              {
+                "name": "Verification-Signature",
+                "value": "e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak="
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This webhook can be subscribed using API's provided in <a href='/payTo#tag/Notification-Management'>Notification Management</a>. </br> Event name - <b>AsyncJobResultNotification</b>"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Notification Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.monoova.com/au/core/notification-v1/Subscription",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a subscription"
+        },
+        {
+          "info": {
+            "name": "GET Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.monoova.com/au/core/notification-v1/Subscription/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "Monoova generated Guid to uniquely identify the subscription. </br> This is required when updating a subscription, if not provided then we assume we are trying to create a new subscription.</br>Is a valid Guid when not blank."
+              }
+            ]
+          },
+          "docs": "Gets the subscription by Id"
+        },
+        {
+          "info": {
+            "name": "Update a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.monoova.com/au/core/notification-v1/Subscription/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a subscription"
+        },
+        {
+          "info": {
+            "name": "DELETE a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.monoova.com/au/core/notification-v1/Subscription/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "DELETE a subscription"
+        },
+        {
+          "info": {
+            "name": "GET Webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.monoova.com/au/core/notification-v1/Notification",
+            "params": [
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Format - date-time (as date-time in RFC3339)."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Format - int32."
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Format - int32."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "Format - date-time (as date-time in RFC3339)."
+              }
+            ]
+          },
+          "docs": "GET Webhooks"
+        },
+        {
+          "info": {
+            "name": "Request a resend",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.monoova.com/au/core/notification-v1/Notification/resend/:eventId",
+            "params": [
+              {
+                "name": "eventId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Request a resend"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Generate a Bearer Token",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.monoova.com/au/security/oauth-v1/Token",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "</br><p> Authentication for credit card API will be handled in Auth0 and access to APIs will be based on the Bearer token. Customers should register in Portal to use the credit card service. Only the admin of the group will be able to register an account for APIM access. Customers will be notified once they have been activated for credit cards. Once approved, the Bearer token can be retrieved using token API by passing the username as mAccount and the latest API Key as password in the header. Th"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
