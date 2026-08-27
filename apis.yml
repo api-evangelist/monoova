@@ -30,64 +30,761 @@ created: '2026-07-24'
 modified: '2026-07-24'
 specificationVersion: '0.23'
 apis:
-- aid: monoova:monoova-payments-api
-  name: Monoova Payments API
-  description: Monoova's core Payments API (v5.29) to receive, manage, and pay AUD across all Australian
-    payment rails - real-time transfers via NPP/Osko, direct credit and direct debit, BPAY, card payments,
-    and PayID. Includes the Automatcher bank-account receivables engine, virtual mAccount and mWallet
-    hierarchies, ledger accounts, financial and reconciliation reporting, account verification, payment
-    tokenisation, and webhooks. Authenticated with HTTP Basic auth (API key as the username).
+- aid: monoova:monoova-automatcher-bank-account-receivables-api
+  name: Monoova Automatcher (Bank Account Receivables) API
+  description: >-
+    <h3>  Overview </h3> <p> Having customers paying you by bank transfer might be easy for your customers
+    but contains a reconciliation risk for you. If your customer mistypes or forgets the reference to
+    go with the payment, you might not know whom the payment is from. Orphaned transactions can be challenging
+    and costly to handle. The solution is our receivables API. We allow you to assign a specific account
+    number to each payer so you know for a fact where the received funds originated, regardless of whether
+    they remembered to type the reference. </p> <p> Specifically, the bank-account receivables APIs allow
+    the creation and maintenance of bank account numbers for the purpose of receiving and reconciling
+    funds via direct credit. Once an account number is created, payments may be made via any banking institution
+    in Australia to the BSB and account number provided by us to you. These account numbers can be toggled
+    active/inactive and linked to a client provided unique ID. Once a transaction is received, Monoova
+    provides reporting on the details of each item, and makes the funds available for disbursement in
+    your Sign-in mAccount. Authentication is the same as for the rest of Monoova’s APIs. </p>
   humanURL: https://developer.monoova.com/overview
   baseURL: https://api.mpay.com.au
   tags:
-  - Payments
-  - NPP
-  - PayID
-  - BPAY
-  - Automatcher
+  - Automatcher (Bank Account Receivables)
   properties:
   - type: OpenAPI
-    url: openapi/monoova-payments.yml
+    url: openapi/monoova-automatcher-bank-account-receivables-api-openapi.yml
   - type: Documentation
     url: https://developer.monoova.com/overview
   - type: APIReference
     url: https://api-docs.monoova.com/
-- aid: monoova:monoova-payto-api
-  name: Monoova PayTo API
-  description: Monoova's PayTo API (v1) for the New Payments Platform's mandated account-to-account debit
-    service - create and manage payment agreements (mandates), initiate payments against them, handle
-    mandate and payment status lifecycles, and receive notifications and webhooks. Authenticated with
-    short-lived (24h) Bearer tokens obtained via HTTP Basic auth.
-  humanURL: https://developer.monoova.com/payto
-  baseURL: https://api.monoova.com
-  tags:
-  - PayTo
-  - Real-Time Payments
-  - Mandates
-  properties:
-  - type: OpenAPI
-    url: openapi/monoova-payto.yml
   - type: Documentation
     url: https://developer.monoova.com/payto
-  - type: APIReference
-    url: https://api-docs.monoova.com/
-- aid: monoova:monoova-card-payments-api
-  name: Monoova Card Payments API
-  description: Monoova's Card Payments API (v1) for accepting card payments, including tokenised card
-    flows and webhook notifications for payment events. Authenticated with short-lived (24h) Bearer tokens
-    obtained via HTTP Basic auth.
-  humanURL: https://developer.monoova.com/card-payments
-  baseURL: https://api.monoova.com
-  tags:
-  - Card Payments
-  - Acquiring
-  properties:
-  - type: OpenAPI
-    url: openapi/monoova-cc.yml
   - type: Documentation
     url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-bpay-api
+  name: Monoova BPAY API
+  description: >-
+    <h3>  Overview </h3> The BPAY APIs do not perform any financial transactions and are used to validate
+    BPAY information that is used in the <a href="/payments#operation/TransactionExecute"> /financial/v2/transaction/execute
+    </a>  API. The <a href="/payments#operation/TransactionValidate"> /financial/v2/transaction/validate
+    </a> APIs also validates BPAY information using the same sub-system as documented in this section
+    before performing any financial transactions.<br> <p> <strong>  Important Notes </strong> </p> <li>
+    By design, BPAY validation can be time sensitive. If you cache valid BPAY information for later use,
+    it may become invalid due to time expiry.</li> <li> By design, BPAY validation can be amount sensitive.
+    If you cache valid BPAY information for later use and change the amount to pay then this could be
+    invalid.</li> <li> BPAY validation should be performed immediately before calling the <a href="/payments#operation/TransactionExecute">
+    /financial/v2/transaction/execute </a> API to perform the bill payment. You have the option of calling
+    <a href="/payments#operation/TransactionValidate"> /financial/v2/transaction/validate </a> (The first
+    validation error will be returned which may not be a BPAY error) </li>
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - BPAY
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-bpay-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
   - type: APIReference
     url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-create-payment-using-token-api
+  name: Monoova Create Payment Using Token API
+  description: >-
+    The Create Payment Using Token API from Monoova — 1 operation(s) for create payment using token.
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Create Payment Using Token
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-create-payment-using-token-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-financial-api
+  name: Monoova Financial API
+  description: >-
+    <h3> Overview </h3>
+
+    <p> The Financial APIs enable you to process credits and debits, including transferring funds within
+    Monoova to a Ledger Account, an mWallet (for BPAY transactions), or an mAccount (our virtual account).
+    You can send payments to external Australian bank accounts using a BSB and account number, token,
+    or PayID, and make BPAY payments using a biller code and CRN. </p>
+
+    <p> The APIs also allow you to debit Australian bank accounts using Direct Debit, and retrieve the
+    status of transactions. </p>
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Financial
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-financial-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-generate-a-bearer-token-api
+  name: Monoova Generate a Bearer Token API
+  description: >-
+    The Generate a Bearer Token API from Monoova — 1 operation(s) for generate a bearer token.
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Generate a Bearer Token
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-generate-a-bearer-token-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-generate-a-client-session-api
+  name: Monoova Generate a Client Session API
+  description: >-
+    The Generate a Client Session API from Monoova — 1 operation(s) for generate a client session.
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Generate a Client Session
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-generate-a-client-session-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-get-async-request-status-api
+  name: Monoova Get Async Request Status API
+  description: >-
+    The Get Async Request Status API from Monoova — 1 operation(s) for get async request status.
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Get Async Request Status
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-get-async-request-status-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-get-payment-method-token-details-api
+  name: Monoova Get Payment Method Token Details API
+  description: >-
+    The Get Payment Method Token Details API from Monoova — 1 operation(s) for get payment method token
+    details.
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Get Payment Method Token Details
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-get-payment-method-token-details-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-get-transaction-by-date-range-api
+  name: Monoova Get Transaction By Date Range API
+  description: >-
+    The Get Transaction By Date Range API from Monoova — 1 operation(s) for get transaction by date range.
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Get Transaction By Date Range
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-get-transaction-by-date-range-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-get-transaction-by-id-api
+  name: Monoova Get Transaction By Id API
+  description: The Get Transaction By Id API from Monoova — 1 operation(s) for get transaction by id.
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Get Transaction By Id
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-get-transaction-by-id-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-initiate-a-payment-api
+  name: Monoova Initiate a Payment API
+  description: Once a payment agreement is created you can trigger payments against it
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Initiate a Payment
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-initiate-a-payment-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-ledger-account-api
+  name: Monoova Ledger Account API
+  description: >-
+    Monoova allows virtual ledgers to be created and linked to an Automatcher account number and optional
+    PayID that can be used to track funds received and paid. Moving funds in and out of ledgers is accomplished
+    by utilising the Monoova PayTo and financial APIs. In the financial/execute call, populate “ledgerAccountNumber”
+    in the mwallet fields, either in the disbursement object to transfer funds, or in the source object
+    to withdraw.
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Ledger Account
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-ledger-account-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-maccount-api
+  name: Monoova M Account API
+  description: >-
+    <h3>  Overview </h3> The mAccount is the name we have given our virtual account. It is at the centre
+    of anything you do with our Payments Engine. In many ways, your mAccount(s) is you in the Engine,
+    this is where you get authenticated, where your funds flow in and out, and where you get your reports.
+    It is also the building block for a bespoke ecosystem of virtual accounts which you can build in the
+    Engine. And though we call it an account, it can just as easily be used as a wallet. The APIs in this
+    section do not perform financial transactions. Instead, they are used to manage mAccount information
+    in the Engine. The /financial/v2/transaction API verifies mAccount information using this subsystem
+    before performing a transaction.
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - mAccount
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-maccount-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-manage-payment-agreements-api
+  name: Monoova Manage Payment Agreements API
+  description: >-
+    Methods to handle the payment agreement lifecycle. There are 2 ways in which a payment agreement can
+    be amended – unilaterally (no payer approval needed), and Bilaterally (payer approval required)
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Manage Payment Agreements
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-manage-payment-agreements-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-mwallet-api
+  name: Monoova M Wallet API
+  description: >-
+    <h3>  Overview </h3> mWallet is the name we have given to the digital wallet required for our BPAY
+    payments. For any other digital-wallet uses, we recommend our mAccount. The APIs in this section do
+    not perform any financial transactions. They are used to manage mWallet information used by the Engine.
+    The /financial/v2/transaction API verifies mWallet information using this subsystem before performing
+    the transaction.
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - mWallet
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-mwallet-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-notification-management-api
+  name: Monoova Notification Management API
+  description: >-
+    The Notification Management API from Monoova — 4 operation(s) for notification management.
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Notification Management
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-notification-management-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-payid-api
+  name: Monoova Pay ID API
+  description: >-
+    <h3>  Overview </h3> <p> A PayID is an alias for a bank account number that makes paying into account
+    easier. A PayID can be an email address, phone number or ABN. PayIDs are issued and associated with
+    our <a href="/payments#tag/Automatcher-(Bank-Account-Receivables)"> /receivables </a>  bank accounts
+    to allow your users a simpler way of sending you money. Once a PayID has been registered against a
+    bank account, when a payment is made to that ID, the funds will arrive in your receivables account
+    number. Currently we only support email PayIDs via the API. </p>
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - PayID
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-payid-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-payto-async-api-api
+  name: Monoova PayTo Async API
+  description: >-
+    The `AsyncResponse` is used in operations where the request is accepted, but the processing is not
+    immediate. This response format provides information for tracking and checking the request status.
+
+
+    This API adheres to the Microsoft [async-request-reply pattern](https://learn.microsoft.com/en-us/azure/architecture/patterns/async-request-reply),
+    ensuring efficient handling of non-immediate requests.
+
+
+    Featuring high throughput and generous rate limits, this API is optimal for bulk operations, allowing
+    for the efficient processing of larger datasets.
+
+
+    </br>
+
+
+    ### HTTP Status Code
+
+
+    - **202 Accepted**:
+      - *Description*: Indicates that the request has been accepted for processing but has not been completed.
+
+    ### HTTP Headers
+
+
+    - **Location**:
+      - *Description*: Provides the URL where the client can check the status of the asynchronous operation.
+    Clients should periodically poll this URL to retrieve the final result of the request.
+      - *Example*: `https://sand-api.monoova.com/...`
+
+    - **Retry-After**:
+      - *Description*: Suggests the number of seconds the client should wait before polling the Location
+    URL again. This helps manage server load by preventing requests that are too frequent.
+      - *Example*: `10`
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - PayTo Async API
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-payto-async-api-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-public-endpoints-api
+  name: Monoova Public Endpoints API
+  description: The Public Endpoints API from Monoova — 3 operation(s) for public endpoints.
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Public Endpoints
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-public-endpoints-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-reconciliation-rules-api
+  name: Monoova Reconciliation Rules API
+  description: >-
+    <h3>  Overview </h3> <p> This feature enables customers to specify the criteria for accepting incoming
+    NPP and DE payments in real time. The customer will be able to advise Monoova about the exact amount
+    they expect to receive in their ABA/PayId in an agreed timeframe. This information would be used to
+    determine whether to accept or reject a payment.<br/><br/> There are 2 criteria that can be set when
+    specifying the reconciliation rules. Inbound transactions will only be accepted if <ul> <li>Bsb -
+    Account Number and amount matches an active reconciliation rule. OR</li> <li>PayId and amount match
+    an active reconciliation rule</li> </ul> If pre-defined criteria are not met, the transaction will
+    automatically be returned to the sender. <br/><br/> These rules will not be applied to NPP PayTo Receivables.<br/>
+    </p>
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Reconciliation Rules
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-reconciliation-rules-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-reporting-api
+  name: Monoova Reporting API
+  description: >-
+    </br><h2>PayTo Reporting</h2> <p> A new report has been added specifically for NPP payments related
+    to PayTo. Monoova’s PayTo NPP receivables – available <a href='https://api-docs.monoova.com/payments#operation/PayToReceivablesReportDate'
+    target='_blank'> here </a>
+
+    </p> </br> In addition, PayTo NPP receivables will have the following additional data fields </br>
+    <style type="text/css"> .tb { table-layout:auto; width:300px;!important } .td { overflow:hidden; white-space:nowrap;
+    text-overflow:ellipsis!important} </style> <table class="tb"> <tr> <th> Field </th> <th> Description
+    </th> <th> Specification </th> </tr>
+
+    <tr> <td class="td">
+
+    mmsId <br/> </td> <td class="td"> Id assigned by NPPA for payment agreement <br/> </td> <td class="td">
+    string{33} <br/> </td> </tr> <tr> <td class="td">
+
+    InitiatingPartyName <br/> </td> <td class="td"> Initiating Party name.. <br/> </td> <td class="td">
+    string{1, 35} <br/> </td> </tr> </table>
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Reporting
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-reporting-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-reports-api
+  name: Monoova Reports API
+  description: >-
+    <h3>  Overview </h3> The APIs in the reports/v1 section help you keep track of balances and transactions.
+    Payments automation is only helping you relax if you know where exactly your money is at any one point
+    in time.
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-reports-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-request-refund-transaction-api
+  name: Monoova Request Refund Transaction API
+  description: >-
+    The Request Refund Transaction API from Monoova — 1 operation(s) for request refund transaction.
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Request Refund Transaction
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-request-refund-transaction-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-security-api
+  name: Monoova Security API
+  description: >-
+    <h3>  Overview </h3> <p> The security/v1 APIs allows you to manage security tokens. This gives you
+    an alternative to using signIn API KEY for BASIC authentication for each API call. Security tokens
+    come in two forms </p> <ul> <li> <strong> OneShotSecurityToken </strong> </li> <li> <strong> SecurityToken
+    </strong> </li> </ul> <p> The two security tokens operate in exactly the same way. The token is used
+    to replace your UserName when configuring BASIC Authentication. Should you provide a password anyway,
+    it will be ignored. Each token type has an expiry time between 1 and 15 minutes. The expiry time cannot
+    be extended. </p> <p> As the name implies, a OneShotSecurityToken can only be used once. The token
+    is deleted on its first use or when it expires, whatever is sooner. </p> <p> A SecurityToken can be
+    used multiple times until it expires. The expiry time of a SecurityToken can be extended. </p> <p>
+    Please note that security tokens discussed in this section have nothing in common with the token/v1
+    APIs described elsewhere in this document. Security tokens provide secure sign-in from a web page;
+    token/v1 APIs tokenize sensitive information. </p>
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Security
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-security-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-subscriptions-api
+  name: Monoova Subscriptions API
+  description: >-
+    The endpoints in this section allow subscription and management of webhooks for the purpose of receiving
+    transaction notifications.</br>
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-subscriptions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-token-api
+  name: Monoova Token API
+  description: >-
+    <h3> Overview </h3> <p> Using tokens is a way of increasing the security around sensitive information.
+    A token can be used to obfuscate debit and credit details. The details of a token (its payload) are
+    stored encrypted on the Engine servers. The tokening system has been designed such the generated token
+    has no mathematical or algorithmic connection to the secret data held as the payload. The token is
+    a random number that is manifested as a GUID. Currently two types of payloads can be held within the
+    tokening system </p> <ul> <li> Australian Bank Account </li> <li> BPAY details </li> </ul> <p> Other
+    payload types can be added if required. For example, if you have asked the user to enter their bank-account
+    details on your website you can use the security/v1/createOneShotSecurityToken API to embed an OneShotSecurityToken
+    in your page. Using this OneShotSecurityToken you can call the appropriate token/v1/create API passing
+    the details. This way, the customer’s payload details are never passed through your server. </p>
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Token
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-token-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-tools-api
+  name: Monoova Tools API
+  description: >-
+    <h3>  Overview </h3> The APIs in the tools/v1/ section represent utilities that you may find useful
+    while consuming the other APIs offered as part of the Engine other APIs.
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Tools
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-tools-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-update-payment-method-token-status-api
+  name: Monoova Update Payment Method Token Status API
+  description: >-
+    The Update Payment Method Token Status API from Monoova — 1 operation(s) for update payment method
+    token status.
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Update Payment Method Token Status
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-update-payment-method-token-status-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-verify-api
+  name: Monoova Verify API
+  description: >-
+    <h3>Overview</h3> <h3>Bank Account Ownership Verification</h3> <p>The purpose of this API is to verify
+    access to a bank account or PayID details, which has several compliance and risk-mitigation applications.</p>
+
+    <p>If the NppCreditPayID method is used, the API response will include the PayID name. In scenarios
+    where the PayID is either unidentified or not configured, you can verify if the payer/payee has access
+    to the account using a secret code.</p>
+
+    <p>By passing the BSB and account number, the account verification API will credit a target bank account
+    with a secret code in the remitter name and lodgement reference. This code can only be viewed by someone
+    who has access to the target bank account by accessing and viewing their bank statement. The code
+    can then be submitted against our records, and if it matches, Monoova will persist a verification
+    token against that specific account.</p>
+
+    <h4>How it works</h4> <ol> <li>Initiate a verification transaction on the target bank account.</li>
+    <li>Monoova will credit the target bank account with a 1c amount and a secret remitter code (may take
+    up to 48 hours for the code to show on the target bank account).</li> </ol>
+
+    <p>Below image is how a sample verification code appears on a bank statement. In YELLOW is the code
+    your client will need to return, in BLUE is your remitter name. For NPP verification transactions,
+    the secret code can also be found in the lodgement reference.</p> <img src="https://movdpwebsiteprodae.blob.core.windows.net/images/bank_ref.png"
+    alt="bank-ref">
+
+    <ol> <li>Owner of the target bank account views the statement to obtain the secret code.</li> <li>Submit
+    the secret code to Monoova via POST <a href="/payments#operation/VerifyAccountValidate">verify/v1/aba/validate</a>.
+    In the sandbox, use code "555555" to test successful validation of an account verification.</li> <li>If
+    the submitted code and amount are correct, the target bank account is designated as verified.</li>
+    </ol>
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Verify
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-verify-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-webhooks-api
+  name: Monoova Webhooks API
+  description: >-
+    <p> In addition to callable reporting endpoints, webhooks will also be available for state changes
+    for payment agreements and funds received. </p> </br></br>
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
+- aid: monoova:monoova-whitelisting-for-automatcher-bank-account-receivables-api
+  name: Monoova Whitelisting for Automatcher (Bank Account Receivables) API
+  description: >-
+    <h3>  Overview </h3> <p> This feature enables whitelisting of bank accounts when receiving funds in
+    automatcher accounts. Funds received from a non-whitelisted account will be automatically returned.
+    Using this feature, funds received can be limited to pre-approved bank accounts only. </p> <p> There
+    are 2 criteria that can be set when whitelisting bank account numbers. </p> <p> Inbound transaction
+    will only be accepted from:&nbsp; </p> <p> 1. An account that matches a whitelisted account name;
+    AND/OR <br/> 2. An account that matches a whitelisted BSB and account number </p> <p> If pre-defined
+    criteria are not met, the transaction will be returned to the sender automatically. If enabled, each
+    automatcher account has its own separate whitelist. </p> <p> You have the option to establish a webhook
+    subscription to receive a notification when a payment is declined as a result of whitelist restrictions.
+    </p> <p> To subscribe to a webhook use the <a href="/payments#tag/Subscriptions"> Subscriptions </a>
+    APIs. Event name:&nbsp; <strong>InboundDirectCreditRejections</strong></p>
+  humanURL: https://developer.monoova.com/overview
+  baseURL: https://api.mpay.com.au
+  tags:
+  - Whitelisting for Automatcher (Bank Account Receivables)
+  properties:
+  - type: OpenAPI
+    url: openapi/monoova-whitelisting-for-automatcher-bank-account-receivables-api-openapi.yml
+  - type: Documentation
+    url: https://developer.monoova.com/overview
+  - type: APIReference
+    url: https://api-docs.monoova.com/
+  - type: Documentation
+    url: https://developer.monoova.com/payto
+  - type: Documentation
+    url: https://developer.monoova.com/card-payments
 common:
 - type: Overlay
   url: overlays/monoova-cc-overlay.yaml
