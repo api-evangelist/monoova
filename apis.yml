@@ -12,6 +12,18 @@ description: 'Monoova is an Australian payments platform that lets businesses re
   lending, remittance, and SaaS businesses (customers include Wise, Nium, Finder, and Sharesies). Monoova
   is genuinely API-first: it ships a public developer portal, a Redoc API reference, downloadable OpenAPI
   specifications, and a public Postman workspace, plus a free self-serve sandbox.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Payments
