@@ -623,6 +623,8 @@ apis:
   humanURL: https://developer.monoova.com/overview
   baseURL: https://api.mpay.com.au
   tags:
+  - Subscription
+  tags_raw:
   - Subscriptions
   properties:
   - type: OpenAPI
@@ -756,6 +758,8 @@ apis:
   humanURL: https://developer.monoova.com/overview
   baseURL: https://api.mpay.com.au
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
