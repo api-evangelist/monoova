@@ -1,0 +1,628 @@
+openapi: 3.2.0
+info:
+  description: "# Introduction\n\n<p> \n  Monoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n  This service is made available to Monoova’s clients through a set of easy-to-use RESTful APIs with JSON payloads described in this document.\n  The central idea is to reduce the cost, risk and effort normally associated with managing complex money movements so that you can focus on growing your business.\n</p> \n<p> \n Our clients can receive and reconcile funds via Realtime transfers (NPP), direct credits/debits, BPAY and cards. \n They can then manage those funds by building virtual account/wallet hierarchies to get bespoke reporting, reconciliation and much more. \n And finally, our clients can pay funds via Realtime transfers (NPP) direct credits and BPAY. \n As new technologies become available (e.g. NPP Mandated payments) we will make additional methods of receiving, managing and paying available.\n</p> \n<p> \n  All information flows are real-time.\n  Moving money between various Monoova accounts is also real time.\n  All money flows in and out of the Engine are as fast as the banking system allows.\n</p>\n<p> \n  The sandbox environment is open to everyone who signs up on our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a> at no cost.\n  The sandbox environment allows you to test out the functionality of our API in a consequence free development environment.\n  Access to the live environment is granted once you have (1) gone through our compliance process and (2) had formal sign-off on your sandbox integration.\n</p>\n<p>\n  Monoova regularly releases additive changes to our API, as well as new versions of the API when a breaking change would occur. \n  To ensure your integration does not break due to these additive changes, we recommend not validating the entire schema, or the position of a parameter within the schema.\n</p>\n<br/><br/>\n<p> <strong> Note&#58;</strong> Please note we do not accept TLS 1.0 or 1.1 connections</p>\n\n# Getting started\n>\n  - Sign on to our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>\n  - Get your sandbox API key under **MANAGE > ACCOUNTS** in the Sandbox Portal\n  - [Authenticate](#section/Authentication)\n  - Browse this document to find the functions you need\n  - Begin experimenting with your first API calls by sending HTTP requests to the endpoints described in this document\n  - Use the provided examples in the document as guidance\n\n# Authentication\n  All RESTful APIs in this document use BASIC Authentication (except those in public/v1) in two scenarios either\n  - <strong> API KEY </strong>\n  - <strong> OneShotSecurityToken </strong><br><br>\n\n> **Sandbox Authentication Credentials**\n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.m-pay.com.au/</td>\n  </tr>\n</table> <br>\n\n> **Live Authentication Credentials**\nThis will be provided by Monoova after a technical review. <br> \n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the Production Portal; Production credentials will be supplied by Monoova) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.mpay.com.au/</td>\n  </tr>\n</table> <br>\n\nWhen using the LIVE Engine, your Sign-In Account is given five (5) attempts to authenticate your credentials. \nOn the fifth failure your Sign-In Account is locked for one (1) hour. \nThe returned data will indicate that your account is locked and the time in UTC that the account will be unlocked. \nIf you require the account to be unlocked on the LIVE system you may contact your Monoova representative and at his or her discretion they will unlock the account.\nSee the API routes in Security to manage Passwords and Tokens. <br><br>\n\n<h3> UserName/Password </h3>\nUsing this scenario, you can configure BASIC Authentication with the following <br> <br>\n<li> <strong> UserName </strong> - API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) Production credentials will be supplied by Monoova when you have demonstrated successful implementation of the API on our Sandbox environment.</li>\n<li> <strong> Password </strong> - When using your API Key, no password is required. \nIf the key is compromised, it can be re-rolled via the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>. </li> <br>\n\n# Feedback\n\nWe value your feedback on our API. Please fill out the form <a href=\"https://ncv.microsoft.com/8eaKX3fsiJ\" target=\"_blank\">here</a> to share your feedback.\n"
+  version: v5.29
+  title: Monoova Payments Verify API
+  contact:
+    name: Monoova Support
+    email: support@monoova.com
+    url: https://www.monoova.com
+  x-logo:
+    url: https://movdpwebsiteprodae.blob.core.windows.net/images/Monoova-Primary-Logo-Black-RGB.png
+    altText: Monoova logo
+servers:
+- url: https://api.mpay.com.au
+  description: Production URL
+- url: https://api.m-pay.com.au
+  description: Sandbox URL
+security:
+- BasicAuth: []
+tags:
+- name: Verify
+  description: '<h3>Overview</h3> <h3>Bank Account Ownership Verification</h3> <p>The purpose of this API is to verify access to a bank account or PayID details, which has several compliance and risk-mitigation applications.</p>
+
+    <p>If the NppCreditPayID method is used, the API response will include the PayID name. In scenarios where the PayID is either unidentified or not configured, you can verify if the payer/payee has access to the account using a secret code.</p>
+
+    <p>By passing the BSB and account number, the account verification API will credit a target bank account with a secret code in the remitter name and lodgement reference. This code can only be viewed by someone who has access to the target bank account by accessing and viewing their bank statement. The code can then be submitted against our records, and if it matches, Monoova will persist a verification token against that specific account.</p>
+
+    <h4>How it works</h4> <ol> <li>Initiate a verification transaction on the target bank account.</li> <li>Monoova will credit the target bank account with a 1c amount and a secret remitter code (may take up to 48 hours for the code to show on the target bank account).</li> </ol>
+
+    <p>Below image is how a sample verification code appears on a bank statement. In YELLOW is the code your client will need to return, in BLUE is your remitter name. For NPP verification transactions, the secret code can also be found in the lodgement reference.</p> <img src="https://movdpwebsiteprodae.blob.core.windows.net/images/bank_ref.png" alt="bank-ref">
+
+    <ol> <li>Owner of the target bank account views the statement to obtain the secret code.</li> <li>Submit the secret code to Monoova via POST <a href="/payments#operation/VerifyAccountValidate">verify/v1/aba/validate</a>. In the sandbox, use code "555555" to test successful validation of an account verification.</li> <li>If the submitted code and amount are correct, the target bank account is designated as verified.</li> </ol>'
+paths:
+  /verify/v2/aba/initiate:
+    post:
+      tags:
+      - Verify
+      summary: Initiate a NPP verification transaction
+      description: Initiates a verification transaction against a designated bank account or PayID via NPP rail using the v2 endpoint.
+      operationId: VerifyNPPAccountPayIdInitiate
+      x-codeSamples:
+      - lang: 'Npp To BankAccount '
+        source: "{\n  \"creditMethod\": \"NppCreditBankAccount\",\n  \"bsb\": \"802-985\",\n  \"bankAccountNumber\": \"718414234\",\n  \"accountName\": \"Monoova\",\n  \"remitter\": \"RemitterName\",\n  \"verificationIdentifier\": \"NPP Bank Account Verification Identifier\"\n}\n"
+      - lang: Npp To PayId
+        source: "{\n  \"creditMethod\": \"NppCreditPayId\",\n  \"payId\": \"MW9GM4@monoova.me\",\n  \"payIdType\": \"Email\",\n  \"accountName\": \"Monoova\",\n  \"remitter\": \"RemitterName\",\n  \"verificationIdentifier\": \"NPP PayId Verification Identifier\"\n}\n"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/verify.initiate2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.VerifyAccountInitiateResponse_V2'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /verify/v1/aba/initiate:
+    post:
+      tags:
+      - Verify
+      summary: Initiate a DE Verification Transaction
+      description: Inititiates a verification transaction against a designated bank account.
+      operationId: VerifyAccountInitiate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/verify.initiate'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.VerifyAccountInitiateResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /verify/v1/aba/validate:
+    post:
+      tags:
+      - Verify
+      summary: Complete an account verification
+      description: Validates a code against a token generated via the initiate call. After 3 failed attempts the token will get locked for 1 hour. Users can retry with same token after 1 hour or initiate a new verification anytime.
+      operationId: VerifyAccountValidate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/verify.validate'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.VerifyAccountValidateResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /verify/v1/aba/get/{token}:
+    get:
+      tags:
+      - Verify
+      summary: Get a verification token's details
+      description: Return details for a specific verification token.
+      operationId: VerifyAccountGet
+      parameters:
+      - name: token
+        in: path
+        required: true
+        description: Generated Token from verify/v1/aba/initiate (Initiates a verification transaction)
+        schema:
+          type: string
+          example: f45d1c83-1533-4cbb-ae05-4381e181cb18
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.VerifyAccountGetResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /verify/v1/aba/list:
+    get:
+      tags:
+      - Verify
+      summary: List verified bank accounts
+      description: Get a list of all verified bank accounts.
+      operationId: VerifyAccountList
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.VerifyAccountListResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /verify/v1/aba/update:
+    post:
+      tags:
+      - Verify
+      summary: Update a verified bank account
+      description: Update the following fields for a verified account&#39;s without reverifying the bank account. Bank Account Title, Has DDR authority
+      operationId: VerifyAccountUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/verify.update'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.VerifyAccountUpdateResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+components:
+  schemas:
+    DTO.VerifyAccountDetails:
+      properties:
+        token:
+          description: The text(GUID) that identifies the token.
+          type: string
+          example: 97649d82-fa5b-4481-90a8-ec4ef9a854ab
+        created:
+          description: Datetime that the request was created
+          type: string
+          example: '2018-11-19T13:26:48'
+        updated:
+          description: Datetime that the direct debit authority flag was last updated
+          type: string
+          example: '2018-11-19T13:26:48'
+        lastSystemBSBValidation:
+          description: System bsb validation timestamp
+          type: string
+        comment:
+          description: Your comment submitted when initiating the verify request
+          type: string
+          example: 'null'
+        bsb:
+          description: BSB number of associated bank account. BSB format is ‘000-000’
+          type: string
+          example: 062-205
+        bankAccountNumber:
+          description: This is the bank accounts number
+          type: string
+          example: '201786488'
+        bankAccountTitle:
+          description: Bank account title or name of associated bank account
+          type: string
+          example: MPayments Retail
+        remitter:
+          description: Your example remitter code
+          type: string
+          example: MPRetail
+          maxLength: 16
+        isBlacklisted:
+          description: Blacklisted accounts cannot be transacted on
+          type: boolean
+          example: false
+        hasDDAuthority:
+          description: Flag that can be used to track which account you have direct debit authority for
+          type: boolean
+          example: true
+        ddAuthorityChangedTimestamp:
+          description: Datetime that the direct debit authority flag was last modified
+          type: string
+          example: '2018-11-19T13:26:48'
+        ddAuthorityChangedBy:
+          description: Datetime that the request was created
+          type: string
+          example: '6279059761211264'
+        verificationIdentifier:
+          description: Name of the verification token
+          type: string
+          example: MP Retail Account
+        verificationStatus:
+          description: Status of the verification token
+          type: string
+          example: Pending
+        verificationSignonMerchant:
+          description: mAccount which owns the verification token
+          type: string
+          example: '6279059761211264'
+        verificationRetryCount:
+          description: Number of times verification has been retried
+          type: integer
+          format: int32
+          example: 0
+        verificationRetyCountBeforeLockout:
+          description: Threshold number of verification failures that triggers a lockout
+          type: integer
+          format: int32
+          example: 3
+        verificationLastRetryTimestamp:
+          description: Last verification attempt datetime
+          type: string
+          example: '2018-11-19T13:26:48'
+        verificationLastRetryLockoutMinutes:
+          description: Lockout time in after verification failure threshold has been reached
+          type: integer
+          format: int32
+          example: 60
+        verificationDEJobId:
+          description: Job ID for the verification transaction
+          type: integer
+          format: int32
+          example: 93607
+        verificationRootId:
+          description: Unique verification root ID
+          type: integer
+          format: int32
+          example: 438714
+      type: object
+    verify.initiate2:
+      type: object
+      required:
+      - creditMethod
+      - accountName
+      - verificationIdentifier
+      properties:
+        creditMethod:
+          type: string
+          example: NppCreditBankAccount
+          enum:
+          - NppCreditBankAccount
+          - NppCreditPayId
+          description: Credit method. Possible values:&nbsp; 'NppCreditBankAccount' or 'NppCreditPayId'
+        bsb:
+          type: string
+          uniqueItems: false
+          example: 802-985
+          maxLength: 7
+          description: BSB number of associated bank account. BSB format is ‘000-000’. `When creditMethod is 'NppCreditBankAccount' this field is required`
+        bankAccountNumber:
+          type: string
+          maxLength: 9
+          example: '123456789'
+          description: Bank account number of associated bank account. `When creditMethod is 'NppCreditBankAccount' this field is required`
+        accountName:
+          type: string
+          uniqueItems: false
+          maxLength: 32
+          example: Monoova NPP Bank Account
+          description: Bank account title or name of associated bank account.
+        remitter:
+          type: string
+          uniqueItems: false
+          example: Monoova Remitter
+          maxLength: 140
+          description: More details at <a href="/payments#tag/Verify"> Verify </a> section.
+        payIdType:
+          type: string
+          example: Email
+          enum:
+          - ABN
+          - Email
+          - PhoneNumber
+          - OrganisationId
+          - ACN
+          description: PayId Type. Possible values:&nbsp; ABN, Email, PhoneNumber, OrganisationId, ACN `When creditMethod is 'NppCreditPayId' this field is required`
+        payId:
+          type: string
+          example: MW9GM4@monoova.me
+          maxLength: 256
+          description: PayId Identifier of the Payee. `When creditMethod is 'NppCreditPayId' this field is required` <a href="/payTo#tag/PAYID-Format-Validation">See PAYID Format Validation.</a>
+        verificationIdentifier:
+          type: string
+          uniqueItems: false
+          example: NPP Bank Account Verification Identifier
+          maxLength: 512
+          description: A description supplied by the VerificationSigninMerchant to distinguish this entry from others in a listing. This could be an encoded string from the signon merchant.
+    verify.initiate:
+      type: object
+      required:
+      - bsb
+      - bankAccountNumber
+      - bankAccountTitle
+      - verificationIdentifier
+      - hasDDAuthority
+      properties:
+        bsb:
+          type: string
+          uniqueItems: false
+          example: 012-366
+          maxLength: 7
+          description: BSB number of associated bank account. BSB format is ‘000-000’.
+        bankAccountNumber:
+          type: string
+          maxLength: 9
+          example: '123456789'
+          description: Bank account number of associated bank account.
+        bankAccountTitle:
+          type: string
+          uniqueItems: false
+          maxLength: 32
+          example: Monoova Bank Account
+          description: Bank account title or name of associated bank account.
+        remitter:
+          type: string
+          uniqueItems: false
+          example: MPRetail
+          maxLength: 16
+          description: See <a href="/payments#tag/Verify"> Verify </a> section.
+        verificationIdentifier:
+          type: string
+          uniqueItems: false
+          example: MP Retail Account
+          maxLength: 512
+          description: A description supplied by the VerificationSigninMerchant to distinguish this entry from others in a listing. This could be an encoded string from the signon merchant.
+        hasDDAuthority:
+          type: boolean
+          default: true
+          example: true
+          description: Can the system use this account to direct debit. Has an authority been granted.
+    verify.validate:
+      type: object
+      required:
+      - token
+      - amount
+      - code
+      properties:
+        token:
+          type: string
+          uniqueItems: false
+          example: f45d1c83-1533-4cbb-ae05-4381e181cb18
+          description: token from verify/v1/aba/initiate.(Inititiates a verification transaction)
+        amount:
+          type: number
+          format: double
+          uniqueItems: false
+          example: 0.01
+          minimum: 0.01
+          description: amount for the verification.
+        code:
+          type: string
+          uniqueItems: false
+          example: '555555'
+          description: Once you receive the verification code, enter it here to confirm your identity.
+    DTO.VerifyAccountInitiateResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        token:
+          description: The text(GUID) that identifies the token.
+          type: string
+          example: 97649d82-fa5b-4481-90a8-ec4ef9a854ab
+          uniqueItems: false
+        feeAmountExGst:
+          description: This is the fee amount Excluding GST
+          type: number
+          format: decimal
+          example: 0.5
+          uniqueItems: false
+        feeAmountIncGst:
+          description: This is the total fee amount Including GST
+          type: number
+          format: decimal
+          example: 0.55
+          uniqueItems: false
+        feeAmountGstComp:
+          description: This is the GST Component of the fee amount
+          type: number
+          format: decimal
+          example: 0.05
+          uniqueItems: false
+      type: object
+      format: DTO.VerifyAccountInitiateResponse_V1
+    verify.update:
+      type: object
+      required:
+      - token
+      - verificationIdentifier
+      - hasDDAuthority
+      properties:
+        token:
+          type: string
+          uniqueItems: false
+          example: f45d1c83-1533-4cbb-ae05-4381e181cb18
+          description: token from verify/v1/aba/initiate. (Inititiates a verification transaction)
+        remitter:
+          type: string
+          uniqueItems: false
+          example: MPRetail
+          maxLength: 16
+          description: See <a href="/payments#tag/Verify"> Verify </a> section.
+        verificationIdentifier:
+          type: string
+          uniqueItems: false
+          example: MP Retail Account
+          maxLength: 512
+          description: A description supplied by the VerificationSigninMerchant to distinguish this entry from others in a listing. This could be an encoded string from the signon merchant.
+        hasDDAuthority:
+          type: boolean
+          default: true
+          example: true
+          description: Can the system use this account to direct debit. Has an authority been granted.
+        bankAccountTitle:
+          type: string
+          uniqueItems: false
+          example: Monoova Bank Account
+          maxLength: 32
+          description: The Title of the Bank Account for DE file.
+    DTO.VerifyAccountGetResponse_V1:
+      properties:
+        durationMs:
+          description: This value represents the total time in milliseconds that the Platform took to process the request.
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        details:
+          $ref: '#/components/schemas/DTO.VerifyAccountDetails'
+      type: object
+      format: DTO.VerifyAccountGetResponse_V1
+    DTO.VerifyAccountInitiateResponse_V2:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        token:
+          description: The text(GUID) that identifies the token.
+          type: string
+          example: 40a834c0-8819-49d4-97df-a42738b9f685
+        feeAmountExGst:
+          description: This is the fee amount Excluding GST
+          type: number
+          format: decimal
+          example: 1.0
+        feeAmountIncGst:
+          description: This is the total fee amount Including GST
+          type: number
+          format: decimal
+          example: 1.1
+        feeAmountGstComp:
+          description: This is the GST Component of the fee amount
+          type: number
+          format: decimal
+          example: 0.1
+        ownerName:
+          description: This is the PayId Name set up by account holder. `When creditMethod is 'NppCreditBankAccount' this field is always Null`
+          type: string
+          example: Monoova PayId Name
+      type: object
+      format: DTO.VerifyAccountInitiateResponse_V2
+    DTO.VerifyAccountUpdateResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+      type: object
+      format: DTO.VerifyAccountUpdateResponse_V1
+    DTO.VerifyAccountListResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        list:
+          description: VerifyAccountDetails
+          type: array
+          items:
+            $ref: '#/components/schemas/DTO.VerifyAccountDetails'
+      type: object
+      format: DTO.VerifyAccountListResponse_V1
+    DTO.VerifyAccountValidateResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+      type: object
+      format: DTO.VerifyAccountValidateResponse_V1
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Receive and Pay
+  tags:
+  - Financial
+  - Verify
+  - Automatcher (Bank Account Receivables)
+  - Whitelisting for Automatcher (Bank Account Receivables)
+  - Ledger Account
+  - Reconciliation Rules
+  - PayID
+  - Tools
+- name: BPAY
+  tags:
+  - BPAY
+  - mWallet
+- name: Manage
+  tags:
+  - Subscriptions
+  - Webhooks
+  - mAccount
+  - Reports
+  - Security
+  - Token
+- name: Public Endpoints
+  tags:
+  - Public Endpoints

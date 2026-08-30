@@ -1,0 +1,350 @@
+openapi: 3.2.0
+info:
+  description: "# Introduction\n\n<p> \n  Monoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n  This service is made available to Monoova’s clients through a set of easy-to-use RESTful APIs with JSON payloads described in this document.\n  The central idea is to reduce the cost, risk and effort normally associated with managing complex money movements so that you can focus on growing your business.\n</p> \n<p> \n Our clients can receive and reconcile funds via Realtime transfers (NPP), direct credits/debits, BPAY and cards. \n They can then manage those funds by building virtual account/wallet hierarchies to get bespoke reporting, reconciliation and much more. \n And finally, our clients can pay funds via Realtime transfers (NPP) direct credits and BPAY. \n As new technologies become available (e.g. NPP Mandated payments) we will make additional methods of receiving, managing and paying available.\n</p> \n<p> \n  All information flows are real-time.\n  Moving money between various Monoova accounts is also real time.\n  All money flows in and out of the Engine are as fast as the banking system allows.\n</p>\n<p> \n  The sandbox environment is open to everyone who signs up on our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a> at no cost.\n  The sandbox environment allows you to test out the functionality of our API in a consequence free development environment.\n  Access to the live environment is granted once you have (1) gone through our compliance process and (2) had formal sign-off on your sandbox integration.\n</p>\n<p>\n  Monoova regularly releases additive changes to our API, as well as new versions of the API when a breaking change would occur. \n  To ensure your integration does not break due to these additive changes, we recommend not validating the entire schema, or the position of a parameter within the schema.\n</p>\n<br/><br/>\n<p> <strong> Note&#58;</strong> Please note we do not accept TLS 1.0 or 1.1 connections</p>\n\n# Getting started\n>\n  - Sign on to our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>\n  - Get your sandbox API key under **MANAGE > ACCOUNTS** in the Sandbox Portal\n  - [Authenticate](#section/Authentication)\n  - Browse this document to find the functions you need\n  - Begin experimenting with your first API calls by sending HTTP requests to the endpoints described in this document\n  - Use the provided examples in the document as guidance\n\n# Authentication\n  All RESTful APIs in this document use BASIC Authentication (except those in public/v1) in two scenarios either\n  - <strong> API KEY </strong>\n  - <strong> OneShotSecurityToken </strong><br><br>\n\n> **Sandbox Authentication Credentials**\n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.m-pay.com.au/</td>\n  </tr>\n</table> <br>\n\n> **Live Authentication Credentials**\nThis will be provided by Monoova after a technical review. <br> \n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the Production Portal; Production credentials will be supplied by Monoova) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.mpay.com.au/</td>\n  </tr>\n</table> <br>\n\nWhen using the LIVE Engine, your Sign-In Account is given five (5) attempts to authenticate your credentials. \nOn the fifth failure your Sign-In Account is locked for one (1) hour. \nThe returned data will indicate that your account is locked and the time in UTC that the account will be unlocked. \nIf you require the account to be unlocked on the LIVE system you may contact your Monoova representative and at his or her discretion they will unlock the account.\nSee the API routes in Security to manage Passwords and Tokens. <br><br>\n\n<h3> UserName/Password </h3>\nUsing this scenario, you can configure BASIC Authentication with the following <br> <br>\n<li> <strong> UserName </strong> - API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) Production credentials will be supplied by Monoova when you have demonstrated successful implementation of the API on our Sandbox environment.</li>\n<li> <strong> Password </strong> - When using your API Key, no password is required. \nIf the key is compromised, it can be re-rolled via the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>. </li> <br>\n\n# Feedback\n\nWe value your feedback on our API. Please fill out the form <a href=\"https://ncv.microsoft.com/8eaKX3fsiJ\" target=\"_blank\">here</a> to share your feedback.\n"
+  version: v5.29
+  title: Monoova Payments Tools API
+  contact:
+    name: Monoova Support
+    email: support@monoova.com
+    url: https://www.monoova.com
+  x-logo:
+    url: https://movdpwebsiteprodae.blob.core.windows.net/images/Monoova-Primary-Logo-Black-RGB.png
+    altText: Monoova logo
+servers:
+- url: https://api.mpay.com.au
+  description: Production URL
+- url: https://api.m-pay.com.au
+  description: Sandbox URL
+security:
+- BasicAuth: []
+tags:
+- name: Tools
+  description: <h3>  Overview </h3> The APIs in the tools/v1/ section represent utilities that you may find useful while consuming the other APIs offered as part of the Engine other APIs.
+paths:
+  /tools/v1/ping:
+    get:
+      tags:
+      - Tools
+      summary: Ping (test authentication)
+      description: The primary purpose of the ping API is to validate your credentials as well validate that the Engine servers are up and running.
+      operationId: ToolsPing
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.ToolsPingResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /tools/v1/bsbValidate/{bsbNumber}:
+    get:
+      tags:
+      - Tools
+      summary: Validate a BSB
+      description: The purpose of this API is to return details about a BSB (Bank-State-Branch) number. The format is a string in the following format:&nbsp;‘999-999’.
+      operationId: ToolsBsbValidate
+      parameters:
+      - name: bsbNumber
+        in: path
+        required: true
+        description: BSB (Bank-State-Branch) number. The format is a string in the following format:&nbsp;‘999-999’.
+        schema:
+          type: string
+          example: 012-433
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.ToolsBsbValidateResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /tools/v1/abnValidate/{abnNumber}:
+    get:
+      tags:
+      - Tools
+      summary: Validate an ABN
+      description: The purpose of this API is to validate that an ABN (Australian Business Number) is correct and determine if it’s valid.&nbsp; This API makes a call to the Australian Business Registry returning current details about the company.&nbsp; An ABN is defined as a string of eleven numeric digits.Spaces are allowed but no other characters.&nbsp; If the resulting status property contains ‘Ok’ then examine the property isAbnValid.&nbsp; The property isCharity will be true if the entity is an active registered charity.&nbsp; A list of codes and more information is available at http://abr.business.gov.au/Documentation/ReferenceData
+      operationId: ToolsAbnValidate
+      parameters:
+      - name: abnNumber
+        in: path
+        required: true
+        description: ABN (Australian Business Number)
+        schema:
+          type: string
+          example: '24611393554'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.ToolsAbnValidateResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /tools/v1/sendEmailToIssuer:
+    post:
+      tags:
+      - Tools
+      summary: Email an issuer
+      description: The purpose of this API is to provide email functionality for your application to send emails to the Sign-In Accounts Issuer.
+      operationId: ToolsSendEmailToIssuer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tools.sendEmailToIssuer'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.ToolsSendEmailResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+components:
+  schemas:
+    tools.sendEmailToIssuer:
+      type: object
+      required:
+      - subject
+      properties:
+        subject:
+          type: string
+          uniqueItems: false
+          example: Please call me ASAP
+          description: This is the emails subject.
+        isBodyHtml:
+          type: boolean
+          example: false
+          default: false
+          description: Set to true if the body contains HTML.
+        body:
+          type: string
+          uniqueItems: false
+          example: I have forgotten my password
+          description: Email body. Can be HTML or plain text.
+    DTO.ToolsAbnValidateResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        abn:
+          description: The Australian Business Number that was passed as aparameter formatted as ’99 999 999 999’
+          type: string
+          example: 24 611 393 554
+          uniqueItems: false
+        lastUpdatedDate:
+          description: The date the ABN record was last updated
+          type: string
+          example: '2017-02-28T00:00:00'
+          uniqueItems: false
+        isAbnValid:
+          description: If true, indicates the identity has a valid ABN
+          type: boolean
+          example: true
+        isCharity:
+          description: If true, indicates the identity is a registered charity
+          type: boolean
+          example: false
+        entityTypeCode:
+          description: The abbreviation of the type of business entity
+          type: string
+          example: PRV
+          uniqueItems: false
+        entityTypeDescription:
+          description: A description the type of business entity
+          type: string
+          example: Australian Private Company
+          uniqueItems: false
+        organisationName:
+          description: The current name of the business entity
+          type: string
+          example: Monoova GROUP LIMITED
+          uniqueItems: false
+        legalName:
+          description: If business is a Sole Trader, contains the persons name
+          type: string
+          example: 'null'
+          uniqueItems: false
+        organisationNameFromDate:
+          description: The date the organisationName was last updated
+          type: string
+          example: '2017-02-28T00:00:00'
+          uniqueItems: false
+        businessPhysicalAddressStateCode:
+          description: The state code of the business physical address – eg. ‘NSW’
+          type: string
+          example: NSW
+          uniqueItems: false
+        businessPhysicalAddressPostCode:
+          description: The post code of the business physical address
+          type: string
+          example: '2060'
+          uniqueItems: false
+        businessPhysicalAddressEffectiveFromDate:
+          description: The date the business physical address was last updated
+          type: string
+          example: '2016-07-01T00:00:00'
+          uniqueItems: false
+      type: object
+      format: DTO.ToolsAbnValidateResponse_V1
+    DTO.ToolsPingResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        version:
+          description: A string containing the Version of the Platform with the current Date Time at the server
+          type: string
+          example: 'Monoova Payments Platform Tools V:1.00 Engine V:4.74 Environment: Sandbox DateTime: 09 - Nov - 2018 10:48:09 AM'
+          uniqueItems: false
+        environment:
+          description: A string containing the Version of the Platform with the current Date Time at the server
+          type: string
+          example: Sandbox
+          uniqueItems: false
+      type: object
+      format: DTO.ToolsPingResponse_V1
+    DTO.ToolsBsbValidateResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        bsb:
+          description: The BSBNumber that was passed as a parameter
+          type: string
+          example: 012-433
+          uniqueItems: false
+        closed:
+          description: Indicates if the branch has been closed. If true, the address field MAY contain a reference to a replacement BSB number
+          type: boolean
+          example: false
+        address:
+          description: The branch address
+          type: string
+          example: Shop 1-047 Henry St
+          uniqueItems: false
+        city:
+          description: The branch city
+          type: string
+          example: Penrith
+          uniqueItems: false
+        state:
+          description: The branch state e.g. NSW, VIC, QLD etc
+          type: string
+          example: NSW
+          uniqueItems: false
+        postCode:
+          description: The branch post code
+          type: string
+          example: '2750'
+          uniqueItems: false
+        bankCode:
+          description: The bank code e.g.ANZ, CBA, NAB, WBC etc
+          type: string
+          example: ANZ
+          uniqueItems: false
+      type: object
+      format: DTO.ToolsBsbValidateResponse_V1
+    DTO.ToolsSendEmailResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+      type: object
+      format: DTO.ToolsSendEmailResponse_V1
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Receive and Pay
+  tags:
+  - Financial
+  - Verify
+  - Automatcher (Bank Account Receivables)
+  - Whitelisting for Automatcher (Bank Account Receivables)
+  - Ledger Account
+  - Reconciliation Rules
+  - PayID
+  - Tools
+- name: BPAY
+  tags:
+  - BPAY
+  - mWallet
+- name: Manage
+  tags:
+  - Subscriptions
+  - Webhooks
+  - mAccount
+  - Reports
+  - Security
+  - Token
+- name: Public Endpoints
+  tags:
+  - Public Endpoints

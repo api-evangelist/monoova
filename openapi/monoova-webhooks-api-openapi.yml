@@ -1,0 +1,2552 @@
+openapi: 3.2.0
+info:
+  title: Monoova Webhooks API
+  contact:
+    name: Monoova Support
+    email: support@monoova.com
+    url: https://www.monoova.com
+  x-logo:
+    url: https://movdpwebsiteprodae.blob.core.windows.net/images/Monoova-Primary-Logo-Black-RGB.png
+    altText: Monoova logo
+  version: '1.0'
+  description: 'Operations tagged Webhooks across 3 of this provider''s published API definitions: monoova-cc.yml, monoova-payments.yml, monoova-payto.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.monoova.com
+  description: Production URL#
+- url: https://sand-api.monoova.com
+  description: Sandbox URL
+- url: https://api.mpay.com.au
+  description: Production URL
+- url: https://api.m-pay.com.au
+  description: Sandbox URL
+tags:
+- name: Webhooks
+  description: <p> In addition to callable reporting endpoints, webhooks will also be available for state changes for payment agreements and funds received. </p> </br></br>
+paths:
+  /WEBHOOK_TARGET_URL:
+    post:
+      tags:
+      - Webhooks
+      summary: Payment Status Notification
+      description: "<p>When the status of the payment changes, Monoova will send a webhook to notify the customer. Webhook will be triggered for the below statuses:</p>\n<ul>\n  <li>Failed</li>\n  <li>Declined</li>\n  <li>Settlement Complete</li>\n  <li>Cancelled</li>\n</ul>\n<p>Additionally, “interim” webhooks will be triggered when surcharging is in effect for the client, once the payment is authorised for a new client session. This is the point at which the surcharging information becomes available and can be communicated. In this scenario, the payment status could also be one of the following non-final status values:</p>\n<ul>\n  <li>Pending</li>\n  <li>Authorized</li>\n  <li>Settling</li>\n</ul>\n<p>Note that if the payment is made using a previously vaulted payment method, the surcharge is already known at new payment creation, so there is no additional interim webhook generated.</p>\n</br>\n<p>This webhook can be subscribed using APIs provided in <a href='/payTo#tag/Notification-Management'>Notification Management</a>.</p>\n</br>\n<p>Event name - <b>CreditCardPaymentNotification</b></p>\n"
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        example: Bearer <TOKEN>
+        description: The securityToken from the subscription.
+      - name: Verification-Signature
+        in: header
+        required: false
+        schema:
+          type: string
+        example: e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGLjzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDnrz6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak=
+        description: 'This is a base64 encoded cryptographic signature that should be used<br/>
+
+          to verify both the integrity of the message as well as the source (Monoova).<br/>
+
+          The signature''s hashing method is SHA256 and the public key can be retrieved from
+
+          <a href="/payments#operation/PublicCertificatePublicKey"> /public/v1/certificate/public-key</a>.
+
+          '
+      operationId: PaymentStatusNotification
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookPaymentStatusResponseDto'
+            example:
+              eventId: 9E151397-BCA4-4700-8718-3907368780F5
+              sourceEventName: CreditCardTransactionUpdated
+              eventTimestamp: '2023-04-18T05:34:22.3447159Z'
+              paymentDetails:
+              - transactionId: '123456'
+                settlementDateTime: '2023-04-19T05:34:14.5046065Z'
+                settlementBatchId: batchId
+                sessionCreationDateTime: '2023-04-18T05:34:14.5045854Z'
+                clientTransactionUniqueReference: clientPaymentId1
+                transactionInitiationDateTime: '2023-04-18T05:35:14.5045854Z'
+                amount: '100.00'
+                currencyCode: AUD
+                surchargeAmount:
+                  currencyAmount: '1.00'
+                authenticationChallengeIssued: true
+                authenticationResponseCode: AUTH_SUCCESS
+                preAuthorizationFraudResult: THREE_DS
+                postAuthorizationFraudResult: ACCEPT
+                status: Settlement Complete
+              - transactionId: '123456'
+                settlementDateTime: '2023-04-19T05:34:14.504628Z'
+                settlementBatchId: batchId
+                sessionCreationDateTime: '2023-04-18T05:34:14.5046278Z'
+                clientTransactionUniqueReference: clientPaymentId2
+                transactionInitiationDateTime: '2023-04-18T05:35:14.5046278Z'
+                amount: '100.00'
+                currencyCode: AUD
+                surchargeAmount:
+                  currencyAmount: '1.50'
+                authenticationChallengeIssued: true
+                authenticationResponseCode: AUTH_SUCCESS
+                preAuthorizationFraudResult: THREE_DS
+                postAuthorizationFraudResult: ACCEPT
+                status: Settlement Complete
+              authenticationDetails:
+                responseCode: AUTH_SUCCESS
+                challengeIssued: true
+              riskDetails:
+                preAuthorizationResult: FAILED
+                postAuthorizationResult: ACCEPT
+      responses:
+        '200':
+          description: Any Response
+    servers:
+    - url: https://api.monoova.com
+      description: Production URL#
+    - url: https://sand-api.monoova.com
+      description: Sandbox URL
+  /WEBHOOK_REFUND_STATUS_URL:
+    post:
+      tags:
+      - Webhooks
+      summary: Refund Status Notification
+      description: '<p> When the status of the refund changes, Monoova will send a webhook to notify the customer.  Webhook will be triggered for the below status </p> <ul> <li>Failed</li> <li>Declined</li> <li>Settlement Complete</li>
+
+        </ul> </br> These webhook can be subscribed using API''s provided in <a href=''/payTo#tag/Notification-Management''>Notification Management</a>. </br> Event name - <b>CreditCardRefundNotification</b>'
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        example: Bearer <TOKEN>
+        description: The securityToken from the subscription.
+      - name: Verification-Signature
+        in: header
+        required: false
+        schema:
+          type: string
+        example: e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak=
+        description: This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href="/payments#operation/PublicCertificatePublicKey"> /public/v1/certificate/public-key </a>.
+      operationId: RefundStatusNotification
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookRefundStatusResponseDto'
+            example:
+              eventId: 9E151397-BCA4-4700-8718-3907368780F5
+              sourceEventName: CreditCardRefundUpdated
+              eventTimestamp: '2023-04-18T05:34:22.3447159Z'
+              refundDetails:
+              - transactionId: '123456'
+                settlementDateTime: '2023-04-19T05:34:14.5046065Z'
+                settlementBatchId: batchId
+                sessionCreationDateTime: '2023-04-18T05:34:14.5045854Z'
+                clientTransactionUniqueReference: clientPaymentId1
+                transactionInitiationDateTime: '2023-04-18T05:35:14.5045854Z'
+                amount: '100.00'
+                currencyCode: AUD
+                status: Settlement Complete
+              - transactionId: '123456'
+                settlementDateTime: '2023-04-19T05:34:14.504628Z'
+                settlementBatchId: batchId
+                sessionCreationDateTime: '2023-04-18T05:34:14.5046278Z'
+                clientTransactionUniqueReference: clientPaymentId2
+                transactionInitiationDateTime: '2023-04-18T05:35:14.5046278Z'
+                amount: '100.00'
+                currencyCode: AUD
+                status: Settlement Complete
+      responses:
+        '200':
+          description: Any Response
+    servers:
+    - url: https://api.monoova.com
+      description: Production URL#
+    - url: https://sand-api.monoova.com
+      description: Sandbox URL
+  /WEBHOOK_ASYNC_REQUEST_URL:
+    post:
+      tags:
+      - Webhooks
+      summary: Asynchronous Request Notification
+      description: This webhook can be subscribed using API's provided in <a href='/payTo#tag/Notification-Management'>Notification Management</a>. </br> Event name - <b>AsyncJobResultNotification</b>
+      operationId: AsyncRequestNotification
+      security: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        example: Bearer <TOKEN>
+        description: The securityToken from the subscription.
+      - name: Verification-Signature
+        in: header
+        required: false
+        schema:
+          type: string
+        example: e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak=
+        description: This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href="/payments#operation/PublicCertificatePublicKey"> /public/v1/certificate/public-key </a>.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookAsyncRequestResponseDto'
+            example:
+              eventId: 9E151397-BCA4-4700-8718-3907368780F5
+              sourceEventName: AsyncJobCompleted
+              eventTimestamp: '2023-04-18T05:34:22.3447159Z'
+              uniqueRequestId: b78e1829-dd2e-4119-a678-af8abccf9129
+              status: Failed
+              entityType: CreditCardPayment
+              actionType: Create
+              location: https://api.monoova.com/au/payto/pam/MONPAG2323232
+              errorCode: PAM_UNEXPECTED_ERROR
+              errorMessage: Internal server error. Please contact Monoova support.
+      responses:
+        '200':
+          description: Any Response
+    servers:
+    - url: https://api.monoova.com
+      description: Production URL#
+    - url: https://sand-api.monoova.com
+      description: Sandbox URL
+  /RECEIVEPAYMENTWEBHOOK_TARGET_URL:
+    post:
+      tags:
+      - Webhooks
+      summary: Receive Payment Webhook
+      description: When an NPP payment is received, Monoova will send a callback with the below format. To subscribe to a webhook use the <a href="/payments#tag/Subscriptions"> Subscriptions </a> APIs. Event name:&nbsp;<strong>NPPReceivePayment</strong> <br/>
+      operationId: ReceivablesReceivePaymentWebhook
+      security: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        example: Bearer <TOKEN>
+      - name: Verification-Signature
+        in: header
+        required: false
+        schema:
+          type: string
+        example: e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak=
+        description: This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href="/payments#operation/PublicCertificatePublicKey"> /public/v1/certificate/public-key </a>.
+      - name: Webhookid
+        in: header
+        required: false
+        schema:
+          type: integer
+        description: Unique Id to identify this webhook notification.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/event.receivePaymentWebhook'
+      responses:
+        '200':
+          description: Is the expected response upon successful receipt. If any other status code response is received, we will retry one more time only, after a 30 second pause.
+    servers:
+    - url: https://api.mpay.com.au
+      description: Production URL
+    - url: https://api.m-pay.com.au
+      description: Sandbox URL
+  /DIRECTDEBITCLEARANCEWEBHOOK_TARGET_URL:
+    post:
+      tags:
+      - Webhooks
+      summary: Direct Debit Clearance Webhook
+      description: 'Receive a daily notification with a list of all direct debit transactions cleared on that day. To subscribe to this webhook, use the <a href="/payments#tag/Subscriptions">Subscriptions</a> APIs.
+
+        Event name: <strong>DirectDebitClearance</strong>.
+
+        <br/>
+
+        '
+      operationId: DirectDebitClearanceWebhook
+      security: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        example: Bearer <TOKEN>
+      - name: Verification-Signature
+        in: header
+        required: false
+        schema:
+          type: string
+        example: e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGLjzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDnrzZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak=
+        description: This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message and its source (Monoova).<br/> The signature's hashing method is SHA256, and the public key can be retrieved from <a href="/payments#operation/PublicCertificatePublicKey">/public/v1/certificate/public-key</a>.
+      - name: Webhookid
+        in: header
+        required: false
+        schema:
+          type: integer
+        description: Unique Id to identify this webhook notification.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/event.directDebitClearanceWebhook'
+      responses:
+        '200':
+          description: Is the expected response upon successful receipt. If any other status code response is received, we will retry one more time only, after a 30 second pause.
+    servers:
+    - url: https://api.mpay.com.au
+      description: Production URL
+    - url: https://api.m-pay.com.au
+      description: Sandbox URL
+  /PAYTORECEIVEPAYMENTWEBHOOK_TARGET_URL:
+    post:
+      tags:
+      - Webhooks
+      summary: Pay To Receive Payment Webhook
+      description: When an NPP payment is received, Monoova will send a callback with the below format. To subscribe to a webhook use the <a href="/payments#tag/Subscriptions"> Subscriptions </a> APIs. Event name:&nbsp;<strong>PayToReceivePayment</strong> <br/>
+      operationId: PayToReceivePaymentWebhook
+      security: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        example: Bearer <TOKEN>
+      - name: Verification-Signature
+        in: header
+        required: false
+        schema:
+          type: string
+        example: e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak=
+        description: This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href="/payments#operation/PublicCertificatePublicKey"> /public/v1/certificate/public-key </a>.
+      - name: Webhookid
+        in: header
+        required: false
+        schema:
+          type: integer
+        description: Unique Id to identify this webhook notification.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/event.payToreceivePaymentWebhook'
+      responses:
+        '200':
+          description: Is the expected response upon successful receipt. If any other status code response is received, we will retry one more time only, after a 30 second pause.
+    servers:
+    - url: https://api.mpay.com.au
+      description: Production URL
+    - url: https://api.m-pay.com.au
+      description: Sandbox URL
+  /INBOUNDDIRECTCREDITWEBHOOK_TARGET_URL:
+    post:
+      tags:
+      - Webhooks
+      summary: Receive Inbound Direct Credits Webhook
+      description: Subscribing to the direct credit event webhook will allow us to notify you when an inbound direct credit is received on one of your accounts. As direct credits arrive in batches, you will receive the data in an JSON array with multiple transactions multiple times per day. Event name:&nbsp;<strong>InboundDirectCredit</strong> <br/>
+      operationId: InboundDirectCreditWebhook
+      security: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        example: Bearer <TOKEN>
+      - name: Verification-Signature
+        in: header
+        required: false
+        schema:
+          type: string
+        example: e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak=
+        description: This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href="/payments#operation/PublicCertificatePublicKey"> /public/v1/certificate/public-key </a>.
+      - name: Webhookid
+        in: header
+        required: false
+        schema:
+          type: integer
+        description: Unique Id to identify this webhook notification.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - description: webhook
+                title: Receive Payment Web hook
+              - $ref: '#/components/schemas/event.inboundDirectCreditWebhook'
+      responses:
+        '200':
+          description: Is the expected response upon successful receipt. If any other status code response is received, we will retry one more time only, after a 30 second pause.
+    servers:
+    - url: https://api.mpay.com.au
+      description: Production URL
+    - url: https://api.m-pay.com.au
+      description: Sandbox URL
+  /INBOUNDDIRECTDEBITWEBHOOK_TARGET_URL:
+    post:
+      tags:
+      - Webhooks
+      summary: Receive Inbound Direct Debits  Webhook
+      description: Subscribing to the direct debit event webhook will allow us to notify you when an inbound direct debit is received on one of your accounts. As direct debits arrive in batches, you will receive the data in an JSON array with multiple transactions multiple times per day. Event name:&nbsp;<strong>InboundDirectDebit</strong> <br/> <br/> Note:&nbsp; Source account details do not appear by default, please contact Monoova for further information <br/>
+      operationId: InboundDirectDebitWebhook
+      security: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        example: Bearer <TOKEN>
+      - name: Verification-Signature
+        in: header
+        required: false
+        schema:
+          type: string
+        example: e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak=
+        description: This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href="/payments#operation/PublicCertificatePublicKey"> /public/v1/certificate/public-key </a>.
+      - name: Webhookid
+        in: header
+        required: false
+        schema:
+          type: integer
+        description: Unique Id to identify this webhook notification.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - description: webhook
+                title: Receive Payment Web hook
+              - $ref: '#/components/schemas/event.inboundDirectDebitWebhook'
+      responses:
+        '200':
+          description: Is the expected response upon successful receipt. If any other status code response is received, we will retry one more time only, after a 30 second pause.
+    servers:
+    - url: https://api.mpay.com.au
+      description: Production URL
+    - url: https://api.m-pay.com.au
+      description: Sandbox URL
+  /DIRECTENTRYDISHONOURSWEBHOOK_TARGET_URL:
+    post:
+      tags:
+      - Webhooks
+      summary: Receive Direct Entry Dishonours Webhook
+      description: Subscribing to the direct entry dishonours event webhook will allow us to notify you when an dishonour transaction is made. Event name:&nbsp;<strong>DirectEntryDishonour</strong> <br/>
+      operationId: DirectEntryDishonour
+      security: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        example: Bearer <TOKEN>
+      - name: Verification-Signature
+        in: header
+        required: false
+        schema:
+          type: string
+        example: e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak=
+        description: This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href="/payments#operation/PublicCertificatePublicKey"> /public/v1/certificate/public-key </a>.
+      - name: Webhookid
+        in: header
+        required: false
+        schema:
+          type: integer
+        description: Unique Id to identify this webhook notification.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - description: webhook
+                title: Receive Direct Entry Dishonours Web hook
+              - $ref: '#/components/schemas/event.directEntryDishonoursWebhook'
+      responses:
+        '200':
+          description: Is the expected response upon successful receipt. If any other status code response is received, we will retry one more time only, after a 30 second pause.
+    servers:
+    - url: https://api.mpay.com.au
+      description: Production URL
+    - url: https://api.m-pay.com.au
+      description: Sandbox URL
+  /PENDINGRTGSIMTWEBHOOK_TARGET_URL:
+    post:
+      tags:
+      - Webhooks
+      summary: Receive Pending Rtgs/Imt Webhook
+      description: Subscribing to the Pending RTGS/IMT event webhook will allow us to notify you when a RTGS/IMT transaction is received on one of your accounts. As RTGS/IMT transaction arrive in batches, you will receive the data in an JSON array with multiple transactions multiple times per day. Event name:&nbsp;<strong>PendingInboundRtgsImt</strong> <br/>
+      operationId: PendingInboundRtgsImt
+      security: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        example: Bearer <TOKEN>
+      - name: Verification-Signature
+        in: header
+        required: false
+        schema:
+          type: string
+        example: e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak=
+        description: This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href="/payments#operation/PublicCertificatePublicKey"> /public/v1/certificate/public-key </a>.
+      - name: Webhookid
+        in: header
+        required: false
+        schema:
+          type: integer
+        description: Unique Id to identify this webhook notification.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - description: webhook
+                title: Inbound RTGS/Imt Web hook
+              - $ref: '#/components/schemas/event.pendingrtgsImtWebhook'
+      responses:
+        '200':
+          description: Is the expected response upon successful receipt. If any other status code response is received, we will retry one more time only, after a 30 second pause.
+    servers:
+    - url: https://api.mpay.com.au
+      description: Production URL
+    - url: https://api.m-pay.com.au
+      description: Sandbox URL
+  /RTGSIMTWEBHOOKSTATUSWEBHOOK_TARGET_URL:
+    post:
+      tags:
+      - Webhooks
+      summary: Receive Rtgs/Imt status Webhook
+      description: Subscribing to the RTGS/IMT status event webhook will allow us to notify you when status of an RTGS/IMT transaction changes. Event name:&nbsp;<strong>InboundRtgsImtStatus</strong> <br/>
+      operationId: InboundRtgsImtStatus
+      security: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        example: Bearer <TOKEN>
+      - name: Verification-Signature
+        in: header
+        required: false
+        schema:
+          type: string
+        example: e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak=
+        description: This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href="/payments#operation/PublicCertificatePublicKey"> /public/v1/certificate/public-key </a>.
+      - name: Webhookid
+        in: header
+        required: false
+        schema:
+          type: integer
+        description: Unique Id to identify this webhook notification.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - description: webhook
+                title: Inbound RTGS/Imt Web hook
+              - $ref: '#/components/schemas/event.InboundRtgsImtStatus'
+      responses:
+        '200':
+          description: Is the expected response upon successful receipt. If any other status code response is received, we will retry one more time only, after a 30 second pause.
+    servers:
+    - url: https://api.mpay.com.au
+      description: Production URL
+    - url: https://api.m-pay.com.au
+      description: Sandbox URL
+  /RECEIVENPPPAYMENTRETURNWEBHOOK_TARGET_URL:
+    post:
+      tags:
+      - Webhooks
+      summary: Receive Npp Payment Return Webhook
+      description: Subscribing to the npp return event webhook will allow us to notify you when an npp payment gets returned is made. Event name:&nbsp;<strong>NppReturn</strong> <br/>
+      operationId: NppReturn
+      security: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        example: Bearer <TOKEN>
+      - name: Verification-Signature
+        in: header
+        required: false
+        schema:
+          type: string
+        example: e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak=
+        description: This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href="/payments#operation/PublicCertificatePublicKey"> /public/v1/certificate/public-key </a>.
+      - name: Webhookid
+        in: header
+        required: false
+        schema:
+          type: integer
+        description: Unique Id to identify this webhook notification.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - description: webhook
+                title: Receive Npp Payment Return Web hook
+              - $ref: '#/components/schemas/event.NppReturnWebhook'
+      responses:
+        '200':
+          description: Is the expected response upon successful receipt. If any other status code response is received, we will retry one more time only, after a 30 second pause.
+    servers:
+    - url: https://api.mpay.com.au
+      description: Production URL
+    - url: https://api.m-pay.com.au
+      description: Sandbox URL
+  /NPPPAYMENTSTATUSWEBHOOK_TARGET_URL:
+    post:
+      tags:
+      - Webhooks
+      summary: Receive Npp Payment Status Webhook
+      description: Subscribing to the npp payment status event webhook will allow us to notify you when the status of a pending NPP Payment gets updated. Event name:&nbsp;<strong>NppPaymentStatus</strong> <br/> <strong>Note:&nbsp; </strong> Receive an NPP Payment Status Webhook notification when the status of an NPP payment changes so you don’t need to poll for updates. The "Pending" status is not reported by this webhook.<br/>
+      operationId: NppPaymentStatus
+      security: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        example: Bearer <TOKEN>
+      - name: Verification-Signature
+        in: header
+        required: false
+        schema:
+          type: string
+        example: e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak=
+        description: This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href="/payments#operation/PublicCertificatePublicKey"> /public/v1/certificate/public-key </a>.
+      - name: Webhookid
+        in: header
+        required: false
+        schema:
+          type: integer
+        description: Unique Id to identify this webhook notification.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - description: webhook
+                title: Receive Npp Payment Status Webhook
+              - $ref: '#/components/schemas/event.NppPaymentStatusWebhook'
+      responses:
+        '200':
+          description: Is the expected response upon successful receipt. If any other status code response is received, we will retry one more time only, after a 30 second pause.
+    servers:
+    - url: https://api.mpay.com.au
+      description: Production URL
+    - url: https://api.m-pay.com.au
+      description: Sandbox URL
+  /INBOUNDDIRECTCREDITREJECTIONSWEBHOOK_TARGET_URL:
+    post:
+      tags:
+      - Webhooks
+      summary: Inbound Direct Credit Rejections Webhook
+      description: Subscribing to the inbound direct credit rejection event webhook will allow us to notify you when an inbound direct credit intended for an ABA/PayId belonging to you is rejected because they didn't match any active reconciliation rule or the payer account was not included in your whitelist. As direct credits arrive in batches, you will receive the data in an JSON array with multiple transactions multiple times during the day. To subscribe to a webhook use the <a href="/payments#tag/Subscriptions"> Subscriptions </a> APIs. Event name:&nbsp; <strong> InboundDirectCreditRejections </strong> <br/>
+      operationId: InboundDirectCreditRejections
+      security: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        example: Bearer <TOKEN>
+      - name: Verification-Signature
+        in: header
+        required: false
+        schema:
+          type: string
+        example: e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak=
+        description: This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href="/payments#operation/PublicCertificatePublicKey"> /public/v1/certificate/public-key </a>.
+      - name: Webhookid
+        in: header
+        required: false
+        schema:
+          type: integer
+        description: Unique Id to identify this webhook notification.
+      requestBody:
+        description: webhook
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/event.InboundDirectCreditRejectionsWebhook'
+      responses:
+        '200':
+          description: Is the expected response upon successful receipt. If any other status code response is received, we will retry one more time only, after a 30 second pause.
+    servers:
+    - url: https://api.mpay.com.au
+      description: Production URL
+    - url: https://api.m-pay.com.au
+      description: Sandbox URL
+  /NPPCREDITCREDITREJECTIONSWEBHOOK_TARGET_URL:
+    post:
+      tags:
+      - Webhooks
+      summary: NPP Credit Rejections Webhook
+      description: When an NPP payment  intended for an ABA/PayId belonging to you is rejected because they didnt match any active reconciliation rule, Monoova will send a callback with the below format. To subscribe to a webhook use the <a href="/payments#tag/Subscriptions"> Subscriptions </a> APIs. Event name:&nbsp; <strong> NPPCreditRejections </strong> <br/>
+      operationId: NPPCreditRejections
+      security: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        example: Bearer <TOKEN>
+      - name: Verification-Signature
+        in: header
+        required: false
+        schema:
+          type: string
+        example: e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak=
+        description: This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href="/payments#operation/PublicCertificatePublicKey"> /public/v1/certificate/public-key </a>.
+      - name: Webhookid
+        in: header
+        required: false
+        schema:
+          type: integer
+        description: Unique Id to identify this webhook notification.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - description: webhook
+                title: Receive Npp Payment Status Webhook
+              - $ref: '#/components/schemas/event.NppCreditRejectionsWebhook'
+      responses:
+        '200':
+          description: Is the expected response upon successful receipt. If any other status code response is received, we will retry one more time only, after a 30 second pause.
+    servers:
+    - url: https://api.mpay.com.au
+      description: Production URL
+    - url: https://api.m-pay.com.au
+      description: Sandbox URL
+  /Webhook_Payment_Instruction_Status_URL:
+    post:
+      tags:
+      - Webhooks
+      summary: Payment Instruction Status Notification
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        example: Bearer <TOKEN>
+        description: The securityToken from the subscription.
+      - name: Verification-Signature
+        in: header
+        required: false
+        schema:
+          type: string
+        example: e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak=
+        description: This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href="/payments#operation/PublicCertificatePublicKey"> /public/v1/certificate/public-key </a>.
+      description: ' <p> Clients need to implement an API endpoint on their system to receive PaymentInstructionStatus notifications from Monoova. <br/> Event name: PaymentInstructionNotification </p></br> These webhook can be subscribed using API''s provided in <a href=''/payTo#tag/Notification-Management''>Notification Management</a>. '
+      operationId: PaymentInstructionStatusNotification
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookPaymentInstructionDto'
+            example:
+              eventId: 7C1C78DB-BD64-416A-96C4-661C89602FDC
+              sourceEventName: PaymentInstructionStatusUpdated
+              eventTimestamp: 2023-06-05 04:43:05.990404+00:00
+              paymentInitiationDetail:
+                paymentAgreementUID: MONPAG1683781294
+                paymentInitiationUID: PIU-1685940180
+                nppInstructionId: PI123456789
+                paymentInitiationStatus: ACSC
+                paymentInitiationStatusDescription: Accepted & Settled
+                mmsId: 4fdbeebadff71da0b5ccd9d25427c3df
+              payeeDetails:
+                payeeType: Organisation
+                payeeLinkedBSB: ''
+                payeeLinkedAccount: ''
+                payeeLinkedPayID: sample@monoova.com
+                payeeLinkedPayIdType: Email
+                payeeAccountName: ABC Corp1
+                ultimatePayee: ABC Corp1
+              paymentDetails:
+                amount: 10.0
+                isLastPayment: false
+                lodgementReference: Monoova PayTo LVP Demo Testing
+      responses:
+        '200':
+          description: OK - Notification successfully received.
+    servers:
+    - url: https://api.monoova.com
+      description: Production URL#
+    - url: https://sand-api.monoova.com
+      description: Sandbox URL
+components:
+  schemas:
+    RefundDetailsResponseDto:
+      type: object
+      properties:
+        transactionId:
+          type: string
+          description: Payment Engine mAccount debit TransactionId.
+        settlementDateTime:
+          type: string
+          format: date-time
+          description: Payment Engine mAccount debit Transaction Date Time
+        transactionInitiationDateTime:
+          type: string
+          format: date-time
+        clientTransactionUniqueReference:
+          type: string
+          description: This will be mapped to the uniqueReference customer sent while initiating the refund.
+        amount:
+          type: string
+          description: Amount of the refund
+        surchargeAmount:
+          type: string
+          description: Surcharge applied for the transaction
+        currencyCode:
+          type: string
+          description: Payment currency code
+        sessionCreationDateTime:
+          type: string
+          format: date-time
+          description: Time when customer made request to create session
+        status:
+          type: string
+          description: Possible values can be Failed, Declined, or Settlement Complete
+        statusReasonCode:
+          type: string
+          description: Reason code provided by the payment processor if the refund fails or is declined
+        statusReasonDescription:
+          type: string
+          description: Reason description provided by the payment processor if the refund fails or is declined
+        settlementBatchId:
+          type: string
+          description: Unique ID to determine the batch that settled this transaction
+        saveOnSuccess:
+          type: boolean
+          description: System will save the refund method on successful processing. Optional, defaults to false.
+      additionalProperties: false
+    RiskDetailsDto:
+      type: object
+      properties:
+        preAuthorizationResult:
+          type: string
+          description: Possible fraud check outcomes.
+        postAuthorizationResult:
+          type: string
+          description: Possible fraud check outcomes.
+      additionalProperties: false
+    WebhookPaymentStatusResponseDto:
+      type: object
+      properties:
+        eventId:
+          type: string
+          description: eventId must be a string not an integer. It should allow at least 40 characters including alphanumerics and hyphen “-”
+        sourceEventName:
+          type: string
+          enum:
+          - CreditCardTransactionUpdated
+        eventTimestamp:
+          type: string
+          format: date-time
+          description: ISO Date Time in UTC
+        paymentDetails:
+          $ref: '#/components/schemas/PaymentDetailsResponseDto'
+        authenticationDetails:
+          $ref: '#/components/schemas/AuthenticationDetailsDto'
+        riskDetails:
+          $ref: '#/components/schemas/RiskDetailsDto'
+      additionalProperties: false
+    PaymentDetailsResponseDto:
+      type: object
+      properties:
+        transactionId:
+          type: string
+          description: Payment Engine mAccount Load TransactionId.
+        settlementDateTime:
+          type: string
+          format: date-time
+          description: Payment Engine mAccount Load Transaction Date Time
+        transactionInitiationDateTime:
+          type: string
+          format: date-time
+          description: Time the payment processor initiated the transaction as ISO 8601 dateTime with UTC timezone
+        clientTransactionUniqueReference:
+          type: string
+          description: This will be mapped to the uniqueReference customer sent while requesting for a client session. This will be the same as the uniqueReference for mAccount Load Transaction
+        amount:
+          type: string
+          description: Amount of the payment
+        currencyCode:
+          type: string
+          description: Payment currency code
+        authenticationChallengeIssued:
+          type: boolean
+          description: End customer prompted for 3DS.
+        authenticationResponseCode:
+          type: string
+          description: AUTH_SUCCESS, AUTH_FAILED, or NOT_PERFORMED
+        preAuthorizationFraudResult:
+          type: string
+          description: Possible fraud check outcomes.
+        postAuthorizationFraudResult:
+          type: string
+          description: Possible fraud check outcomes.
+        sessionCreationDateTime:
+          type: string
+          format: date-time
+          description: Time when the customer made a request to create the session
+        status:
+          type: string
+          description: Possible values can be Failed, Declined, Cancelled, and Settlement Complete
+        statusReasonCode:
+          type: string
+          description: Reason code provided by the payment processor if payment is declined
+        statusReasonDescription:
+          type: string
+          description: Reason description provided by the payment processor if payment is declined
+        settlementBatchId:
+          type: string
+          description: UniqueId to determine the batch that settled this transaction
+        saveOnSuccess:
+          type: boolean
+          description: System will save the payment method on successful payment. Optional, defaults to false.
+        clientPaymentTokenUniqueReference:
+          type: string
+          description: Client Payment Token Unique Reference
+        customerId:
+          type: string
+          description: Client's own customerId for their customer, as provided when the payment token was created.
+      additionalProperties: false
+    WebhookRefundStatusResponseDto:
+      type: object
+      properties:
+        eventId:
+          type: string
+          description: eventId must be a string not an integer. It should allow at least 40 characters including alphanumerics and hyphen “-”
+        sourceEventName:
+          type: string
+          enum:
+          - CreditCardRefundUpdated
+        eventTimestamp:
+          type: string
+          format: date-time
+          description: ISO Date Time in UTC
+        refundDetails:
+          $ref: '#/components/schemas/RefundDetailsResponseDto'
+      additionalProperties: false
+    WebhookAsyncRequestResponseDto:
+      type: object
+      required:
+      - uniqueRequestId
+      properties:
+        eventId:
+          type: string
+          description: eventId must be a string not an integer. It should allow at least 40 characters including alphanumerics and hyphen “-”
+        sourceEventName:
+          type: string
+          enum:
+          - CreditCardRefundUpdated
+        eventTimestamp:
+          type: string
+          format: date-time
+          description: ISO Date Time in UTC
+        uniqueRequestId:
+          type: string
+          pattern: '[a-z0-9-]{36}'
+          description: The async request Id returned by the original async API call
+        status:
+          type: string
+          description: One of <br/> Completed - successful completion <br/> Failed - error encountered <br/> Expired - request could not be completed within a reasonable time (currently 48 hours)
+        location:
+          type: string
+          format: uri
+          description: URL Location of the updated resource <br/> Only if status = Completed
+        errorCode:
+          type: string
+          description: Only if status = Failed
+        errorMessage:
+          type: string
+          description: Only if status = Failed
+        entityType:
+          type: string
+          enum:
+          - PaymentAgreement
+          - PaymentInstruction
+          - CreditCardPayment
+          - CreditCardRefund
+          description: The type of the entity involved in the transaction.
+        actionType:
+          type: string
+          enum:
+          - Create
+          - Amend
+          - Cancel
+          - RecallAction
+          - AmendStatus
+          description: 'The type of action being performed.  - ''Create'' is valid for PaymentAgreement, PaymentInstruction, CreditCardRefund. - ''Amend'' is valid for PaymentAgreement. - ''Cancel'' is valid for CreditCardPayment (Note: Cancellations are currently disabled). - ''RecallAction'' and ''AmendStatus'' are valid for PaymentAgreement.
+
+            '
+      additionalProperties: false
+    AuthenticationDetailsDto:
+      type: object
+      properties:
+        responseCode:
+          type: string
+          description: AUTH_SUCCESS <br/> AUTH_FAILED
+        challengeIssued:
+          type: boolean
+          description: End customer prompted for 3DS.
+      additionalProperties: false
+    event.InboundRtgsImtStatus:
+      type: object
+      properties:
+        TransactionId:
+          type: string
+          maxLength: 12
+          description: Monoova generated Unique ID.
+          example: R12345678
+        AccountNumber:
+          type: string
+          example: '123456789'
+          maxLength: 34
+          description: Payee Bank Account Number.
+        Bsb:
+          type: string
+          example: 802-985
+          maxLength: 7
+          description: Payee BSB.
+        AccountName:
+          type: string
+          example: Monoova
+          maxLength: 32
+          description: Payer submitted Account Name.
+        TransactionReferenceNumber:
+          type: string
+          example: MONOOVARE070222b-2
+          description: Transaction Reference Number.
+          maxLength: 21
+        Amount:
+          type: number
+          format: decimal
+          example: 800.0
+          description: Payment amount,2 decimal places for cents.
+          maxLength: 11
+        Status:
+          description: Transaction Status. Possible value Confirmed/Rejected.
+          type: string
+          example: Confirmed
+        LodgementRef:
+          type: string
+          example: IMT Gift CF3528811 0737599
+          description: Payer submitted reference
+          maxLength: 280
+        Date:
+          type: string
+          example: '2019-07-22T00:00:00'
+          description: AEDT, Sydney. Transaction Received date.
+        SourceDetails:
+          type: string
+          example: 123123123456789 JOHN Test 123 SAMPLE ST SAMPLEVILLE NSW AUSTRALIA 1234
+          description: Source Account Name address and account number (This will be an optional field depending on merchant setting)
+        ProcessedDateTime:
+          type: string
+          example: '2022-02-08T00:00:00'
+          description: AEDT, Sydney. This will indicate the time when transaction was Confirmed/Rejected.
+        RejectReasonDescription:
+          type: string
+          example: 'null'
+          description: Reason why transaction was rejected.
+          maxLength: 500
+        SendingOrganisation:
+          type: string
+          example: ABCWAU4BAXXX
+          description: Sending Organisation
+          maxLength: 100
+        ReceivingOrganisation:
+          type: string
+          example: MONOOVA PAYMENTS P/L
+          description: Receiving Organisation
+          maxLength: 100
+        OrderingInstitution:
+          type: string
+          example: CDEWAU4BAXXX
+          description: Ordering Institution
+          maxLength: 100
+        OrderingAddress:
+          type: string
+          example: FTBAAUSRBXXX
+          description: Ordering Address
+          maxLength: 100
+        ledgerAccountNumber:
+          type: string
+          example: ''
+          description: Ledger account number linked to the RTGS transaction.
+        ledgerUniqueReference:
+          type: string
+          example: ''
+          description: Unique reference for the ledger transaction.
+    inboundDirectCreditWebhook.directCreditDetails:
+      type: object
+      properties:
+        TransactionId:
+          type: string
+          minLength: 12
+          maxLength: 12
+          description: Monoova generated Unique ID.
+        BatchId:
+          type: string
+          description: Payment Batch ID. Payments come in batches throughout the day.
+        DateTime:
+          description: Time Stamp.
+          type: string
+        Bsb:
+          type: string
+          maxLength: 7
+          description: Payee BSB.
+        AccountNumber:
+          type: string
+          maxLength: 9
+          description: Payee Bank Account Number.
+        AccountName:
+          type: string
+          maxLength: 32
+          description: Payer submitted Account Name.
+        TransactionCode:
+          type: string
+          maxLength: 5
+          description: Externally initiated credit items with the exception of those bearing Transaction Codes.
+        Amount:
+          type: number
+          format: decimal
+          maxLength: 11
+          description: Payment amount, 2 decimal places for cents.
+        LodgementRef:
+          type: string
+          maxLength: 280
+          description: Payer submitted reference.
+        RemitterName:
+          type: string
+          maxLength: 16
+          description: Remitting Entity.
+        NameOfUserSupplyingFile:
+          type: string
+          description: Preferred name of the User supplying the Direct Entry file.
+        NumberOfUserSupplyingFile:
+          type: string
+          description: This is the User Identification Number which is assigned by APCA and User Financial Institutions.
+        DescriptionOfEntriesOnFile:
+          type: string
+          description: Direct Entry file description.
+        Indicator:
+          description: Blank; OR 'W' dividend paid to a resident of a country where a double tax agreement is in force. 'X' dividend paid to a resident of any other country. 'Y' interest paid to all non-resident.
+          type: string
+          maxLength: 1
+        WithholdingTaxAmount:
+          description: Blank OR Payment amount,2 decimal places for cents.
+          maxLength: 9
+          type: number
+          format: decimal
+        SourceBsb:
+          type: string
+          maxLength: 7
+          description: Payer BSB.
+        SourceAccountNumber:
+          type: string
+          maxLength: 34
+          description: Payer Bank Account Number.
+        ReceiptNumber:
+          type: string
+          example: '5678120'
+          description: Unique identifier for tracking the transaction.
+      example:
+      - TransactionId: D00100537784
+        BatchId: 0000000212749
+        DateTime: '2020-01-13T14:21:50.553'
+        Bsb: 802-985
+        AccountNumber: 419001918
+        AccountName: Monoova AccountName
+        TransactionCode: '50'
+        Amount: 1.0
+        LodgementRef: Ref1
+        RemitterName: ABC XYZ
+        NameOfUserSupplyingFile: M PAYMENTS
+        NumberOfUserSupplyingFile: '483449'
+        DescriptionOfEntriesOnFile: PAYMENT TRNSFR
+        Indicator: ''
+        WithholdingTaxAmount: 0.0
+        SourceBsb: 123-123
+        SourceAccountNumber: '123456789'
+    event.NppCreditRejectionsWebhook:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 2531
+          maxLength: 12
+          description: Monoova generated Unique ID.
+        batchId:
+          type: integer
+          example: 22568344
+          maxLength: 12
+          description: Payment Batch ID. Payments come in batches throughout the day.
+        dateTime:
+          type: string
+          format: date-time
+          example: '2023-11-08T12:25:27'
+          maxLength: 27
+          description: AEDT, Sydney.
+        bsb:
+          type: string
+          example: 123-123
+          maxLength: 7
+          description: Payee BSB.
+        accountNumber:
+          type: string
+          example: '818123123'
+          maxLength: 34
+          description: Payee Bank Account Number.
+        accountName:
+          type: string
+          example: test@test.io
+          maxLength: 32
+          description: Payee submitted Account Name.
+        payId:
+          type: string
+          example: test@test.io
+          maxLength: 256
+          description: Email address for the PayID.
+        payIdName:
+          type: string
+          example: TEST PTY. LIMITED
+          maxLength: 140
+          description: Name displayed to the payers.
+        transactionCode:
+          type: string
+          example: '50'
+          maxLength: 5
+          description: Industry standard transaction code. "50" for NPP.
+        transactionType:
+          type: string
+          example: NPP
+          description: Possible Values 'DE' or 'NPP'.
+        amount:
+          type: number
+          format: decimal
+          example: 264.97
+          maxLength: 11
+          description: Payment amount, 2 decimal places for cents.
+        lodgementRef:
+          type: string
+          maxLength: 280
+          example: ''
+          description: Payer submitted reference.
+        remitterName:
+          type: string
+          example: TEST TEST
+          maxLength: 140
+          description: Remitting Entity.
+        indicator:
+          type: string
+          example: ''
+          maxLength: 1
+          description: Blank; OR 'W' dividend paid to a resident of a country where a double tax agreement is in force. 'X' dividend paid to a resident of any other country. 'Y' interest paid to all non-resident.
+        withholdingTaxAmount:
+          type: number
+          format: decimal
+          example: 0.0
+          maxLength: 9
+          description: Blank OR Payment amount, 2 decimal places for cents.
+        endToEndId:
+          type: string
+          example: NOTPROVIDED
+          description: Osko End to End identifier submitted by Payer.
+        nameOfUserSupplyingFile:
+          type: string
+          example: ''
+          description: Preferred name of the User supplying the Direct Entry file.
+        numberOfUserSupplyingFile:
+          type: string
+          example: ''
+          description: This is the User Identification Number which is assigned by APCA and User Financial Institutions.
+        descriptionOfEntriesOnFile:
+          type: string
+          example: ''
+          description: Direct Entry file description.
+        reason:
+          type: string
+          example: Non Whitelisted Source Account
+          description: Reason for the rejection.
+        status:
+          type: string
+          example: Processed
+          description: Transaction Status.
+        sourceBsb:
+          type: string
+          example: 123-123
+          maxLength: 7
+          description: Payer BSB.
+        sourceAccountNumber:
+          type: string
+          example: '123123123'
+          maxLength: 34
+          description: Payer Bank Account Number.
+        sourceAccountName:
+          type: string
+          example: TEST TEST
+          maxLength: 140
+          description: This field appears for NPP transactions only and is the payers bank account name. For DE transactions please refer to the RemitterName Field.
+    event.directEntryDishonoursWebhook:
+      type: object
+      properties:
+        ReturnDate:
+          type: string
+          example: '2019-07-22T00:00:00'
+          description: Return Date.
+        Amount:
+          type: number
+          format: decimal
+          example: 2.0
+          description: Total Amount.
+        BankDetails:
+          type: object
+          properties:
+            Bsb:
+              type: string
+              example: 802-985
+              maxLength: 7
+              description: Payee BSB.
+            AccountNumber:
+              type: string
+              example: '123456789'
+              maxLength: 9
+              description: Payee Bank Account Number.
+            AccountName:
+              type: string
+              example: Monoova
+              maxLength: 32
+              description: Payer submitted Account Name.
+            Token:
+              description: Value will be present if token has used for the transaction. (will either have BSB, AccountNumber, AccountName OR Token)
+              type: string
+              example: null
+        Type:
+          type: string
+          example: Credit
+          description: Value will be either Credit or Debit.
+        ReturnReason:
+          type: string
+          example: ACCOUNT CLOSED
+          description: Return Reason Text.
+        TransactionDate:
+          type: string
+          example: '2019-07-19T00:00:00.00'
+          description: Original Transaction Date.
+        OriginalTransactionId:
+          type: integer
+          example: 1234567
+          description: Original Transaction Id.
+        TransactionReference:
+          type: string
+          example: 2215125a-b80b-41aa-af58-740d21b303ed
+          description: Client UniqueReference, generated by the calling service.
+    event.inboundDirectDebitWebhook:
+      type: object
+      properties:
+        TotalCount:
+          type: integer
+          example: 1
+          description: Total Number of Direct Debits.
+        TotalAmount:
+          type: number
+          format: decimal
+          example: 1.0
+          description: Total Amount of Direct Debits.
+        DirectDebitDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/inboundDirectDebitWebhook.directDebitDetails'
+    event.NppReturnWebhook:
+      type: object
+      properties:
+        ReturnDate:
+          type: string
+          example: '2019-07-22T00:00:00'
+          description: Return Date.
+        Amount:
+          type: number
+          format: decimal
+          example: 2.0
+          description: Total Amount.
+        Bsb:
+          type: string
+          example: 802-985
+          maxLength: 7
+          description: Payee BSB.
+        AccountNumber:
+          type: string
+          example: '123456789'
+          maxLength: 28
+          description: Payee Bank Account Number.
+        AccountName:
+          type: string
+          example: Monoova
+          maxLength: 140
+          description: Payer submitted Account Name.
+        PayId:
+          type: string
+          example: MW9GM4@monoova.me
+          maxLength: 256
+          description: PayId Identifier of the Payee.
+        PayIdType:
+          type: string
+          example: Email
+          enum:
+          - ABN
+          - Email
+          - PhoneNumber
+          - OrganisationId
+          - ACN
+          description: PayId Type. Possible values:&nbsp; ABN, Email, PhoneNumber, OrganisationId, ACN
+        EndToEndId:
+          type: string
+          example: ABC/123-4356
+          maxLength: 35
+          description: End to End identifier submitted by Payer.
+        ReturnReason:
+          type: string
+          example: ACCOUNT CLOSED
+          description: Return Reason Text.
+        TransactionDate:
+          type: string
+          example: '2019-07-19T00:00:00'
+          description: Original Transaction Date.
+        TransactionId:
+          type: integer
+          example: 1234567
+          description: Original Transaction Id.
+        UniqueReference:
+          type: string
+          maxLength: 200
+          example: 2215125a-b80b-41aa-af58-740d21b303ed
+          description: Original Client UniqueReference, generated by the calling service.
+        RemitterName:
+          type: string
+          example: Monoova123
+          maxLength: 140
+          description: Original Remitting Entity.
+        LodgementRef:
+          type: string
+          maxLength: 280
+          example: Ref1
+          description: Original Payment reference.
+        ReturnTransactionId:
+          type: integer
+          example: 1234567
+          description: Return Transaction Id.
+    event.pendingrtgsImtWebhook:
+      type: object
+      properties:
+        TotalCount:
+          type: integer
+          example: 1
+          description: Total Number of records.
+        TotalAmount:
+          type: number
+          format: decimal
+          example: 800
+          description: Sum total of amount for all transactions.
+        RtgsImtDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/pendingRtgsImtWebhook.details'
+    event.inboundDirectCreditWebhook:
+      type: object
+      properties:
+        TotalCount:
+          type: integer
+          example: 2
+          description: Total Number of Direct Credits.
+        TotalAmount:
+          type: number
+          format: decimal
+          example: 3.0
+          description: Total Amount of Direct Credits.
+        DirectCreditDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/inboundDirectCreditWebhook.directCreditDetails'
+      example:
+        TotalCount: 2
+        TotalAmount: 2
+        DirectCreditDetails:
+        - TransactionId: D00100537784
+          BatchId: 0000000212749
+          DateTime: '2020-01-13T14:21:50.553'
+          Bsb: 802-985
+          AccountNumber: 419001918
+          AccountName: Monoova AccountName
+          TransactionCode: '50'
+          Amount: 1.0
+          LodgementRef: Ref1
+          RemitterName: ABC XYZ
+          NameOfUserSupplyingFile: M PAYMENTS
+          NumberOfUserSupplyingFile: '483449'
+          DescriptionOfEntriesOnFile: PAYMENT TRNSFR
+          Indicator: ''
+          WithholdingTaxAmount: 0.0
+          SourceBsb: 123-123
+          SourceAccountNumber: '123456789'
+        - TransactionId: D00100537785
+          BatchId: 0000000212749
+          DateTime: '2020-01-13T14:30:50.002'
+          Bsb: 802-985
+          AccountNumber: 419001923
+          AccountName: Monoova AccountName2
+          TransactionCode: '50'
+          Amount: 1.0
+          LodgementRef: Ref2
+          RemitterName: STU XYZ
+          NameOfUserSupplyingFile: M PAYMENTS
+          NumberOfUserSupplyingFile: '483449'
+          DescriptionOfEntriesOnFile: PAYMENT TRNSFR
+          Indicator: ''
+          WithholdingTaxAmount: 0.0
+          SourceBsb: 123-123
+          SourceAccountNumber: '234123896'
+    inboundDirectDebitWebhook.directDebitDetails:
+      properties:
+        TransactionId:
+          type: string
+          minLength: 12
+          maxLength: 12
+          example: D00100537784
+          description: Monoova generated Unique ID.
+        BatchId:
+          type: string
+          example: 0000000212749
+          description: Payment Batch ID. Payments come in batches throughout the day.
+        DateTime:
+          description: Time Stamp.
+          type: string
+          example: '2020-01-13T14:21:50.553'
+        Status:
+          description: The status of the transaction. Possible values are Pending, Reject, Accept.
+          type: string
+          example: Pending
+        RespondBeforeDateTime:
+          description: Time by when you have to respond to the Inbound Direct Debit request.
+          type: string
+          example: '2020-01-14T16:30:00'
+        Bsb:
+          type: string
+          example: 802-985
+          maxLength: 7
+          description: Payee BSB.
+        AccountNumber:
+          type: string
+          example: '419001918'
+          maxLength: 9
+          description: Payee Bank Account Number.
+        AccountName:
+          type: string
+          example: DR
+          maxLength: 32
+          description: Payer submitted Account Name.
+        Amount:
+          type: number
+          format: decimal
+          maxLength: 11
+          example: 1.0
+          description: Payment amount, 2 decimal places for cents.
+        LodgementRef:
+          type: string
+          maxLength: 280
+          example: Ref1
+          description: Payer submitted reference.
+        RemitterName:
+          type: string
+          maxLength: 16
+          example: ABC XYZ
+          description: Remitting Entity.
+        NameOfUserSupplyingFile:
+          type: string
+          example: M PAYMENTS
+          description: Preferred name of the User supplying the Direct Entry file.
+        NumberOfUserSupplyingFile:
+          type: string
+          example: '483449'
+          description: This is the User Identification Number which is assigned by APCA and User Financial Institutions.
+        DescriptionOfEntriesOnFile:
+          type: string
+          example: PAYMENT TRNSFR
+          description: Direct Entry file description.
+        Indicator:
+          description: Blank; OR 'W' dividend paid to a resident of a country where a double tax agreement is in force. 'X' dividend paid to a resident of any other country. 'Y' interest paid to all non-resident.
+          type: string
+          maxLength: 1
+          example: ''
+        WithholdingTaxAmount:
+          description: Blank OR Payment amount,2 decimal places for cents.
+          maxLength: 9
+          type: number
+          format: decimal
+          example: 0.0
+        SourceBsb:
+          type: string
+          maxLength: 7
+          description: Payer BSB
+          example: 123-123
+        SourceAccountNumber:
+          type: string
+          example: '123456789'
+          maxLength: 34
+          description: Payer Bank Account Number.
+    event.payToreceivePaymentWebhook:
+      type: object
+      required:
+      - uniqueReference
+      - originalTransactionId
+      - refundAmount
+      properties:
+        TransactionId:
+          type: string
+          example: N00100000000
+          description: Monoova generated Unique ID.
+        DateTime:
+          type: string
+          example: 20/10/2020 12:00:01 AM
+          description: Time Stamp.
+        RemitterName:
+          type: string
+          maxLength: 140
+          example: ABC XYZ
+          description: Remitting Entity.
+        Amount:
+          type: string
+          maxLength: 11
+          example: '10.0000'
+          description: Payment amount, 2 decimal places for cents.
+        AccountName:
+          type: string
+          example: Test1
+          maxLength: 32
+          description: Payer submitted Account Name.
+        AccountNumber:
+          type: string
+          example: '4562134757'
+          maxLength: 9
+          description: Payee Bank Account Number.
+        Bsb:
+          type: string
+          example: 123-123
+          maxLength: 7
+          description: Payee BSB.
+        PaymentDescription:
+          type: string
+          example: This is a free text which describes payment details
+          maxLength: 500
+          description: This is the Payment description provided by the Payer and is equivalent to the lodgementReference field in Direct Entry. It accepts UTF-8 character set.
+        PayId:
+          type: string
+          example: test1@monoova.com
+          maxLength: 256
+          description: Email address for the PayID.
+        PayIdName:
+          type: string
+          example: monoova payIdName
+          maxLength: 256
+          description: PayID Name.
+        SourceBsb:
+          type: string
+          example: 123-123
+          maxLength: 7
+          description: Payer BSB.
+        SourceAccountNumber:
+          type: string
+          example: '123456789'
+          maxLength: 34
+          description: Payer Bank Account Number.
+        SourceAccountName:
+          type: string
+          example: Monoova Payers Name
+          maxLength: 140
+          description: This field appears for NPP transactions only and is the payers bank account name. For DE transactions please refer to the  RemitterName Field.
+        EndToEndId:
+          type: string
+          example: TEST_EndToEnd_ID
+          maxLength: 140
+          description: Osko End to End identifier submitted by Payer.
+        CategoryPurposeCode:
+          type: string
+          example: null
+          maxLength: 4
+          description: NPP payment purpose code. Possible values are Blank, SALA, PENS, SUPP, TAXS
+        CreditorReferenceInformation:
+          type: string
+          example: null
+          maxLength: 35
+          description: Used for SALA, PENS, SUPP and TAXS transactions only. Reference related to payment type.
+        USINumber:
+          type: string
+          example: null
+          maxLength: 35
+          description: Used for PENS code payments only. Unique Superannuation ID (USI).
+        USIScheme:
+          type: string
+          example: null
+          maxLength: 35
+          description: Used for PENS code payments only. USI scheme.
+        UltimateCreditorName:
+          type: string
+          example: null
+          maxLength: 140
+          description: Used for PENS code payments only. Name of the Ultimate Creditor.
+        MmsId:
+          type: string
+          maxLength: 33
+        InitiatingPartyName:
+          type: string
+          description: Iniation Party name..
+          maxLength: 35
+        NPPInstructionId:
+          type: string
+          example: PI123456789
+          description: Unique identifier for tracking the initiation of the payment.
+        ReceiptNumber:
+          type: string
+          example: '5678120'
+          description: Unique identifier for tracking the transaction.
+    pendingRtgsImtWebhook.details:
+      properties:
+        TransactionId:
+          type: string
+          maxLength: 12
+          description: Monoova generated Unique ID.
+          example: R10002222
+        AccountNumber:
+          type: string
+          example: '123456789'
+          maxLength: 34
+          description: Payee Bank Account Number.
+        BSB:
+          type: string
+          example: 802-985
+          maxLength: 7
+          description: Payee BSB.
+        AccountName:
+          type: string
+          example: Monoova
+          maxLength: 32
+          description: Payer submitted Account Name.
+        TransactionReferenceNumber:
+          type: string
+          example: ''
+          description: Transaction Reference Number.
+          maxLength: 21
+        Amount:
+          type: number
+          format: decimal
+          example: 800.0
+          description: Payment amount,2 decimal places for cents.
+          maxLength: 11
+        Status:
+          description: Transaction Status. Possible value Pending.
+          type: string
+          example: Pending
+        LodgementRef:
+          type: string
+          example: Test Reference
+          description: Payer submitted reference
+          maxLength: 280
+        Date:
+          type: string
+          example: '2019-07-22T00:00:00'
+          description: AEDT, Sydney. Transaction Received date.
+        SourceDetails:
+          type: string
+          example: 123123123456789 JOHN Test 123 SAMPLE ST SAMPLEVILLE NSW AUSTRALIA 1234
+          description: Source Account Name address and account number (This will be an optional field depending on merchant setting)
+        RespondBeforeDateTime:
+          type: string
+          example: '2022-02-08T00:00:00'
+          description: AEDT, Sydney. This will indicate the time user has to Confirm/Reject a transaction.
+        SendingOrganisation:
+          type: string
+          example: ABCWAU4BAXXX
+          description: Sending Organisation
+          maxLength: 100
+        ReceivingOrganisation:
+          type: string
+          example: MONOOVA PAYMENTS P/L
+          description: Receiving Organisation
+          maxLength: 100
+        OrderingInstitution:
+          type: string
+          example: CDEWAU4BAXXX
+          description: Ordering Institution
+          maxLength: 100
+        OriginatingAddress:
+          type: string
+          example: CDEWAU4BAXXX
+          description: Originating Address
+          maxLength: 100
+        ledgerAccountNumber:
+          type: string
+          example: ''
+          description: Ledger account number linked to the RTGS transaction.
+        ledgerUniqueReference:
+          type: string
+          example: ''
+          description: Unique reference for the ledger transaction.
+    event.directDebitClearanceWebhook:
+      type: object
+      properties:
+        TotalCount:
+          type: integer
+          example: 3
+          description: Total number of Direct Credits.
+        TransactionIds:
+          type: array
+          items:
+            type: object
+            properties:
+              Id:
+                type: integer
+                example: 1001231559
+          description: List of transaction objects with IDs that were cleared for the merchant on that day.
+          example:
+          - Id: 1001231559
+          - Id: 1001231558
+          - Id: 1001231557
+      required:
+      - TransactionId
+    event.InboundDirectCreditRejectionsWebhook:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 2650
+          maxLength: 12
+          description: Monoova generated Unique ID.
+        batchId:
+          type: integer
+          example: 436206
+          maxLength: 12
+          description: Payment Batch ID. Payments come in batches throughout the day.
+        dateTime:
+          type: string
+          format: date-time
+          example: '2023-08-11T14:19:16'
+          description: AEDT, Sydney.
+        bsb:
+          type: string
+          example: 123-123
+          maxLength: 7
+          description: Payee BSB.
+        accountNumber:
+          type: string
+          example: '123123123'
+          maxLength: 34
+          description: Payee Bank Account Number.
+        accountName:
+          type: string
+          example: TEST
+          maxLength: 32
+          description: Payer submitted Account Name.
+        payId:
+          type: string
+          example: TEST
+          maxLength: 256
+          description: Email address for the PayID.
+        payIdName:
+          type: string
+          example: TEST
+          maxLength: 140
+          description: Name displayed to the payers.
+        transactionCode:
+          type: string
+          example: '50'
+          maxLength: 5
+          description: Industry standard transaction code. "50" for NPP.
+        transactionType:
+          type: string
+          example: DE
+          description: Possible Values 'DE' or 'NPP'.
+        amount:
+          type: number
+          format: decimal
+          maxLength: 11
+          example: 1000.12
+          description: Payment amount, 2 decimal places for cents.
+        lodgementRef:
+          type: string
+          maxLength: 280
+          example: ''
+          description: Payer submitted reference.
+        remitterName:
+          type: string
+          example: Test Test
+          maxLength: 140
+          description: Remitting Entity.
+        indicator:
+          type: string
+          example: ''
+          maxLength: 140
+          description: Blank; OR 'W' dividend paid to a resident of a country where a double tax agreement is in force. 'X' dividend paid to a resident of any other country. 'Y' interest paid to all non-resident.
+        withholdingTaxAmount:
+          type: number
+          format: decimal
+          example: 0.0
+          maxLength: 9
+          description: Blank OR Payment amount, 2 decimal places for cents.
+        endToEndId:
+          type: string
+          example: ''
+          maxLength: 35
+          description: Osko End to End identifier submitted by Payer.
+        nameOfUserSupplyingFile:
+          type: string
+          example: Test
+          description: Preferred name of the User supplying the Direct Entry file.
+        numberOfUserSupplyingFile:
+          type: string
+          example: '123079'
+          description: This is the User Identification Number which is assigned by APCA and User Financial Institutions.
+        descriptionOfEntriesOnFile:
+          type: string
+          example: ''
+          description: Direct Entry file description.
+        reason:
+          type: string
+          example: Unmatched Reconciliation Rule Receivable
+          description: Reason for the rejection.
+        status:
+          type: string
+          example: Processed
+          description: Transaction Status.
+        sourceBsb:
+          type: string
+          example: 123-123
+          maxLength: 7
+          description: Source BSB.
+        sourceAccountNumber:
+          type: string
+          example: '123123123'
+          maxLength: 34
+          description: Payer Bank Account Number.
+        sourceAccountName:
+          type: string
+          example: Test
+          maxLength: 140
+          description: This field appears for NPP transactions only and is the payers bank account name. For DE transactions please refer to the RemitterName Field.
+    event.NppPaymentStatusWebhook:
+      type: object
+      properties:
+        TransactionDate:
+          type: string
+          format: date-time
+          example: '2019-07-22T00:00:00'
+          description: Transaction Date.
+        UniqueReference:
+          type: string
+          maxLength: 200
+          example: 2215125a-b80b-41aa-af58-740d21b303ed
+          description: Client UniqueReference, generated by the calling service.
+        TransactionId:
+          type: integer
+          example: 1234567
+          description: Monoova Transaction Id.
+        Status:
+          description: 'The final status of a transaction, either `Payment Successful` or `Rejected`.
+
+            '
+          type: string
+          example: Payment Successful
+        Amount:
+          type: number
+          format: decimal
+          example: 2.0
+          description: Amount.
+        Bsb:
+          type: string
+          example: 802-985
+          maxLength: 7
+          description: Payee BSB.
+        AccountNumber:
+          type: string
+          example: '123456789'
+          maxLength: 28
+          description: Payee Bank Account Number.
+        AccountName:
+          type: string
+          example: Monoova
+          maxLength: 140
+          description: Payee Account Name.
+        PayId:
+          type: string
+          example: MW9GM4@monoova.me
+          maxLength: 256
+          description: PayId Identifier of the Payee.
+        PayIdType:
+          type: string
+          example: Email
+          enum:
+          - ABN
+          - Email
+          - PhoneNumber
+          - OrganisationId
+          - ACN
+          description: PayId Type. Possible values:&nbsp; ABN, Email, PhoneNumber, OrganisationId, ACN
+        EndToEndId:
+          type: string
+          example: ABC/123-4356
+          maxLength: 35
+          description: End to End identifier submitted by Payer.
+        RemitterName:
+          type: string
+          example: Monoova123
+          maxLength: 140
+          description: Original Remitting Entity.
+        LodgementRef:
+          type: string
+          maxLength: 280
+          example: Ref1
+          description: Original Payment reference.
+        RejectionDateTime:
+          type: string
+          format: date-time
+          example: '2019-07-22T00:00:00.00'
+          description: Rejection Date Time.
+        RejectionReasonDescription:
+          type: string
+          maxLength: 1000
+          example: ACCOUNT CLOSED
+          description: Rejection reason description.
+        RejectionTransactionId:
+          type: integer
+          example: 1234567
+          description: Rejection Transaction Id.
+    event.receivePaymentWebhook:
+      type: object
+      required:
+      - uniqueReference
+      - originalTransactionId
+      - refundAmount
+      properties:
+        TransactionId:
+          type: string
+          example: N00100000000
+          description: Monoova generated Unique ID.
+        DateTime:
+          type: string
+          example: 20/10/2020 12:00:01 AM
+          description: Time Stamp.
+        RemitterName:
+          type: string
+          maxLength: 140
+          example: ABC XYZ
+          description: Remitting Entity.
+        Amount:
+          type: string
+          maxLength: 11
+          example: '10.0000'
+          description: Payment amount, 2 decimal places for cents.
+        AccountName:
+          type: string
+          example: Test1
+          maxLength: 32
+          description: Payer submitted Account Name.
+        AccountNumber:
+          type: string
+          example: '4562134757'
+          maxLength: 9
+          description: Payee Bank Account Number.
+        Bsb:
+          type: string
+          example: 123-123
+          maxLength: 7
+          description: Payee BSB.
+        PaymentDescription:
+          type: string
+          example: This is a free text which describes payment details
+          maxLength: 500
+          description: This is the Payment description provided by the Payer and is equivalent to the lodgementReference field in Direct Entry. It accepts UTF-8 character set.
+        PayId:
+          type: string
+          example: test1@monoova.com
+          maxLength: 256
+          description: Email address for the PayID.
+        PayIdName:
+          type: string
+          example: monoova payIdName
+          maxLength: 256
+          description: PayID Name.
+        SourceBsb:
+          type: string
+          example: 123-123
+          maxLength: 7
+          description: Payer BSB.
+        SourceAccountNumber:
+          type: string
+          example: '123456789'
+          maxLength: 34
+          description: Payer Bank Account Number.
+        SourceAccountName:
+          type: string
+          example: Monoova Payers Name
+          maxLength: 140
+          description: This field appears for NPP transactions only and is the payers bank account name. For DE transactions please refer to the  RemitterName Field.
+        EndToEndId:
+          type: string
+          example: TEST_EndToEnd_ID
+          maxLength: 140
+          description: Osko End to End identifier submitted by Payer.
+        CategoryPurposeCode:
+          type: string
+          example: null
+          maxLength: 4
+          description: NPP payment purpose code. Possible values are Blank, SALA, PENS, SUPP, TAXS
+        CreditorReferenceInformation:
+          type: string
+          example: null
+          maxLength: 35
+          description: Used for SALA, PENS, SUPP and TAXS transactions only. Reference related to payment type.
+        USINumber:
+          type: string
+          example: null
+          maxLength: 35
+          description: Used for PENS code payments only. Unique Superannuation ID (USI).
+        USIScheme:
+          type: string
+          example: null
+          maxLength: 35
+          description: Used for PENS code payments only. USI scheme.
+        UltimateCreditorName:
+          type: string
+          example: null
+          maxLength: 140
+          description: Used for PENS code payments only. Name of the Ultimate Creditor.
+        ReconciliationRuleReference:
+          type: string
+          description: A unique reference used to identify the reconciliation rule. Unique to your mAccount
+          example: RR22348
+          maxLength: 35
+          pattern: ^[A-Za-z0-9-_]{1,35}$
+        ReceiptNumber:
+          type: string
+          example: '5678120'
+          description: Unique identifier for tracking the transaction.
+    PaymentInitiationDetailsDto:
+      type: object
+      required:
+      - amount
+      properties:
+        amount:
+          type: string
+          description: Amount to be transferred. Amount should be >=0.01
+          maxLength: 34
+        isLastPayment:
+          type:
+          - boolean
+          - 'null'
+          description: Set to true to indicate this is the last payment initiation request associated with the mandate. Possible values - True, False.
+        lodgementReference:
+          type:
+          - string
+          - 'null'
+          description: Unique reference, as assigned by the creditor, to unambiguously refer to the payment transaction.
+          maxLength: 280
+      additionalProperties: false
+    WebhookPaymentInstructionDto:
+      type: object
+      required:
+      - paymentInitiationUID
+      properties:
+        eventId:
+          type: string
+          minLength: 40
+          pattern: ^[A-Z0-9-]
+          description: This will uniquely identify each notification and can be used to request a resend.
+        sourceEventName:
+          type: string
+          description: PaymentInstructionStatusUpdated
+        eventTimestamp:
+          type: string
+          format: date-time
+          description: ISO Date Time in UTC
+        paymentInitiationDetails:
+          type: object
+          required:
+          - paymentAgreementUID
+          properties:
+            paymentAgreementUID:
+              type: string
+              description: Id to uniquely Identify a payment agreement.
+              maxLength: 35
+              pattern: ^[A-Z0-9_-]
+            paymentInitiationUID:
+              type:
+              - string
+              - 'null'
+              maxLength: 35
+              description: Id to uniquely identify payment
+            paymentInitiationStatus:
+              type:
+              - string
+              - 'null'
+              description: This is the status of the payment agreement.
+              example: ACSC
+            paymentInitiationStatusDescription:
+              type:
+              - string
+              - 'null'
+              description: This describes the status. For example, a status of ‘created’ will have a description of ‘Pending Payer Approval’
+              example: Accepted & Settled
+            mmsId:
+              type:
+              - string
+              - 'null'
+              description: This is the unique ID that identifies this payment agreement.
+              example: 4532543543543
+            statusReasonCode:
+              type: string
+              example: null
+            statusReasonDescription:
+              type: string
+              example: null
+        payeeDetails:
+          $ref: '#/components/schemas/PayeeDetailsDto'
+        paymentDetails:
+          $ref: '#/components/schemas/PaymentInitiationDetailsDto'
+      additionalProperties: false
+    PaymentDetailsDto:
+      required:
+      - automaticRenewal
+      - purpose
+      - startDate
+      properties:
+        automaticRenewal:
+          type:
+          - boolean
+          - 'null'
+          example: false
+          description: Determines if the payment agreement automatically renews at the end of the defined period. </br> Possible values - True, False </br> endDate cannot be present if automaticRenewal is set as 'TRUE', endDate must be present if automaticRenewal is set as 'FALSE'
+        description:
+          type:
+          - string
+          - 'null'
+          description: Reason for the mandate setup as narrative text. </br> Either "description" or "short_description" must be present
+          maxLength: 140
+          example: null
+        shortDescription:
+          description: Reason for the mandate setup as narrative text. </br> Either "description" or "short_description" must be present
+          type:
+          - string
+          - 'null'
+          maxLength: 35
+          example: PayToTest_001
+        purpose:
+          type:
+          - string
+          - 'null'
+          description: Payment Purpose Code. </br>  Possible Values- </br>  MORT - Mortgage Payments </br>  UTIL - Utility Payments </br>  LOAN - Loan Payments </br>  DEPD - Dependant Support Payments </br>  GAMP - Gambling Payments </br>  RETL - Retail Payments </br>  SALA - Salary Payments </br>  PERS - Personal Payment </br>  GOVT - Government Payments </br>  PENS - Pension Payments </br>  TAXS - Tax Payments </br>  OTHR - Other Service Payments
+          example: MORT
+        respondByTime:
+          type:
+          - string
+          - 'null'
+          description: Optional time used to indicate by when resolution of a bilateral action is requested from the other party to the payment agreement. It will be provided in any notification sent to the counterparty. This time is for informational purposes only and does not affect the expiry time imposed by the MMS.<br/>Must be future date and less than 5 days<br/> If not provided value will be defaulted to agreement creation datetime + 5 day<br/> Default time zone is UTC
+          format: ISODateTime ( yyyy-mm-ddThh:mm:ss+|–hh:mm)
+          example: 2022-09-13 14:35:27+00:00
+        startDate:
+          description: Start date of the validity of the mandate. The mandate is valid as of 00:00:00.000 Australia Sydney time on this date.
+          type:
+          - string
+          - 'null'
+          format: YYYY-MM-DD
+          example: 2022-09-13
+        endDate:
+          type:
+          - string
+          - 'null'
+          format: YYYY-MM-DD
+          example: 2023-08-24
+          description: End date of the validity of the mandate. If specified, the mandate is valid until 23:59:59.999 Australia Sydney time on this date.
+      additionalProperties: false
+    PayeeDetailsDto:
+      required:
+      - payeeType
+      oneOf:
+      - required:
+        - payeeLinkedBsb
+        - payeeLinkedAccount
+      - required:
+        - payeeLinkedPayId
+        - payeeLinkedPayIdType
+        - payeeAccountName
+      type: object
+      properties:
+        payeeType:
+          type:
+          - string
+          - 'null'
+          description: Identifies the type of a party.</br> Possible Values ORGN - Organization, PERS - Person
+          example: ORGN
+        payeeLinkedBsb:
+          type:
+          - string
+          - 'null'
+          description: BSB number. </br>Required if 'payeeLinkedPayId' and 'payeeLinkedPayIdType' are not provided. e.g. '999-999 or 999999'
+          example: 999-999
+        payeeLinkedAccount:
+          type:
+          - string
+          - 'null'
+          maxLength: 28
+          description: Bank Account Number. </br>Required if 'payeeLinkedPayId' and 'payeeLinkedPayIdType' are not provided.
+          example: 22222222
+        payeeLinkedPayId:
+          type:
+          - string
+          - 'null'
+          description: PayID. </br> Email, phone number, ABN, ACN or Organisation name. </br>Required if 'payeeLinkedBsb' and 'payeeLinkedAccount' are not provided. <a href="/payTo#tag/PAYID-Format-Validation">See PAYID Format Validation.</a>
+          example: ''
+        payeeLinkedPayIdType:
+          type:
+          - string
+          - 'null'
+          description: PayID Type. Possible values ABN, Email, PhoneNumber, OrganisationId, ACN. </br>Required if 'payeeLinkedBsb' and 'payeeLinkedAccount' are not provided.
+          example: ''
+        payeeAccountName:
+          type:
+          - string
+          - 'null'
+          description: Bank Account Name </br> Can only provide payeeAccountName in the payload if crediting an external BSB. Mandatory if crediting a PayID.
+          maxLength: 140
+          example: ABCORP
+        ultimatePayee:
+          type:
+          - string
+          - 'null'
+          example: ABCORP
+          description: Name by which the party is known, and which is usually used to identify that party.</br> Can only provide ultimatePayee in the payload if crediting an external BSB.
+      additionalProperties: false
+    PayerDetailsDto:
+      type: object
+      required:
+      - payerType
+      - payer
+      - ultimatePayer
+      - payerPartyReference
+      oneOf:
+      - required:
+        - linkedBsb
+        - linkedAccount
+      - required:
+        - linkedPayId
+        - linkedPayIdType
+      properties:
+        payerType:
+          type:
+          - string
+          - 'null'
+          description: Identifies the type of party. </br> Possible Values - ORGN (Organization),    PERS (Person)
+          example: ORGN
+        linkedBsb:
+          type:
+          - string
+          - 'null'
+          description: BSB (Bank-State-Branch) number. </br>Required if 'linkedPayId' and 'linkedPayIdType' are not provided.
+          example: 802950
+        linkedAccount:
+          type:
+          - string
+          - 'null'
+          description: Bank account number. </br>Required if 'linkedPayId' and 'linkedPayIdType' are not provided.
+          maxLength: 28
+          example: 10109010
+        linkedPayId:
+          type:
+          - string
+          - 'null'
+          example: null
+          description: PayID. </br> Email, phone number, ABN, ACN or Organisation ID. </br>Required if 'linkedBsb' and 'linkedAccount' are not provided. <a href="/payTo#tag/PAYID-Format-Validation">See PAYID Format Validation.</a>
+        linkedPayIdType:
+          type:
+          - string
+          - 'null'
+          example: null
+          description: PayID Type. </br>Possible Values - Email, PhoneNumber, ABN, ACN, OrganisationId. </br>Required if 'linkedBsb' and 'linkedAccount' are not provided.
+        payer:
+          type:
+          - string
+          - 'null'
+          description: Bank Account Name.
+          maxLength: 140
+          example: ABCCORPCo
+        ultimatePayer:
+          type:
+          - string
+          - 'null'
+          maxLength: 140
+          description: Name by which the party is known, and which is usually used to identify that party.
+          example: ABCCORPCo
+        payerPartyReference:
+          type:
+          - string
+          - 'null'
+          maxLength: 35
+          description: This field will be presented to Payer in the detail agreement view. This field also be used group payment initiations associated with a payment agreement.
+          example: Payer54321
+      additionalProperties: false
+    WebhookPaymentAgreementDto:
+      type: object
+      required:
+      - paymentAgreementUID
+      properties:
+        eventId:
+          type: string
+          minLength: 40
+          pattern: ^[A-Z0-9-]
+          description: This will uniquely identify each notification and can be used to request a resend.
+        sourceEventName:
+          type: string
+          description: Possible Values PaymentAgreementCreated, PaymentAgreementActive, PaymentAgreementCancelled, PaymentAgreementAmended, PaymentAgreementStatusAmended, PaymentAgreementActionCancelled, PaymentAgreementActionExpired (since 1.03), PaymentAgreementActionDeclined (since 1.03), PaymentAgreementActionCreated (since 1.06)
+        eventTimestamp:
+          type: string
+          format: date-time
+          description: ISO Date Time in UTC
+        paymentAgreementDetails:
+          type: object
+          properties:
+            paymentAgreementUID:
+              type: string
+              description: Id to uniquely Identify a payment agreement.
+              maxLength: 35
+              pattern: ^[A-Z0-9_-]
+            paymentAgreementStatus:
+              type: string
+              description: Status of the payment agreement. Must be one of Created, Active, Paused, Cancelled, Rejected, Expired
+            payeeDetails:
+              $ref: '#/components/schemas/PayeeDetailsDto'
+            payerDetails:
+              $ref: '#/components/schemas/PayerDetailsDto'
+            paymentTerms:
+              $ref: '#/components/schemas/PaymentTermsDto'
+            paymentDetails:
+              $ref: '#/components/schemas/PaymentDetailsDto'
+        action:
+          type: object
+          description: This will be populated when notifications are triggered for following events Mandate cancellation, declined by Payer, Mandate status changed by Payer, Mandate amendment declined by Payer.
+          properties:
+            agreementStatusChangeReasonCode:
+              type: string
+              description: <a href='/payTo#tag/Mandate-Status-Reason-Codes'>See Mandate Status Reason Code</a>
+            agreementStatusChangeReasonDescription:
+              type: string
+              description: Description is one of the manually inserted reason description when responding to the action, The relevant description attached to the code above from list <a href='/payTo#tag/Mandate-Status-Reason-Codes'>Mandate Status Reason Code</a>.
+            actionStatus:
+              type: string
+              description: One of <br/>Completed,<br/>Cancelled,<br/>PendingApproval,<br/>Declined,<br/>Expired,<br/>Rejected
+            actionType:
+              type: string
+              description: One of <br/>CREATE,<br/>AMEND,<br/>PAUSE,<br/>RESUME,<br/>CANCEL,<br/>PORT
+            actionIdentification:
+              type: string
+      additionalProperties: false
+    PaymentTermsDto:
+      required:
+      - numberOfTransactionsPermitted
+      - frequency
+      - amount
+      - agreementType
+      type: object
+      properties:
+        numberOfTransactionsPermitted:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: Quantifies the number of transactions allowed per frequency
+          example: 10
+        frequency:
+          type:
+          - string
+          - 'null'
+          description: Specifies the regularity of an event. See Frequency Table for allowed values
+          example: WEEK
+        pointInTime:
+          type:
+          - number
+          - 'null'
+          description: Qualifies the frequency in terms of an exact point in time or moment within the specified period.</br> Valid non decimal numeric value. Supported values will be 01 to 31 </br> This field works in combination with frequency and can only be provided when frequency = MNTH </br> This field should not be provided if numberOfTransactionsPermitted is provided
+          example: null
+        amount:
+          type:
+          - number
+          - 'null'
+          maxLength: 34
+          example: null
+          description: Exact amount that may be paid from the Creditor's account, per instruction. Refer to AgreementType & Amount table below
+        maximumAmount:
+          type:
+          - number
+          - 'null'
+          maxLength: 34
+          example: 100.0
+          description: Maximum amount that may be paid from the Creditor's account, per instruction. Refer to AgreementType & Amount table below
+        agreementType:
+          type:
+          - string
+          - 'null'
+          description: Based on the AgreementType table
+          example: VARI
+      additionalProperties: false
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    BasicAuth:
+      type: http
+      scheme: basic
+x-refined-from:
+- monoova-cc.yml
+- monoova-payments.yml
+- monoova-payto.yml
+x-tagGroups:
+- name: ''
+  tags:
+  - Generate a Bearer Token
+  - Generate a Client Session
+  - Get Transaction By Id
+  - Get Transaction By Date Range
+  - Request Refund Transaction
+  - Get Async Request Status
+  - Create Payment Using Token
+  - Get Payment Method Token Details
+  - Update Payment Method Token Status
+  - Webhooks
+  - Monoova Error Codes

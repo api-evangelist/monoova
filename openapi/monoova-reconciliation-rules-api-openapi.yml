@@ -1,0 +1,425 @@
+openapi: 3.2.0
+info:
+  description: "# Introduction\n\n<p> \n  Monoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n  This service is made available to Monoova’s clients through a set of easy-to-use RESTful APIs with JSON payloads described in this document.\n  The central idea is to reduce the cost, risk and effort normally associated with managing complex money movements so that you can focus on growing your business.\n</p> \n<p> \n Our clients can receive and reconcile funds via Realtime transfers (NPP), direct credits/debits, BPAY and cards. \n They can then manage those funds by building virtual account/wallet hierarchies to get bespoke reporting, reconciliation and much more. \n And finally, our clients can pay funds via Realtime transfers (NPP) direct credits and BPAY. \n As new technologies become available (e.g. NPP Mandated payments) we will make additional methods of receiving, managing and paying available.\n</p> \n<p> \n  All information flows are real-time.\n  Moving money between various Monoova accounts is also real time.\n  All money flows in and out of the Engine are as fast as the banking system allows.\n</p>\n<p> \n  The sandbox environment is open to everyone who signs up on our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a> at no cost.\n  The sandbox environment allows you to test out the functionality of our API in a consequence free development environment.\n  Access to the live environment is granted once you have (1) gone through our compliance process and (2) had formal sign-off on your sandbox integration.\n</p>\n<p>\n  Monoova regularly releases additive changes to our API, as well as new versions of the API when a breaking change would occur. \n  To ensure your integration does not break due to these additive changes, we recommend not validating the entire schema, or the position of a parameter within the schema.\n</p>\n<br/><br/>\n<p> <strong> Note&#58;</strong> Please note we do not accept TLS 1.0 or 1.1 connections</p>\n\n# Getting started\n>\n  - Sign on to our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>\n  - Get your sandbox API key under **MANAGE > ACCOUNTS** in the Sandbox Portal\n  - [Authenticate](#section/Authentication)\n  - Browse this document to find the functions you need\n  - Begin experimenting with your first API calls by sending HTTP requests to the endpoints described in this document\n  - Use the provided examples in the document as guidance\n\n# Authentication\n  All RESTful APIs in this document use BASIC Authentication (except those in public/v1) in two scenarios either\n  - <strong> API KEY </strong>\n  - <strong> OneShotSecurityToken </strong><br><br>\n\n> **Sandbox Authentication Credentials**\n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.m-pay.com.au/</td>\n  </tr>\n</table> <br>\n\n> **Live Authentication Credentials**\nThis will be provided by Monoova after a technical review. <br> \n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the Production Portal; Production credentials will be supplied by Monoova) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.mpay.com.au/</td>\n  </tr>\n</table> <br>\n\nWhen using the LIVE Engine, your Sign-In Account is given five (5) attempts to authenticate your credentials. \nOn the fifth failure your Sign-In Account is locked for one (1) hour. \nThe returned data will indicate that your account is locked and the time in UTC that the account will be unlocked. \nIf you require the account to be unlocked on the LIVE system you may contact your Monoova representative and at his or her discretion they will unlock the account.\nSee the API routes in Security to manage Passwords and Tokens. <br><br>\n\n<h3> UserName/Password </h3>\nUsing this scenario, you can configure BASIC Authentication with the following <br> <br>\n<li> <strong> UserName </strong> - API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) Production credentials will be supplied by Monoova when you have demonstrated successful implementation of the API on our Sandbox environment.</li>\n<li> <strong> Password </strong> - When using your API Key, no password is required. \nIf the key is compromised, it can be re-rolled via the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>. </li> <br>\n\n# Feedback\n\nWe value your feedback on our API. Please fill out the form <a href=\"https://ncv.microsoft.com/8eaKX3fsiJ\" target=\"_blank\">here</a> to share your feedback.\n"
+  version: v5.29
+  title: Monoova Payments Reconciliation Rules API
+  contact:
+    name: Monoova Support
+    email: support@monoova.com
+    url: https://www.monoova.com
+  x-logo:
+    url: https://movdpwebsiteprodae.blob.core.windows.net/images/Monoova-Primary-Logo-Black-RGB.png
+    altText: Monoova logo
+servers:
+- url: https://api.mpay.com.au
+  description: Production URL
+- url: https://api.m-pay.com.au
+  description: Sandbox URL
+security:
+- BasicAuth: []
+tags:
+- name: Reconciliation Rules
+  description: <h3>  Overview </h3> <p> This feature enables customers to specify the criteria for accepting incoming NPP and DE payments in real time. The customer will be able to advise Monoova about the exact amount they expect to receive in their ABA/PayId in an agreed timeframe. This information would be used to determine whether to accept or reject a payment.<br/><br/> There are 2 criteria that can be set when specifying the reconciliation rules. Inbound transactions will only be accepted if <ul> <li>Bsb - Account Number and amount matches an active reconciliation rule. OR</li> <li>PayId and amount match an active reconciliation rule</li> </ul> If pre-defined criteria are not met, the transaction will automatically be returned to the sender. <br/><br/> These rules will not be applied to NPP PayTo Receivables.<br/> </p>
+paths:
+  /receivables/v1/reconciliationrules/create:
+    post:
+      tags:
+      - Reconciliation Rules
+      summary: Create Reconciliation Rule
+      description: Use this API to create new reconciliation rules. Multiple entries can be created for an ABA or PayId for the same or different amount. The system will automatically return payments if the payment details do not match one of the entries. In case there are duplicate entries, payment will be matched with the oldest active rule.<br/> An optional Expiry Date Time can be specified for each rule. If expiry date is not provided, this will be defaulted as per pre-decided setup.
+      operationId: ReconciliationRulesCreate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/receivables.reconRulesCreate'
+      x-codeSamples:
+      - lang: PayID
+        source: "{\n  \"reconciliationRuleReference\": \"RR22348\",\n  \"expiryDateTime\": \"2023-08-05T12:34:56\",\n  \"payId\": \"abc@xyz.com.au\",\n  \"amount\": 0.5\n}\n"
+      - lang: Bank Account
+        source: "{\n  \"reconciliationRuleReference\": \"RR22348\",\n  \"expiryDateTime\": \"2023-08-05T12:34:56\",\n  \"bsb\": \"802-985\",\n  \"accountNumber\": \"819877339\",\n  \"amount\": 0.5\n}\n"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  durationMs:
+                    description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+                    type: integer
+                    format: int64
+                    example: 20
+                  status:
+                    description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+                    type: string
+                    example: Ok
+                  statusDescription:
+                    description: This is a plain English description of the status.
+                    type: string
+                    example: Operation completed successfully
+        '400':
+          description: Invalid ReconciliationRuleReference
+          content:
+            application/json:
+              example:
+                durationMs: 7
+                status: InvalidReconciliationRuleReference
+                statusDescription: Invalid Reconciliation Rule Reference. Please ensure that the value provided is not empty and unique.
+  /receivables/v1/reconciliationrules/{ReconciliationRuleReference}:
+    patch:
+      tags:
+      - Reconciliation Rules
+      summary: Cancel Reconciliation Rule
+      description: This API can be used to cancel an active Reconciliation Rule. The system will automatically return payments if the payment details match a cancelled reconciliation rule. <br/> <br/> <ul> <li>This API will mark the status of Reconciliation Rules as Cancelled.</li> <li>Only Reconciliation Rules in Received status can be Cancelled.</li> </ul>
+      operationId: ReconciliationRulesCancel
+      parameters:
+      - name: ReconciliationRuleReference
+        in: path
+        required: true
+        schema:
+          type: string
+          description: A unique reference used to identify the reconciliation rule. Unique to your mAccount
+          maxLength: 35
+          example: RR22348
+          pattern: ^[A-Za-z0-9-_]{1,35}$
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  durationMs:
+                    description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+                    type: integer
+                    format: int64
+                    example: 20
+                  status:
+                    description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+                    type: string
+                    example: Ok
+                  statusDescription:
+                    description: This is a plain English description of the status.
+                    type: string
+                    example: Operation completed successfully
+        '400':
+          description: Invalid ReconciliationRule Status
+          content:
+            application/json:
+              example:
+                durationMs: 7
+                status: InvalidReconciliationRuleStatus
+                statusDescription: The specified Reconciliation Rule cannot be cancelled due to its current status. Only Reconciliation Rules that are in Received status can be cancelled.
+  /receivables/v1/reconciliationrules/list/{dateTime}:
+    get:
+      tags:
+      - Reconciliation Rules
+      summary: Get the list of Reconciliation Rules by Date/Time
+      description: This API can be used to search for a list of reconciliation rules. Customer will be allowed to search for rules for a date range of upto a month. If End Date is not provided, the system will return records for the day specified in Start Date.
+      operationId: ReconciliationRulesSearchByDate
+      parameters:
+      - name: dateTime
+        schema:
+          type: string
+          format: date
+        required: true
+        description: Example 2020-03-15 <br/> date format should be 'yyyy-MM-dd' format.
+        in: path
+      - name: endDate
+        schema:
+          type: string
+          format: date
+        in: query
+        required: false
+        description: Optional - If not provided we will provide data for the day specified in Start Date. <br/> Maximum range allowed is 1 month
+      - name: payId
+        in: query
+        description: string <= 256 characters
+        required: false
+        schema:
+          type: string
+          maxLength: 256
+      - name: ABA
+        in: query
+        description: Number combination of BSB + Account number with any special characters 802985123456789
+        required: false
+        schema:
+          type: string
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - Received
+          - InProgress
+          - Expired
+          - Processed
+          - Cancelled
+        description: possible Values - <br/> <ul> <li>Received - Initial Status</li> <li>InProgress - Matching Payment is being processed </li> <li>Expired - Rule expired</li> <li>Processed - Matching Payment processed</li> <li>Cancelled - User cancelled the rule</li> </ul>
+      - name: pageNumber
+        in: query
+        description: Optional - If not provided, it is defaulted to 1
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - name: pageSize
+        in: query
+        description: Optional - If not provided, page size will be defaulted to 50 (Configuration). Maximum allowed is 200 (Configuration).
+        required: false
+        schema:
+          type: integer
+          default: 50
+          maximum: 200
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  durationMs:
+                    description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+                    type: integer
+                    format: int64
+                  status:
+                    description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+                    type: string
+                  statusDescription:
+                    description: This is a plain English description of the status.
+                    type: string
+                  reconciliationRules:
+                    type: object
+                    properties:
+                      reconciliationRuleReference:
+                        type: string
+                        description: A unique reference used to identify the reconciliation rule. Unique to your mAccount
+                        maxLength: 35
+                        pattern: ^[A-Za-z0-9-_]{1,35}$
+                      expiryDateTime:
+                        type: string
+                        description: This will be specified in Sydney local time in ISO 8601 Date Time format. This should be future date. If ExpiryDateTime is not provided it will be defaulted as pre-decided setup.
+                      bsb:
+                        type: string
+                        description: Conditional, Either BSB+Account Number Or PayId should be provided
+                      accountNumber:
+                        type: string
+                        pattern: ^[0-9]+$
+                        minLength: 9
+                        description: Conditional, Either BSB+Account Number Or PayId should be provided
+                      payId:
+                        type: string
+                        maxLength: 256
+                        description: Conditional, Either BSB+Account Number Or PayId should be provided
+                      amount:
+                        type: number
+                        minimum: 0.01
+                      createdDateTime:
+                        type: string
+                        description: This will be specified in Sydney local time in ISO 8601 Date Time format.
+                      updatedDateTime:
+                        type: string
+                        description: This will be specified in Sydney local time in ISO 8601 Date Time format.
+                      processedDateTime:
+                        type: string
+                        description: This will be specified in Sydney local time in ISO 8601 Date Time format.
+                      transactionId:
+                        type: string
+                        description: Should be prefixed with D00 for DE and N00 for NPP
+                      status:
+                        description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+                        type: string
+              example:
+                durationMs: 14
+                status: Ok
+                statusDescription: Operation completed successfully
+                reconciliationRules:
+                - amount: 0.5
+                  createdDateTime: '2023-08-01T08:26:34'
+                  expiryDateTime: '2023-08-05T12:34:56'
+                  payId: abc@xyz.com.au
+                  reconciliationRuleReference: RR22148
+                  status: Received
+                - amount: 0.49
+                  createdDateTime: '2023-08-01T08:18:07'
+                  expiryDateTime: '2023-08-05T12:34:56'
+                  payId: abc@xyz.com.au
+                  reconciliationRuleReference: RR22348
+                  status: Cancelled
+                - amount: 1.0
+                  createdDateTime: '2023-08-01T08:12:06'
+                  expiryDateTime: '2023-08-05T12:34:56'
+                  payId: abc@xyz.com.au
+                  reconciliationRuleReference: RR12348
+                  status: Received
+                - amount: 0.5
+                  createdDateTime: '2023-08-01T08:12:02'
+                  expiryDateTime: '2023-08-05T12:34:56'
+                  payId: abc@xyz.com.au
+                  reconciliationRuleReference: RR12347
+                  status: Received
+                - amount: 0.1
+                  createdDateTime: '2023-08-01T08:12:00'
+                  expiryDateTime: '2023-08-05T12:34:56'
+                  payId: abc@xyz.com.au
+                  reconciliationRuleReference: RR12346
+                  status: Received
+  /receivables/v1/reconciliationrules/{id}:
+    get:
+      tags:
+      - Reconciliation Rules
+      summary: Get Reconciliation Rule By ID
+      description: This API is used to retrieve a single Reconciliation Rule based on its ID. The ReconciliationRuleReference should belong to the signin merchant.
+      operationId: ReconciliationRulesSearchByID
+      parameters:
+      - name: id
+        in: path
+        description: ReconciliationRuleReference. The unique identifier for the Reconciliation Rule.
+        required: true
+        schema:
+          type: string
+          example: RR22148
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  durationMs:
+                    description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+                    type: integer
+                    format: int64
+                  status:
+                    description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+                    type: string
+                  statusDescription:
+                    description: This is a plain English description of the status.
+                    type: string
+                  reconciliationRule:
+                    type: object
+                    properties:
+                      reconciliationRuleReference:
+                        type: string
+                        description: A unique reference used to identify the reconciliation rule. Unique to your mAccount
+                        maxLength: 35
+                        pattern: ^[A-Za-z0-9-_]{1,35}$
+                      expiryDateTime:
+                        type: string
+                        description: This will be specified in Sydney local time in ISO 8601 Date Time format. This should be future date. If ExpiryDateTime is not provided it will be defaulted as per pre-decided setup.
+                      bsb:
+                        type: string
+                        description: Conditional, Either BSB+Account Number Or PayId should be provided
+                      accountNumber:
+                        type: string
+                        minLength: 9
+                        description: Conditional, Either BSB+Account Number Or PayId should be provided
+                      payId:
+                        type: string
+                        maxLength: 256
+                        description: Conditional, Either BSB+Account Number Or PayId should be provided
+                      amount:
+                        type: number
+                        format: double
+                        minimum: 0.01
+                      createdDateTime:
+                        type: string
+                        description: This will be specified in Sydney local time in ISO 8601 Date Time format.
+                      updatedDateTime:
+                        type: string
+                        description: This will be specified in Sydney local time in ISO 8601 Date Time format.
+                      processedDateTime:
+                        type: string
+                        description: This will be specified in Sydney local time in ISO 8601 Date Time format.
+                      transactionId:
+                        type: string
+                        description: Should be prefixed with D00 for DE and N00 for NPP
+                      status:
+                        description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+                        type: string
+              example:
+                durationMs: 14
+                status: Ok
+                statusDescription: Operation completed successfully
+                reconciliationRule:
+                  amount: 1268.23
+                  createdDateTime: '2023-08-19T08:16:35'
+                  expiryDateTime: '2023-08-30T05:14:46'
+                  payId: abc@xyz.com.au
+                  reconciliationRuleReference: 012F67AC-59EF-4F9A-8960-77624344EF2
+                  status: Received
+        '400':
+          description: Invalid ReconciliationRuleReference
+          content:
+            application/json:
+              example:
+                durationMs: 7
+                status: InvalidReconciliationRuleReference
+                statusDescription: Invalid Reconciliation Rule Reference. Please ensure that the value provided is not empty and unique.
+components:
+  schemas:
+    receivables.reconRulesCreate:
+      type: object
+      required:
+      - reconciliationRuleReference
+      - amount
+      properties:
+        reconciliationRuleReference:
+          type: string
+          description: A unique reference used to identify the reconciliation rule. Unique to your mAccount
+          maxLength: 35
+          pattern: ^[A-Za-z0-9-_]{1,35}$
+        expiryDateTime:
+          type: string
+          description: This will be specified in Sydney local time in ISO 8601 Date Time format. This should be future date. If ExpiryDateTime is not provided it will be defaulted as per pre-decided setup.
+        bsb:
+          type: string
+          description: Conditional, Either BSB+Account Number Or PayId should be provided
+        accountNumber:
+          type: string
+          minLength: 9
+          description: Conditional, Either BSB+Account Number Or PayId should be provided
+        payId:
+          type: string
+          maxLength: 256
+          description: Conditional, Either BSB+Account Number Or PayId should be provided
+        amount:
+          type: number
+          format: double
+          minimum: 0.01
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Receive and Pay
+  tags:
+  - Financial
+  - Verify
+  - Automatcher (Bank Account Receivables)
+  - Whitelisting for Automatcher (Bank Account Receivables)
+  - Ledger Account
+  - Reconciliation Rules
+  - PayID
+  - Tools
+- name: BPAY
+  tags:
+  - BPAY
+  - mWallet
+- name: Manage
+  tags:
+  - Subscriptions
+  - Webhooks
+  - mAccount
+  - Reports
+  - Security
+  - Token
+- name: Public Endpoints
+  tags:
+  - Public Endpoints

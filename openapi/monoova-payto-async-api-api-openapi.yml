@@ -1,0 +1,1208 @@
+openapi: 3.2.0
+info:
+  description: "# Introduction\n\nThe Monoova PayTo API is designed to efficiently handle real time financial transactions, providing a reliable platform for creating payment agreements and initiating payments. It offers a streamlined transaction process, ensuring speed and security for businesses and users with benefits above and beyond a direct debit alternative.\n\nMonoova's PayTo API supports synchronous and asynchronous operations, allowing flexible integration based on varying business needs. The asynchronous API option is particularly beneficial for handling batch operations requiring extended processing time, enhancing overall system performance and reliability. Additionally, Monoova provides webhook subscriptions, enabling users to receive timely updates and notifications about transaction events, which helps maintain transparency and control over financial activities.\n\n## Process\n\nPayTo allows you to debit an enabled domestic bank account in real time. \n\n* First, you create a **payment agreement** between a payer and a payee. The terms of the agreement determine the amount and schedule of allowed debits. When you create a Payment Agreement, the account is validated in real time, so you can ensure the account details are correct.\n\n* Next, the payer authorises the agreement through their banking app.\n\n* Finally, real time **payment initiations** can be triggered. If successful, funds will be credited to the payee account in real time and made available for disbursement. Because recipients can access funds faster than traditional direct debit systems, this is particularly beneficial for businesses or individuals relying on prompt cash flow payments.\n\n* If you would like to modify the terms of the agreement, you can use the amendment API's.\n\n# Getting Started\n\n1. Access the Domestic Payments Portal:\n\n    * Sandbox Environment:\n        - Register: If you are new, [register](https://sandbox.monoova.com) to gain Sandbox access.\n        - Login: If you already have Sandbox credentials, [log in](https://sandbox.monoova.com) to continue your work.\n\n    * Production Environment:\n        - Login: Login to the [Production portal](https://payments.monoova.com) using the credentials you obtained during onboarding.\n\n2. Activate Your API Key\n\n    * Generate API Key:\n      - If you do not know your API Key or need to reset it, navigate to Manage > Accounts to generate or regenerate your API Key after logging into the portal.\n\n    * Activate API Gateway Access:\n      - Go to Manage > API Gateway and enter your API Key to activate API Gateway access for your mAccount.\n\n3. Configure API Access\n\n    Please [contact our integration team](https://www.monoova.com/contact) to configure your account settings. This step ensures that your account is allowed to access the service.\n\n4. Explore API Endpoints\n\n    Use the API documentation to plan your integration. It provides details and examples of usage.\n\n5. Onboarding and Support\n\n    Our integration team will guide you from the initial setup to the final running implementation, providing support throughout the process.\n\n# Sandbox Testing for PayTo Agreements\n\nIn the Sandbox environment, it is possible to test different outcomes for PayTo agreements by altering the values of the agreement. This allows for a comprehensive evaluation of potential scenarios in a controlled setting.\n\n## Use the following payment details when testing in Sandbox:\n\n<style type=\"text/css\">\n.tb { table-layout:auto; width:300px;!important }\n.td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important}\n</style>\n<table class=\"tb\">\n  <tr>\n    <th>Account Name</th>\n    <th>BSB</th>\n    <th>Account Number</th>\n    <th>PayID</th>\n  </tr>\n  <tr>\n    <td class=\"td\">Monoova Sample 1</td>\n    <td class=\"td\">802950</td>\n    <td class=\"td\">22090100</td>\n    <td class=\"td\">+61-422020901</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Monoova Sample 2</td>\n    <td class=\"td\">802950</td>\n    <td class=\"td\">22090101</td>\n    <td class=\"td\">sample@monoova.com</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Monoova Sample 3</td>\n    <td class=\"td\">802950</td>\n    <td class=\"td\">22090102</td>\n    <td class=\"td\">38126015228</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Monoova Sample 4</td>\n    <td class=\"td\">802950</td>\n    <td class=\"td\">22090103</td>\n    <td class=\"td\">987654321</td>\n  </tr>\n</table>\n\n## Testing Payment Agreements\n\nPayment agreements are automatically approved or declined in the Sandbox environment, depending on the amount or `maxAmount` included in the agreement request. If both `amount` or `maxAmount` are passed, the `amount` will determine the behavior.\n\nFor basic testing of Payment Agreements, the following test cases are recommended. A more comprehensive list of test cases is available should you wish to examine edge cases.\n</br></br>\n### Response for Payment Agreements\n\n<style type=\"text/css\">\n.tb { table-layout:auto; width:300px;!important }\n.td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important}\n</style>\n<table class=\"tb\">\n  <tr>\n    <th>Response</th>\n    <th>Reason Code</th>\n    <th>Contains Value</th>\n    <th>Example</th>\n    <th>Action</th>\n  </tr>\n  <tr>\n    <td class=\"td\">Agreement Approved</td>\n    <td class=\"td\">-</td>\n    <td class=\"td\">.00</td>\n    <td class=\"td\">$5.00, $10.00, $50.00</td>\n    <td class=\"td\">Approve</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Requested By Customer</td>\n    <td class=\"td\">M019</td>\n    <td class=\"td\">.19</td>\n    <td class=\"td\">$5.19, $10.19, $50.19</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n</table>\n\n### Other Test Cases\n\n<style type=\"text/css\">\n.tb { table-layout:auto; width:300px;!important }\n.td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important}\n</style>\n<table class=\"tb\">\n  <tr>\n    <th>Response</th>\n    <th>Reason Code</th>\n    <th>Contains Value</th>\n    <th>Example</th>\n    <th>Action</th>\n  </tr>\n  <tr>\n    <td class=\"td\">Invalid Debtor Account Number</td>\n    <td class=\"td\">M001</td>\n    <td class=\"td\">.01</td>\n    <td class=\"td\">$5.01, $10.01, $50.01</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Closed Debtor Account Number</td>\n    <td class=\"td\">M003</td>\n    <td class=\"td\">.03</td>\n    <td class=\"td\">$5.03, $10.03, $50.03</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Blocked Account</td>\n    <td class=\"td\">M004</td>\n    <td class=\"td\">.04</td>\n    <td class=\"td\">$5.04, $10.04, $50.04</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Invalid Debtor Account Type</td>\n    <td class=\"td\">M005</td>\n    <td class=\"td\">.05</td>\n    <td class=\"td\">$5.05, $10.05, $50.05</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Transaction Forbidden</td>\n    <td class=\"td\">M006</td>\n    <td class=\"td\">.06</td>\n    <td class=\"td\">$5.06, $10.06, $50.06</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Transaction Not Supported</td>\n    <td class=\"td\">M007</td>\n    <td class=\"td\">.07</td>\n    <td class=\"td\">$5.07, $10.07, $50.07</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Not Allowed Currency</td>\n    <td class=\"td\">M008</td>\n    <td class=\"td\">.08</td>\n    <td class=\"td\">$5.08, $10.08, $50.08</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Invalid Amount</td>\n    <td class=\"td\">M009</td>\n    <td class=\"td\">.09</td>\n    <td class=\"td\">$5.09, $10.09, $50.09</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Amount Exceeds Agreed Limit</td>\n    <td class=\"td\">M010</td>\n    <td class=\"td\">.10</td>\n    <td class=\"td\">$5.10, $10.10, $50.10</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">No Mandate Service On Customer</td>\n    <td class=\"td\">M018</td>\n    <td class=\"td\">.18</td>\n    <td class=\"td\">$5.18, $10.18, $50.18</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Mandate Cancelled Due To Fraud</td>\n    <td class=\"td\">M022</td>\n    <td class=\"td\">.22</td>\n    <td class=\"td\">$5.22, $10.22, $50.22</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">No Answer From Customer</td>\n    <td class=\"td\">M027</td>\n    <td class=\"td\">.27</td>\n    <td class=\"td\">$5.27, $10.27, $50.27</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Regulatory Reason</td>\n    <td class=\"td\">M028</td>\n    <td class=\"td\">.28</td>\n    <td class=\"td\">$5.28, $10.28, $50.28</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Creditor not on Whitelist of Debtor</td>\n    <td class=\"td\">M030</td>\n    <td class=\"td\">.30</td>\n    <td class=\"td\">$5.30, $10.30, $50.30</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Creditor on Blacklist of Debtor</td>\n    <td class=\"td\">M031</td>\n    <td class=\"td\">.31</td>\n    <td class=\"td\">$5.31, $10.31, $50.31</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Unknown end Customer</td>\n    <td class=\"td\">M032</td>\n    <td class=\"td\">.32</td>\n    <td class=\"td\">$5.32, $10.32, $50.32</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n</table>\n\n\n<br/>\n\nIn addition to a sample request, the scheme for each endpoint and associated data tables are in the appendix at the end of this document.\n\nTo try out our API, you can use a client such as [Postman](https://www.getpostman.com).\n\nYou can download a postman collection of our API by clicking the link below:\n\n[![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/19891519-fccdc471-7f26-4f4c-bba7-4e0dda5ab9e3?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D19891519-fccdc471-7f26-4f4c-bba7-4e0dda5ab9e3%26entityType%3Dcollection%26workspaceId%3D0a304f49-2e6e-4498-8d43-3b68ee26aee6)\n\n**Note:** Please note we do not accept TLS 1.0 or 1.1 connections\n"
+  version: v1
+  title: Monoova PayTo PayTo Async API
+  contact:
+    name: Monoova Support
+    email: support@monoova.com
+    url: https://www.monoova.com
+  x-logo:
+    url: https://movdpwebsiteprodae.blob.core.windows.net/images/Monoova-Primary-Logo-Black-RGB.png
+    altText: Monoova logo
+servers:
+- url: https://api.monoova.com
+  description: Production URL#
+- url: https://sand-api.monoova.com
+  description: Sandbox URL
+security:
+- BearerAuth: []
+tags:
+- name: PayTo Async API
+  description: "The `AsyncResponse` is used in operations where the request is accepted, but the processing is not immediate. This response format provides information for tracking and checking the request status.\n\nThis API adheres to the Microsoft [async-request-reply pattern](https://learn.microsoft.com/en-us/azure/architecture/patterns/async-request-reply), ensuring efficient handling of non-immediate requests.\n\nFeaturing high throughput and generous rate limits, this API is optimal for bulk operations, allowing for the efficient processing of larger datasets.\n\n</br>\n\n### HTTP Status Code\n\n- **202 Accepted**:\n  - *Description*: Indicates that the request has been accepted for processing but has not been completed.\n\n### HTTP Headers\n\n- **Location**:\n  - *Description*: Provides the URL where the client can check the status of the asynchronous operation. Clients should periodically poll this URL to retrieve the final result of the request.\n  - *Example*: `https://sand-api.monoova.com/...`\n\n- **Retry-After**:\n  - *Description*: Suggests the number of seconds the client should wait before polling the Location URL again. This helps manage server load by preventing requests that are too frequent.\n  - *Example*: `10`\n"
+paths:
+  /au/payto/pam-v1/PaymentAgreementAsync/Request/{uniqueRequestId}:
+    get:
+      tags:
+      - PayTo Async API
+      summary: Get Async Payment Agreement Request Status
+      description: 'Queries the status of an asynchronous API request for creating a payment agreement. This endpoint requires the {uniqueRequestId} returned by the original Async API call. There is no request body.
+
+        '
+      operationId: get-async-paymentagreement-status
+      parameters:
+      - name: uniqueRequestId
+        in: path
+        required: true
+        schema:
+          type: string
+          description: Unique identifier returned by the original Async API call.
+          example: 4834dba5-27b0-465c-aea7-aa530315c68c
+      responses:
+        '200':
+          description: Request is still processing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PendingAgreementAsyncResponse'
+        '201':
+          description: Successful completion. The Location header contains the URL for the updated resource/document.
+          headers:
+            Location:
+              schema:
+                type: string
+              description: URL to be polled for the updated resource/document.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessAgreementAsyncResponse'
+        '400':
+          description: Invalid status request.
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '422':
+          description: Background job has failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncMandateRequestFailedResponse'
+  /au/payto/pas-v1/PaymentInstructionAsync/Request/{uniqueRequestId}:
+    get:
+      tags:
+      - PayTo Async API
+      summary: Get Async Payment Instruction Request Status
+      description: 'Queries the status of an asynchronous API request, such as "Initiate Payment Async". This endpoint requires the {uniqueRequestId} returned by the original Async API call. No request body is needed.
+
+        '
+      operationId: get-async-paymentinitiation-status
+      parameters:
+      - name: uniqueRequestId
+        in: path
+        required: true
+        schema:
+          type: string
+          description: Unique identifier returned by the original Async API call.
+          example: 4834dba5-27b0-465c-aea7-aa530315c68c
+      responses:
+        '200':
+          description: Request is still processing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PendingInitiationAsyncResponse'
+        '201':
+          description: Successful completion. Location header contains the URL for the updated resource/document.
+          headers:
+            Location:
+              schema:
+                type: string
+              description: URL to be polled for the updated resource/document.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessInitiationAsyncResponse'
+        '400':
+          description: Invalid status request.
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '422':
+          description: Background job has failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncInitiationRequestFailedResponse'
+  /au/payto/pam-v1/PaymentAgreementAsync:
+    post:
+      tags:
+      - PayTo Async API
+      summary: Create a Payment Agreement Async
+      description: 'The purpose of this endpoint is to asynchronously create a payment agreement. The API returns as soon as the creation request has been captured and validated for background processing.
+
+
+        The async API follows the Microsoft [async-request-reply pattern](https://learn.microsoft.com/en-us/azure/architecture/patterns/async-request-reply).
+
+
+        Following a successful call, the status of the background request can be monitored using [Get Async Request Status (Payment Instruction)](#tag/PayTo-Async-API/operation/get-async-paymentagreement-status) or by subscription to the [AsyncJobResultNotification](#tag/Webhooks/operation/AsyncRequestNotification) webhook.
+
+
+        The background request will complete when the payment agreement is either:
+
+        - Created (Note: This does not necessarily mean the payment agreement has been activated.)
+
+        - Failing with a non-recoverable error (retries will occur for transient errors such as timeouts)
+
+        - Timed out on retries (set to 4 days).
+
+
+        After request completion, the status of the payment agreement can be determined by calling [Get Payment Agreement by UniqueId](#tag/Reporting/operation/get-paymentagreement-id) or by subscription to the [PaymentAgreementNotification](#tag/Webhooks/operation/PaymentAgreementNotification) webhook.
+
+        The request payload and business rules/validations are identical to the synchronous API.
+
+        '
+      operationId: post-paymentagreement-async
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentAgreementDto'
+      responses:
+        '202':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncGenericResponse'
+        '400':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '403':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '404':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '500':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '502':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '504':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+  /au/payto/pas-v1/PaymentInstructionAsync:
+    post:
+      tags:
+      - PayTo Async API
+      summary: Create Payment Instruction Async
+      description: 'The purpose of this endpoint is to asynchronously create a payment instruction. The API returns as soon as the creation request has been captured and validated for background processing.
+
+
+        The async API follows the Microsoft [async-request-reply pattern](https://learn.microsoft.com/en-us/azure/architecture/patterns/async-request-reply).
+
+
+        Following a successful call, the status of the background request can be monitored using the [Get Async Request Status (Payment Instruction)](#tag/PayTo-Async-API/operation/get-async-paymentinitiation-status) endpoint or by subscription to the [AsyncJobResultNotification](#tag/Webhooks/operation/AsyncRequestNotification) webhook.
+
+
+        The background request will complete when the payment instruction is either:
+
+        - Created (This does not necessarily mean the payment has already been finalized).
+
+        - Failing with a non-recoverable error. The background request will do retries for transient errors such as timeouts.
+
+        - Timed out on retries (set to 4 days).
+
+
+        After request completion, the status of the payment can be determined by calling [Get Payment Instruction By UniqueId](#tag/Reporting/operation/get-paymentinstruction-paymentinitiationid) or by subscription to the [Get Payment Instruction By UniqueId](#tag/Webhooks/operation/PaymentInstructionStatusNotification) webhook.
+
+
+        The request payload and business rules/validations are identical to the synchronous API.
+
+        '
+      operationId: post-async-paymentinstruction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InitiateMandatePaymentDto'
+            example:
+              paymentAgreementUID: BCORP123456
+              paymentInitiationUID: BCORP00000001
+              paymentDetails:
+                amount: 1.0
+                lodgementReference: BCorp PIR 001
+      responses:
+        '202':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncGenericResponse'
+        '400':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '403':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '404':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '500':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '502':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '504':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+  /au/payto/pam-v1/PaymentAgreementAsync/{paymentAgreementUID}/unilateral:
+    patch:
+      tags:
+      - PayTo Async API
+      summary: Unilateral Amendment Async
+      description: 'The purpose of this endpoint is to asynchronously amend a payment agreement that does not require approval from the Payer.  The API returns as soon as the amend request has been captured and validated for background processing.
+
+        The request payload and business rules/validations are identical to the synchronous API.'
+      operationId: patch-async-paymentagreement-id-unilateral
+      parameters:
+      - name: paymentAgreementUID
+        in: path
+        required: true
+        schema:
+          type:
+          - string
+          - 'null'
+          description: Id to uniquely Identify a payment agreement.
+          maxLength: 35
+          pattern: ^[A-Za-z0-9_-]
+          example: MONPAG12345
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/AmendUnilateralDetailsDto'
+            example:
+              description: payroll pag1
+              shortDescription: payroll pag1
+              payeeDetails:
+                payeeType: ORGN
+                payeeLinkedBsb: 802980
+                payeeLinkedAccount: 33333333
+                payeeLinkedPayId: abc@gmail.com
+                payeeLinkedPayIdType: EMAIL
+                payeeAccountName: PayCo
+                ultimatePayee: PayCo
+      responses:
+        '202':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncGenericResponse'
+        '400':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: b008558d-b6df-4935-b2aa-39b2f8d467be
+                errors:
+                - errorCode: PAM_BR_AMEND_FORBIDDEN
+                  errorMessage: Can only amend payment agreement in active or paused status
+        '403':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '404':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '500':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '502':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '504':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+  /au/payto/pam-v1/PaymentAgreementAsync/{paymentAgreementUID}/bilateral:
+    patch:
+      tags:
+      - PayTo Async API
+      summary: Bilateral Amendment Async
+      operationId: patch-async-paymentagreement-id-bilateral
+      description: 'The purpose of this endpoint is to asynchronously amend a payment agreement which requires approval from the Payer. Changes made using this end point will only get reflected after payer approves the change.  The API returns as soon as the amend request has been captured and validated for background processing.
+
+        The request payload and business rules/validations are identical to the synchronous API.'
+      parameters:
+      - name: paymentAgreementUID
+        in: path
+        required: true
+        schema:
+          description: Id to uniquely Identify a payment agreement.
+          maxLength: 35
+          pattern: ^[A-Za-z0-9_-]
+          example: MONPAG12345
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AmendBilateralDetailsDto'
+      responses:
+        '202':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncGenericResponse'
+        '400':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '403':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '404':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '500':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '502':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '504':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+  /au/payto/pam-v1/PaymentAgreementAsync/{paymentAgreementUID}/status:
+    patch:
+      tags:
+      - PayTo Async API
+      summary: Amend Payment Agreement Status Async
+      description: 'This endpoint allows the initiator to change the status of a payment agreement. Available statuses are active, pause or cancel.  The API returns as soon as the amend request has been captured and validated for background processing.
+
+        The request payload and business rules/validations are identical to the synchronous API.'
+      operationId: patch-async-paymentagreement-id-status
+      parameters:
+      - name: paymentAgreementUID
+        in: path
+        required: true
+        schema:
+          type:
+          - string
+          - 'null'
+          description: Id to uniquely Identify a payment agreement.
+          maxLength: 35
+          pattern: ^[A-Za-z0-9_-]
+          example: MONPAG12345
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AmendPaymentAgreementStatusDto'
+            example:
+              statusChange: pause
+              reasonCode: AC02
+              reasonDescription: Amend mandate status
+      responses:
+        '202':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncGenericResponse'
+        '400':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '403':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '404':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '500':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '502':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '504':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+  /au/payto/pam-v1/PaymentAgreementAsync/{PaymentAgreementUID}/recall/{actionIdentification}:
+    patch:
+      tags:
+      - PayTo Async API
+      summary: Recall a Payment Agreement Async
+      description: 'The purpose of this endpoint is to asynchronously recall a pending PAG creation/amendment action before it is approved or declined by payer servicer/customer. We will cancel the action uniquely identified by actionIdentification.  The API returns as soon as the recall request has been captured and validated for background processing.
+
+        The request payload and business rules/validations are identical to the synchronous API.'
+      operationId: patch-async-paymentagreement-id-recall
+      parameters:
+      - name: PaymentAgreementUID
+        in: path
+        required: true
+        schema:
+          type: string
+          maxLength: 35
+          pattern: ^[A-Za-z0-9_-]
+          description: Id to uniquely Identify a payment agreement.
+          example: MONPAG12345
+      - name: actionIdentification
+        in: path
+        required: true
+        schema:
+          type: string
+          maxLength: 35
+          pattern: ^[a-f0-9]{12}1[a-f0-9]{3}[89ab][a-f0-9]{15}$
+          description: unique Id used to identify pending(unapproved) actions. This id is assigned when a new payment agreement is created or when a bilateral amendment is made.
+          example: 6ae818a80ba362618aeaece46ee70e4a
+      responses:
+        '202':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncGenericResponse'
+        '400':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '403':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '404':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '500':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '502':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '504':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+components:
+  schemas:
+    PaymentInitiationDetailsDto:
+      type: object
+      required:
+      - amount
+      properties:
+        amount:
+          type: string
+          description: Amount to be transferred. Amount should be >=0.01
+          maxLength: 34
+        isLastPayment:
+          type:
+          - boolean
+          - 'null'
+          description: Set to true to indicate this is the last payment initiation request associated with the mandate. Possible values - True, False.
+        lodgementReference:
+          type:
+          - string
+          - 'null'
+          description: Unique reference, as assigned by the creditor, to unambiguously refer to the payment transaction.
+          maxLength: 280
+      additionalProperties: false
+    AmendUnilateralDetailsDto:
+      type: object
+      properties:
+        description:
+          type:
+          - string
+          - 'null'
+          description: Reason for the mandate setup as narrative text.</br> Either "description" or "short_description" must be present.
+          maxLength: 140
+          example: payroll pag1
+        shortDescription:
+          type:
+          - string
+          - 'null'
+          description: Reason for the mandate setup as narrative text.</br> Either "description" or "short_description" must be present.
+          maxLength: 35
+          example: payroll pag1
+        payeeDetails:
+          $ref: '#/components/schemas/PayeeDetailsDto'
+      additionalProperties: false
+    AsyncInitiationRequestFailedResponse:
+      type: object
+      properties:
+        traceId:
+          type: string
+          description: Error log trace identifier.
+          example: c0905f60-80b7-4a6a-abe3-0207b3e19b8e
+        uniqueRequestId:
+          type: string
+          description: Server generated unique request identifier.
+          example: 595a3202-e9aa-406e-a2a3-5efb6ca8b72a
+        paymentInitiationUID:
+          type: string
+          description: User supplied PIR identifier.
+          example: MONPIR1673930138
+        status:
+          type: string
+          description: Final status of the request indicating failure.
+          example: Failed
+        errorCode:
+          type: string
+          description: Error code indicating the reason for failure.
+          example: MOV_UNEXPECTED_VALIDATION_FAILURE
+        errorMessage:
+          type: string
+          description: Detailed message explaining the reason for failure.
+          example: Validation failed with banking partner. Contact Monoova for more information
+    InitiateMandatePaymentDto:
+      type: object
+      required:
+      - paymentAgreementUID
+      - paymentInitiationUID
+      - paymentDetails
+      properties:
+        paymentAgreementUID:
+          type:
+          - string
+          - 'null'
+          maxLength: 35
+          description: Id to uniquely Identify a payment agreement.
+        paymentInitiationUID:
+          type:
+          - string
+          - 'null'
+          maxLength: 35
+          description: Id to uniquely identify payment
+        payeeDetails:
+          $ref: '#/components/schemas/PayeeDetailsDto'
+        paymentDetails:
+          $ref: '#/components/schemas/PaymentInitiationDetailsDto'
+      additionalProperties: false
+    CreatePaymentAgreementDto:
+      type: object
+      required:
+      - paymentAgreementUID
+      properties:
+        paymentAgreementUID:
+          type: string
+          description: Id to uniquely Identify a payment agreement.
+          maxLength: 35
+          pattern: ^[A-Z0-9_-]
+          example: ABCORP123456
+        payeeDetails:
+          $ref: '#/components/schemas/PayeeDetailsDto'
+        payerDetails:
+          $ref: '#/components/schemas/PayerDetailsDto'
+        paymentTerms:
+          $ref: '#/components/schemas/PaymentTermsDto'
+        paymentDetails:
+          $ref: '#/components/schemas/PaymentDetailsDto'
+      additionalProperties: false
+    AsyncMandateRequestFailedResponse:
+      type: object
+      properties:
+        traceId:
+          type: string
+          description: Error log trace identifier.
+          example: c0905f60-80b7-4a6a-abe3-0207b3e19b8e
+        uniqueRequestId:
+          type: string
+          description: Server generated unique request identifier.
+          example: 595a3202-e9aa-406e-a2a3-5efb6ca8b72a
+        paymentAgreementUID:
+          type: string
+          description: User supplied PAG identifier.
+          example: MONPAG1673930138
+        status:
+          type: string
+          description: Final status of the request indicating failure.
+          example: Failed
+        errorCode:
+          type: string
+          description: Error code indicating the reason for failure.
+          example: MOV_UNEXPECTED_VALIDATION_FAILURE
+        errorMessage:
+          type: string
+          description: Detailed message explaining the reason for failure.
+          example: Validation failed with banking partner. Contact Monoova for more information
+    AmendPaymentAgreementStatusDto:
+      type: object
+      properties:
+        paymentAgreementUID:
+          type: string
+          description: 'Unique ID of the payment agreement.
+
+            '
+        statusChange:
+          type: string
+          description: The status that you wish to change the payment agreement to. </br> <strong> Note&#58;</strong> You cannot change a status from ‘Created’ to ‘Cancel’. If you wish to recall a payment agreement before the payer has approved it, you need to use the Recall Agreement endpoint.</b> </br> <style type="text/css"> .tb { table-layout:auto; width:300px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important} </style> <table class="tb"> <tr> <th> Current Status </th> <th> Payload Status </th> <th> New Status </th> <th> Note </th> </tr> <tr><td>    Active    </td><td>    Cancel    </td> <td>    Cancelled    </td><td>    Reason Code is mandatory.    </td></tr> <tr><td>    Active     </td><td>    Pause    </td><td>    Paused    </td><td>    Reason Code is mandatory.    </td></tr> <tr><td>    Paused    </td><td>    Resume    </td><td>    Active    </td><td>    Only party who suspended can Activate payment agreement    </td></tr> <tr><td>    Paused    </td><td>    Cancel    </td><td>    Cancelled    </td><td>    Reason Code is mandatory.    </td></tr> <tr><td>    Cancel    </td><td>-</td><td>-</td><td>    This is the final status    </td></tr> </table>
+        reasonCode:
+          type: string
+          description: 'Reason code for changing the agreement status. Must be provided when the status is `Cancel` or `Pause`.
+
+            '
+          example: AC02
+        reasonDescription:
+          type: string
+          description: 'Description of the reason for the change in status.
+
+            '
+          example: Invalid Debtor Account Number
+          maxLength: 256
+    AmendBilateralDetailsDto:
+      type: object
+      properties:
+        automaticRenewal:
+          type:
+          - boolean
+          - 'null'
+        endDate:
+          type:
+          - string
+          - 'null'
+          description: End date of the validity of the mandate. If specified, the mandate is valid until 23:59:59.999 Australia Sydney time on this date.
+        respondByTime:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Optional time used to indicate by when resolution of a bilateral action is requested from the other party to the payment agreement. It will be provided in any notification sent to the counterparty. This time is for informational purposes only and does not affect the expiry time imposed by the MMS. Must be future date and less than 5 days If not provided value will be defaulted to agreement creation datetime + 5 day Default time zone is UTC
+        paymentTerms:
+          $ref: '#/components/schemas/PaymentTermsDto'
+      additionalProperties: false
+    SuccessAgreementAsyncResponse:
+      type: object
+      properties:
+        traceId:
+          type: string
+          description: Error log trace identifier.
+          example: c0905f60-80b7-4a6a-abe3-0207b3e19b8e
+        uniqueRequestId:
+          type: string
+          description: Server generated unique request identifier.
+          example: 595a3202-e9aa-406e-a2a3-5efb6ca8b72a
+        paymentAgreementUID:
+          type: string
+          description: User supplied PAG identifier.
+          example: MONPAG1673930138
+        status:
+          type: string
+          description: Final status of the request.
+          example: Completed
+    PaymentDetailsDto:
+      required:
+      - automaticRenewal
+      - purpose
+      - startDate
+      properties:
+        automaticRenewal:
+          type:
+          - boolean
+          - 'null'
+          example: false
+          description: Determines if the payment agreement automatically renews at the end of the defined period. </br> Possible values - True, False </br> endDate cannot be present if automaticRenewal is set as 'TRUE', endDate must be present if automaticRenewal is set as 'FALSE'
+        description:
+          type:
+          - string
+          - 'null'
+          description: Reason for the mandate setup as narrative text. </br> Either "description" or "short_description" must be present
+          maxLength: 140
+          example: null
+        shortDescription:
+          description: Reason for the mandate setup as narrative text. </br> Either "description" or "short_description" must be present
+          type:
+          - string
+          - 'null'
+          maxLength: 35
+          example: PayToTest_001
+        purpose:
+          type:
+          - string
+          - 'null'
+          description: Payment Purpose Code. </br>  Possible Values- </br>  MORT - Mortgage Payments </br>  UTIL - Utility Payments </br>  LOAN - Loan Payments </br>  DEPD - Dependant Support Payments </br>  GAMP - Gambling Payments </br>  RETL - Retail Payments </br>  SALA - Salary Payments </br>  PERS - Personal Payment </br>  GOVT - Government Payments </br>  PENS - Pension Payments </br>  TAXS - Tax Payments </br>  OTHR - Other Service Payments
+          example: MORT
+        respondByTime:
+          type:
+          - string
+          - 'null'
+          description: Optional time used to indicate by when resolution of a bilateral action is requested from the other party to the payment agreement. It will be provided in any notification sent to the counterparty. This time is for informational purposes only and does not affect the expiry time imposed by the MMS.<br/>Must be future date and less than 5 days<br/> If not provided value will be defaulted to agreement creation datetime + 5 day<br/> Default time zone is UTC
+          format: ISODateTime ( yyyy-mm-ddThh:mm:ss+|–hh:mm)
+          example: 2022-09-13 14:35:27+00:00
+        startDate:
+          description: Start date of the validity of the mandate. The mandate is valid as of 00:00:00.000 Australia Sydney time on this date.
+          type:
+          - string
+          - 'null'
+          format: YYYY-MM-DD
+          example: 2022-09-13
+        endDate:
+          type:
+          - string
+          - 'null'
+          format: YYYY-MM-DD
+          example: 2023-08-24
+          description: End date of the validity of the mandate. If specified, the mandate is valid until 23:59:59.999 Australia Sydney time on this date.
+      additionalProperties: false
+    PayeeDetailsDto:
+      required:
+      - payeeType
+      oneOf:
+      - required:
+        - payeeLinkedBsb
+        - payeeLinkedAccount
+      - required:
+        - payeeLinkedPayId
+        - payeeLinkedPayIdType
+        - payeeAccountName
+      type: object
+      properties:
+        payeeType:
+          type:
+          - string
+          - 'null'
+          description: Identifies the type of a party.</br> Possible Values ORGN - Organization, PERS - Person
+          example: ORGN
+        payeeLinkedBsb:
+          type:
+          - string
+          - 'null'
+          description: BSB number. </br>Required if 'payeeLinkedPayId' and 'payeeLinkedPayIdType' are not provided. e.g. '999-999 or 999999'
+          example: 999-999
+        payeeLinkedAccount:
+          type:
+          - string
+          - 'null'
+          maxLength: 28
+          description: Bank Account Number. </br>Required if 'payeeLinkedPayId' and 'payeeLinkedPayIdType' are not provided.
+          example: 22222222
+        payeeLinkedPayId:
+          type:
+          - string
+          - 'null'
+          description: PayID. </br> Email, phone number, ABN, ACN or Organisation name. </br>Required if 'payeeLinkedBsb' and 'payeeLinkedAccount' are not provided. <a href="/payTo#tag/PAYID-Format-Validation">See PAYID Format Validation.</a>
+          example: ''
+        payeeLinkedPayIdType:
+          type:
+          - string
+          - 'null'
+          description: PayID Type. Possible values ABN, Email, PhoneNumber, OrganisationId, ACN. </br>Required if 'payeeLinkedBsb' and 'payeeLinkedAccount' are not provided.
+          example: ''
+        payeeAccountName:
+          type:
+          - string
+          - 'null'
+          description: Bank Account Name </br> Can only provide payeeAccountName in the payload if crediting an external BSB. Mandatory if crediting a PayID.
+          maxLength: 140
+          example: ABCORP
+        ultimatePayee:
+          type:
+          - string
+          - 'null'
+          example: ABCORP
+          description: Name by which the party is known, and which is usually used to identify that party.</br> Can only provide ultimatePayee in the payload if crediting an external BSB.
+      additionalProperties: false
+    PendingAgreementAsyncResponse:
+      type: object
+      properties:
+        traceId:
+          type: string
+          description: Trace identifier.
+          example: be393fae-52c2-4c9e-a262-4974de6da750
+        uniqueRequestId:
+          type: string
+          description: Server generated unique request identifier.
+          example: 4834dba5-27b0-465c-aea7-aa530315c68c
+        paymentAgreementUID:
+          type: string
+          description: User supplied PAG identifier.
+          example: MONPAG1673935776
+        status:
+          type: string
+          description: Current status of the request.
+          example: Processing
+    SuccessInitiationAsyncResponse:
+      type: object
+      properties:
+        traceId:
+          type: string
+          description: Error log trace identifier.
+          example: c0905f60-80b7-4a6a-abe3-0207b3e19b8e
+        uniqueRequestId:
+          type: string
+          description: Server generated unique request identifier.
+          example: 595a3202-e9aa-406e-a2a3-5efb6ca8b72a
+        paymentInitiationUID:
+          type: string
+          description: User supplied PIR identifier.
+          example: MONPIR1673930138
+        status:
+          type: string
+          description: Final status of the request.
+          example: Completed
+    PayerDetailsDto:
+      type: object
+      required:
+      - payerType
+      - payer
+      - ultimatePayer
+      - payerPartyReference
+      oneOf:
+      - required:
+        - linkedBsb
+        - linkedAccount
+      - required:
+        - linkedPayId
+        - linkedPayIdType
+      properties:
+        payerType:
+          type:
+          - string
+          - 'null'
+          description: Identifies the type of party. </br> Possible Values - ORGN (Organization),    PERS (Person)
+          example: ORGN
+        linkedBsb:
+          type:
+          - string
+          - 'null'
+          description: BSB (Bank-State-Branch) number. </br>Required if 'linkedPayId' and 'linkedPayIdType' are not provided.
+          example: 802950
+        linkedAccount:
+          type:
+          - string
+          - 'null'
+          description: Bank account number. </br>Required if 'linkedPayId' and 'linkedPayIdType' are not provided.
+          maxLength: 28
+          example: 10109010
+        linkedPayId:
+          type:
+          - string
+          - 'null'
+          example: null
+          description: PayID. </br> Email, phone number, ABN, ACN or Organisation ID. </br>Required if 'linkedBsb' and 'linkedAccount' are not provided. <a href="/payTo#tag/PAYID-Format-Validation">See PAYID Format Validation.</a>
+        linkedPayIdType:
+          type:
+          - string
+          - 'null'
+          example: null
+          description: PayID Type. </br>Possible Values - Email, PhoneNumber, ABN, ACN, OrganisationId. </br>Required if 'linkedBsb' and 'linkedAccount' are not provided.
+        payer:
+          type:
+          - string
+          - 'null'
+          description: Bank Account Name.
+          maxLength: 140
+          example: ABCCORPCo
+        ultimatePayer:
+          type:
+          - string
+          - 'null'
+          maxLength: 140
+          description: Name by which the party is known, and which is usually used to identify that party.
+          example: ABCCORPCo
+        payerPartyReference:
+          type:
+          - string
+          - 'null'
+          maxLength: 35
+          description: This field will be presented to Payer in the detail agreement view. This field also be used group payment initiations associated with a payment agreement.
+          example: Payer54321
+      additionalProperties: false
+    AsyncGenericResponse:
+      type: object
+      properties:
+        traceId:
+          type: string
+          description: Unique identifier for this request instance, useful for tracing.
+          example: ac819ad0-c3ee-44f9-964a-34a0a5ff5a24
+        uniqueRequestId:
+          type: string
+          description: Unique identifier assigned to the request to correlate with the response.
+          example: 595a3202-e9aa-406e-a2a3-5efb6ca8b72a
+    PendingInitiationAsyncResponse:
+      type: object
+      properties:
+        traceId:
+          type: string
+          description: Error log trace identifier.
+          example: be393fae-52c2-4c9e-a262-4974de6da750
+        uniqueRequestId:
+          type: string
+          description: Server generated unique request identifier.
+          example: 4834dba5-27b0-465c-aea7-aa530315c68c
+        paymentInitiationUID:
+          type: string
+          description: User supplied PIR identifier.
+          example: MONPIR1673935776
+        status:
+          type: string
+          description: Current status of the request.
+          example: Processing
+    PaymentTermsDto:
+      required:
+      - numberOfTransactionsPermitted
+      - frequency
+      - amount
+      - agreementType
+      type: object
+      properties:
+        numberOfTransactionsPermitted:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: Quantifies the number of transactions allowed per frequency
+          example: 10
+        frequency:
+          type:
+          - string
+          - 'null'
+          description: Specifies the regularity of an event. See Frequency Table for allowed values
+          example: WEEK
+        pointInTime:
+          type:
+          - number
+          - 'null'
+          description: Qualifies the frequency in terms of an exact point in time or moment within the specified period.</br> Valid non decimal numeric value. Supported values will be 01 to 31 </br> This field works in combination with frequency and can only be provided when frequency = MNTH </br> This field should not be provided if numberOfTransactionsPermitted is provided
+          example: null
+        amount:
+          type:
+          - number
+          - 'null'
+          maxLength: 34
+          example: null
+          description: Exact amount that may be paid from the Creditor's account, per instruction. Refer to AgreementType & Amount table below
+        maximumAmount:
+          type:
+          - number
+          - 'null'
+          maxLength: 34
+          example: 100.0
+          description: Maximum amount that may be paid from the Creditor's account, per instruction. Refer to AgreementType & Amount table below
+        agreementType:
+          type:
+          - string
+          - 'null'
+          description: Based on the AgreementType table
+          example: VARI
+      additionalProperties: false
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    BasicAuth:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: ''
+  tags:
+  - Generate a Bearer Token
+  - Manage Payment Agreements
+  - PayTo Async API
+  - Initiate a Payment
+  - Reporting
+  - Webhooks
+  - Notification Management
+  - PAYID Format Validation
+  - Client Error Responses
+  - Monoova Error Codes
+  - Mandate Status Reason Codes
+  - Payment Initiation Status
+  - Payment Agreement Status
+  - Payment Initiation Reject Reason Codes

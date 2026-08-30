@@ -1,0 +1,449 @@
+openapi: 3.2.0
+info:
+  description: "# Introduction\n\n<p> \n  Monoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n  This service is made available to Monoova’s clients through a set of easy-to-use RESTful APIs with JSON payloads described in this document.\n  The central idea is to reduce the cost, risk and effort normally associated with managing complex money movements so that you can focus on growing your business.\n</p> \n<p> \n Our clients can receive and reconcile funds via Realtime transfers (NPP), direct credits/debits, BPAY and cards. \n They can then manage those funds by building virtual account/wallet hierarchies to get bespoke reporting, reconciliation and much more. \n And finally, our clients can pay funds via Realtime transfers (NPP) direct credits and BPAY. \n As new technologies become available (e.g. NPP Mandated payments) we will make additional methods of receiving, managing and paying available.\n</p> \n<p> \n  All information flows are real-time.\n  Moving money between various Monoova accounts is also real time.\n  All money flows in and out of the Engine are as fast as the banking system allows.\n</p>\n<p> \n  The sandbox environment is open to everyone who signs up on our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a> at no cost.\n  The sandbox environment allows you to test out the functionality of our API in a consequence free development environment.\n  Access to the live environment is granted once you have (1) gone through our compliance process and (2) had formal sign-off on your sandbox integration.\n</p>\n<p>\n  Monoova regularly releases additive changes to our API, as well as new versions of the API when a breaking change would occur. \n  To ensure your integration does not break due to these additive changes, we recommend not validating the entire schema, or the position of a parameter within the schema.\n</p>\n<br/><br/>\n<p> <strong> Note&#58;</strong> Please note we do not accept TLS 1.0 or 1.1 connections</p>\n\n# Getting started\n>\n  - Sign on to our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>\n  - Get your sandbox API key under **MANAGE > ACCOUNTS** in the Sandbox Portal\n  - [Authenticate](#section/Authentication)\n  - Browse this document to find the functions you need\n  - Begin experimenting with your first API calls by sending HTTP requests to the endpoints described in this document\n  - Use the provided examples in the document as guidance\n\n# Authentication\n  All RESTful APIs in this document use BASIC Authentication (except those in public/v1) in two scenarios either\n  - <strong> API KEY </strong>\n  - <strong> OneShotSecurityToken </strong><br><br>\n\n> **Sandbox Authentication Credentials**\n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.m-pay.com.au/</td>\n  </tr>\n</table> <br>\n\n> **Live Authentication Credentials**\nThis will be provided by Monoova after a technical review. <br> \n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the Production Portal; Production credentials will be supplied by Monoova) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.mpay.com.au/</td>\n  </tr>\n</table> <br>\n\nWhen using the LIVE Engine, your Sign-In Account is given five (5) attempts to authenticate your credentials. \nOn the fifth failure your Sign-In Account is locked for one (1) hour. \nThe returned data will indicate that your account is locked and the time in UTC that the account will be unlocked. \nIf you require the account to be unlocked on the LIVE system you may contact your Monoova representative and at his or her discretion they will unlock the account.\nSee the API routes in Security to manage Passwords and Tokens. <br><br>\n\n<h3> UserName/Password </h3>\nUsing this scenario, you can configure BASIC Authentication with the following <br> <br>\n<li> <strong> UserName </strong> - API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) Production credentials will be supplied by Monoova when you have demonstrated successful implementation of the API on our Sandbox environment.</li>\n<li> <strong> Password </strong> - When using your API Key, no password is required. \nIf the key is compromised, it can be re-rolled via the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>. </li> <br>\n\n# Feedback\n\nWe value your feedback on our API. Please fill out the form <a href=\"https://ncv.microsoft.com/8eaKX3fsiJ\" target=\"_blank\">here</a> to share your feedback.\n"
+  version: v5.29
+  title: Monoova Payments Whitelisting for Automatcher (Bank Account Receivables) API
+  contact:
+    name: Monoova Support
+    email: support@monoova.com
+    url: https://www.monoova.com
+  x-logo:
+    url: https://movdpwebsiteprodae.blob.core.windows.net/images/Monoova-Primary-Logo-Black-RGB.png
+    altText: Monoova logo
+servers:
+- url: https://api.mpay.com.au
+  description: Production URL
+- url: https://api.m-pay.com.au
+  description: Sandbox URL
+security:
+- BasicAuth: []
+tags:
+- name: Whitelisting for Automatcher (Bank Account Receivables)
+  description: <h3>  Overview </h3> <p> This feature enables whitelisting of bank accounts when receiving funds in automatcher accounts. Funds received from a non-whitelisted account will be automatically returned. Using this feature, funds received can be limited to pre-approved bank accounts only. </p> <p> There are 2 criteria that can be set when whitelisting bank account numbers. </p> <p> Inbound transaction will only be accepted from:&nbsp; </p> <p> 1. An account that matches a whitelisted account name; AND/OR <br/> 2. An account that matches a whitelisted BSB and account number </p> <p> If pre-defined criteria are not met, the transaction will be returned to the sender automatically. If enabled, each automatcher account has its own separate whitelist. </p> <p> You have the option to establish a webhook subscription to receive a notification when a payment is declined as a result of whitelist restrictions. </p> <p> To subscribe to a webhook use the <a href="/payments#tag/Subscriptions"> Subscriptions </a> APIs. Event name:&nbsp; <strong>InboundDirectCreditRejections</strong></p>
+paths:
+  /receivables/v1/whitelisting/create:
+    post:
+      tags:
+      - Whitelisting for Automatcher (Bank Account Receivables)
+      summary: Create Whitelist Source Account
+      description: Use this API to create a new whitelist entry for an automatcher account. Multiple source bank account numbers or bank account names can be whitelisted against each Automatcher number. The system will automatically return payments if the payment details do not match one of the entries.<br/><br/> Make sure to set the account status to “Enabled” to accept payments for the set of rules defined, the status can always be updated if the rule no longer applies using the update endpoint. <br/>
+      operationId: ReceivablesCreateWhitelistSourceAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/receivables.createWhiteListingAccount'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/receivablesCreateWhiteListingAccountResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /receivables/v1/whitelisting/update:
+    post:
+      tags:
+      - Whitelisting for Automatcher (Bank Account Receivables)
+      summary: Update Whitelist Source Account
+      description: Use this endpoint to change the status of a whitelisted source account.
+      operationId: ReceivablesUpdateWhitelistSourceAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/receivables.updateWhiteListingAccount'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/receivablesUpdateWhiteListingAccountResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /receivables/v1/whitelisting/list/{automatcherBankAccountNumber}:
+    get:
+      tags:
+      - Whitelisting for Automatcher (Bank Account Receivables)
+      summary: List Whitelist Source Accounts
+      description: This endpoint will list all whitelisted source account details linked to the queried Automatcher account number.
+      operationId: ReceivablesListWhitelistSourceAccounts
+      parameters:
+      - name: automatcherBankAccountNumber
+        in: path
+        required: true
+        description: Valid receivables bank account number belonging to the Sign-in mAccount.
+        schema:
+          type: string
+          example: '311673871'
+      - name: bsb
+        in: query
+        required: false
+        description: Optional BSB parameter specifying the branch identifier for Australian banks. Accepts either 6 digits or with a hyphen as "XXX-XXX". If not specified, the service will use the MAccount’s configured ‘Default BSB’. If a ‘Default BSB’ has not been configured, then the Monoova ‘Default BSB’ will be used.
+        schema:
+          type: string
+          maxLength: 7
+          example: 802-985
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/receivablesGetWhiteListingAccountsResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /receivables/v2/rejectedTransactions/{startDate}:
+    get:
+      tags:
+      - Whitelisting for Automatcher (Bank Account Receivables)
+      summary: Rejected Transactions Report
+      description: Returns a report of all rejected transactions for the day with associated details, this includes Direct Entry and NPP Receivables. If requested multiple times on the current date (calendar day, AEDT), the report is cumulative. <table class="tb"> <tr> <td class="td"> ID </td> <td class="td"> Batch ID </td> <td class="td"> Datetime </td> <td class="td"> BSB </td> <td class="td"> AccountNumber </td> <td class="td"> AccountName </td> <td class="td"> PayId </td> <td class="td"> PayId Name </td> <td class="td"> TransactionCode </td> <td class="td"> TransactionType </td> <td class="td"> Amount </td> <td class="td"> LodgementRef </td> <td class="td"> RemitterName </td> <td class="td"> Indicator </td> <td class="td"> WithholdingTaxAmount (if applicable) </td> <td class="td"> EndToEndId</td> <td class="td"> NameOfUserSupplyingFile </td> <td class="td"> NumberOfUserSupplyingFile </td> <td class="td"> DescriptionOfEntriesOnFile </td> <td class="td"> Reason </td> <td class="td"> Status </td> <td class="td"> SourceBsb </td> <td class="td"> SourceAccountNumber </td> <td class="td"> SourceAccountName </td> <td class="td"> ReconciliationRuleReference </td> </tr> <tr> <td class="td"> <br/> <br/> Monoova generated <br/> Unique ID. <br/> Max 12 chars. <br/> <br/> <br/> </td> <td class="td"> Payment Batch ID. <br/> Payments come in batches <br/> throughout the day. <br/> Max 12 chars. Blank if NPP. </td> <td class="td"> AEDT, Sydney. <br/> Max 27 chars. </td> <td class="td"> Payee BSB. <br/> Max 7 Chars. </td> <td class="td"> Payee Bank Account <br/> Number. Max 34 chars. </td> <td class="td"> Payer submitted Account <br/> Name. Max 32 chars. </td> <td class="td"> Email address for the PayID. <br/> Max 256 chars. </td> <td class="td"> Name displayed to the payers <br/> Max 140 chars. </td> <td class="td"> Industry standard transaction <br/> code. “50” for credit. <br/> Refer to Direct entry standard <br/> for definitions 51-57. <br/> Max 5 chars. </td> <td class="td"> Possible Values:<br/> 'DE' or 'NPP'  <br/> </td> <td class="td"> Payment amount, <br/> 2 decimal places <br/> for cents. Max 11 chars. </td> <td class="td"> Payer submitted reference. <br/> Max 280 chars. </td> <td class="td"> Remitting Entity. <br/> Max 140 chars. </td> <td class="td"> Blank; OR 'W' dividend paid to a <br/> resident of a country where a double  <br/> tax agreement is in force. 'X' dividend  <br/> paid to a resident of any other country. <br/> 'Y' interest paid to all non-resident. <br/> Max 1 chars. </td> <td class="td"> Blank OR Payment amount, <br/> 2 decimal places for cents.<br/> Max 9 chars. </td> <td class="td"> Osko End to End identifier <br/> submitted by Payer. </td> <td class="td"> Preferred name of the <br/> User supplying <br/> the Direct Entry file. </td> <td class="td"> This is the User Identification <br/> Number which is assigned by  <br/> APCA and User Financial Institutions. </td> <td class="td"> Direct Entry file description. <br/> </td> <td class="td"> Reason for the rejection. <br/> </td> <td class="td"> Transaction Status. <br/> </td> <td class="td"> Payer BSB.<br/> Max 7 Chars.<br/> <br/> </td> <td class="td"> Payer Bank Account Number. <br/> Max 34 chars. <br/> </td> <td class="td"> This field appears for NPP transactions  <br/> only and is the payers bank account name.  <br/> For DE transactions please refer to the  <br/> RemitterName Field. Max 140 Chars. <br/> </td> <td class="td"> A unique reference used to identify the reconciliation rule.<br/> Unique to your mAccount.<br/> string <= 35 characters ^[A-Za-z0-9-_]{1,35}$ <br/> Example. RR22348 <br/> </td> </tr> </table> <p> Note:&nbsp; Source account details do not appear by default, please contact Monoova for further information</p> <br/> <h4>Possible transaction codes</h4> <table> <tr> <th>Code</th> <th>Transaction Description</th> </tr> <tr> <td>13</td> <td>Externally initiated debit items </td> </tr> <tr> <td>50</td> <td>Externally initiated credit items with the exception of those bearing Transaction Codes </tr> <tr> <td>51</td> <td>Australian Government Security Interest</td> </tr> <tr> <td>52</td> <td>Family Allowance </td> </tr> <tr> <td>53</td> <td>Pay</td> </tr> <tr> <td>54</td> <td>Pension</td> </tr> <tr> <td>55</td> <td>Allotment</td> </tr> <tr> <td>56</td> <td>Dividend</td> </tr> <tr> <td>57</td> <td>Debenture/Note Interest</td> </tr> </table> <br>
+      operationId: ReceivablesRejectedTransactionsReport
+      parameters:
+      - name: startDate
+        in: path
+        required: true
+        description: date format should be 'yyyy-MM-dd' format.
+        schema:
+          type: string
+          example: '2020-03-15'
+      - name: endDate
+        in: query
+        required: false
+        description: End date of the range for the report, format 'yyyy-MM-dd'. If not provided, data for the day specified in Start Date will be returned.
+        schema:
+          type: string
+          example: '2020-03-31'
+      - name: transactionType
+        in: query
+        required: false
+        description: Filter for the transaction type. Possible values are 'DE' or 'NPP'.
+        schema:
+          type: string
+          example: DE
+      - name: pageNumber
+        in: query
+        required: false
+        description: Page number for pagination. Defaults to 1 if not provided.
+        schema:
+          type: integer
+          example: 1
+      - name: pageSize
+        in: query
+        required: false
+        description: The number of items to return per page. Defaults to 50 if not provided. Maximum allowed is 200.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 200
+          example: 50
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              examples:
+                response:
+                  value: 'Id, Batch Id, DateTime, BSB, AccountNumber, AccountName, PayId, PayId Name, TransactionCode, TransactionType, Amount, LodgementRef, RemitterName, Indicator, WithholdingTaxAmount, EndToEndId, NameOfUserSupplyingFile, NumberOfUserSupplyingFile, DescriptionOfEntriesOnFile, Reason, Status, SourceBsb, SourceAccountNumber, SourceAccountName,ReconciliationRuleReference
+
+                    1,448715,2020-09-18T14:28:07,802-985,212409870,test,,,50,NPP,9.9900,test,test,,0,TEST_NPP_RAP_MTP,,,,Non Whitelisted Source Account,Pending Return,802-985,817371467,test,RR22348
+
+                    '
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+components:
+  schemas:
+    receivablesCreateWhiteListingAccountResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        automatcherBankAccountNumber:
+          description: Valid receivables bank account number belonging to the Sign-in mAccount.
+          type: string
+          example: '311673871'
+        sourceAccount:
+          description: Object containing source account details
+          type: object
+          properties:
+            accountName:
+              description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+              type: string
+              example: Monoova Source Account Name
+            accountNumber:
+              description: 3 to 9 digits.
+              type: string
+              example: '123456789'
+            accountStatus:
+              description: This is a plain English description of the status. enabled/disabled.
+              type: string
+              example: enabled
+            bsbNumber:
+              description: 6 digits with a '-'.
+              type: string
+              example: 802-985
+            id:
+              description: identifier for whiteList sourceAccount
+              type: integer
+              example: 107
+      type: object
+    receivablesUpdateWhiteListingAccountResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        automatcherBankAccountNumber:
+          description: Valid receivables bank account number belonging to the Sign-in mAccount.
+          type: string
+          example: '311673871'
+        sourceAccount:
+          description: Object containing source account details
+          type: object
+          properties:
+            accountName:
+              description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+              type: string
+              example: Monoova Source Account Name
+            accountNumber:
+              description: 3 to 9 digits.
+              type: string
+              minLength: 3
+              maxLength: 9
+              example: '123456789'
+            accountStatus:
+              description: This is a plain English description of the status. enabled/disabled.
+              type: string
+              example: disabled
+            bsbNumber:
+              description: 6 digits with a '-'.
+              type: string
+              example: 802-985
+            id:
+              description: identifier
+              type: integer
+              example: 107
+      type: object
+    receivables.updateWhiteListingAccount:
+      type: object
+      required:
+      - automatcherBankAccountNumber
+      properties:
+        automatcherBankAccountNumber:
+          type: string
+          minLength: 9
+          maxLength: 9
+          example: '311673871'
+          description: Valid receivables bank account number belonging to the Sign-in mAccount.
+        automatcherBsb:
+          type: string
+          example: 802-985
+          description: Optional BSB parameter specifying the branch identifier for Australian banks. Accepts either 6 digits or with a hyphen as "XXX-XXX". If not specified, the service will use the MAccount’s configured ‘Default BSB’. If a ‘Default BSB’ has not been configured, then the Monoova ‘Default BSB’ will be used.
+        sourceAccount:
+          description: This is the  sourceAccount
+          type: object
+          required:
+          - id
+          - accountStatus
+          properties:
+            accountName:
+              description: String of max 140 chars.
+              type: string
+              example: Monoova Source Account Name
+            accountNumber:
+              description: 3 to 9 digits.
+              type: string
+              minLength: 3
+              maxLength: 9
+              example: '123456789'
+            accountStatus:
+              description: This is a plain English description of the status. enabled/disabled.
+              type: string
+              example: disabled
+              enum:
+              - enabled
+              - disabled
+            bsbNumber:
+              description: 6 digits with a '-'.
+              type: string
+              example: 802-985
+            id:
+              description: identifier for whiteList sourceAccount
+              type: integer
+              example: 107
+    receivablesGetWhiteListingAccountsResponseArrayItem2:
+      type: object
+      description: Object containing source account details
+      properties:
+        accountName:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: string
+          example: Monoova Source Account Name
+        accountNumber:
+          description: 3 to 9 digits.
+          type: integer
+          example: 987654321
+        accountStatus:
+          description: This is a plain English description of the status. enabled/disabled.
+          type: string
+          example: enabled
+        bsbNumber:
+          description: 6 digits with a '-'.
+          type: string
+          example: 802-985
+        id:
+          description: identifier for whiteList sourceAccount
+          type: integer
+          example: 108
+    receivablesGetWhiteListingAccountsResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        automatcherBankAccountNumber:
+          description: Valid receivables bank account number belonging to the Sign-in mAccount.
+          type: string
+          example: '311673871'
+        sourceAccount:
+          description: Object containing source account details
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/receivablesGetWhiteListingAccountsResponseArrayItem1'
+            - $ref: '#/components/schemas/receivablesGetWhiteListingAccountsResponseArrayItem2'
+    receivablesGetWhiteListingAccountsResponseArrayItem1:
+      type: object
+      description: Object containing source account details
+      properties:
+        accountName:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: string
+          example: Monoova Source Account Name
+        accountNumber:
+          description: 3 to 9 digits.
+          type: integer
+          example: 123456789
+        accountStatus:
+          description: This is a plain English description of the status. enabled/disabled.
+          type: string
+          example: disabled
+        bsbNumber:
+          description: 6 digits with a '-'.
+          type: string
+          example: 802-985
+        id:
+          description: identifier for whiteList sourceAccount
+          type: integer
+          example: 107
+    receivables.createWhiteListingAccount:
+      type: object
+      required:
+      - automatcherBankAccountNumber
+      properties:
+        automatcherBankAccountNumber:
+          type: string
+          minLength: 9
+          maxLength: 9
+          example: '311673871'
+          description: Valid receivables bank account number belonging to the Sign-in mAccount.
+        automatcherBsb:
+          type: string
+          example: 802-985
+          description: Optional BSB parameter specifying the branch identifier for Australian banks. Accepts either 6 digits or with a hyphen as "XXX-XXX". If not specified, the service will use the MAccount’s configured ‘Default BSB’. If a ‘Default BSB’ has not been configured, then the Monoova ‘Default BSB’ will be used.
+        sourceAccount:
+          description: This is the sourceAccount
+          type: object
+          properties:
+            bsbNumber:
+              type: string
+              example: 802-985
+              description: 6 digits with a '-'. <br/> `at least one of BSB/AccountNumber or AccountName is required`
+            accountNumber:
+              type: string
+              minLength: 3
+              maxLength: 9
+              example: '123456789'
+              description: 3 to 9 digits. <br/> `at least one of BSB/AccountNumber or AccountName is required`
+            accountName:
+              type: string
+              maxLength: 140
+              example: Monoova Source Account Name
+              description: String of max 140 chars. Not case sensitive. <br/> `at least one of BSB/AccountNumber or AccountName is required`
+            accountStatus:
+              type: string
+              enum:
+              - enabled
+              - disabled
+              default: enabled
+              example: enabled
+              description: enabled/disabled. Default to enabled.
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Receive and Pay
+  tags:
+  - Financial
+  - Verify
+  - Automatcher (Bank Account Receivables)
+  - Whitelisting for Automatcher (Bank Account Receivables)
+  - Ledger Account
+  - Reconciliation Rules
+  - PayID
+  - Tools
+- name: BPAY
+  tags:
+  - BPAY
+  - mWallet
+- name: Manage
+  tags:
+  - Subscriptions
+  - Webhooks
+  - mAccount
+  - Reports
+  - Security
+  - Token
+- name: Public Endpoints
+  tags:
+  - Public Endpoints

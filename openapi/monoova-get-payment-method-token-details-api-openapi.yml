@@ -1,0 +1,237 @@
+openapi: 3.2.0
+info:
+  description: "# Introduction\n  Monoova's Online Card Payment Service incorporates a next-gen Card Payment Checkout integrated with our expansive Payments API to allow merchants to capture card and mobile wallet payments from your customers online and receive funds into your Monoova account for automated reconciliation and disbursement. To integrate the Card Payment Gateway into your website, all you need is Monoova's <a href=\"https://github.com/Monoova/merchantSDK\" target='_blank'>Merchant Software Development Kit</a> (SDK) hosted on GitHub and a set of straightforward RESTful APIs detailed below.  We will continue to update this API documentation as we release additional functionality.\n\n# How to Enable the Card Payment Gateway and Sandbox API’s\n>\n  - If not already a user, register an account in our <a href='https://sandbox.monoova.com' target='_blank'>Sandbox Portal</a>\n  - Once registered and logged in, navigate to **Manage > API Gateway** and input your API Key (provided to you as part of Portal user registration) to activate API Gateway Access for your mAccount (If you do not know your API Key you will need to roll a new one, this can be done by navigating to **Manage > Accounts**)\n  - Card Gateway integration requires some additional back-end configuration prior to use by a member of our integration team who will reach out to onboard and confirm access as a final step to enabling your service.\n  - To notify the integration team of your interest in enabling your account for Online Card Payment Service functionality, please <a href='https://www.monoova.com/contact' target=\"_blank\">Contact us</a> and a member of the team will follow up to guide you through the final steps.\n\n# Integrating Monoova Checkout for Card Payments\n  Utilizing Monoova's Merchant SDK enables you to deploy a Card Payment Checkout that securely gathers card payment information that complies with PCI standards, without necessitating substantial PCI compliance modifications within your application. The integrated Card Payment Checkout implementation ensures the secure capture of card data and offers complete customization to seamlessly align with your application's appearance and user experience.\n\n## Before you start\n>\n  - Ensure that your mAccount has been properly configured to enable card payments. Please access the Monoova portal or contact Monoova Support to verify this.\n  - Download the Card Software Development Kit (SDK): https://github.com/Monoova/merchantSDK\n\n## Using the Merchant SDK\n  To begin, clone the Merchant SDK repository. This repository offers an example implementation of the set of tools for initiating a session with Monoova and presenting the credit card checkout for the collection of card payments. Detailed instructions on how to integrate the credit card checkout are included in the SDK.\n\n## Sample Card Details\n  The following Card details can be used to test the credit card checkout and end-to-end flow in your Sandbox Account.\n<table>\n  <tr>\n    <th>Card Type</th>\n    <th>Card Number</th>\n    <th>Card Expiry</th>\n    <th>Card CVV</th>\n  </tr>\n  <tr>\n    <td>VISA</td>\n    <td>4111 1111 1111 1111</td>\n    <td>12/31</td>\n    <td>123</td>\n  </tr>\n  <tr>\n    <td>MASTER CARD</td>\n    <td>5555 5555 5555 4444</td>\n    <td>12/31</td>\n    <td>123</td>\n  </tr>\n</table>\n\n## Customising the Checkout\n>\n  - For those using the provided checkout form, you can make adjustments to the appearance of the checkout by editing the Checkout.html and style.css files to apply host themes.\n  - To modify the styles within the card iframe, you should edit the CSS associated with the #Checkout-container ID, as host themes do not apply to the card form.\n  - Refer to our README documentation in the Card Software Development Kit (SDK). It includes programmatic examples, including checkout style and callback details, for the events\n    * onCheckoutComplete\n    * onCheckoutFail\n"
+  version: v1
+  title: Monoova Card Payments Get Payment Method Token Details API
+  contact:
+    name: Monoova Support
+    email: support@monoova.com
+    url: https://www.monoova.com
+  x-logo:
+    url: https://movdpwebsiteprodae.blob.core.windows.net/images/Monoova-Primary-Logo-Black-RGB.png
+    altText: Monoova logo
+servers:
+- url: https://api.monoova.com
+  description: Production URL#
+- url: https://sand-api.monoova.com
+  description: Sandbox URL
+security:
+- BearerAuth: []
+tags:
+- name: Get Payment Method Token Details
+paths:
+  /au/card/ccm/PaymentMethodToken:
+    get:
+      tags:
+      - Get Payment Method Token Details
+      summary: Get Payment Method Token Details
+      description: This endpoint can be used to get details of payment method tokens created using the payment method token vaulting.
+      operationId: getPaymentMethodTokenDetails
+      parameters:
+      - name: createdStartDate
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+        description: Start date in ISO 8601 DateTime format. Required unless customerId is provided.
+      - name: createdEndDate
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+        description: End date in ISO 8601 DateTime format.
+      - name: customerId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Customer ID. Required unless createStartDate is provided.
+      - name: clientPaymentTokenUniqueReference
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Client Payment Token Unique Reference.
+      - name: pageNumber
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 1
+        description: Start page for retrieval.
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 50
+          maximum: 500
+        description: Maximum number of records to return.
+      responses:
+        '200':
+          description: Payment method token details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethodTokenDetailsResponse'
+        '400':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: 660ed149-61db-4644-acd0-5510dc840854
+                errors:
+                - errorCode: CCM_PM_DISABLED_ERROR
+                  errorMessage: 'PaymentMethodTokens disabled for accountId '
+components:
+  schemas:
+    BillingAddress:
+      type: object
+      required:
+      - firstName
+      - lastName
+      - street
+      - suburb
+      - state
+      - postalCode
+      - countryCode
+      properties:
+        firstName:
+          type: string
+          description: Customer first name
+          example: Jane
+        lastName:
+          type: string
+          description: Customer last name
+          example: Doe
+        street:
+          type: array
+          items:
+            type: string
+          description: 1 to 2 lines of street name
+          example:
+          - 123 Main St
+          - Unit 4
+        suburb:
+          type: string
+          description: Suburb
+          example: Springfield
+        state:
+          type: string
+          description: State code
+          example: QLD
+        postalCode:
+          type: string
+          description: Postal code
+          example: '4550'
+        countryCode:
+          type: string
+          description: ISO2 country code
+          example: AU
+    PaymentMethodTokenDetailsResponse:
+      type: object
+      properties:
+        traceId:
+          type: string
+          description: Unique id for logging
+          example: 68a885bc-1f6b-4571-9ed6-f0e50e082103
+        paymentMethodTokenDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentMethodTokenDetail'
+    PaymentMethodTokenDetail:
+      type: object
+      properties:
+        clientPaymentTokenUniqueReference:
+          type: string
+          description: Provided when the payment token was created
+          example: unique-token-reference-12345
+        customer:
+          $ref: '#/components/schemas/Customer'
+        creationDateTime:
+          type: string
+          format: date-time
+          description: Formatted as ISO 8601 dateTime with UTC timezone
+          example: '2024-02-22T12:34:56.789Z'
+        lastTransactionDate:
+          type: string
+          format: date-time
+          description: Formatted as ISO 8601 dateTime with UTC timezone
+          example: '2024-02-21T10:20:30.456Z'
+        expirationMonth:
+          type: string
+          description: Expiry month as on the card
+          example: '12'
+        expirationYear:
+          type: string
+          description: Expiry year as on the card
+          example: '2026'
+        status:
+          type: string
+          description: Token status (e.g., Active, Paused, Card Expired)
+          example: Active
+        last4Digits:
+          type: string
+          description: Last 4 digits of card number
+          example: '1111'
+        first6Digits:
+          type: string
+          description: First 6 digits of card number
+          example: '407220'
+        cardholderName:
+          type: string
+          description: Card holder name as on the card
+          example: Jane Doe
+        cardType:
+          type: string
+          description: Card type (aka Network)
+          example: VISA
+        issuerCountryCode:
+          type: string
+          description: Country code of card issuer
+          example: AU
+        issuerName:
+          type: string
+          description: Card issuing institution
+          example: ANZ
+        paymentMethodTokenHash:
+          type: string
+          description: Unique hash generated from payment method token. Can be used to identify duplicates of the same payment method token
+          example: 900150983cd24fb0d6963f7d28e17f72
+    Customer:
+      type: object
+      properties:
+        customerId:
+          type: string
+          description: Client’s own customerId for their customer, as provided when the payment token was created
+          example: cust123456789
+        billingAddress:
+          $ref: '#/components/schemas/BillingAddress'
+        emailAddress:
+          type: string
+          description: Customer email address
+          example: jane.doe@example.com
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    BasicAuth:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: ''
+  tags:
+  - Generate a Bearer Token
+  - Generate a Client Session
+  - Get Transaction By Id
+  - Get Transaction By Date Range
+  - Request Refund Transaction
+  - Get Async Request Status
+  - Create Payment Using Token
+  - Get Payment Method Token Details
+  - Update Payment Method Token Status
+  - Webhooks
+  - Monoova Error Codes

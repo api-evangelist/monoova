@@ -1,0 +1,78 @@
+openapi: 3.2.0
+info:
+  title: Monoova Generate a Bearer Token API
+  version: v1
+  contact:
+    name: Monoova Support
+    email: support@monoova.com
+    url: https://www.monoova.com
+  x-logo:
+    url: https://movdpwebsiteprodae.blob.core.windows.net/images/Monoova-Primary-Logo-Black-RGB.png
+    altText: Monoova logo
+  description: 'Operations tagged Generate a Bearer Token across 2 of this provider''s published API definitions: monoova-cc.yml, monoova-payto.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.monoova.com
+  description: Production URL#
+- url: https://sand-api.monoova.com
+  description: Sandbox URL
+security:
+- BearerAuth: []
+tags:
+- name: Generate a Bearer Token
+paths:
+  /au/security/oauth-v1/Token:
+    post:
+      summary: Token
+      tags:
+      - Generate a Bearer Token
+      description: '</br><p> Authentication for credit card API will be handled in Auth0 and access to APIs will be based on the Bearer token. Customers should register in Portal to use the credit card service. Only the admin of the group will be able to register an account for APIM access. Customers will be notified once they have been activated for credit cards. Once approved, the Bearer token can be retrieved using token API by passing the username as mAccount and the latest API Key as password in the header. The access token expires after 3600 seconds (60 minutes), after which the customer’s application should generate a new access token. </p></br> This API endpoint uses BASIC Authentication. </br> <style type="text/css"> .tb { table-layout:auto; width:200px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important} </style> <table class="tb">
+
+        <tr> <td class="td"> username <br/> </td> <td class="td"> Your mAccount number that can be obtained from portal <br/> </td> </tr> <tr> <td class="td">
+
+        password <br/> </td> <td class="td"> Your API key that can be obtained from portal <br/> </td> </tr> </table> </br> </br> <b>Please note that token can be of variable length. Please do not add any validation or restriction on token length. This token can be used to access all credit card APIs.</b>'
+      operationId: oauth-v1/token
+      security:
+      - BasicAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                example:
+                  token: ' '
+    servers:
+    - url: https://api.monoova.com
+      description: Production URL#
+    - url: https://sand-api.monoova.com
+      description: Sandbox URL
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    BasicAuth:
+      type: http
+      scheme: basic
+x-refined-from:
+- monoova-cc.yml
+- monoova-payto.yml
+x-tagGroups:
+- name: ''
+  tags:
+  - Generate a Bearer Token
+  - Generate a Client Session
+  - Get Transaction By Id
+  - Get Transaction By Date Range
+  - Request Refund Transaction
+  - Get Async Request Status
+  - Create Payment Using Token
+  - Get Payment Method Token Details
+  - Update Payment Method Token Status
+  - Webhooks
+  - Monoova Error Codes

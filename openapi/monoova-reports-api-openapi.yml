@@ -1,0 +1,238 @@
+openapi: 3.2.0
+info:
+  description: "# Introduction\n\n<p> \n  Monoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n  This service is made available to Monoova’s clients through a set of easy-to-use RESTful APIs with JSON payloads described in this document.\n  The central idea is to reduce the cost, risk and effort normally associated with managing complex money movements so that you can focus on growing your business.\n</p> \n<p> \n Our clients can receive and reconcile funds via Realtime transfers (NPP), direct credits/debits, BPAY and cards. \n They can then manage those funds by building virtual account/wallet hierarchies to get bespoke reporting, reconciliation and much more. \n And finally, our clients can pay funds via Realtime transfers (NPP) direct credits and BPAY. \n As new technologies become available (e.g. NPP Mandated payments) we will make additional methods of receiving, managing and paying available.\n</p> \n<p> \n  All information flows are real-time.\n  Moving money between various Monoova accounts is also real time.\n  All money flows in and out of the Engine are as fast as the banking system allows.\n</p>\n<p> \n  The sandbox environment is open to everyone who signs up on our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a> at no cost.\n  The sandbox environment allows you to test out the functionality of our API in a consequence free development environment.\n  Access to the live environment is granted once you have (1) gone through our compliance process and (2) had formal sign-off on your sandbox integration.\n</p>\n<p>\n  Monoova regularly releases additive changes to our API, as well as new versions of the API when a breaking change would occur. \n  To ensure your integration does not break due to these additive changes, we recommend not validating the entire schema, or the position of a parameter within the schema.\n</p>\n<br/><br/>\n<p> <strong> Note&#58;</strong> Please note we do not accept TLS 1.0 or 1.1 connections</p>\n\n# Getting started\n>\n  - Sign on to our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>\n  - Get your sandbox API key under **MANAGE > ACCOUNTS** in the Sandbox Portal\n  - [Authenticate](#section/Authentication)\n  - Browse this document to find the functions you need\n  - Begin experimenting with your first API calls by sending HTTP requests to the endpoints described in this document\n  - Use the provided examples in the document as guidance\n\n# Authentication\n  All RESTful APIs in this document use BASIC Authentication (except those in public/v1) in two scenarios either\n  - <strong> API KEY </strong>\n  - <strong> OneShotSecurityToken </strong><br><br>\n\n> **Sandbox Authentication Credentials**\n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.m-pay.com.au/</td>\n  </tr>\n</table> <br>\n\n> **Live Authentication Credentials**\nThis will be provided by Monoova after a technical review. <br> \n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the Production Portal; Production credentials will be supplied by Monoova) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.mpay.com.au/</td>\n  </tr>\n</table> <br>\n\nWhen using the LIVE Engine, your Sign-In Account is given five (5) attempts to authenticate your credentials. \nOn the fifth failure your Sign-In Account is locked for one (1) hour. \nThe returned data will indicate that your account is locked and the time in UTC that the account will be unlocked. \nIf you require the account to be unlocked on the LIVE system you may contact your Monoova representative and at his or her discretion they will unlock the account.\nSee the API routes in Security to manage Passwords and Tokens. <br><br>\n\n<h3> UserName/Password </h3>\nUsing this scenario, you can configure BASIC Authentication with the following <br> <br>\n<li> <strong> UserName </strong> - API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) Production credentials will be supplied by Monoova when you have demonstrated successful implementation of the API on our Sandbox environment.</li>\n<li> <strong> Password </strong> - When using your API Key, no password is required. \nIf the key is compromised, it can be re-rolled via the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>. </li> <br>\n\n# Feedback\n\nWe value your feedback on our API. Please fill out the form <a href=\"https://ncv.microsoft.com/8eaKX3fsiJ\" target=\"_blank\">here</a> to share your feedback.\n"
+  version: v5.29
+  title: Monoova Payments Reports API
+  contact:
+    name: Monoova Support
+    email: support@monoova.com
+    url: https://www.monoova.com
+  x-logo:
+    url: https://movdpwebsiteprodae.blob.core.windows.net/images/Monoova-Primary-Logo-Black-RGB.png
+    altText: Monoova logo
+servers:
+- url: https://api.mpay.com.au
+  description: Production URL
+- url: https://api.m-pay.com.au
+  description: Sandbox URL
+security:
+- BasicAuth: []
+tags:
+- name: Reports
+  description: <h3>  Overview </h3> The APIs in the reports/v1 section help you keep track of balances and transactions. Payments automation is only helping you relax if you know where exactly your money is at any one point in time.
+paths:
+  /reports/v1/settlement/{date}:
+    get:
+      tags:
+      - Reports
+      summary: Get all transactions in a daily settlement
+      description: You may choose to set your mAccounts to settle automatically every day. If so, the mAccount balance will be brought to zero at 4pm (Sydney time) each business day. Any positive balance will be disbursed to the bank account you have linked; any negative balance will be direct debited from the bank account you have linked. Transactions on weekends, public holidays and after 4pm won’t appear in the settlement report until after 4pm the next business day. <br> This report returns an array of actual disbursements for each transaction that was settled on the given date. Date is represented by ISO8601 – ‘2016-03-01’ for 1st March 2016.
+      operationId: ReportSettlement
+      parameters:
+      - name: date
+        in: path
+        required: true
+        description: Date is represented by ISO8601 – ‘2016-03-01’ for 1st March 2016.
+        schema:
+          type: string
+          example: '2016-03-01'
+          maxLength: 13
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.GenericPayment.GenericPaymentSettlementResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /reports/v1/statement/{date}:
+    get:
+      tags:
+      - Reports
+      summary: Get all successful transactions for a date
+      description: This API returns all successful transactions on the given date. Date is represented by ISO8601 – ‘2016-03-01’ for 1st March 2016.
+      operationId: ReportStatement
+      parameters:
+      - name: date
+        in: path
+        required: true
+        description: Date is represented by ISO8601 – ‘2016-03-01’ for 1st March 2016.
+        schema:
+          type: string
+          example: '2016-03-01'
+          maxLength: 13
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.GenericPayment.GenericPaymentStatementResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+components:
+  schemas:
+    DTO.GenericPayment.GenericPaymentSettlementItem_V1:
+      properties:
+        uniqueReferenced:
+          description: This is your uniqueReference that was passed in when the transaction was executed
+          type: string
+          example: '43257383821'
+          uniqueItems: false
+        transactionId:
+          description: This is the transactionId that was returned when the transaction was executed
+          type: integer
+          format: int32
+          example: 43343
+          uniqueItems: false
+        disbursementAmount:
+          description: This is the settlement or the requested disbursement amount
+          type: number
+          format: decimal
+          example: 25
+          uniqueItems: false
+        disbursementMethod:
+          description: This is the disbursementMethod that was used to make the settlement payment
+          type: string
+          example: bpay
+        feeAmountExclGst:
+          description: This is the fee amount Excluding GST that has been debited from your mAccount
+          type: number
+          format: decimal
+          example: 0.335
+        feeAmountGstComponent:
+          description: This is the GST Component of the fee amount that has been debited from your mAccount
+          type: number
+          format: decimal
+          example: 0.0335
+        feeAmountInclGst:
+          description: This is the total fee amount Including GST that has been debited from your mAccount
+          type: number
+          format: decimal
+          example: 0.3685
+      type: object
+    DTO.GenericPayment.GenericPaymentStatementResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        transactions:
+          description: An array of TransactionItem’s
+          type: array
+          items:
+            $ref: '#/components/schemas/DTO.GenericPayment.GenericPaymentStatementItem_V1'
+      type: object
+      format: DTO.GenericPayment.GenericPaymentStatementResponse_V1
+    DTO.GenericPayment.GenericPaymentStatementItem_V1:
+      properties:
+        uniqueReferenced:
+          description: This is your uniqueReference that was passed in when the transaction was executed
+          type: string
+          example: '43257'
+          uniqueItems: false
+        transactionId:
+          description: This is the transactionId that was returned when the transaction was executed
+          type: integer
+          format: int32
+          example: 36
+          uniqueItems: false
+        dateTime:
+          description: 'The date time that the transaction was executed on the Platform Servers. Format is ISO8601 - 2015 -09 - 01T19: 19:58'
+          type: string
+          example: '2018-09-01T19:19:38'
+          uniqueItems: false
+        status:
+          description: 'This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors. '
+          type: string
+          example: OK
+          uniqueItems: false
+        totalAmount:
+          description: This is the total amount of the transaction what was disbursed
+          type: number
+          format: decimal
+          example: 25
+        feeAmountExcludingGst:
+          description: This is the fee amount Excluding GST that has been debited from your mAccount
+          type: number
+          format: decimal
+          example: 0.335
+        feeAmountGstComponent:
+          description: This is the GST Component of the fee amount that has been debited from your mAccount
+          type: number
+          format: decimal
+          example: 0.0335
+        feeAmountIncludingGst:
+          description: This is the total fee amount Including GST that has been debited from your mAccount
+          type: number
+          format: decimal
+          example: 0.3685
+      type: object
+    DTO.GenericPayment.GenericPaymentSettlementResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        settlements:
+          description: An array of SettlementItem’s
+          type: array
+          items:
+            $ref: '#/components/schemas/DTO.GenericPayment.GenericPaymentSettlementItem_V1'
+      type: object
+      format: DTO.GenericPayment.GenericPaymentSettlementResponse_V1
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Receive and Pay
+  tags:
+  - Financial
+  - Verify
+  - Automatcher (Bank Account Receivables)
+  - Whitelisting for Automatcher (Bank Account Receivables)
+  - Ledger Account
+  - Reconciliation Rules
+  - PayID
+  - Tools
+- name: BPAY
+  tags:
+  - BPAY
+  - mWallet
+- name: Manage
+  tags:
+  - Subscriptions
+  - Webhooks
+  - mAccount
+  - Reports
+  - Security
+  - Token
+- name: Public Endpoints
+  tags:
+  - Public Endpoints

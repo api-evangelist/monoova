@@ -1,0 +1,480 @@
+openapi: 3.2.0
+info:
+  description: "# Introduction\n\n<p> \n  Monoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n  This service is made available to Monoova’s clients through a set of easy-to-use RESTful APIs with JSON payloads described in this document.\n  The central idea is to reduce the cost, risk and effort normally associated with managing complex money movements so that you can focus on growing your business.\n</p> \n<p> \n Our clients can receive and reconcile funds via Realtime transfers (NPP), direct credits/debits, BPAY and cards. \n They can then manage those funds by building virtual account/wallet hierarchies to get bespoke reporting, reconciliation and much more. \n And finally, our clients can pay funds via Realtime transfers (NPP) direct credits and BPAY. \n As new technologies become available (e.g. NPP Mandated payments) we will make additional methods of receiving, managing and paying available.\n</p> \n<p> \n  All information flows are real-time.\n  Moving money between various Monoova accounts is also real time.\n  All money flows in and out of the Engine are as fast as the banking system allows.\n</p>\n<p> \n  The sandbox environment is open to everyone who signs up on our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a> at no cost.\n  The sandbox environment allows you to test out the functionality of our API in a consequence free development environment.\n  Access to the live environment is granted once you have (1) gone through our compliance process and (2) had formal sign-off on your sandbox integration.\n</p>\n<p>\n  Monoova regularly releases additive changes to our API, as well as new versions of the API when a breaking change would occur. \n  To ensure your integration does not break due to these additive changes, we recommend not validating the entire schema, or the position of a parameter within the schema.\n</p>\n<br/><br/>\n<p> <strong> Note&#58;</strong> Please note we do not accept TLS 1.0 or 1.1 connections</p>\n\n# Getting started\n>\n  - Sign on to our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>\n  - Get your sandbox API key under **MANAGE > ACCOUNTS** in the Sandbox Portal\n  - [Authenticate](#section/Authentication)\n  - Browse this document to find the functions you need\n  - Begin experimenting with your first API calls by sending HTTP requests to the endpoints described in this document\n  - Use the provided examples in the document as guidance\n\n# Authentication\n  All RESTful APIs in this document use BASIC Authentication (except those in public/v1) in two scenarios either\n  - <strong> API KEY </strong>\n  - <strong> OneShotSecurityToken </strong><br><br>\n\n> **Sandbox Authentication Credentials**\n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.m-pay.com.au/</td>\n  </tr>\n</table> <br>\n\n> **Live Authentication Credentials**\nThis will be provided by Monoova after a technical review. <br> \n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the Production Portal; Production credentials will be supplied by Monoova) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.mpay.com.au/</td>\n  </tr>\n</table> <br>\n\nWhen using the LIVE Engine, your Sign-In Account is given five (5) attempts to authenticate your credentials. \nOn the fifth failure your Sign-In Account is locked for one (1) hour. \nThe returned data will indicate that your account is locked and the time in UTC that the account will be unlocked. \nIf you require the account to be unlocked on the LIVE system you may contact your Monoova representative and at his or her discretion they will unlock the account.\nSee the API routes in Security to manage Passwords and Tokens. <br><br>\n\n<h3> UserName/Password </h3>\nUsing this scenario, you can configure BASIC Authentication with the following <br> <br>\n<li> <strong> UserName </strong> - API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) Production credentials will be supplied by Monoova when you have demonstrated successful implementation of the API on our Sandbox environment.</li>\n<li> <strong> Password </strong> - When using your API Key, no password is required. \nIf the key is compromised, it can be re-rolled via the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>. </li> <br>\n\n# Feedback\n\nWe value your feedback on our API. Please fill out the form <a href=\"https://ncv.microsoft.com/8eaKX3fsiJ\" target=\"_blank\">here</a> to share your feedback.\n"
+  version: v5.29
+  title: Monoova Payments Subscriptions API
+  contact:
+    name: Monoova Support
+    email: support@monoova.com
+    url: https://www.monoova.com
+  x-logo:
+    url: https://movdpwebsiteprodae.blob.core.windows.net/images/Monoova-Primary-Logo-Black-RGB.png
+    altText: Monoova logo
+servers:
+- url: https://api.mpay.com.au
+  description: Production URL
+- url: https://api.m-pay.com.au
+  description: Sandbox URL
+security:
+- BasicAuth: []
+tags:
+- name: Subscriptions
+  description: The endpoints in this section allow subscription and management of webhooks for the purpose of receiving transaction notifications.</br>
+paths:
+  /subscriptions/v1/create:
+    post:
+      tags:
+      - Subscriptions
+      summary: Subscribe to new Webhook
+      description: Adds a new URL to which callbacks will be sent.
+      operationId: SubscriptionsCreate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/subscriptions.create'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/subscriptionsCreateResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /subscriptions/v1/update:
+    post:
+      tags:
+      - Subscriptions
+      summary: Update an existing Webhook
+      description: Updates an existing URL or toggles its status.
+      operationId: SubscriptionsUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/subscriptions.update'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/subscriptionsUpdateResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /subscriptions/v1/list:
+    get:
+      tags:
+      - Subscriptions
+      summary: List all existing webhooks
+      description: Returns a list of all webhooks registered.
+      operationId: SubscriptionsList
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/subscriptionsListResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /subscriptions/v1/delete/{id}:
+    delete:
+      tags:
+      - Subscriptions
+      summary: Unsubscribe from an existing webhook
+      description: Permanently deletes a webhook.
+      operationId: SubscriptionsDelete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: This is the Id of the Subscription you want to delete
+        schema:
+          example: '1'
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/subscriptionsDeleteResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /subscriptions/v2/resend/{WebhookId}:
+    post:
+      tags:
+      - Subscriptions
+      summary: Request resending of a notification using webhookId
+      description: Resends the associated webhook for the provided webhook ID
+      operationId: SubscriptionsResendV2
+      parameters:
+      - name: WebhookId
+        in: path
+        required: true
+        description: Unique Id to identify this webhook notification.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/subscriptionsResendResponse_V2'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /subscriptions/v1/report/{date}:
+    get:
+      tags:
+      - Subscriptions
+      summary: Webhook notifications report
+      description: Provides a historical array of previously sent webhooks
+      operationId: SubscriptionsReport
+      parameters:
+      - name: date
+        in: path
+        required: true
+        description: date format should be 'yyyy-MM-dd' format.
+        schema:
+          type: string
+          example: '2020-03-15'
+      - name: skip
+        in: query
+        required: false
+        description: Number of records to skip. 0 is the first record.
+        schema:
+          type: integer
+          example: 0
+      - name: take
+        in: query
+        required: false
+        description: Number of records to take. If endDate is provided maximum take is 10000.
+        schema:
+          type: integer
+          example: 1000
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/subscriptionsReport_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+components:
+  schemas:
+    subscriptions.create:
+      type: object
+      required:
+      - eventName
+      - targetUrl
+      - subscriptionStatus
+      properties:
+        eventName:
+          type: string
+          example: NPPReceivePayment
+          maxLength: 50
+          enum:
+          - NppReturn
+          - NppPaymentStatus
+          - PayToReceivePayment
+          - NPPReceivePayment
+          - InboundDirectCredit
+          - InboundDirectDebit
+          - DirectEntryDishonour
+          - PendingInboundRtgsImt
+          - InboundRtgsImtStatus
+          - InboundDirectCreditRejections
+          - NPPCreditRejections
+          - DirectDebitClearance
+          description: The type of event to be sent to this URL via callback.
+        targetUrl:
+          type: string
+          example: http://www.abc.com.au
+          description: This is the API endpoint where the call back notification will be sent.
+        subscriptionStatus:
+          type: string
+          maxLength: 50
+          default: 'Off'
+          example: 'On'
+          description: On/Off. Defaults to Off.
+        securityToken:
+          type: string
+          example: Basic Rjc1234567890jdGMS00MUU01234567890I3OTUyRk1234567890UEB51234567890TM0NjM=
+          description: This token will be sent back with the callback in Authorization header. <br> (Authorization:&nbsp; <strong>[type] [credentials] </strong>&nbsp;(e.x Basic Rjc1234567890jdGMS67890U78...)) <br> When creating the token, both 'type' and 'credentials' are required.
+    subscriptionsDeleteResponse_V1:
+      type: object
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+    NotificationResponse:
+      type: object
+      properties:
+        dateTime:
+          description: Date time the subscription was last updated
+          type: string
+          example: 11/14/2019 3:41:05 PM
+        eventName:
+          type: string
+          example: NPPReceivePayment
+          maxLength: 50
+          enum:
+          - NPPReceivePayment
+          - InboundDirectCredit
+          - InboundDirectDebit
+          - DirectEntryDishonour
+          description: The type of event to be sent to this URL via callback.
+        lastResponseCode:
+          type: integer
+          description: last response code received
+        lastRetryDateTime:
+          description: Date time the last retry was done
+          type: string
+          example: 11/14/2019 3:41:05 PM
+        retryCount:
+          type: integer
+          description: Number of retry
+        status:
+          type: string
+          example: Error
+          enum:
+          - Error
+          - Sent
+        url:
+          type: string
+          example: api.mpay.com/URL1
+        webhookId:
+          description: Unique Id to identify this webhook notification.
+          type: integer
+          example: 678901
+    subscriptionsResendResponse_V2:
+      type: object
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+    subscriptions.update:
+      type: object
+      required:
+      - id
+      - targetUrl
+      - subscriptionStatus
+      properties:
+        id:
+          type: integer
+          example: 1
+          description: Unique id for the subscription that needs to be updated.
+        targetUrl:
+          type: string
+          example: http://www.abc1.com.au
+          description: This is the API endpoint where the call back notification will be sent.
+        subscriptionStatus:
+          type: string
+          maxLength: 50
+          default: 'Off'
+          example: 'On'
+          description: On/Off. Defaults to Off.
+        securityToken:
+          type: string
+          example: Basic Rjc1234567890jdGMS00MUU01234567890I3OTUyRk1234567890UEB51234567890TM0NjM=
+          description: This token will be sent back with the callback in Authorization header. <br> (Authorization:&nbsp; <strong>[type] [credentials] </strong>&nbsp;(e.x Basic Rjc1234567890jdGMS67890U78...)) <br> When updating the token, both 'type' and 'credentials' are required.
+    subscriptionsListItems:
+      type: object
+      properties:
+        eventName:
+          type: string
+          example: NPPReceivePayment
+          description: 'The type of event to be sent to this URL via callback. Possible values: NPPReceivePayment'
+        id:
+          type: integer
+          example: 1
+          description: Unique id for the subscription that needs to be updated
+        targetUrl:
+          type: string
+          example: http://www.abc1.com.au
+          description: This is the API endpoint where the call back notification will be sent.
+        status:
+          type: string
+          default: 'Off'
+          example: 'On'
+          description: This is the Subscription Status. Can be On/off
+        LastUpdated:
+          type: string
+          example: 11/14/2019 3:41:05 PM
+          description: Last Updated Time
+        createdDate:
+          type: string
+          example: 11/14/2019 3:41:05 PM
+          description: Created Time
+    subscriptionsListResponse_V1:
+      type: object
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        eventname:
+          description: List of Subscription Items
+          type: array
+          items:
+            $ref: '#/components/schemas/subscriptionsListItems'
+    subscriptionsCreateResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        id:
+          description: Unique id for the subscription
+          type: integer
+          example: 2
+        dateTime:
+          description: Date time the subscription was last updated
+          type: string
+          example: 11/14/2019 3:41:05 PM
+        eventName:
+          description: 'The type of event to be sent to this URL via callback. Possible values: NPPReceivePayment'
+          type: string
+          example: NPPReceivePayment
+        targetUrl:
+          description: This is the API endpoint where the call back notification will be sent.
+          type: string
+          example: http://www.abc.com.au
+      type: object
+    subscriptionsReport_V1:
+      type: object
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        notifications:
+          description: Object containing notification details
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationResponse'
+    subscriptionsUpdateResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        id:
+          description: Unique id for the subscription
+          type: integer
+          example: 1
+        dateTime:
+          description: Date time the subscription was last updated
+          type: string
+          example: 11/14/2019 3:41:05 PM
+        eventName:
+          description: 'The type of event to be sent to this URL via callback. Possible values: NPPReceivePayment'
+          type: string
+          example: NPPReceivePayment
+        targetUrl:
+          description: This is the API endpoint where the call back notification will be sent.
+          type: string
+          example: http://www.abc1.com.au
+      type: object
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Receive and Pay
+  tags:
+  - Financial
+  - Verify
+  - Automatcher (Bank Account Receivables)
+  - Whitelisting for Automatcher (Bank Account Receivables)
+  - Ledger Account
+  - Reconciliation Rules
+  - PayID
+  - Tools
+- name: BPAY
+  tags:
+  - BPAY
+  - mWallet
+- name: Manage
+  tags:
+  - Subscriptions
+  - Webhooks
+  - mAccount
+  - Reports
+  - Security
+  - Token
+- name: Public Endpoints
+  tags:
+  - Public Endpoints

@@ -1,0 +1,132 @@
+openapi: 3.2.0
+info:
+  description: "# Introduction\n  Monoova's Online Card Payment Service incorporates a next-gen Card Payment Checkout integrated with our expansive Payments API to allow merchants to capture card and mobile wallet payments from your customers online and receive funds into your Monoova account for automated reconciliation and disbursement. To integrate the Card Payment Gateway into your website, all you need is Monoova's <a href=\"https://github.com/Monoova/merchantSDK\" target='_blank'>Merchant Software Development Kit</a> (SDK) hosted on GitHub and a set of straightforward RESTful APIs detailed below.  We will continue to update this API documentation as we release additional functionality.\n\n# How to Enable the Card Payment Gateway and Sandbox API’s\n>\n  - If not already a user, register an account in our <a href='https://sandbox.monoova.com' target='_blank'>Sandbox Portal</a>\n  - Once registered and logged in, navigate to **Manage > API Gateway** and input your API Key (provided to you as part of Portal user registration) to activate API Gateway Access for your mAccount (If you do not know your API Key you will need to roll a new one, this can be done by navigating to **Manage > Accounts**)\n  - Card Gateway integration requires some additional back-end configuration prior to use by a member of our integration team who will reach out to onboard and confirm access as a final step to enabling your service.\n  - To notify the integration team of your interest in enabling your account for Online Card Payment Service functionality, please <a href='https://www.monoova.com/contact' target=\"_blank\">Contact us</a> and a member of the team will follow up to guide you through the final steps.\n\n# Integrating Monoova Checkout for Card Payments\n  Utilizing Monoova's Merchant SDK enables you to deploy a Card Payment Checkout that securely gathers card payment information that complies with PCI standards, without necessitating substantial PCI compliance modifications within your application. The integrated Card Payment Checkout implementation ensures the secure capture of card data and offers complete customization to seamlessly align with your application's appearance and user experience.\n\n## Before you start\n>\n  - Ensure that your mAccount has been properly configured to enable card payments. Please access the Monoova portal or contact Monoova Support to verify this.\n  - Download the Card Software Development Kit (SDK): https://github.com/Monoova/merchantSDK\n\n## Using the Merchant SDK\n  To begin, clone the Merchant SDK repository. This repository offers an example implementation of the set of tools for initiating a session with Monoova and presenting the credit card checkout for the collection of card payments. Detailed instructions on how to integrate the credit card checkout are included in the SDK.\n\n## Sample Card Details\n  The following Card details can be used to test the credit card checkout and end-to-end flow in your Sandbox Account.\n<table>\n  <tr>\n    <th>Card Type</th>\n    <th>Card Number</th>\n    <th>Card Expiry</th>\n    <th>Card CVV</th>\n  </tr>\n  <tr>\n    <td>VISA</td>\n    <td>4111 1111 1111 1111</td>\n    <td>12/31</td>\n    <td>123</td>\n  </tr>\n  <tr>\n    <td>MASTER CARD</td>\n    <td>5555 5555 5555 4444</td>\n    <td>12/31</td>\n    <td>123</td>\n  </tr>\n</table>\n\n## Customising the Checkout\n>\n  - For those using the provided checkout form, you can make adjustments to the appearance of the checkout by editing the Checkout.html and style.css files to apply host themes.\n  - To modify the styles within the card iframe, you should edit the CSS associated with the #Checkout-container ID, as host themes do not apply to the card form.\n  - Refer to our README documentation in the Card Software Development Kit (SDK). It includes programmatic examples, including checkout style and callback details, for the events\n    * onCheckoutComplete\n    * onCheckoutFail\n"
+  version: v1
+  title: Monoova Card Payments Get Async Request Status API
+  contact:
+    name: Monoova Support
+    email: support@monoova.com
+    url: https://www.monoova.com
+  x-logo:
+    url: https://movdpwebsiteprodae.blob.core.windows.net/images/Monoova-Primary-Logo-Black-RGB.png
+    altText: Monoova logo
+servers:
+- url: https://api.monoova.com
+  description: Production URL#
+- url: https://sand-api.monoova.com
+  description: Sandbox URL
+security:
+- BearerAuth: []
+tags:
+- name: Get Async Request Status
+paths:
+  /au/card/ccm/CreditCardTransactionAsync/request/{uniqueRequestId}:
+    get:
+      tags:
+      - Get Async Request Status
+      summary: Get Async Request Status
+      description: This endpoint can be used to get the status of the asynchronous refund request. The final status of the asynchronous request is marked as completed after we successfully initiate a refund request from our side. This does not indicate the status of the settlement process and money movement in case of a refund. <br/> Inorder to get the detailed status of the refund request , please use the <a href="/cards#operation/get-transaction-by-id" >Credit Card - Get Transaction By Id</a> or <a href="/cards#operation/get-transaction-by-date-range">Credit Card - Get Transaction By Date Range.</a> <br/>
+      operationId: async-request-status
+      parameters:
+      - name: uniqueRequestId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncStatusResponse200'
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncStatusResponse201'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                traceId: 46500c7a-5516-4040-9f33-4137bb496755
+                errors:
+                - errorCode: CCM_JOBID_INVALID
+                  errorMessage: Async Job Id is not valid Guid - must use the UniqueRequestId returned by the originating call
+        '422':
+          description: Async Request Failed
+          content:
+            application/json:
+              example:
+                traceId: c0905f60-80b7-4a6a-abe3-0207b3e19b8e
+                uniqueRequestId: 595a3202-e9aa-406e-a2a3-5efb6ca8b72a
+                clientTransactionUniqueReference: MONCC1673930138
+                status: Failed
+                errorCode: CCM_CC_GWM_ERROR
+                errorMessage: Mandatory field is missing - payment_initiator_information.party_name.
+components:
+  schemas:
+    AsyncStatusResponse201:
+      type: object
+      properties:
+        traceId:
+          description: unique end to end trace id for diagnostic
+          type: string
+          example: c0905f60-80b7-4a6a-abe3-0207b3e19b8e
+        uniqueRequestId:
+          description: the unique Id for this async job as returned in the originating request
+          type: string
+          example: 595a3202-e9aa-406e-a2a3-5efb6ca8b72a
+        clientTransactionUniqueReference:
+          description: unique refund Id provided by the client
+          type: string
+          example: MONCC1673930138
+        status:
+          description: one of the below - <br/> Accepted <br/> Processing <br/> Completed <br/> Failed <br/> Expired
+          type: string
+          example: Completed
+      additionalProperties: false
+    AsyncStatusResponse200:
+      type: object
+      properties:
+        traceId:
+          description: unique end to end trace id for diagnostic
+          type: string
+          example: be393fae-52c2-4c9e-a262-4974de6da750
+        uniqueRequestId:
+          description: the unique Id for this async job as returned in the originating request
+          type: string
+          example: 4834dba5-27b0-465c-aea7-aa530315c68c
+        clientTransactionUniqueReference:
+          description: unique refund Id provided by the client
+          type: string
+          example: MONCC1673935776
+        status:
+          description: one of the below - <br/> Accepted <br/> Processing <br/> Completed <br/> Failed <br/> Expired
+          type: string
+          example: Processing
+      additionalProperties: false
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    BasicAuth:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: ''
+  tags:
+  - Generate a Bearer Token
+  - Generate a Client Session
+  - Get Transaction By Id
+  - Get Transaction By Date Range
+  - Request Refund Transaction
+  - Get Async Request Status
+  - Create Payment Using Token
+  - Get Payment Method Token Details
+  - Update Payment Method Token Status
+  - Webhooks
+  - Monoova Error Codes

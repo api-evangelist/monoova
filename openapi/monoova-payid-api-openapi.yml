@@ -1,0 +1,354 @@
+openapi: 3.2.0
+info:
+  description: "# Introduction\n\n<p> \n  Monoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n  This service is made available to Monoova’s clients through a set of easy-to-use RESTful APIs with JSON payloads described in this document.\n  The central idea is to reduce the cost, risk and effort normally associated with managing complex money movements so that you can focus on growing your business.\n</p> \n<p> \n Our clients can receive and reconcile funds via Realtime transfers (NPP), direct credits/debits, BPAY and cards. \n They can then manage those funds by building virtual account/wallet hierarchies to get bespoke reporting, reconciliation and much more. \n And finally, our clients can pay funds via Realtime transfers (NPP) direct credits and BPAY. \n As new technologies become available (e.g. NPP Mandated payments) we will make additional methods of receiving, managing and paying available.\n</p> \n<p> \n  All information flows are real-time.\n  Moving money between various Monoova accounts is also real time.\n  All money flows in and out of the Engine are as fast as the banking system allows.\n</p>\n<p> \n  The sandbox environment is open to everyone who signs up on our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a> at no cost.\n  The sandbox environment allows you to test out the functionality of our API in a consequence free development environment.\n  Access to the live environment is granted once you have (1) gone through our compliance process and (2) had formal sign-off on your sandbox integration.\n</p>\n<p>\n  Monoova regularly releases additive changes to our API, as well as new versions of the API when a breaking change would occur. \n  To ensure your integration does not break due to these additive changes, we recommend not validating the entire schema, or the position of a parameter within the schema.\n</p>\n<br/><br/>\n<p> <strong> Note&#58;</strong> Please note we do not accept TLS 1.0 or 1.1 connections</p>\n\n# Getting started\n>\n  - Sign on to our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>\n  - Get your sandbox API key under **MANAGE > ACCOUNTS** in the Sandbox Portal\n  - [Authenticate](#section/Authentication)\n  - Browse this document to find the functions you need\n  - Begin experimenting with your first API calls by sending HTTP requests to the endpoints described in this document\n  - Use the provided examples in the document as guidance\n\n# Authentication\n  All RESTful APIs in this document use BASIC Authentication (except those in public/v1) in two scenarios either\n  - <strong> API KEY </strong>\n  - <strong> OneShotSecurityToken </strong><br><br>\n\n> **Sandbox Authentication Credentials**\n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.m-pay.com.au/</td>\n  </tr>\n</table> <br>\n\n> **Live Authentication Credentials**\nThis will be provided by Monoova after a technical review. <br> \n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the Production Portal; Production credentials will be supplied by Monoova) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.mpay.com.au/</td>\n  </tr>\n</table> <br>\n\nWhen using the LIVE Engine, your Sign-In Account is given five (5) attempts to authenticate your credentials. \nOn the fifth failure your Sign-In Account is locked for one (1) hour. \nThe returned data will indicate that your account is locked and the time in UTC that the account will be unlocked. \nIf you require the account to be unlocked on the LIVE system you may contact your Monoova representative and at his or her discretion they will unlock the account.\nSee the API routes in Security to manage Passwords and Tokens. <br><br>\n\n<h3> UserName/Password </h3>\nUsing this scenario, you can configure BASIC Authentication with the following <br> <br>\n<li> <strong> UserName </strong> - API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) Production credentials will be supplied by Monoova when you have demonstrated successful implementation of the API on our Sandbox environment.</li>\n<li> <strong> Password </strong> - When using your API Key, no password is required. \nIf the key is compromised, it can be re-rolled via the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>. </li> <br>\n\n# Feedback\n\nWe value your feedback on our API. Please fill out the form <a href=\"https://ncv.microsoft.com/8eaKX3fsiJ\" target=\"_blank\">here</a> to share your feedback.\n"
+  version: v5.29
+  title: Monoova Payments Pay ID API
+  contact:
+    name: Monoova Support
+    email: support@monoova.com
+    url: https://www.monoova.com
+  x-logo:
+    url: https://movdpwebsiteprodae.blob.core.windows.net/images/Monoova-Primary-Logo-Black-RGB.png
+    altText: Monoova logo
+servers:
+- url: https://api.mpay.com.au
+  description: Production URL
+- url: https://api.m-pay.com.au
+  description: Sandbox URL
+security:
+- BasicAuth: []
+tags:
+- name: PayID
+  description: <h3>  Overview </h3> <p> A PayID is an alias for a bank account number that makes paying into account easier. A PayID can be an email address, phone number or ABN. PayIDs are issued and associated with our <a href="/payments#tag/Automatcher-(Bank-Account-Receivables)"> /receivables </a>  bank accounts to allow your users a simpler way of sending you money. Once a PayID has been registered against a bank account, when a payment is made to that ID, the funds will arrive in your receivables account number. Currently we only support email PayIDs via the API. </p>
+paths:
+  /receivables/v1/payid/registerpayid:
+    post:
+      tags:
+      - PayID
+      summary: Register PayID
+      description: This endpoint allows the registration of a PayID against an account number. We recommend leaving 10 seconds before registering a PayID to ensure an account number has been enabled for NPP. The domains that can be used to register a PayID are restricted. Custom domains are supported but must first be approved, please contact us for configuration. The default domain is monoova.me, if the PayID field is left blank we will generate a check-digited PayID on the Monoova domain.
+      operationId: ReceivablesRegisterPayID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/payId.registerpayId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/receivablesRegisterPayIdResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /receivables/v1/payid/updatePayIdStatus:
+    post:
+      tags:
+      - PayID
+      summary: Update a PayID's status
+      description: A PayID in the port status can be moved to another automatcher. To do this, change the status to port then submit a new Register PayID request for the preferred automatcher. The PayID will be relocated and automatically enabled.
+      operationId: ReceivablesUpdatePayIdStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/payId.updatePayIdStatus'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/receivablesUpdatePayIdStatusResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /receivables/v1/payid/updatePayIdName:
+    post:
+      tags:
+      - PayID
+      summary: Update a PayID's name
+      description: Use this endpoint to change the name of a PayID.
+      operationId: ReceivablesUpdatePayIdName
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/payId.updatePayIdName'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/receivablesUpdatePayIdNameResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /receivables/v1/payid/payIdEnquiry:
+    post:
+      tags:
+      - PayID
+      summary: PayID Enquiry
+      description: Returns the details of a of a PayID. You must own the PayID to view its information.
+      operationId: ReceivablesPayIdEnquiry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/payId.enquiry'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/receivablesEnquiryPayIdResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+components:
+  schemas:
+    payId.enquiry:
+      type: object
+      required:
+      - payId
+      properties:
+        payId:
+          type: string
+          example: f3y237@monoova.com
+          description: Email address for the PayID.
+    payId.registerpayId:
+      type: object
+      required:
+      - bankAccountNumber
+      - payIdName
+      properties:
+        bankAccountNumber:
+          type: string
+          example: '123409870'
+          description: The bank account number for the account against which you are trying to Register a PayID
+          maxLength: 9
+        bsb:
+          type: string
+          example: 802-985
+          description: Optional BSB parameter. If not specified, the service will use the MAccount’s configured ‘Default BSB’. If a ‘Default BSB’ has not been configured, then the Monoova ‘Default BSB’ will be used.
+        payIdName:
+          type: string
+          example: John Smith
+          maxLength: 140
+          description: Name displayed to the payers in order to identify you.
+        payId:
+          type: string
+          example: ''
+          maxLength: 256
+          description: Email address for the PayID.
+    receivablesUpdatePayIdNameResponse_V1:
+      type: object
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+    receivablesRegisterPayIdResponse_V1:
+      type: object
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        PayIdDetails:
+          type: object
+          properties:
+            BankAccountNumber:
+              description: The bank account number for the account against which you are trying to Register a PayID
+              type: string
+              example: '123409870'
+            PayId:
+              description: 'Email address for the PayID. Max length: 256'
+              type: string
+              example: f3y237@monoova.me
+            PayIdName:
+              description: Name displayed to the payers in order to identify you
+              type: string
+              example: John Smith
+            PayIdStatus:
+              description: 'Status of your PayID. Possible values: Enable, Disable, Deregister, Port'
+              type: string
+              enum:
+              - Enable
+              - Disable
+              - Deregister
+              - Port
+              example: Enable
+    receivablesUpdatePayIdStatusResponse_V1:
+      type: object
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+    receivablesEnquiryPayIdResponse_V1:
+      type: object
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        BankAccountNumber:
+          description: The bank account number for the account against which you are trying to Register a PayID
+          type: string
+          example: '111111012345678'
+        LastResolutionDateTime:
+          description: Datetime this PayId was last resolved
+          type: string
+          example: '2019-03-17T07:45:00.000Z'
+        LastUpdatedDateTime:
+          description: ''
+          type: string
+          example: '2019-03-14T00:44:53.000Z'
+        PayIdName:
+          description: Name displayed to the payers in order to identify you
+          type: string
+          example: John Smith
+        RegistrationDateTime:
+          description: ''
+          type: string
+          example: '2019-03-14T00:44:53.000Z'
+        Status:
+          description: 'Status of your PayID. Possible values: Enable, Disable, Deregister, Port'
+          type: string
+          example: Enable
+          enum:
+          - Enable
+          - Disable
+          - Deregister
+          - Port
+    payId.updatePayIdName:
+      type: object
+      required:
+      - bankAccountNumber
+      - payId
+      - payIdName
+      properties:
+        bankAccountNumber:
+          type: string
+          example: '123409870'
+          description: The bank account number for the account against when you Register a PayID.
+          maxLength: 9
+        bsb:
+          type: string
+          example: 802-985
+          description: Optional BSB parameter. If not specified, the service will use the MAccount’s configured ‘Default BSB’. If a ‘Default BSB’ has not been configured, then the Monoova ‘Default BSB’ will be used.
+        payId:
+          type: string
+          example: f3y237@monoova.com
+          description: Email address for the PayID.
+          maxLength: 256
+        payIdName:
+          type: string
+          example: John Smith
+          description: Name displayed to the payers in order to identify you.
+          maxLength: 140
+    payId.updatePayIdStatus:
+      type: object
+      required:
+      - bankAccountNumber
+      - payId
+      - status
+      properties:
+        bankAccountNumber:
+          type: string
+          example: '123409870'
+          description: The bank account number for the account against when you Register a PayID.
+          maxLength: 9
+        bsb:
+          type: string
+          example: 802-985
+          description: Optional BSB parameter. If not specified, the service will use the MAccount’s configured ‘Default BSB’. If a ‘Default BSB’ has not been configured, then the Monoova ‘Default BSB’ will be used.
+        payId:
+          type: string
+          example: f3y237@monoova.me
+          description: Email address for the PayID.
+          maxLength: 256
+        status:
+          type: string
+          example: Disable
+          enum:
+          - Enable
+          - Disable
+          - Deregister
+          - Port
+          description: 'Status of your PayID. Possible values: Enable, Disable, Deregister, Port'
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Receive and Pay
+  tags:
+  - Financial
+  - Verify
+  - Automatcher (Bank Account Receivables)
+  - Whitelisting for Automatcher (Bank Account Receivables)
+  - Ledger Account
+  - Reconciliation Rules
+  - PayID
+  - Tools
+- name: BPAY
+  tags:
+  - BPAY
+  - mWallet
+- name: Manage
+  tags:
+  - Subscriptions
+  - Webhooks
+  - mAccount
+  - Reports
+  - Security
+  - Token
+- name: Public Endpoints
+  tags:
+  - Public Endpoints

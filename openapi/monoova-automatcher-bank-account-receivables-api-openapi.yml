@@ -1,0 +1,1220 @@
+openapi: 3.2.0
+info:
+  description: "# Introduction\n\n<p> \n  Monoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n  This service is made available to Monoova’s clients through a set of easy-to-use RESTful APIs with JSON payloads described in this document.\n  The central idea is to reduce the cost, risk and effort normally associated with managing complex money movements so that you can focus on growing your business.\n</p> \n<p> \n Our clients can receive and reconcile funds via Realtime transfers (NPP), direct credits/debits, BPAY and cards. \n They can then manage those funds by building virtual account/wallet hierarchies to get bespoke reporting, reconciliation and much more. \n And finally, our clients can pay funds via Realtime transfers (NPP) direct credits and BPAY. \n As new technologies become available (e.g. NPP Mandated payments) we will make additional methods of receiving, managing and paying available.\n</p> \n<p> \n  All information flows are real-time.\n  Moving money between various Monoova accounts is also real time.\n  All money flows in and out of the Engine are as fast as the banking system allows.\n</p>\n<p> \n  The sandbox environment is open to everyone who signs up on our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a> at no cost.\n  The sandbox environment allows you to test out the functionality of our API in a consequence free development environment.\n  Access to the live environment is granted once you have (1) gone through our compliance process and (2) had formal sign-off on your sandbox integration.\n</p>\n<p>\n  Monoova regularly releases additive changes to our API, as well as new versions of the API when a breaking change would occur. \n  To ensure your integration does not break due to these additive changes, we recommend not validating the entire schema, or the position of a parameter within the schema.\n</p>\n<br/><br/>\n<p> <strong> Note&#58;</strong> Please note we do not accept TLS 1.0 or 1.1 connections</p>\n\n# Getting started\n>\n  - Sign on to our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>\n  - Get your sandbox API key under **MANAGE > ACCOUNTS** in the Sandbox Portal\n  - [Authenticate](#section/Authentication)\n  - Browse this document to find the functions you need\n  - Begin experimenting with your first API calls by sending HTTP requests to the endpoints described in this document\n  - Use the provided examples in the document as guidance\n\n# Authentication\n  All RESTful APIs in this document use BASIC Authentication (except those in public/v1) in two scenarios either\n  - <strong> API KEY </strong>\n  - <strong> OneShotSecurityToken </strong><br><br>\n\n> **Sandbox Authentication Credentials**\n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.m-pay.com.au/</td>\n  </tr>\n</table> <br>\n\n> **Live Authentication Credentials**\nThis will be provided by Monoova after a technical review. <br> \n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the Production Portal; Production credentials will be supplied by Monoova) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.mpay.com.au/</td>\n  </tr>\n</table> <br>\n\nWhen using the LIVE Engine, your Sign-In Account is given five (5) attempts to authenticate your credentials. \nOn the fifth failure your Sign-In Account is locked for one (1) hour. \nThe returned data will indicate that your account is locked and the time in UTC that the account will be unlocked. \nIf you require the account to be unlocked on the LIVE system you may contact your Monoova representative and at his or her discretion they will unlock the account.\nSee the API routes in Security to manage Passwords and Tokens. <br><br>\n\n<h3> UserName/Password </h3>\nUsing this scenario, you can configure BASIC Authentication with the following <br> <br>\n<li> <strong> UserName </strong> - API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) Production credentials will be supplied by Monoova when you have demonstrated successful implementation of the API on our Sandbox environment.</li>\n<li> <strong> Password </strong> - When using your API Key, no password is required. \nIf the key is compromised, it can be re-rolled via the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>. </li> <br>\n\n# Feedback\n\nWe value your feedback on our API. Please fill out the form <a href=\"https://ncv.microsoft.com/8eaKX3fsiJ\" target=\"_blank\">here</a> to share your feedback.\n"
+  version: v5.29
+  title: Monoova Payments Automatcher (Bank Account Receivables) API
+  contact:
+    name: Monoova Support
+    email: support@monoova.com
+    url: https://www.monoova.com
+  x-logo:
+    url: https://movdpwebsiteprodae.blob.core.windows.net/images/Monoova-Primary-Logo-Black-RGB.png
+    altText: Monoova logo
+servers:
+- url: https://api.mpay.com.au
+  description: Production URL
+- url: https://api.m-pay.com.au
+  description: Sandbox URL
+security:
+- BasicAuth: []
+tags:
+- name: Automatcher (Bank Account Receivables)
+  description: <h3>  Overview </h3> <p> Having customers paying you by bank transfer might be easy for your customers but contains a reconciliation risk for you. If your customer mistypes or forgets the reference to go with the payment, you might not know whom the payment is from. Orphaned transactions can be challenging and costly to handle. The solution is our receivables API. We allow you to assign a specific account number to each payer so you know for a fact where the received funds originated, regardless of whether they remembered to type the reference. </p> <p> Specifically, the bank-account receivables APIs allow the creation and maintenance of bank account numbers for the purpose of receiving and reconciling funds via direct credit. Once an account number is created, payments may be made via any banking institution in Australia to the BSB and account number provided by us to you. These account numbers can be toggled active/inactive and linked to a client provided unique ID. Once a transaction is received, Monoova provides reporting on the details of each item, and makes the funds available for disbursement in your Sign-in mAccount. Authentication is the same as for the rest of Monoova’s APIs. </p>
+paths:
+  /receivables/v1/create:
+    post:
+      tags:
+      - Automatcher (Bank Account Receivables)
+      summary: Create an Automatcher (Receivables) Account
+      description: Creates a new bank-account number. For the creation of batches of account numbers, please see <a href="/payments#operation/ReceivablesBatchCreate"> /receivables/v1/batchCreate </a> These account numbers can be used along with the returned BSB to receive payments from any bank in Australia. Payments to an invalid bank-account number, i.e. one that has not been created, will be returned by Monoova to the remitting institution. Each account number has a check digit to minimize common payer errors such as adjacent transposition errors or single-digit typos. An optional unique ID can be linked to each account number for your reference. If a unique ID is not provided, Monoova will generate and return one automatically. If isActive is omitted, it will default to false. This can be changed to true via the <a href="/payments#operation/ReceivablesStatus"> /receivables/v1/status</a> endpoint.
+      operationId: ReceivablesCreate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/receivables.create'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/receivablesCreateResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /receivables/v1/status:
+    post:
+      tags:
+      - Automatcher (Bank Account Receivables)
+      summary: Set Account Status
+      description: Bank accounts can be active or inactive. Inactive accounts will have all payments rejected and returned to the payer. Status can be called using either bank account number or clientuniqueId.
+      operationId: ReceivablesStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/receivables.status'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/receivablesStatusSetResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /receivables/v1/statusByBankAccount/{bankAccountNumber}:
+    get:
+      tags:
+      - Automatcher (Bank Account Receivables)
+      summary: Get Account Status By BankAccount
+      description: Returns the status of a bank account number. Without changing the status, this API is used for checking the status of a bank account. Status can be called using either bankaccount number or clientUniqueId.
+      operationId: ReceivablesStatusByBank
+      parameters:
+      - name: bankAccountNumber
+        in: path
+        required: true
+        description: The bank account number generated.
+        schema:
+          example: '153884104'
+          type: string
+      - name: bsb
+        in: query
+        required: false
+        description: Optional BSB parameter specifying the branch identifier for Australian banks. Accepts either 6 digits or with a hyphen as "XXX-XXX". If not specified, the service will use the MAccount’s configured ‘Default BSB’. If a ‘Default BSB’ has not been configured, then the Monoova ‘Default BSB’ will be used.
+        schema:
+          type: string
+          maxLength: 7
+          example: 802-985
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/receivablesStatusGetResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /receivables/v1/statusByClientID/{clientUniqueId}:
+    get:
+      tags:
+      - Automatcher (Bank Account Receivables)
+      summary: Get Account Status By ClientUniqueId
+      description: 'Returns the status of a bank account number. Without changing the status, this API is used for checking the status of a bank account.
+
+        Status can be called using either bankAccount number or clientUniqueId.
+
+        '
+      operationId: ReceivablesStatusByClientID
+      parameters:
+      - name: clientUniqueId
+        in: path
+        required: true
+        description: An identifier assigned to the account.
+        schema:
+          example: 862944d057FC408B9B04541C2BA12
+          type: string
+      - name: bsb
+        in: query
+        required: false
+        description: Optional BSB parameter specifying the branch identifier for Australian banks. Accepts either 6 digits or with a hyphen as "XXX-XXX". If not specified, the service will use the MAccount’s configured ‘Default BSB’. If a ‘Default BSB’ has not been configured, then the Monoova ‘Default BSB’ will be used.
+        schema:
+          type: string
+          maxLength: 7
+          example: 802-985
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/receivablesStatusGetResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /receivables/v6/report/{date}:
+    get:
+      tags:
+      - Automatcher (Bank Account Receivables)
+      summary: Report
+      description: Returns a report of all received transactions for the day with associated details, this includes Direct Entry and NPP Receivables. If requested multiple times on the current date (calendar day, AEDT), the report is cumulative. E.g. if, on the same day, a report is requested at 10am and another one at 1pm, the report at 1pm will contain all the transactions already contained in the 10am report, in addition to any new transactions. Direct Entry transactions arrive in batches 7 times throughout the day, 8.30am, 11.30am, 14.30pm, 17.30pm, 19.45pm, 21.45pm and 22.50pm (emergency), business days only. NPP Transactions may arrive at anytime, we recommend <a href="/payments#tag/Subscriptions"> subscribing to a webhook </a> to receive new transaction notifications. <br/> <br/> The report is an application/octet-stream, columns are comma separated. Where a comma(,) or double quote(") is present in any of the below fields, the field will be encased in double quotes and/or escaped as per <a href="https://tools.ietf.org/html/rfc4180" target="_blank">RFC4180</a><br> Columns are as follows:&nbsp; <style type="text/css"> .tb { table-layout:auto; width:100px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis; !important} </style> <table class="tb"> <tr> <td class="td"> Transaction ID </td> <td class="td"> Batch ID </td> <td class="td"> Datetime </td> <td class="td"> BSB </td> <td class="td"> AccountNumber </td> <td class="td"> AccountName </td> <td class="td"> PayId </td> <td class="td"> PayId Name </td> <td class="td"> TransactionCode </td> <td class="td"> TransactionType </td> <td class="td"> Amount </td> <td class="td"> LodgementRef </td> <td class="td"> RemitterName </td> <td class="td"> Indicator </td> <td class="td"> WithholdingTaxAmount (if applicable) </td> <td class="td"> EndToEndId</td> <td class="td"> RespondBeforeDateTime </td> <td class="td"> NameOfUserSupplyingFile </td> <td class="td"> NumberOfUserSupplyingFile </td> <td class="td"> DescriptionOfEntriesOnFile </td> <td class="td"> SourceBsb </td> <td class="td"> SourceAccountNumber </td> <td class="td"> SourceAccountName </td> <td class="td"> CategoryPurposeCode </td> <td class="td"> CreditorReferenceInformation </td> <td class="td"> USINumber </td> <td class="td"> USIScheme </td> <td class="td"> UltimateCreditorName </td> <td class="td"> ReconciliationRuleReference </td> </tr> <tr> <td class="td"> <br/> <br/> Monoova generated <br/> Unique ID. <br/> Max 12 chars. <br/> <br/> <br/> </td> <td class="td"> Payment Batch ID. <br/> Payments come in batches <br/> throughout the day. <br/> Max 12 chars. Blank if NPP. </td> <td class="td"> AEDT, Sydney. <br/> Max 27 chars. </td> <td class="td"> Payee BSB. <br/> Max 7 Chars. </td> <td class="td"> Payee Bank Account <br/> Number. Max 34 chars. </td> <td class="td"> Payer submitted Account <br/> Name. Max 32 chars. </td> <td class="td"> Email address for the PayID. <br/> Max 256 chars. </td> <td class="td"> Name displayed to the payers <br/> Max 140 chars. </td> <td class="td"> Industry standard transaction <br/> code. “50” for credit. <br/> Refer to Direct entry standard <br/> for definitions 51-57. <br/> Max 5 chars. </td> <td class="td"> Possible Values:<br/> 'DE' or 'NPP'  <br/> </td> <td class="td"> Payment amount, <br/> 2 decimal places <br/> for cents. Max 11 chars. </td> <td class="td"> Payer submitted reference. <br/> Max 280 chars. </td> <td class="td"> Remitting Entity. <br/> Max 140 chars. </td> <td class="td"> Blank; OR 'W' dividend paid to a <br/> resident of a country where a double  <br/> tax agreement is in force. 'X' dividend  <br/> paid to a resident of any other country. <br/> 'Y' interest paid to all non-resident. <br/> Max 1 chars. </td> <td class="td"> Blank OR Payment amount, <br/> 2 decimal places for cents.<br/> Max 9 chars. </td> <td class="td"> Osko End to End identifier <br/> submitted by Payer. <br/> Max 35 chars. </td> <td class="td"> Time by when you have to  <br/> respond to the Inbound  <br/> Direct Debit request. </td> <td class="td"> Preferred name of the <br/> User supplying <br/> the Direct Entry file. </td> <td class="td"> This is the User Identification <br/> Number which is assigned by  <br/> APCA and User Financial Institutions. </td> <td class="td"> Direct Entry file description. <br/> </td> <td class="td"> Payer BSB.<br/> Max 7 Chars.<br/> <br/> </td> <td class="td"> Payer Bank Account Number. <br/> Max 34 chars. <br/> </td> <td class="td"> This field appears for NPP transactions  <br/> only and is the payers bank account name.  <br/> For DE transactions please refer to the  <br/> RemitterName Field. Max 140 Chars. <br/> </td> <td class="td"> NPP payment purpose code, max 4 chars.<br/> Possible values:<br/> Blank, <br/> SALA = Salary, <br/> PENS = SuperAnnuation, <br/> SUPP = E-Invoice, <br/> TAXS = Tax </td> <td class="td"> Used for SALA, PENS, SUPP and TAXS <br/> transactions only. <br/> Reference related to payment type. <br/> Max 35 chars. </td> <td class="td"> Used for PENS code payments only. <br/> Unique Superannuation ID (USI) <br/> Max 35 chars. </td> <td class="td"> Used for PENS code payments only. <br/> USI scheme. <br/> Max 35 chars. </td> <td class="td"> Used for PENS code payments only. <br/> Name of the Ultimate Creditor. <br/> Max 140 chars. </td> <td class="td"> If Allow Reconciliation Rules is turned on for merchant. <br/> Example RR22348 <br/> string <= 35 characters ^[A-Za-z0-9-_]{1,35}$ </td> </tr> </table> <p> Note:&nbsp; Source account details do not appear by default, please contact Monoova for further information. Also note, we will only retrieve 1 month transaction at a time</p> <br/> <h4>Possible transaction codes</h4> <table> <tr> <th>Code</th> <th>Transaction Description</th> </tr> <tr> <td>13</td> <td>Externally initiated debit items </td> </tr> <tr> <td>50</td> <td>Externally initiated credit items with the exception of those bearing Transaction Codes </tr> <tr> <td>51</td> <td>Australian Government Security Interest</td> </tr> <tr> <td>52</td> <td>Family Allowance </td> </tr> <tr> <td>53</td> <td>Pay</td> </tr> <tr> <td>54</td> <td>Pension</td> </tr> <tr> <td>55</td> <td>Allotment</td> </tr> <tr> <td>56</td> <td>Dividend</td> </tr> <tr> <td>57</td> <td>Debenture/Note Interest</td> </tr> </table> <br>
+      operationId: ReceivablesReportDate
+      parameters:
+      - name: date
+        in: path
+        required: true
+        description: Format:&nbsp; 'yyyyMMddHHmmss'. This becomes the start date of the report if report is being fetched for a date range.
+        schema:
+          type: string
+          example: '20200401000001'
+      - name: endDate
+        in: query
+        required: false
+        description: Format:&nbsp; yyyyMMddHHmmss. Use this to fetch the report for a date range.
+        schema:
+          type: string
+          example: '20200408235959'
+      - name: skip
+        in: query
+        required: false
+        description: Number of records to skip. 0 is the first record.
+        schema:
+          type: integer
+          example: 0
+      - name: take
+        in: query
+        required: false
+        description: Number of records to take. If endDate is provided maximum take is 10000.
+        schema:
+          type: integer
+          example: 1000
+      - name: accountNumber
+        in: query
+        required: false
+        description: Payee bank account number.
+        schema:
+          type: string
+          example: '123456789'
+      - name: clientUniqueId
+        in: query
+        required: false
+        description: The unique identifier for the account.
+        schema:
+          type: string
+          example: 862944d057FC408B9B04541C2BA12
+      - name: transactionType
+        in: query
+        required: false
+        description: Possible Values:&nbsp; 'DE' or 'NPP'.
+        schema:
+          type: string
+          example: DE
+          enum:
+          - DE
+          - NPP
+      - name: transactionCode
+        in: query
+        required: false
+        description: Industry standard transaction code. only applicable for DE. Possible values:&nbsp; “13” for Debit, “50” for credit.Refer to Direct entry standard for definitions 51-57.
+        schema:
+          type: integer
+          example: 13
+          enum:
+          - 13
+          - 50
+      - name: payId
+        in: query
+        required: false
+        description: Email address for the PayID.
+        schema:
+          type: string
+          example: xxx@xxx.xx
+      - name: payIdName
+        in: query
+        required: false
+        description: Name displayed to the payers.
+        schema:
+          type: string
+          example: abcdefgh
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              examples:
+                response:
+                  value: 'Transaction ID, Batch Id, DateTime, BSB, AccountNumber, AccountName, PayId, PayId Name, TransactionCode, TransactionType, Amount, LodgementRef, RemitterName, Indicator, WithholdingTaxAmount, EndToEndId, RespondBeforeDateTime, NameOfUserSupplyingFile, NumberOfUserSupplyingFile, DescriptionOfEntriesOnFile, SourceBsb, SourceAccountNumber, SourceAccountName, CategoryPurposeCode, CreditorReferenceInformation, USINumber, USIScheme, UltimateCreditorName, ReconciliationRuleReference
+
+                    D00100544414,000000214309,2020-04-20T13:58:48,802-985,744019924,CRMT,,,50,DE,5.00,Ref1,MONOOVA,,0.00,,,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,012-366,123456789,,,,,,RR22348
+
+                    N00400000507,,2020-04-20T13:55:50,802-985,123456789,Ashwini Radcliffe,4op1q4@monoova.me,Test01,,NPP,201.00,This description,Twhite Pharma,,0.00,NOTPROVIDED,,,,,123-123,12026204,Twhite Pharma,,,,,,RR22349
+
+                    N00400000494,,2020-04-20T13:55:17,802-985,123456789,Ashwini Radcliffe,4op1q4@monoova.me,Test01,,NPP,201.00,This description,Omega,,0.00,NOTPROVIDED,,,,,123-123,12026204,Omega Group,,,,,,RR22350
+
+                    N00400000481,,2020-04-20T13:53:37,802-985,123456789,Ashwini Radcliffe,4op1q4@monoova.me,Test01,,NPP,201.00,This description,S Group,,0.00,NOTPROVIDED,,,,,123-123,12026204,S Group,,,,,,RR22351
+
+                    '
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /paytoreceivables/v1/report/{date}:
+    get:
+      tags:
+      - Automatcher (Bank Account Receivables)
+      summary: PayTo Receivables Report
+      description: 'Returns a report of PayTo transactions for the day with associated details. If requested multiple times on the current date (calendar day, AEDT), the report is cumulative. E.g. if, on the same day, a report is requested at 10am and another one at 1pm, the report at 1pm will contain all the transactions already contained in the 10am report, in addition to any new transactions. PayTo Transactions may arrive at anytime, we recommend <a href="/payments#tag/Subscriptions"> subscribing to a webhook </a> to receive new transaction notifications. <br/> <br/> The report is an application/octet-stream, columns are comma separated. Where a comma(,) or double quote(") is present in any of the below fields, the field will be encased in double quotes and/or escaped as per <a href="https://tools.ietf.org/html/rfc4180" target="_blank">RFC4180</a><br> Columns are as follows:&nbsp; <style type="text/css"> .tb { table-layout:auto; width:100px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis; !important} </style> <table class="tb"> <tr> <td class="td"> Transaction ID </td> <td class="td"> Batch ID </td> <td class="td"> Datetime </td> <td class="td"> BSB </td> <td class="td"> AccountNumber </td> <td class="td"> AccountName </td> <td class="td"> PayId </td> <td class="td"> PayId Name </td> <td class="td"> TransactionCode </td> <td class="td"> TransactionType </td> <td class="td"> Amount </td> <td class="td"> LodgementRef </td> <td class="td"> RemitterName </td> <td class="td"> Indicator </td> <td class="td"> WithholdingTaxAmount (if applicable) </td> <td class="td"> EndToEndId</td> <td class="td"> RespondBeforeDateTime </td> <td class="td"> NameOfUserSupplyingFile </td> <td class="td"> NumberOfUserSupplyingFile </td> <td class="td"> DescriptionOfEntriesOnFile </td> <td class="td"> SourceBsb </td> <td class="td"> SourceAccountNumber </td> <td class="td"> SourceAccountName </td> <td class="td"> CategoryPurposeCode </td> <td class="td"> CreditorReferenceInformation </td> <td class="td"> USINumber </td> <td class="td"> USIScheme </td> <td class="td"> UltimateCreditorName </td> <td class="td"> MMSId </td> <td class="td"> InitiatingPartyName </td> <td class="td"> NPPInstructionId </td> <td class="td"> ReceiptNumber </td> </tr>
+
+        <tr> <td class="td"> <br/> <br/> Monoova generated <br/> Unique ID. <br/> Max 12 chars. <br/> <br/> <br/> </td> <td class="td"> Payment Batch ID. <br/> Payments come in batches <br/> throughout the day. <br/> Max 12 chars. Blank if NPP. </td> <td class="td"> AEDT, Sydney. <br/> Max 27 chars. </td> <td class="td"> Payee BSB. <br/> Max 7 Chars. </td> <td class="td"> Payee Bank Account <br/> Number. Max 34 chars. </td> <td class="td"> Payer submitted Account <br/> Name. Max 32 chars. </td> <td class="td"> Email address for the PayID. <br/> Max 256 chars. </td> <td class="td"> Name displayed to the payers <br/> Max 140 chars. </td> <td class="td"> Industry standard transaction <br/> code. “50” for credit. <br/> Refer to Direct entry standard <br/> for definitions 51-57. <br/> Max 5 chars. </td> <td class="td"> Possible Values:<br/> ''DE'' or ''NPP''  <br/> </td> <td class="td"> Payment amount, <br/> 2 decimal places <br/> for cents. Max 11 chars. </td> <td class="td"> Payer submitted reference. <br/> Max 500 chars. </td> <td class="td"> Remitting Entity. <br/> Max 140 chars. </td> <td class="td"> Blank; OR ''W'' dividend paid to a <br/> resident of a country where a double  <br/> tax agreement is in force. ''X'' dividend  <br/> paid to a resident of any other country. <br/> ''Y'' interest paid to all non-resident. <br/> Max 1 chars. </td> <td class="td"> Blank OR Payment amount, <br/> 2 decimal places for cents.<br/> Max 9 chars. </td> <td class="td"> Osko End to End identifier <br/> submitted by Payer. </td> <td class="td"> Time by when you have to  <br/> respond to the Inbound  <br/> Direct Debit request. </td> <td class="td"> Preferred name of the <br/> User supplying <br/> the Direct Entry file. </td> <td class="td"> This is the User Identification <br/> Number which is assigned by  <br/> APCA and User Financial Institutions. </td> <td class="td"> Direct Entry file description. <br/> </td> <td class="td"> Payer BSB.<br/> Max 7 Chars.<br/> <br/> </td> <td class="td"> Payer Bank Account Number. <br/> Max 34 chars. <br/> </td> <td class="td"> This field appears for NPP transactions  <br/> only and is the payers bank account name.  <br/> For DE transactions please refer to the  <br/> RemitterName Field. Max 140 Chars. <br/> </td> <td class="td"> NPP payment purpose code, max 4 chars.<br/> Possible values:<br/> Blank, <br/> SALA = Salary, <br/> PENS = SuperAnnuation, <br/> SUPP = E-Invoice, <br/> TAXS = Tax </td> <td class="td"> Used for SALA, PENS, SUPP and TAXS <br/> transactions only. <br/> Reference related to payment type. <br/> Max 35 chars. </td> <td class="td"> Used for PENS code payments only. <br/> Unique Superannuation ID (USI) <br/> Max 35 chars. </td> <td class="td"> Used for PENS code payments only. <br/> USI scheme. <br/> Max 35 chars. </td> <td class="td"> Used for PENS code payments only. <br/> Name of the Ultimate Creditor. <br/> Max 140 chars. </td> <td class="td"> Id assigned by NPPA for payment agreement </td> <td class="td"> Iniation Party name. <br/> </td> <td class="td"> Unique identifier for the NPP instruction. <br/> Max 35 chars. </td> <td class="td"> Unique identifier for the transaction log. <br/> Max 12 chars. </td> </tr> </table>
+
+        <p> Note:&nbsp; Source account details do not appear by default, please contact Monoova for further information. Also note, we will only retrieve 1 month transaction at a time</p> <br/> <h4>Possible transaction codes</h4> <table> <tr> <th>Code</th> <th>Transaction Description</th> </tr> <tr> <td>13</td> <td>Externally initiated debit items </td> </tr> <tr> <td>50</td> <td>Externally initiated credit items with the exception of those bearing Transaction Codes </tr> <tr> <td>51</td> <td>Australian Government Security Interest</td> </tr> <tr> <td>52</td> <td>Family Allowance </td> </tr> <tr> <td>53</td> <td>Pay</td> </tr> <tr> <td>54</td> <td>Pension</td> </tr> <tr> <td>55</td> <td>Allotment</td> </tr> <tr> <td>56</td> <td>Dividend</td> </tr> <tr> <td>57</td> <td>Debenture/Note Interest</td> </tr> </table> <br>'
+      operationId: PayToReceivablesReportDate
+      parameters:
+      - name: date
+        in: path
+        required: true
+        description: Format:&nbsp; 'yyyyMMddHHmmss'. This becomes the start date of the report if report is being fetched for a date range.
+        schema:
+          type: string
+          example: '20200401000001'
+      - name: endDate
+        in: query
+        required: false
+        description: Format:&nbsp; yyyyMMddHHmmss. Use this to fetch the report for a date range.
+        schema:
+          type: string
+          example: '20200408235959'
+      - name: skip
+        in: query
+        required: false
+        description: Number of records to skip. 0 is the first record.
+        schema:
+          type: integer
+          example: 0
+      - name: take
+        in: query
+        required: false
+        description: Number of records to take. If endDate is provided maximum take is 10000.
+        schema:
+          type: integer
+          example: 1000
+      - name: accountNumber
+        in: query
+        required: false
+        description: Payee bank account number.
+        schema:
+          type: string
+          example: '123456789'
+      - name: clientUniqueId
+        in: query
+        required: false
+        description: The unique identifier for the account.
+        schema:
+          type: string
+          example: 862944d057FC408B9B04541C2BA12
+      - name: transactionType
+        in: query
+        required: false
+        description: Possible Values:&nbsp; 'DE' or 'NPP'.
+        schema:
+          type: string
+          example: DE
+          enum:
+          - DE
+          - NPP
+      - name: transactionCode
+        in: query
+        required: false
+        description: Industry standard transaction code. only applicable for DE. Possible values:&nbsp; “13” for Debit, “50” for credit.Refer to Direct entry standard for definitions 51-57.
+        schema:
+          type: integer
+          example: 13
+          enum:
+          - 13
+          - 50
+      - name: payId
+        in: query
+        required: false
+        description: Email address for the PayID.
+        schema:
+          type: string
+          example: xxx@xxx.xx
+      - name: payIdName
+        in: query
+        required: false
+        description: Name displayed to the payers.
+        schema:
+          type: string
+          example: abcdefgh
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              examples:
+                response:
+                  value: 'Transaction ID,Batch Id,DateTime,BSB,AccountNumber,AccountName,PayId,PayId Name,TransactionCode,TransactionType,Amount,LodgementRef,RemitterName,Indicator,WithholdingTaxAmount,EndToEndId,RespondBeforeDateTime,NameOfUserSupplyingFile,NumberOfUserSupplyingFile,DescriptionOfEntriesOnFile,SourceBsb,SourceAccountNumber,SourceAccountName,CategoryPurposeCode,CreditorReferenceInformation,USINumber,USIScheme,UltimateCreditorName,MMSId,InitiatingPartyName,NPPInstructionId,ReceiptNumber
+
+                    N00400000507,,2020-04-20T13:55:50,802-985,123456789,Ashwini Radcliffe,4op1q4@monoova.me,Test01,,NPP,201.00,This description,Twhite Pharma,,0.00,NOTPROVIDED,,,,,123-123,12026204,Twhite Pharma,,,,,,,PI123456789,5678120
+
+                    N00400000494,,2020-04-20T13:55:17,802-985,123456789,Ashwini Radcliffe,4op1q4@monoova.me,Test01,,NPP,201.00,This description,Omega,,0.00,NOTPROVIDED,,,,,123-123,12026204,Omega Group,,,,,,,PI123456790,5678121
+
+                    N00400000481,,2020-04-20T13:53:37,802-985,123456789,Ashwini Radcliffe,4op1q4@monoova.me,Test01,,NPP,201.00,This description,S Group,,0.00,NOTPROVIDED,,,,,123-123,12026204,S Group,,,,,,,PI123456791,5678122
+
+                    '
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /receivables/v1/reportLastSettlement:
+    get:
+      tags:
+      - Automatcher (Bank Account Receivables)
+      summary: Last Settlement
+      description: Returns the latest settlement for received funds. We suggest using this as a lightweight polling endpoint to establish when new transactions have been received. Transactions arrive in batches.
+      operationId: ReceivablesReportLastSettlement
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/receivablesReportLastSettlement_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /receivables/v1/listAccounts:
+    get:
+      tags:
+      - Automatcher (Bank Account Receivables)
+      summary: List Accounts
+      description: List Accounts will return a list of all account numbers you have linked to your Sign in. <br/> <br/>
+      operationId: ReceivablesListAccounts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/receivablesListAccounts_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /receivables/v1/batchCreate:
+    post:
+      tags:
+      - Automatcher (Bank Account Receivables)
+      summary: Batch Create
+      description: 'The batch create API has the same functionality as the <a href="/payments#operation/ReceivablesCreate"> /receivables/v1/create  </a> endpoint however it allows you to create up to 50,000 accounts in a single call by submitting a file. We recommend this for circumstances where > 100 accounts need to be created within a short time period.
+
+        Creation of accounts with isActive=true is restricted to 1000. Multiple batches cannot be requested at the same time, you have to wait for the completion of a batch before requesting a new one.
+
+        The Batch Create API also supports a lightweight option whereby many accounts can be created by submitting a single line. This option automatically sets isActive = true, hence you can only request the creation of 1000 accounts in one request. For this method, all accounts will be created with the same specified name, and clientuniqueid’s cannot be specified will be automatically generated. <br/> <br/>'
+      operationId: ReceivablesBatchCreate
+      x-codeSamples:
+      - lang: Detail example
+        source: '[bankAccountName,clientUniqueId,isActive,bsb]
+
+          [Bank14399997,S45D927DA07094859A5E5B1E532A12CA,true,802-985]
+
+          [Bank14399997,K275D304BE0B947829224BE7BC8A6AEF,true,802-985]
+
+          [Bank14399997,T13686BC4B7364A13AE092A2CA1DFCF6,true,802-985]
+
+          [Bank12399997,SHU13LJ6Z0356ZWAZPTFTQ0K6VZQG2NO,false,802-985]
+
+          '
+      - lang: Lightweight example
+        source: '[bankAccountName,count,bsb]
+
+          [My company pty ltd,4,802-985]
+
+          '
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              description: "Batch create requires parameters to be submitted as a file, with headers. The header and each new record are enclosed in square brackets.\nThe columns are comma separated with the following format:\n<br/>\n<br/>\n<br/>\nDetail example\n<table class=\"tb\">\n<tr>\n<td class=\"td\"> bankAccountName </td>\n<td class=\"td\"> clientUniqueId </td>\n<td class=\"td\"> isActive </td>\n<td class=\"td\"> bsb </td>\n</tr>\n<tr>\n<td class=\"td\">\n<br/> <br/>\nThe name of the account to be paid into. <br/>\nThis will be defaulted to your registered Trading Name. <br/>\n<br/> <br/>\n</td>\n<td class=\"td\">\nAn identifier assigned to the account. <br/>\nMust be unique. <br/>\nIf not provided Monoova will generate and <br/>\nreturn a value automatically. <br/>\n</td>\n<td class=\"td\">\nUsed to open and close account numbers. <br/>\nClosed account numbers will return all payments <br/>\nmade to that account number. <br/>\nIf not provided this value defaults to false. <br/>\n</td>\n<td class=\"td\">\nOptional. If this column is added, please provide a valid value.\n</td>\n</tr>\n</table> <br/>\n\nLightweight example\n<table class=\"tb\">\n<tr>\n<td class=\"td\"> bankAccountName </td>\n<td class=\"td\"> count </td>\n<td class=\"td\"> bsb </td>\n</tr>\n<tr>\n<td class=\"td\">\n<br/> <br/>\nThe name of the account to be paid into. <br/>\nThis will be defaulted to your registered Trading Name. <br/>\n<br/> <br/>\n</td>\n<td class=\"td\">\nNumeric, number of accounts you wish to create with this name. <br/>\n</td>\n<td class=\"td\">\nOptional. If this column is added, please provide a valid value.\n</td>\n</tr>\n</table> <br/>\n<td class=\"td\">\n  Optional BSB parameter. If not specified, default BSB logic applies.\n</td>\n</tr>\n</table>\n"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/receivablesBatchCreate_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /receivables/v1/batchStatus:
+    post:
+      tags:
+      - Automatcher (Bank Account Receivables)
+      summary: Batch Status
+      description: 'The batch Status API functions similarly to the <a href="/payments#operation/ReceivablesStatus"> /receivables/v1/Status </a> API,
+
+        however it allows you to update accounts in batch.
+
+        You can only update 1000 records per request. Multiple batches cannot be requested at the same time,
+
+        you have to wait for the completion of a batch before requesting a new one.
+
+        <br/>
+
+        <br/>
+
+        '
+      operationId: ReceivablesbatchStatus
+      x-codeSamples:
+      - lang: Payload
+        source: '[clientUniqueId,bankAccountNumber,isActive,bsb]
+
+          [A55117D53057E449D83CB49CE3D3FCC87,21316015,true,802-985]
+
+          [E0DF9007BF4064F0D819EA0663AB11107,52463879,true,]
+
+          [F1608858214894DD9BE5565A10A28053F,32597641,false,]
+
+          [F2B512D8FE7F4AEFB82EA97141B710CFE,15402587,true,]
+
+          [TR1268FA85FCED4E9793B57E71F985AD2,81225401,true,]
+
+          [D308A7F0B8CD4C909CCEAC2CEDD624917,41900918,true,]
+
+          [KO22043D20EEF847209A9E50D86F915E0,67953481,true,]
+
+          [MP578B76FC71574A4BAF848D94268970F,71828803,true,]
+
+          '
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              description: 'Batch status requires parameters to be submitted as a file, the header and each new record are enclosed in square brackets.
+
+                The columns are comma separated with the following format:
+
+                <table class="tb">
+
+                <tr>
+
+                <td class="td"> clientUniqueId </td>
+
+                <td class="td"> bankAccountNumber </td>
+
+                <td class="td"> isActive </td>
+
+                <td class="td"> bsb </td>
+
+                </tr>
+
+                <tr>
+
+                <td class="td">
+
+                The unique identifier for the account to open or close. <br/>
+
+                `at least one of clientUniqueId or bankAccountNumber`<br/>
+
+                `required` <br/>
+
+                </td>
+
+                <td class="td">
+
+                <br/> <br/>
+
+                The bank account number for the account to open or close. <br/>
+
+                `at least one of clientUniqueId or bankAccountNumber`<br/>
+
+                `required` <br/>
+
+                <br/> <br/>
+
+                </td>
+
+                <td class="td">
+
+                Used to open and close account numbers. <br/>
+
+                Closed account numbers will return all payments <br/>
+
+                made to that account number. <br/>
+
+                </td>
+
+                <td class="td">
+
+                Optional BSB parameter. If not specified, default BSB logic applies.
+
+                </td>
+
+                </tr>
+
+                </table>
+
+                '
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/receivablesBatchStatus_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /receivables/v2/refund:
+    post:
+      tags:
+      - Automatcher (Bank Account Receivables)
+      summary: Receivables Refund
+      description: The refund API allows the transfer funds back to the payer for transactions received via EFT. The funds are sent to details as supplied by the payer institution. Please note that not all institutions provide valid payer details, in some cases the refund will not be successful. NPP payments can only be refunded 5 minutes after receiving the original payment. <br/>
+      operationId: ReceivablesRefund
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/receivables.refund'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/receivablesRefundResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /receivables/v1/processdirectdebit:
+    post:
+      tags:
+      - Automatcher (Bank Account Receivables)
+      summary: Process Direct Debit
+      description: Automatcher accounts can also process direct debits from external organisations against them. By default this behaviour is disabled. If configured to allow direct debits, a notification will be sent when an external party attempts to debit one of your accounts, and if accepted, the funds will be deducted from your sign in mAccount. <br><br> Notification of a pending direct debit are sent via a <a href="/payments#operation/InboundDirectDebitWebhook"> callback </a> or a <a href="/payments#operation/ReceivablesInboundDirectDebitReportDate"> report </a> API can be called to list all pending debits. <br><br> After receiving a notification, you have until 4:00pm next business day (from the time the initial debit is received) to instruct us on what action to take; either approve or reject. If no action is taken the transaction will be placed into a pending status until expiry next business day at 4pm. <br><br> For expiring transactions, the direct debit request will automatically be actioned based on your account default configuration. <br><br> Configuration options are:<br><br> a)  Accept direct debit request for all requests<br> b)  Reject direct debit for all requests <br><br> Note if you do not have sufficient balance in your sign in mAccount you cannot accept direct debits and expiring direct debits will be automatically returned regardless of configuration.
+      operationId: ReceivablesProcessDirectDebit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/receivables.processdirectdebit'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/receivablesProcessDirectDebitResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /receivables/v2/inbounddirectdebitreport/{date}:
+    get:
+      tags:
+      - Automatcher (Bank Account Receivables)
+      summary: Inbound Direct Debit Report
+      description: The report is an application/octet-stream, columns are comma separated. Where a comma(,) or double quote(") is present in any of the below fields, the field will be encased in double quotes and/or escaped as per <a href="https://tools.ietf.org/html/rfc4180" target="_blank">RFC4180</a><br> . <table class="tb"> <tr> <td class="td"> Transaction ID </td> <td class="td"> Batch ID </td> <td class="td"> DateTime </td> <td class="td"> Status </td> <td class="td"> RejectionReason </td> <td class="td"> BSB </td> <td class="td"> AccountNumber </td> <td class="td"> AccountName </td> <td class="td"> Amount </td> <td class="td"> LodgementRef </td> <td class="td"> RemitterName </td> <td class="td"> RespondBeforeDateTime </td> <td class="td"> NameOfUserSupplyingFile </td> <td class="td"> NumberOfUserSupplyingFile </td> <td class="td"> DescriptionOfEntriesOnFile </td> <td class="td"> Indicator </td> <td class="td"> WithholdingTaxAmount (if applicable) </td> <td class="td"> SourceBsb (if applicable) </td> <td class="td"> SourceAccountNumber (if applicable) </td> </tr> <tr> <td class="td"> <br/> <br/> Monoova generated <br/> Unique ID. <br/> Max 12 chars. <br/> <br/> <br/> </td> <td class="td"> Payment Batch ID. <br/> Payments come in batches <br/> throughout the day. <br/> Max 12 chars. Blank if NPP. </td> <td class="td"> AEDT, Sydney. <br/> Max 27 chars. </td> <td class="td"> Transaction status, <br/> possible values:&nbsp; <br/> Pending, Accept, Reject </td> <td class="td"> Text supplied when rejecting<br/> a direct debit. <br/> Max 250 Chars </td> <td class="td"> Payee BSB. <br/> Max 7 Chars. </td> <td class="td"> Payee Bank Account <br/> Number. Max 34 chars. </td> <td class="td"> Payer submitted Account <br/> Name. Max 32 chars. </td> <td class="td"> Payment amount, <br/> 2 decimal places <br/> for cents. Max 11 chars. </td> <td class="td"> Payer submitted reference. <br/> Max 280 chars. </td> <td class="td"> Remitting Entity. <br/> Max 140 chars. </td> <td class="td"> Time by when you have to  <br/> respond to the Inbound  <br/> Direct Debit request. </td> <td class="td"> Preferred name of the <br/> User supplying <br/> the Direct Entry file. </td> <td class="td"> This is the User Identification <br/> Number which is assigned by  <br/> APCA and User Financial Institutions. </td> <td class="td"> Direct Entry file description. <br/> </td> <td class="td"> Blank; OR 'W' dividend paid to a <br/> resident of a country where a double  <br/> tax agreement is in force. 'X' dividend  <br/> paid to a resident of any other country. <br/> 'Y' interest paid to all non-resident. <br/> Max 1 chars. </td> <td class="td"> Blank OR Payment amount, <br/> 2 decimal places for cents.<br/> Max 9 chars. </td> <td class="td"> Payee BSB. <br/> Max 7 Chars. </td> <td class="td"> Payee Bank Account <br/> Number. Max 34 chars. </td> </tr> </table> <br/> <br> Note&#58; Source account details do not appear by default, please contact Monoova for further information <br/>
+      operationId: ReceivablesInboundDirectDebitReportDate
+      parameters:
+      - name: date
+        in: path
+        required: true
+        description: date format should be 'yyyy-MM-dd' format.
+        schema:
+          type: string
+          example: '2020-03-15'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              examples:
+                response:
+                  value: 'Transaction ID, Batch Id, DateTime, Status, RejectionReason, BSB, AccountNumber, AccountName, Amount, LodgementRef, RemitterName, RespondBeforeDateTime, NameOfUserSupplyingFile, NumberOfUserSupplyingFile, DescriptionOfEntriesOnFile, Indicator, WithholdingTaxAmount, SourceBsb, SourceAccountNumber
+
+                    D00100541320,000000213529,2020-03-03T09:31:08,Pending,,802-985,987654321,DRMT,5.00,Ref1,MONOOVA,2020-03-04T16:30:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204
+
+                    D00100541268,000000213516,2020-03-03T09:29:34,Pending,,802-985,987654321,DRMT,5.00,Ref1,MONOOVA,2020-03-04T16:30:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204
+
+                    D00100541203,000000213503,2020-03-03T08:53:49,Reject,,802-985,123456789,DR,4.00,Ref1,MONOOVA,2020-02-26T16:00:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204
+
+                    D00100541216,000000213503,2020-03-03T08:53:49,Reject,,802-985,987654321,DRMT,5.00,Ref1,MONOOVA,2020-02-26T16:00:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204
+
+                    D00100541138,000000213490,2020-03-03T08:27:55,Accept,,802-985,123456789,DR,4.00,Ref1,MONOOVA,2020-03-04T16:30:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204
+
+                    D00100541151,000000213490,2020-03-03T08:27:55,Reject,Out of money,802-985,987654321,DRMT,5.00,Ref1,MONOOVA,2020-03-04T16:30:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204
+
+                    D00100541073,000000213477,2020-03-03T08:16:22,Reject,,802-985,123456789,DR,4.00,Ref1,MONOOVA,2020-02-26T16:00:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204
+
+                    D00100541086,000000213477,2020-03-03T08:16:22,Reject,,802-985,987654321,DRMT,5.00,Ref1,MONOOVA,2020-02-26T16:00:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204
+
+                    D00100541008,000000213464,2020-03-03T08:09:18,Accept,,802-985,123456789,DR,4.00,Ref1,MONOOVA,2020-02-26T16:00:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204
+
+                    D00100541021,000000213464,2020-03-03T08:09:18,Accept,,802-985,987654321,DRMT,5.00,Ref1,MONOOVA,2020-02-26T16:00:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204
+
+                    D00100540943,000000213451,2020-03-03T07:20:55,Accept,,802-985,123456789,DR,4.00,Ref1,MONOOVA,2020-02-26T16:00:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204
+
+                    D00100540956,000000213451,2020-03-03T07:20:55,Accept,,802-985,987654321,DRMT,5.00,Ref1,MONOOVA,2020-02-26T16:00:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204
+
+                    D00100540878,000000213438,2020-03-03T07:20:48,Accept,,802-985,123456789,DR,4.00,Ref1,MONOOVA,2020-02-26T16:00:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204
+
+                    D00100540891,000000213438,2020-03-03T07:20:48,Accept,,802-985,987654321,DRMT,5.00,Ref1,MONOOVA,2020-02-26T16:00:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204
+
+                    '
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /receivables/v1/processRtgsImt:
+    post:
+      tags:
+      - Automatcher (Bank Account Receivables)
+      summary: Receive Swift Transfers (RTGS/IMT transactions)
+      description: Automatcher accounts can be configurated to receive Swift Transfers. This includes both RTGS (Real Time Gross Settlement) and IMT (International Money Transfers). <br><br> If the account is not configured to receive Swift Transfers, the transaction will be automatically rejected on our end. If configured to allow RTGS/IMT transactions, a notification will be sent when an external party attempts to credit to one of your accounts, and if accepted, the funds will be credited to your sign in mAccount or nominated mAccount. Please contact Monoova for configuration of account. <br><br> Notification of a RTGS/IMT are sent via a <a href="/payments#operation/PendingInboundRtgsImt"> callback </a> or a <a href="/payments#operation/ReceivablesRTGSIMTReportDate"> report </a> API can be called to list all pending transactions. <br><br> After receiving a notification, you have 2 business days to either confirm or reject. If no action is taken the transaction will be placed into a pending status until expiry. <br><br> For expiring transactions, the RTGS/IMT transactions will automatically be actioned based on your account default configuration. <br><br> Configuration options are:<br><br> a)  Confirm - Accept all incoming RTGS/IMT Transactions<br> b)  Reject  - Reject all incoming RTGS/IMT Transactions <br><br>
+      operationId: ReceivablesProcessRtgsImt
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/receivables.processrtgsimt'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/receivablesProcessDirectDebitResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /receivables/v2/rtgsimtReport/{date}:
+    get:
+      tags:
+      - Automatcher (Bank Account Receivables)
+      summary: RTGS/IMT Report
+      description: Returns a report of all received transactions for the day with associated details, this includes RTGS (real-time gross settlement) and International Money Transfer. If requested multiple times on the current date (calendar day, AEDT), the report is cumulative. E.g. if, on the same day, a report is requested at 10am and another one at 1pm, the report at 1pm will contain all the transactions already contained in the 10am report, in addition to any new transactions. <br/> <br/> The report is an application/octet-stream, columns are comma separated. Where a comma(,) or double quote(") is present in any of the below fields, the field will be encased in double quotes and/or escaped as per <a href="https://tools.ietf.org/html/rfc4180" target="_blank">RFC4180</a><br> Columns are as follows:&nbsp; <table class="tb"> <tr> <td class="td"> Transaction ID </td> <td class="td"> AccountNumber </td> <td class="td"> BSB </td> <td class="td"> AccountName </td> <td class="td"> TransactionReferenceNumber </td> <td class="td"> Amount </td> <td class="td"> Status </td> <td class="td"> LodgementRef </td> <td class="td"> Date </td> <td class="td"> SourceAccountDetails </td> <td class="td"> RespondBeforeDateTime </td> <td class="td"> RejectReasonDescription </td> <td class="td"> ProcessedDate </td> <td class="td"> SendingOrganisation </td> <td class="td"> ReceivingOrganisation </td> <td class="td"> OrderingInstitution </td> <td class="td"> OriginatingAddress </td> </tr> <tr> <td class="td"> <br/> <br/> Monoova generated <br/> Unique ID. <br/> Max 12 chars. <br/> <br/> <br/> </td> <td class="td"> Payee Bank Account <br/> Number. Max 34 chars. </td> <td class="td"> Payee BSB. <br/> Max 7 Chars. </td> <td class="td"> Payer submitted Account <br/> Name. Max 32 chars. </td> <td class="td"> TransactionReferenceNumber. <br/> Max 21 chars. </td> <td class="td"> Payment amount, <br/> 2 decimal places <br/> for cents. Max 11 chars. </td> <td class="td"> Transaction status, <br/> possible values:&nbsp; <br/> Pending, Confirmed and Rejected. </td> <td class="td"> Payer submitted reference. <br/> Max 280 chars. </td> <td class="td"> AEDT, Sydney. <br/> Max 27 chars. </td> <td class="td"> Source Account Name address and account number </td> <td class="td"> The time user has to Confirm/Reject a transaction. AEDT, Sydney. <br/> Max 27 chars. </td> <td class="td"> Reason why transaction was rejected. <br/> Max 500 chars. </td> <td class="td"> The time when transaction was Confirmed/Rejected. AEDT, Sydney. <br/> Max 27 chars. </td> <td class="td"> Sending Organisation. <br/> Max 100 chars. </td> <td class="td"> Receiving Organisation. <br/> Max 100 chars. </td> <td class="td"> Ordering Institution. <br/> Max 100 chars. </td> <td class="td"> Originating Address. <br/> Max 100 chars. </td> </tr> </table> <br/>
+      operationId: ReceivablesRTGSIMTReportDate
+      parameters:
+      - name: date
+        in: path
+        required: true
+        description: This becomes the start date of the report if report is being fetched for a date range. Date format should be 'yyyy-MM-dd' format.
+        schema:
+          type: string
+          example: '2020-03-15'
+      - name: endDate
+        in: query
+        required: false
+        description: Use this to fetch the report for a date range. Date format should be 'yyyy-MM-dd' format
+        schema:
+          type: string
+          example: '2020-04-08'
+      - name: skip
+        in: query
+        required: false
+        description: Number of records to skip. 1 is the first record.Value should be greater than 0
+        schema:
+          type: integer
+          example: 1
+      - name: take
+        in: query
+        required: false
+        description: Number of records to take. If endDate is provided maximum take is 10000.
+        schema:
+          type: integer
+          example: 1000
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              examples:
+                response:
+                  value: 'Transaction Id,Account Number,BSB,AccountName,Transaction Reference Number,Amount,Status,Lodgement Reference,Date,Source Account Details,Respond Before Date Time,Reject Reason Description,Processed Date,Sending Organisation,Receiving Organisation,Ordering Institution,Originating Address,ledgerAccountNumber,ledgerUniqueReference
+
+                    R10000001,317578496,802-985,Monoova,AU1201026014379,122.94,Confirmed,/INS/TESTAU2SXXX,2020-10-26T00:00:00,"0123456789 Building 1, 2 SAMPLE ST SYDNEY 2000 AU",,,2022-01-13T11:00:01,,MONOOVA PAYMENTS P/L,,METWAU4BAXXX,,
+
+                    R10000002,416467294,802-985,Monoova,AU12010260400584,130000,Confirmed,,2020-10-26T00:00:00,"0123456789 Building 1, 1 SAMPLE ST SYDNEY 2000 AU",,,2022-01-13T11:00:06,,AU,,NATAAU33A03M,,
+
+                    '
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+components:
+  schemas:
+    receivablesStatusSetResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        bsb:
+          description: The BSB number corresponding to the bank account number.
+          type: string
+          example: 123-123
+        bankAccountNumber:
+          description: The bank account number for which isActive has been updated.
+          type: string
+          example: '153884104'
+        bankAccountName:
+          description: The name of the account to be paid into. This will be defaulted to your registered Trading Name.
+          type: string
+          example: Bank1234444
+        clientUniqueId:
+          description: The unique identifier for which isActive has been updated.
+          type: string
+          example: 862944D057FC408B9B04541C2BA12
+        isActive:
+          description: The value for isActive after update. true or false.
+          type: boolean
+          example: false
+      type: object
+    receivables.processrtgsimt:
+      type: object
+      required:
+      - transactionId
+      - response
+      - returnCode
+      properties:
+        transactionId:
+          type: string
+          minLength: 12
+          maxLength: 12
+          example: D00100539578
+          description: This is the transactionId that appears in call back and report.
+        response:
+          type: string
+          example: Reject
+          enum:
+          - Confirm
+          - Reject
+          description: Confirm to accept RTGS/IMT transaction. Reject to reject RTGS/IMT transaction.
+        rejectionReasonCode:
+          type: string
+          enum:
+          - AM02
+          - AM06
+          - AM07
+          - BE05
+          - AG01
+          - MS01
+          - RR02
+          - RR03
+          - BE04
+          example: AM06
+          description: AM02    (Transaction amount is greater than allowed maximum) <br> AM06    (Transaction amount is less than agreed minimum) <br> AM07    (Amount has been  blocked by regulatory authorities.) <br> BE05      (Sender is not recognised by beneficiary) <br> AG01     (No agreement is on file at the receiver for affecting associated transaction) <br> MS01    (Reason has not been specified due to sensitivities.) <br> RR02  (Senders name and/or address needed for regulatory requirements is insufficient or missing.) <br> RR03  (Recipients name and/or address needed for regulatory requirements is insufficient or missing.) <br> BE04    (Specification of beneficiary address, which is required for payment, is missing/not correct.). <br> <strong> Note&#58; </strong> RejectionReasonCode is only required if response is "Reject". RejectionReasonCode can be omitted if response is "confirm".
+    receivables.status:
+      type: object
+      properties:
+        bankAccountNumber:
+          type: string
+          example: '153884104'
+          description: The bank account number for the account to open or close. <br/> `at least one of clientUniqueId or bankAccountNumber required`
+          maxLength: 9
+        bsb:
+          type:
+          - string
+          - 'null'
+          description: Optional BSB parameter. If not specified, default BSB logic applies.
+          example: 802-985
+        clientUniqueId:
+          type: string
+          uniqueItems: false
+          example: 862944D057FC408B9B04541C2BA12
+          description: The unique identifier for the account to open or close. <br/> `at least one of clientUniqueId or bankAccountNumber required`
+          minLength: 10
+          maxLength: 35
+        isActive:
+          type: boolean
+          example: false
+          description: Used to open and close account numbers. Closed account numbers will return all payments made to that account number.
+    receivablesProcessDirectDebitResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        uniqueReferenced:
+          description: This is your uniqueReference that was passed in when the transaction was executed
+          type: string
+          example: 7cac95f8-6c9f-40e7-aa44-d058f601ee71
+        transactionId:
+          description: This is the transactionId that was returned when the transaction was executed
+          type: integer
+          format: int32
+          example: 16875766
+        feeAmountExcludingGst:
+          description: This is the fee amount Excluding GST that has been debited from your mAccount
+          type: number
+          format: decimal
+          example: 0.1
+        feeAmountGstComponent:
+          description: This is the GST Component of the fee amount that has been debited from your mAccount
+          type: number
+          format: decimal
+          example: 0.01
+        feeAmountIncludingGst:
+          description: This is the total fee amount Including GST that has been debited from your mAccount
+          type: number
+          format: decimal
+          example: 0.11
+      type: object
+    receivables.create:
+      type: object
+      properties:
+        akaNames:
+          type: array
+          maxItems: 3
+          items:
+            type: string
+            pattern: ^[ -~]{1,140}$
+          description: Up to three optional AKA names can be supplied per account.
+          example:
+          - Jones Island Dairy
+          - Jones Island Dairy1
+          - Jones Island Dairy2
+        submerchantId:
+          type: string
+          pattern: ^[ -~]{1,35}$
+          example: 93bf57eb1e2c42cf8101509b4356741e
+          description: The submerchant ID provided by Monoova.<br/> The following submerchant IDs can be used in sandbox for testing purposes.<br/> 93bf57eb1e2c42cf8101509b4356741e<br/> 78f225280b154fa8982d96e61cc9159d<br/> 49da5e40420849ee97a74e7450b1b04b<br/> 13c96168aed440efa2ceb8241452a3a2<br/>
+        bankAccountName:
+          type: string
+          uniqueItems: false
+          example: Bank1234444
+          pattern: '“ !\"#$%&''()*,-./:;=?@[a-zA-B0-9]{|}”
+
+            '
+          description: The name of the account to be paid into. This will be defaulted to your registered Trading Name.
+          minLength: 2
+          maxLength: 32
+        bsb:
+          type:
+          - string
+          - 'null'
+          description: Optional BSB parameter. If not specified, default BSB logic applies.
+          example: 802-985
+        clientUniqueId:
+          type: string
+          uniqueItems: false
+          example: 862944D057FC408B9B04541C2BA12
+          pattern: '[a-zA-Z0-9]'
+          description: An identifier assigned to the account. Must be unique. If not provided Monoova will generate and return a value automatically.
+          minLength: 10
+          maxLength: 35
+        isActive:
+          type: boolean
+          default: false
+          example: true
+          description: Used to open and close account numbers. Closed account numbers will return all payments made to that account number. If not provided this value defaults to false. The Automatcher account can take up to 5 mins to be registered and become active before a PayID can be assigned or deposits can be made to the account. The status will automatically changes from false to true.
+    receivablesBatchStatus_V1:
+      properties:
+        DurationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        Status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        StatusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: To view the batch Status result please use the URL https://samplefileurl.com.au/moapi/receivables/v1/download/BatchStatusResponse_20190621105139
+        NumberOfRecords:
+          description: Number of records parsed in the batch file.
+          type: number
+          example: 9
+        BatchUrl:
+          description: URL to access the response report.
+          type: string
+          example: https://samplefileurl.com.au/moapi/receivables/v1/download/BatchStatusResponse_20190621105139
+      type: object
+    receivables.processdirectdebit:
+      type: object
+      required:
+      - transactionId
+      - response
+      properties:
+        transactionId:
+          type: string
+          minLength: 12
+          maxLength: 12
+          example: D00100539578
+          description: This is the transactionId that was returned when the transaction was executed.
+        response:
+          type: string
+          example: Accept
+          enum:
+          - Accept
+          - Reject
+          description: Accept to accept direct debit transaction. Reject to reject direct debit transaction.
+        rejectionReason:
+          type: string
+          maxLength: 250
+          example: ''
+          description: Text supplied when rejecting a direct debit.
+        returnCode:
+          type: string
+          enum:
+          - ReferToCustomer
+          - PaymentStopped
+          default: ReferToCustomer
+          example: ''
+          description: This is optional field. default is ReferToCustomer.
+    receivables.refund:
+      type: object
+      required:
+      - uniqueReference
+      - originalTransactionId
+      - refundAmount
+      properties:
+        uniqueReference:
+          type: string
+          example: Reference6436302
+          description: This is a unique reference generated by the calling service. This is a nonce. Its use is to determine if a request has already been received by the Engine.
+        originalTransactionId:
+          type: string
+          uniqueItems: false
+          example: D00100027170
+          description: This is the transactionId that was returned when the transaction was executed.
+        refundAmount:
+          type: number
+          format: decimal
+          uniqueItems: false
+          example: 1.0
+          description: This is the refund amount. RefundAmount can be less than or equal to the original transaction amount. Refund amount should equal the original transaction amount for international receivables.
+        description:
+          type: string
+          example: Test Refund. Inv#123456
+          description: It should be brief but contain sufficient information to identify the transactions. E.g. “Refund. Inv#123456”.
+        refundReference:
+          type: string
+          example: RefundRef001
+          maxLength: 18
+          description: Payment reference indicating details of the origin of the entry.
+    receivablesStatusGetResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        bsb:
+          description: The BSB number corresponding to the bank account number.
+          type: string
+          example: 123-123
+        bankAccountNumber:
+          description: The bank account number for which isActive has been updated.
+          type: string
+          example: '153884104'
+        bankAccountName:
+          description: The name of the account to be paid into. This will be defaulted to your registered Trading Name.
+          type: string
+          example: Bank1234444
+        clientUniqueId:
+          description: A identifier assigned to the account. Must be unique.
+          type: string
+          example: 862944D057FC408B9B04541C2BA12
+        isActive:
+          description: The current value for isActive. Closed account numbers will return all payments made to that account number
+          type: boolean
+          example: true
+      type: object
+    receivablesRefundResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        callerUniqueReference:
+          description: This is a unique reference generated by the calling service. This is a nonce. Its use is to determine if a request has already been received by the Engine.
+          type: string
+          example: Reference3314462
+        feeAmountExcludingGst:
+          description: This is the fee amount excluding GST
+          type: number
+          format: decimal
+          example: 0.6
+        feeAmountGstComponent:
+          description: This is the GST Component of the fee amount that has been debited from your mAccount
+          type: number
+          format: decimal
+          example: 0.06
+        feeAmountIncludingGst:
+          description: This is the total fee amount Including GST that has been debited from your mAccount
+          type: number
+          format: decimal
+          example: 0.66
+        transactionId:
+          description: This is the Platform ID that is unique to your payment request
+          type: integer
+          example: 16793357
+      type: object
+    receivablesBatchCreate_V1:
+      properties:
+        DurationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        Status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        StatusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: To view the batch Create result please use the URL https://samplefileurl.com.au/moapi/receivables/v1/download/BatchCreateResponse_20190621105139
+        NumberOfRecords:
+          description: Number of records parsed in the batch file.
+          type: number
+          example: 5
+        BatchUrl:
+          description: URL to access the response report.
+          type: string
+          example: https://samplefileurl.com.au/moapi/receivables/v1/download/BatchCreateResponse_20190621105139
+      type: object
+    receivablesListAccounts_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: To view the ListAccounts result please use the URL https://samplefileurl.com.au/moapi/receivables/v1/download/BatchListAccounts_20190621105139
+        NumberOfRecords:
+          description: Number of records parsed in the batch file.
+          type: number
+          example: 12
+        batchUrl:
+          description: URL to access the response report.
+          type: string
+          example: https://samplefileurl.com.au/moapi/receivables/v1/download/BatchListAccounts_20190621105139
+      type: object
+    receivablesCreateResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Account is being setup for Npp. Please allow a few minutes for the account to become active
+        bsb:
+          description: The BSB number corresponding to the bank account number. Automatcher's BSB.
+          type: string
+          example: 802-985
+        bankAccountNumber:
+          description: The bank account number generated.
+          type: string
+          example: '153884104'
+        bankAccountName:
+          description: The name of the account to be paid into. This will be defaulted to your registered Trading Name.
+          type: string
+          example: Bank1234444
+        clientUniqueId:
+          description: A identifier assigned to the account. Must be unique. If not provided Monoova will generate and return a value automatically.
+          type: string
+          example: 862944D057FC408B9B04541C2BA12
+        isActive:
+          description: Used to open and close account numbers. Closed account numbers will return all payments made to that account number.
+          type: boolean
+          example: false
+      type: object
+    receivablesReportLastSettlement_V1:
+      properties:
+        durationMs:
+          description: This value represents the total time in milliseconds that the Platform took to process the request.
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        dateTime:
+          description: Datetime of the last settlement received.
+          type: string
+          example: 21/5/2019 2:11:28 PM
+      type: object
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Receive and Pay
+  tags:
+  - Financial
+  - Verify
+  - Automatcher (Bank Account Receivables)
+  - Whitelisting for Automatcher (Bank Account Receivables)
+  - Ledger Account
+  - Reconciliation Rules
+  - PayID
+  - Tools
+- name: BPAY
+  tags:
+  - BPAY
+  - mWallet
+- name: Manage
+  tags:
+  - Subscriptions
+  - Webhooks
+  - mAccount
+  - Reports
+  - Security
+  - Token
+- name: Public Endpoints
+  tags:
+  - Public Endpoints

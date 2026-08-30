@@ -1,0 +1,1255 @@
+openapi: 3.2.0
+info:
+  description: "# Introduction\n\n<p> \n  Monoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n  This service is made available to Monoova’s clients through a set of easy-to-use RESTful APIs with JSON payloads described in this document.\n  The central idea is to reduce the cost, risk and effort normally associated with managing complex money movements so that you can focus on growing your business.\n</p> \n<p> \n Our clients can receive and reconcile funds via Realtime transfers (NPP), direct credits/debits, BPAY and cards. \n They can then manage those funds by building virtual account/wallet hierarchies to get bespoke reporting, reconciliation and much more. \n And finally, our clients can pay funds via Realtime transfers (NPP) direct credits and BPAY. \n As new technologies become available (e.g. NPP Mandated payments) we will make additional methods of receiving, managing and paying available.\n</p> \n<p> \n  All information flows are real-time.\n  Moving money between various Monoova accounts is also real time.\n  All money flows in and out of the Engine are as fast as the banking system allows.\n</p>\n<p> \n  The sandbox environment is open to everyone who signs up on our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a> at no cost.\n  The sandbox environment allows you to test out the functionality of our API in a consequence free development environment.\n  Access to the live environment is granted once you have (1) gone through our compliance process and (2) had formal sign-off on your sandbox integration.\n</p>\n<p>\n  Monoova regularly releases additive changes to our API, as well as new versions of the API when a breaking change would occur. \n  To ensure your integration does not break due to these additive changes, we recommend not validating the entire schema, or the position of a parameter within the schema.\n</p>\n<br/><br/>\n<p> <strong> Note&#58;</strong> Please note we do not accept TLS 1.0 or 1.1 connections</p>\n\n# Getting started\n>\n  - Sign on to our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>\n  - Get your sandbox API key under **MANAGE > ACCOUNTS** in the Sandbox Portal\n  - [Authenticate](#section/Authentication)\n  - Browse this document to find the functions you need\n  - Begin experimenting with your first API calls by sending HTTP requests to the endpoints described in this document\n  - Use the provided examples in the document as guidance\n\n# Authentication\n  All RESTful APIs in this document use BASIC Authentication (except those in public/v1) in two scenarios either\n  - <strong> API KEY </strong>\n  - <strong> OneShotSecurityToken </strong><br><br>\n\n> **Sandbox Authentication Credentials**\n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.m-pay.com.au/</td>\n  </tr>\n</table> <br>\n\n> **Live Authentication Credentials**\nThis will be provided by Monoova after a technical review. <br> \n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the Production Portal; Production credentials will be supplied by Monoova) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.mpay.com.au/</td>\n  </tr>\n</table> <br>\n\nWhen using the LIVE Engine, your Sign-In Account is given five (5) attempts to authenticate your credentials. \nOn the fifth failure your Sign-In Account is locked for one (1) hour. \nThe returned data will indicate that your account is locked and the time in UTC that the account will be unlocked. \nIf you require the account to be unlocked on the LIVE system you may contact your Monoova representative and at his or her discretion they will unlock the account.\nSee the API routes in Security to manage Passwords and Tokens. <br><br>\n\n<h3> UserName/Password </h3>\nUsing this scenario, you can configure BASIC Authentication with the following <br> <br>\n<li> <strong> UserName </strong> - API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) Production credentials will be supplied by Monoova when you have demonstrated successful implementation of the API on our Sandbox environment.</li>\n<li> <strong> Password </strong> - When using your API Key, no password is required. \nIf the key is compromised, it can be re-rolled via the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>. </li> <br>\n\n# Feedback\n\nWe value your feedback on our API. Please fill out the form <a href=\"https://ncv.microsoft.com/8eaKX3fsiJ\" target=\"_blank\">here</a> to share your feedback.\n"
+  version: v5.29
+  title: Monoova Payments Financial API
+  contact:
+    name: Monoova Support
+    email: support@monoova.com
+    url: https://www.monoova.com
+  x-logo:
+    url: https://movdpwebsiteprodae.blob.core.windows.net/images/Monoova-Primary-Logo-Black-RGB.png
+    altText: Monoova logo
+servers:
+- url: https://api.mpay.com.au
+  description: Production URL
+- url: https://api.m-pay.com.au
+  description: Sandbox URL
+security:
+- BasicAuth: []
+tags:
+- name: Financial
+  x-displayName: Financial / Payments
+  description: '<h3> Overview </h3>
+
+    <p> The Financial APIs enable you to process credits and debits, including transferring funds within Monoova to a Ledger Account, an mWallet (for BPAY transactions), or an mAccount (our virtual account). You can send payments to external Australian bank accounts using a BSB and account number, token, or PayID, and make BPAY payments using a biller code and CRN. </p>
+
+    <p> The APIs also allow you to debit Australian bank accounts using Direct Debit, and retrieve the status of transactions. </p>
+
+    '
+paths:
+  /financial/v2/transaction/execute:
+    post:
+      tags:
+      - Financial
+      summary: Process a transaction
+      description: The purpose of the execute API is to debit a source for funds then distribute those funds to one or more supplied disbursement accounts. You can use the <a href="/payments#operation/TransactionValidate"> /financial/v2/transaction/validate </a> endpoint to determine if the parameters are correct. <br/> <br/> <strong> NPP Payment Pending Status</strong> <br/> If you are returned a status of ‘Pending’ for an NPP payout, this means that we are waiting for confirmation that the payment has been processed by the processor.
+      operationId: TransactionExecute
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/financial.transaction'
+            examples:
+              Pay Bpay:
+                $ref: '#/components/examples/PayBpayRequest'
+              Debit Child mAccount:
+                $ref: '#/components/examples/DebitChildMAccountRequest'
+              Pay Child mAccount:
+                $ref: '#/components/examples/PayChildMAccountRequest'
+              Direct Debit:
+                $ref: '#/components/examples/DirectDebitRequest'
+              Bulk Direct Debit:
+                $ref: '#/components/examples/BulkDirectDebitRequest'
+              Direct Credit:
+                $ref: '#/components/examples/DirectCreditRequest'
+              Direct Debit (Token):
+                $ref: '#/components/examples/DirectDebitTokenRequest'
+              Direct Credit (Token):
+                $ref: '#/components/examples/DirectCreditTokenRequest'
+              Npp Pay (BankAccount):
+                $ref: '#/components/examples/NppPayBankAccountRequest'
+              Npp Pay (PayId):
+                $ref: '#/components/examples/NppPayIdRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.GenericPayment.GenericFinanceResponse_V2'
+              examples:
+                Pay Bpay:
+                  $ref: '#/components/examples/PayBpayExecuteResponse'
+                Debit Child mAccount:
+                  $ref: '#/components/examples/DebitChildMAccountExecuteResponse'
+                Pay Child mAccount:
+                  $ref: '#/components/examples/PayMAccountExecuteResponse'
+                Direct Debit:
+                  $ref: '#/components/examples/DirectDebitExecuteResponse'
+                Bulk Direct Debit:
+                  $ref: '#/components/examples/BulkDirectDebitExecuteResponse'
+                Direct Credit:
+                  $ref: '#/components/examples/DirectCreditExecuteResponse'
+                Direct Debit (Token):
+                  $ref: '#/components/examples/DirectDebitTokenExecuteResponse'
+                Direct Credit (Token):
+                  $ref: '#/components/examples/DirectCreditTokenExecuteResponse'
+                Npp Pay (BankAccount):
+                  $ref: '#/components/examples/NppPayBankAccountExecuteResponse'
+                Npp Pay (PayId):
+                  $ref: '#/components/examples/NppPayIdExecuteResponse'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /financial/v2/transaction/validate:
+    post:
+      tags:
+      - Financial
+      summary: Validate a transaction
+      description: You can use this API to determine if the parameters are correct. The body is the same as <a href="/payments#operation/TransactionExecute"> /financial/v2/transaction/execute </a> endpoint. The callerUniqueReference will be reusable after the validate call is complete. <br/> <strong> Note&#58;</strong>  You don't need to call this endpoint before an execute as all transactions will be validated before they execute. This is useful if you are using a new rail and want to check your parameters.
+      operationId: TransactionValidate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/financial.transaction'
+            examples:
+              Pay Bpay:
+                $ref: '#/components/examples/PayBpayRequest'
+              Debit Child mAccount:
+                $ref: '#/components/examples/DebitChildMAccountRequest'
+              Pay Child mAccount:
+                $ref: '#/components/examples/PayChildMAccountRequest'
+              Direct Debit:
+                $ref: '#/components/examples/DirectDebitRequest'
+              Bulk Direct Debit:
+                $ref: '#/components/examples/BulkDirectDebitRequest'
+              Direct Credit:
+                $ref: '#/components/examples/DirectCreditRequest'
+              Direct Debit (Token):
+                $ref: '#/components/examples/DirectDebitTokenRequest'
+              Direct Credit (Token):
+                $ref: '#/components/examples/DirectCreditTokenRequest'
+              Npp Pay (BankAccount):
+                $ref: '#/components/examples/NppPayBankAccountRequest'
+              Npp Pay (PayId):
+                $ref: '#/components/examples/NppPayIdRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.GenericPayment.GatewayTransactionValidate_V2'
+              examples:
+                Pay Bpay:
+                  $ref: '#/components/examples/PayBpayValidateResponse'
+                Debit Child mAccount:
+                  $ref: '#/components/examples/DebitChildMAccountValidateResponse'
+                Pay Child mAccount:
+                  $ref: '#/components/examples/PayMAccountValidateResponse'
+                Direct Debit:
+                  $ref: '#/components/examples/DirectDebitValidateResponse'
+                Bulk Direct Debit:
+                  $ref: '#/components/examples/BulkDirectDebitValidateResponse'
+                Direct Credit:
+                  $ref: '#/components/examples/DirectCreditValidateResponse'
+                Direct Debit (Token):
+                  $ref: '#/components/examples/DirectDebitTokenValidateResponse'
+                Direct Credit (Token):
+                  $ref: '#/components/examples/DirectCreditTokenValidateResponse'
+                Npp Pay (BankAccount):
+                  $ref: '#/components/examples/NppPayBankAccountValidateResponse'
+                Npp Pay (PayId):
+                  $ref: '#/components/examples/NppPayIdValidateResponse'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /financial/v2/status/{uniqueReference}:
+    get:
+      tags:
+      - Financial
+      summary: Get transaction status by UID
+      description: This API returns the status of a previous transaction. This is important because a directDebit transaction could be dishonoured up to 3 days after the transaction was executed. We recommend <a href="/payments#tag/Subscriptions"> subscribing to a webhook </a> to notify you when an dishonour transaction is made.
+      operationId: TransactionStatusByUid
+      parameters:
+      - name: uniqueReference
+        in: path
+        required: true
+        description: This is your uniqueReference that was passed in when the transaction was executed
+        schema:
+          type: string
+          example: f484ec18-6e1f-481b-a4bf-bea515d8lk34
+          maxLength: 200
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.GenericPayment.GatewayTransactionStatusResponse_v2'
+              examples:
+                Pending:
+                  $ref: '#/components/examples/TransactionStatusResponsePending'
+                WaitingOnClearedFunds:
+                  $ref: '#/components/examples/TransactionStatusResponseWaitingOnClearedFunds'
+                Rejected:
+                  $ref: '#/components/examples/TransactionStatusResponseRejected'
+                Dishonoured:
+                  $ref: '#/components/examples/TransactionStatusResponseDishonoured'
+                ClearedFunds:
+                  $ref: '#/components/examples/TransactionStatusResponseClearedFunds'
+                Complete:
+                  $ref: '#/components/examples/TransactionStatusResponseComplete'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /financial/v2/status/{startDate}/{endDate}:
+    get:
+      tags:
+      - Financial
+      summary: Get transaction status by Date
+      description: This API returns the status of the specific date of the transactions. This is important because a directDebit transaction could be dishonoured up to 3 days after the transaction was executed.
+      operationId: TransactionStatusByDate
+      parameters:
+      - name: startDate
+        in: path
+        required: true
+        description: This is the startDate. date format should be 'yyyy-MM-dd'
+        schema:
+          type: string
+          format: date-time
+          example: '2019-01-01'
+      - name: endDate
+        in: path
+        required: true
+        description: This is the endDate. date format should be 'yyyy-MM-dd'
+        schema:
+          type: string
+          format: date-time
+          example: '2019-01-31'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.GenericPayment.GatewayTransactionStatus2Response_v2'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /reports/v1/unclearedFunds/{startDate}:
+    get:
+      tags:
+      - Financial
+      summary: Get Uncleared Transactions by Date
+      description: 'This API endpoint can be used to get details of uncleared direct debit transactions.
+
+        '
+      operationId: GetUnclearedFundsByDate
+      parameters:
+      - in: path
+        name: startDate
+        required: true
+        schema:
+          type: string
+          format: date-time
+        description: Start Date in ISO8601 date-time format.
+      - in: query
+        name: endDate
+        schema:
+          type: string
+          format: date-time
+        description: End Date in ISO8601 date-time format. Defaults to startDate + 24 hours if not provided.
+      - in: query
+        name: pageNumber
+        schema:
+          type: integer
+          format: int32
+        description: Page number to be returned. Defaults to 1 if not provided.
+      - in: query
+        name: pageSize
+        schema:
+          type: integer
+          format: int32
+        description: Number of records per page. Defaults to 50, maximum allowed value is 200.
+      responses:
+        '200':
+          description: A list of uncleared transactions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.UnclearedFundResult_v1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+components:
+  examples:
+    TransactionStatusResponsePending:
+      value:
+        statusDescription: Payment is in progress, please do not resubmit the transaction. Use the /financial/v2/status/ API to check the status at a later time.
+        completedDate: null
+        creditCardPaymentStatus: null
+        dishonouredDate: null
+        expectedClearanceDateForFunds: null
+        fundsClearedDate: null
+        transactionStatus: Pending
+        uniqueReference: NPPPayRef-18853028
+      description: Represents the status of an NPP Payout transaction that is still in the process of being completed, waiting for updates from the banking institution.
+    NppPayIdExecuteResponse:
+      value:
+        durationMs: 15
+        status: Ok
+        statusDescription: Operation completed successfully
+        transactionId: 1022
+        feeAmountExcludingGst: 0.1
+        feeAmountGstComponent: 0.01
+        feeAmountIncludingGst: 0.11
+        callerUniqueReference: npppayid123
+        feeBreakdown:
+          disbursementFees:
+          - disbursementArrayIndex: 0
+            disbursementFee:
+              feeAmountExcludingGst: 0.1
+              feeAmountGstComponent: 0.01
+              feeAmountIncludingGst: 0.11
+    TransactionStatusResponseRejected:
+      value:
+        statusDescription: Transaction rejected by banking institution.
+        completedDate: '2020-06-05'
+        creditCardPaymentStatus: null
+        dishonouredDate: null
+        expectedClearanceDateForFunds: null
+        fundsClearedDate: null
+        transactionStatus: Rejected
+        uniqueReference: NPPPayRef-44785082
+      description: This response indicates that an NPP Payout transaction which was previously pending has now been rejected by the banking institution.
+    DebitChildMAccountExecuteResponse:
+      value:
+        durationMs: 30
+        status: Ok
+        statusDescription: Operation completed successfully
+        transactionId: 1022
+        feeAmountExcludingGst: 0.05
+        feeAmountGstComponent: 0.005
+        feeAmountIncludingGst: 0.055
+        callerUniqueReference: childmaccount123
+        feeBreakdown:
+          debitFee:
+            feeAmountExcludingGst: 0.05
+            feeAmountGstComponent: 0.005
+            feeAmountIncludingGst: 0.055
+    TransactionStatusResponseWaitingOnClearedFunds:
+      value:
+        statusDescription: Debit Transaction is waiting for funds to clear on the 2020-06-05
+        completedDate: null
+        creditCardPaymentStatus: null
+        dishonouredDate: null
+        expectedClearanceDateForFunds: '2020-06-05'
+        fundsClearedDate: null
+        transactionStatus: WaitingOnClearedFunds
+        uniqueReference: Reference4993008
+      description: This status is given to transactions that are awaiting the clearance of funds, specifying the expected date for clearance.
+    DirectDebitRequest:
+      value:
+        totalAmount: 100
+        paymentSource: directDebit
+        lodgementReference: monoova-123
+        uniqueReference: f484ec18-6e1f-481b-a4bf-bea515d8lk34
+        description: Direct debit transaction for bills
+        directDebit:
+          bsbNumber: 032-000
+          accountNumber: '56654983'
+          accountName: Monoova
+      description: This request, and its response shows a direct debit from a customer's bank account. It is used for recurring or one-time authorizations to pull funds directly from the account.
+    TransactionStatusResponseClearedFunds:
+      value:
+        statusDescription: Direct Debit to mAccount
+        completedDate: null
+        creditCardPaymentStatus: null
+        dishonouredDate: null
+        expectedClearanceDateForFunds: null
+        fundsClearedDate: '2020-06-05'
+        transactionStatus: Complete
+        uniqueReference: Reference7817846
+      description: Represents a transaction where direct debit to an mAccount has been fully processed and funds are considered cleared on the stated date.
+    PayBpayRequest:
+      value:
+        paymentSource: mWallet
+        mWallet:
+          token: '6279059784226976'
+          pin: '0000'
+        disbursements:
+        - disbursementMethod: bpay
+          toBPayDetails:
+            billerCode: '857763'
+            referenceNumber: '6279059700010918'
+          amount: 100
+          description: Payment for utilities
+        uniqueReference: f484ec18-6e1f-481b-a4bf-bea515d8lk34
+      description: This request, and its response, shows paying bills using Bpay. It requires a biller code and reference number to direct the funds appropriately.
+    DirectDebitExecuteResponse:
+      value:
+        durationMs: 35
+        status: Ok
+        statusDescription: Operation completed successfully
+        transactionId: 1022
+        feeAmountExcludingGst: 0.15
+        feeAmountGstComponent: 0.015
+        feeAmountIncludingGst: 0.165
+        callerUniqueReference: directdebit123
+        feeBreakdown:
+          debitFee:
+            feeAmountExcludingGst: 0.15
+            feeAmountGstComponent: 0.015
+            feeAmountIncludingGst: 0.165
+    PayChildMAccountRequest:
+      value:
+        totalAmount: 100
+        paymentSource: mAccount
+        disbursements:
+        - disbursementMethod: mAccount
+          toMAccount: '6279059700010918'
+          amount: 100
+        uniqueReference: e2c71156-31f9-48e3-ac2f-3a9956335b10
+      description: This request, and its response shows the payment into a child mAccount. It is typically used for depositing funds into sub-accounts under the main account.
+    TransactionStatusResponseComplete:
+      value:
+        statusDescription: Direct Debit to mAccount
+        completedDate: '2020-06-05'
+        creditCardPaymentStatus: null
+        dishonouredDate: null
+        expectedClearanceDateForFunds: null
+        fundsClearedDate: null
+        transactionStatus: Complete
+        uniqueReference: Reference7817846
+      description: This response signifies a transaction that has successfully completed without any holds or dishonours.
+    NppPayBankAccountRequest:
+      value:
+        totalAmount: 100
+        disbursements:
+        - disbursementMethod: NppCreditBankAccount
+          toNppCreditBankAccountDetails:
+            bsbNumber: 802-985
+            accountNumber: '819877339'
+            accountName: Monoova
+            endToEndId: ABC/123-4356
+            remitterName: remitterName
+          sourceAccountBsb: 802-985
+          sourceAccountNumber: '654378888'
+          lodgementReference: test Npp :)
+          amount: 100
+        description: Payment via NPP to bank account for contract services
+      description: This request and its response shows payments to a bank account using the New Payments Platform (NPP).
+    DirectCreditTokenValidateResponse:
+      value:
+        durationMs: 28
+        status: Ok
+        statusDescription: Operation completed successfully
+        feeAmountExcludingGst: 0.08
+        feeAmountGstComponent: 0.008
+        feeAmountIncludingGst: 0.088
+        callerUniqueReference: dctoken123
+        feeBreakdown:
+          transactionFee:
+            feeAmountExcludingGst: 0.08
+            feeAmountGstComponent: 0.008
+            feeAmountIncludingGst: 0.088
+    PayMAccountValidateResponse:
+      value:
+        durationMs: 20
+        status: Ok
+        statusDescription: Operation completed successfully
+        feeAmountExcludingGst: 0.06
+        feeAmountGstComponent: 0.006
+        feeAmountIncludingGst: 0.066
+        callerUniqueReference: maccountpay123
+        feeBreakdown:
+          debitFee:
+            feeAmountExcludingGst: 0.06
+            feeAmountGstComponent: 0.006
+            feeAmountIncludingGst: 0.066
+    PayBpayExecuteResponse:
+      value:
+        durationMs: 25
+        status: Ok
+        statusDescription: Operation completed successfully
+        transactionId: 1022
+        feeAmountExcludingGst: 0.0
+        feeAmountGstComponent: 0.0
+        feeAmountIncludingGst: 0.0
+        callerUniqueReference: bpay12345
+        feeBreakdown:
+          disbursementFees:
+          - disbursementArrayIndex: 0
+            disbursementFee:
+              feeAmountExcludingGst: 0.1
+              feeAmountGstComponent: 0.01
+              feeAmountIncludingGst: 0.11
+    DirectDebitTokenValidateResponse:
+      value:
+        durationMs: 25
+        status: Ok
+        statusDescription: Operation completed successfully
+        feeAmountExcludingGst: 0.07
+        feeAmountGstComponent: 0.007
+        feeAmountIncludingGst: 0.077
+        callerUniqueReference: ddtoken123
+        feeBreakdown:
+          debitFee:
+            feeAmountExcludingGst: 0.07
+            feeAmountGstComponent: 0.007
+            feeAmountIncludingGst: 0.077
+    DebitChildMAccountRequest:
+      value:
+        totalAmount: 100
+        paymentSource: mAccount
+        mAccount:
+          token: '111111000000000'
+        uniqueReference: a6b29123-77cf-4d7e-bd5e-d3ed6a4845b0
+        description: Example transfer
+      description: This request, and its response show how to debit funds directly from a specified child mAccount.
+    BulkDirectDebitRequest:
+      value:
+        uniqueReference: uniqueReference123
+        totalAmount: 160
+        printUniqueReferenceOnStatement: true
+        description: Bulk Direct Debit to mAccount
+        paymentSource: bulkDirectDebit
+        directDebits:
+        - fromDirectDebitDetail:
+            bsbNumber: 123-456
+            accountNumber: '34444444'
+            accountName: Direct Debit to mAccount
+            remitterName: Fairvine RoundUp remitterName 1
+          amount: 80
+          lodgementReference: bulkDirectDebit1
+        - fromDirectDebitDetail:
+            bsbNumber: 123-456
+            accountNumber: '24444444'
+            accountName: Direct Debit to mAccount
+            remitterName: Fairvine RoundUp remitterName 2
+          amount: 80
+          lodgementReference: bulkDirectDebit2
+      description: This request, and its response shows processing multiple direct debit transactions in one batch. It's efficient for handling large volumes of collections at once.
+    TransactionStatusResponseDishonoured:
+      value:
+        statusDescription: Debit Transaction was Dishonoured on the 2020-06-05
+        completedDate: null
+        creditCardPaymentStatus: null
+        dishonouredDate: '2020-06-05'
+        expectedClearanceDateForFunds: null
+        fundsClearedDate: null
+        transactionStatus: Dishonoured
+        uniqueReference: Reference7817846
+      description: Details a debit transaction that has been dishonoured, including the specific date of dishonour.
+    DirectDebitValidateResponse:
+      value:
+        durationMs: 35
+        status: Ok
+        statusDescription: Operation completed successfully
+        feeAmountExcludingGst: 0.15
+        feeAmountGstComponent: 0.015
+        feeAmountIncludingGst: 0.165
+        callerUniqueReference: directdebit123
+        feeBreakdown:
+          debitFee:
+            feeAmountExcludingGst: 0.15
+            feeAmountGstComponent: 0.015
+            feeAmountIncludingGst: 0.165
+    PayBpayValidateResponse:
+      value:
+        durationMs: 25
+        status: Ok
+        statusDescription: Operation completed successfully
+        feeAmountExcludingGst: 0.0
+        feeAmountGstComponent: 0.0
+        feeAmountIncludingGst: 0.0
+        callerUniqueReference: bpay12345
+        feeBreakdown:
+          disbursementFees:
+          - disbursementArrayIndex: 0
+            disbursementFee:
+              feeAmountExcludingGst: 0.1
+              feeAmountGstComponent: 0.01
+              feeAmountIncludingGst: 0.11
+    NppPayBankAccountValidateResponse:
+      value:
+        durationMs: 18
+        status: Ok
+        statusDescription: Operation completed successfully
+        feeAmountExcludingGst: 0.09
+        feeAmountGstComponent: 0.009
+        feeAmountIncludingGst: 0.099
+        callerUniqueReference: nppbank123
+        feeBreakdown:
+          disbursementFees:
+          - disbursementArrayIndex: 0
+            disbursementFee:
+              feeAmountExcludingGst: 0.09
+              feeAmountGstComponent: 0.009
+              feeAmountIncludingGst: 0.099
+    DirectCreditExecuteResponse:
+      value:
+        durationMs: 22
+        status: Ok
+        statusDescription: Operation completed successfully
+        transactionId: 1022
+        feeAmountExcludingGst: 0.12
+        feeAmountGstComponent: 0.012
+        feeAmountIncludingGst: 0.132
+        callerUniqueReference: directcredit123
+        feeBreakdown:
+          transactionFee:
+            feeAmountExcludingGst: 0.12
+            feeAmountGstComponent: 0.012
+            feeAmountIncludingGst: 0.132
+    DirectCreditTokenRequest:
+      summary: Direct credit using a token
+      value:
+        totalAmount: 100
+        paymentSource: token
+        token: 00000000-1111-0000-0000-000000000000
+        disbursements:
+        - disbursementMethod: token
+          toToken: 11111111-0000-0000-0000-000000000000
+          lodgementReference: monoova-123
+          amount: 100
+          description: Direct credit to beneficiary using tokenized system
+        description: Token-based credit transfer for service payment
+      description: This request, and its response shows using a token to perform a direct credit.
+    BulkDirectDebitValidateResponse:
+      value:
+        durationMs: 40
+        status: Ok
+        statusDescription: Operation completed successfully
+        feeAmountExcludingGst: 0.2
+        feeAmountGstComponent: 0.02
+        feeAmountIncludingGst: 0.22
+        callerUniqueReference: bulkdebit123
+        feeBreakdown:
+          bulkDirectDebitFees:
+          - directDebitArrayIndex: 0
+            directDebitFee:
+              feeAmountExcludingGst: 0.1
+              feeAmountGstComponent: 0.01
+              feeAmountIncludingGst: 0.11
+          - directDebitArrayIndex: 1
+            directDebitFee:
+              feeAmountExcludingGst: 0.1
+              feeAmountGstComponent: 0.01
+              feeAmountIncludingGst: 0.11
+    DirectDebitTokenRequest:
+      value:
+        totalAmount: 100
+        paymentSource: token
+        lodgementReference: monoova-123
+        token: 11111111-0000-0000-0000-000000000000
+        description: Direct debit using tokenized payment method
+      description: This request uses a token to initiate a direct debit.
+    DirectCreditTokenExecuteResponse:
+      value:
+        durationMs: 28
+        status: Ok
+        statusDescription: Operation completed successfully
+        transactionId: 1022
+        feeAmountExcludingGst: 0.08
+        feeAmountGstComponent: 0.008
+        feeAmountIncludingGst: 0.088
+        callerUniqueReference: dctoken123
+        feeBreakdown:
+          transactionFee:
+            feeAmountExcludingGst: 0.08
+            feeAmountGstComponent: 0.008
+            feeAmountIncludingGst: 0.088
+    DebitChildMAccountValidateResponse:
+      value:
+        durationMs: 30
+        status: Ok
+        statusDescription: Operation completed successfully
+        feeAmountExcludingGst: 0.05
+        feeAmountGstComponent: 0.005
+        feeAmountIncludingGst: 0.055
+        callerUniqueReference: childmaccount123
+        feeBreakdown:
+          debitFee:
+            feeAmountExcludingGst: 0.05
+            feeAmountGstComponent: 0.005
+            feeAmountIncludingGst: 0.055
+    PayMAccountExecuteResponse:
+      value:
+        durationMs: 20
+        status: Ok
+        statusDescription: Operation completed successfully
+        transactionId: 1022
+        feeAmountExcludingGst: 0.06
+        feeAmountGstComponent: 0.006
+        feeAmountIncludingGst: 0.066
+        callerUniqueReference: maccountpay123
+        feeBreakdown:
+          debitFee:
+            feeAmountExcludingGst: 0.06
+            feeAmountGstComponent: 0.006
+            feeAmountIncludingGst: 0.066
+    NppPayBankAccountExecuteResponse:
+      value:
+        durationMs: 18
+        status: Ok
+        statusDescription: Operation completed successfully
+        transactionId: 1022
+        feeAmountExcludingGst: 0.09
+        feeAmountGstComponent: 0.009
+        feeAmountIncludingGst: 0.099
+        callerUniqueReference: nppbank123
+        feeBreakdown:
+          disbursementFees:
+          - disbursementArrayIndex: 0
+            disbursementFee:
+              feeAmountExcludingGst: 0.09
+              feeAmountGstComponent: 0.009
+              feeAmountIncludingGst: 0.099
+    DirectCreditValidateResponse:
+      value:
+        durationMs: 22
+        status: Ok
+        statusDescription: Operation completed successfully
+        feeAmountExcludingGst: 0.12
+        feeAmountGstComponent: 0.012
+        feeAmountIncludingGst: 0.132
+        callerUniqueReference: directcredit123
+        feeBreakdown:
+          transactionFee:
+            feeAmountExcludingGst: 0.12
+            feeAmountGstComponent: 0.012
+            feeAmountIncludingGst: 0.132
+    DirectCreditRequest:
+      value:
+        uniqueReference: D29281AB-1E85-4A3D-B5DC-F519631D4F01
+        totalAmount: 100
+        description: Fred Smith
+        disbursements:
+        - disbursementMethod: directCredit
+          toDirectCreditDetails:
+            bsbNumber: 032-000
+            accountNumber: '2681849'
+            accountName: Monoova
+          sourceAccountBsb: 802-985
+          sourceAccountNumber: '654378888'
+          lodgementReference: monoova-123
+          amount: 100
+          description: Fred Smith
+      description: This request, and its response shows sending money directly to a bank account via a direct credit method. It is used for straightforward, single beneficiary transactions.
+    DirectDebitTokenExecuteResponse:
+      value:
+        durationMs: 25
+        status: Ok
+        statusDescription: Operation completed successfully
+        transactionId: 1022
+        feeAmountExcludingGst: 0.07
+        feeAmountGstComponent: 0.007
+        feeAmountIncludingGst: 0.077
+        callerUniqueReference: ddtoken123
+        feeBreakdown:
+          debitFee:
+            feeAmountExcludingGst: 0.07
+            feeAmountGstComponent: 0.007
+            feeAmountIncludingGst: 0.077
+    NppPayIdValidateResponse:
+      value:
+        durationMs: 15
+        status: Ok
+        statusDescription: Operation completed successfully
+        feeAmountExcludingGst: 0.1
+        feeAmountGstComponent: 0.01
+        feeAmountIncludingGst: 0.11
+        callerUniqueReference: npppayid123
+        feeBreakdown:
+          disbursementFees:
+          - disbursementArrayIndex: 0
+            disbursementFee:
+              feeAmountExcludingGst: 0.1
+              feeAmountGstComponent: 0.01
+              feeAmountIncludingGst: 0.11
+    NppPayIdRequest:
+      value:
+        totalAmount: 100
+        disbursements:
+        - disbursementMethod: NppCreditPayId
+          toNppCreditPayIdDetails:
+            payId: MW9GM4@monoova.com
+            payIdType: Email
+            accountName: Monoova
+            endToEndId: ABC/123-4356
+            remitterName: remitterName
+          sourceAccountBsb: 802-985
+          sourceAccountNumber: '654378888'
+          lodgementReference: test npp :)
+          amount: 100
+        description: NPP payment to PayID for immediate transaction settlement
+      description: This request and its response shows payments using PayID, which can be an email, phone number, or other identifier.
+    BulkDirectDebitExecuteResponse:
+      value:
+        durationMs: 40
+        status: Ok
+        statusDescription: Operation completed successfully
+        transactionId: 1022
+        feeAmountExcludingGst: 0.2
+        feeAmountGstComponent: 0.02
+        feeAmountIncludingGst: 0.22
+        callerUniqueReference: bulkdebit123
+        feeBreakdown:
+          bulkDirectDebitFees:
+          - directDebitArrayIndex: 0
+            directDebitFee:
+              feeAmountExcludingGst: 0.1
+              feeAmountGstComponent: 0.01
+              feeAmountIncludingGst: 0.11
+          - directDebitArrayIndex: 1
+            directDebitFee:
+              feeAmountExcludingGst: 0.1
+              feeAmountGstComponent: 0.01
+              feeAmountIncludingGst: 0.11
+  schemas:
+    DTO.UnclearedTransaction_v1:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: double
+          example: 40.0
+          minimum: 0.01
+          description: The total amount of the transaction.
+        transactionId:
+          type: integer
+          format: int32
+          example: 12312314
+          description: This is the Platform ID that is unique to your payment request. 0 will be returned if any errors occurred.
+        createdDate:
+          type: string
+          format: date-time
+          example: '2022-12-26T09:30:04'
+          description: This will be specified in Sydney local time in ISO 8601 Date Time format.
+        description:
+          type: string
+          example: 'Debit ABA BSB: 123-456 Account Number: 123456 Account Name: account'
+          maxLength: 500
+          description: Description of the transaction.
+        expectedClearanceDate:
+          type: string
+          format: date-time
+          example: '2022-12-30'
+          description: This will be specified in Sydney local time in ISO 8601 Date Time format.
+        feeAmountGstComponent:
+          type: number
+          example: 0.019
+          description: This is the GST Component of the fee amount that has been debited from your mAccount.
+        feeAmountIncludingGst:
+          type: number
+          example: 0.209
+          description: This is the total fee amount Including GST that has been debited from your mAccount.
+        feeamountExcludingGst:
+          type: number
+          example: 0.19
+          description: This is the fee amount excluding GST.
+        uniqueReference:
+          type: string
+          example: ABC1234
+          description: This is the unique reference that was passed in by the calling service.
+    DTO.GenericPayment.GatewayTransactionValidate_V2:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        transactionId:
+          description: Always 0
+          type: integer
+          format: int32
+          example: 0
+          uniqueItems: false
+        feeAmountExcludingGst:
+          description: This is the fee amount Excluding GST that has been debited from your mAccount
+          type: number
+          format: decimal
+          example: 0.2
+          uniqueItems: false
+        feeAmountGstComponent:
+          description: This is the GST Component of the fee amount that has been debited from your mAccount
+          type: number
+          format: decimal
+          example: 0.02
+          uniqueItems: false
+        feeAmountIncludingGst:
+          description: This is the total fee amount Including GST that has been debited from your mAccount
+          type: number
+          format: decimal
+          example: 0.22
+          uniqueItems: false
+        callerUniqueReference:
+          description: This is the unique reference that was passed in by the calling service
+          type: string
+          example: e1185a86-00a5-4d81-843d-2ea266b074f8
+          uniqueItems: false
+        feeBreakdown:
+          $ref: '#/components/schemas/DTO.GenericPayment.FeeBreakdown'
+      type: object
+    DTO.GenericPayment.FeeBreakdown:
+      properties:
+        debitFee:
+          $ref: '#/components/schemas/DTO.GenericPayment.FeeDetail'
+        disbursementFees:
+          description: Returns an array for disbursementFee, which is the fee details for each disbursement.
+          type: array
+          items:
+            $ref: '#/components/schemas/DTO.GenericPayment.DisbursmentFee'
+          uniqueItems: false
+        bulkDirectDebitFees:
+          description: Returns an array for bulkDirectDebitFees, which is the fee details for each disbursement.
+          type: array
+          items:
+            $ref: '#/components/schemas/DTO.GenericPayment.DirectDebitFee'
+          uniqueItems: false
+      type: object
+    DTO.GenericPayment.DirectDebitFee:
+      properties:
+        directDebitArrayIndex:
+          description: This is the index into the Disbursement array that was passed to either financials/v2/transaction/validate or financials/v2/transaction/execute
+          type: integer
+          format: int32
+          example: 0
+          uniqueItems: false
+        directDebitFee:
+          $ref: '#/components/schemas/DTO.GenericPayment.FeeDetail'
+      type: object
+    DTO.UnclearedFundResult_v1:
+      type: object
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/DTO.UnclearedTransaction_v1'
+    DTO.GenericPayment.DisbursmentFee:
+      properties:
+        disbursementArrayIndex:
+          description: This is the index into the Disbursement array that was passed to either financials/v2/transaction/validate or financials/v2/transaction/execute
+          type: integer
+          format: int32
+          example: 0
+          uniqueItems: false
+        disbursementFee:
+          $ref: '#/components/schemas/DTO.GenericPayment.FeeDetail'
+      type: object
+    DTO.GenericPayment.GatewayTransactionStatus:
+      properties:
+        completedDate:
+          type: string
+          uniqueItems: false
+          example: '2020-01-17'
+        uniqueReference:
+          type: string
+          uniqueItems: false
+          example: Reference12345678
+        statusDescription:
+          type: string
+          uniqueItems: false
+          example: DirectDebit to SignInmAccount
+        transactionStatus:
+          type: string
+          uniqueItems: false
+          example: Complete
+        dishonouredDate:
+          type: string
+          uniqueItems: false
+          example: null
+        creditCardPaymentStatus:
+          type: object
+          example: null
+        waitingOnClearedFundsDate:
+          type: string
+          uniqueItems: false
+          example: null
+        bulkDirectDebits:
+          type: array
+          items:
+            $ref: '#/components/schemas/DTO.GenericPayment.GatewayTransactionStatus.BulkDirectDebit'
+      type: object
+    DTO.GenericPayment.GatewayTransactionStatusResponse_v2:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors.
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        completedDate:
+          description: This is the date when the transaction was Completed.
+          type: string
+          example: '2021-01-17'
+        creditCardPaymentStatus:
+          description: This field is filled If transaction type is Credit-Card.
+          type: string
+          example: null
+        dishonouredDate:
+          description: once transaction is dishonoured with the transactionStatus set to 'Dishonoured' and the dishonouredDate has a value.
+          type: string
+          example: null
+        expectedClearanceDateForFunds:
+          description: expected clearance date for funds if applicable.
+          type: string
+          example: null
+        fundsClearedDate:
+          description: clearance date for funds if applicable. "yyyy-MM-dd" format.
+          type: string
+          example: null
+        transactionStatus:
+          description: The transaction has not yet been dishonoured if the transactionStatus is 'Complete'. &nbsp; The transaction is dishonoured when the transactionStatus is set to 'Dishonoured' and the dishonouredDate has a value.
+          type: string
+          example: Complete
+          enum:
+          - Complete
+          - Pending
+          - Rejected
+          - Dishonoured
+          - WaitingOnClearedFunds
+        uniqueReference:
+          description: This is the unique reference that was passed in by the calling service.
+          type: string
+          example: e1185a86-00a5-4d81-843d-2ea266b074f9
+        bulkDirectDebits:
+          type: array
+          items:
+            $ref: '#/components/schemas/DTO.GenericPayment.GatewayTransactionStatus.BulkDirectDebit'
+      type: object
+      format: DTO.GenericPayment.GatewayTransactionStatusResponse_v2
+    DTO.GenericPayment.GenericFinanceResponse_V2:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        transactionId:
+          description: This is the Platform ID that is unique to your payment request. 0 will be returned if any errors occurred.
+          type: integer
+          format: int32
+          example: 10926364
+          uniqueItems: false
+        feeAmountExcludingGst:
+          description: This is the fee amount excluding GST
+          type: number
+          format: decimal
+          example: 0.2
+          uniqueItems: false
+        feeAmountGstComponent:
+          description: This is the GST Component of the fee amount that has been debited from your mAccount
+          type: number
+          format: decimal
+          example: 0.02
+          uniqueItems: false
+        feeAmountIncludingGst:
+          description: This is the total fee amount Including GST that has been debited from your mAccount
+          type: number
+          format: decimal
+          example: 0.22
+          uniqueItems: false
+        callerUniqueReference:
+          description: This is the unique reference that was passed in by the calling service
+          type: string
+          example: e1185a86-00a5-4d81-843d-2ea266b074f8
+          uniqueItems: false
+        feeBreakdown:
+          $ref: '#/components/schemas/DTO.GenericPayment.FeeBreakdown'
+      type: object
+    financial.transaction:
+      type: object
+      required:
+      - paymentSource
+      properties:
+        uniqueReference:
+          type: string
+          description: "This is a unique reference generated by the calling service. \nThis is a nonce. Its use is to determine if a request has already been received by the Engine.\nWe strongly recommend sending a uniqueReference in your execution call to avoid duplicate transactions.\n"
+          example: f484ec18-6e1f-481b-a4bf-bea515d8lk34
+          maxLength: 200
+        printUniqueReferenceOnStatement:
+          type: boolean
+          default: false
+          description: If true, the uniqueReference will be printed on the statement. Default is false.
+        totalAmount:
+          type: number
+          format: double
+          example: 10.0
+          minimum: 0.01
+          description: This is the total amount of the transaction. It must match the sum of all disbursement amounts specified in the disbursements array if both are present.
+        paymentSource:
+          type: string
+          description: "This is the type of transaction. \nThe correct type MUST be used as it instructs the Engine to move funds according to established rules. \nValid values are <strong> mAccount, mWallet, directDebit, token </strong>\n"
+          enum:
+          - mAccount
+          - mWallet
+          - directDebit
+          - bulkDirectDebit
+          - token
+      discriminator:
+        propertyName: paymentSource
+        mapping:
+          mAccount: '#/components/schemas/paymentSource.mAccount'
+          mWallet: '#/components/schemas/paymentSource.mWallet'
+          directDebit: '#/components/schemas/paymentSource.directDebit'
+          bulkDirectDebit: '#/components/schemas/paymentSource.bulkDirectDebit'
+          token: '#/components/schemas/paymentSource.token'
+    DTO.GenericPayment.GatewayTransactionStatus2Response_v2:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        statuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/DTO.GenericPayment.GatewayTransactionStatus'
+      type: object
+      format: DTO.GenericPayment.GatewayTransactionStatus2Response_v2
+    DTO.GenericPayment.GatewayTransactionStatus.BulkDirectDebit:
+      type: object
+      properties:
+        index:
+          type: integer
+          example: 0
+          description: The index of the transaction in the bulk process.
+        bsb:
+          type: string
+          example: 123-444
+          description: BSB (Bank-State-Branch) number. The format is a string ‘XXX-XXX’.
+        accountNumber:
+          type: string
+          example: '12349876'
+          description: The bank account number.
+        amount:
+          type: number
+          format: double
+          example: 5.0
+          description: The amount of the transaction.
+        lodgementReference:
+          type: string
+          example: '1234'
+          description: Reference for the lodgement.
+        dishonouredDate:
+          type: string
+          format: date-time
+          example: null
+          description: The date on which the transaction was dishonoured, if applicable.
+        dishonouredReason:
+          type: string
+          example: null
+          description: The reason for the transaction being dishonoured, if applicable.
+        status:
+          type: string
+          example: WaitingOnClearedFunds
+          description: The current status of the transaction.
+    DTO.GenericPayment.FeeDetail:
+      properties:
+        feeAmountExcludingGst:
+          description: The fee amount excluding GST
+          type: number
+          format: decimal
+          example: 0.1
+          uniqueItems: false
+        feeAmountGstComponent:
+          description: The GST component of the fee
+          type: number
+          format: decimal
+          example: 0.01
+          uniqueItems: false
+        feeAmountIncludingGst:
+          description: The fee amount including GST
+          type: number
+          format: decimal
+          example: 0.11
+          uniqueItems: false
+      type: object
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Receive and Pay
+  tags:
+  - Financial
+  - Verify
+  - Automatcher (Bank Account Receivables)
+  - Whitelisting for Automatcher (Bank Account Receivables)
+  - Ledger Account
+  - Reconciliation Rules
+  - PayID
+  - Tools
+- name: BPAY
+  tags:
+  - BPAY
+  - mWallet
+- name: Manage
+  tags:
+  - Subscriptions
+  - Webhooks
+  - mAccount
+  - Reports
+  - Security
+  - Token
+- name: Public Endpoints
+  tags:
+  - Public Endpoints

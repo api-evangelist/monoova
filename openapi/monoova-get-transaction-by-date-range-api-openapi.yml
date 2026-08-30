@@ -1,0 +1,435 @@
+openapi: 3.2.0
+info:
+  description: "# Introduction\n  Monoova's Online Card Payment Service incorporates a next-gen Card Payment Checkout integrated with our expansive Payments API to allow merchants to capture card and mobile wallet payments from your customers online and receive funds into your Monoova account for automated reconciliation and disbursement. To integrate the Card Payment Gateway into your website, all you need is Monoova's <a href=\"https://github.com/Monoova/merchantSDK\" target='_blank'>Merchant Software Development Kit</a> (SDK) hosted on GitHub and a set of straightforward RESTful APIs detailed below.  We will continue to update this API documentation as we release additional functionality.\n\n# How to Enable the Card Payment Gateway and Sandbox API’s\n>\n  - If not already a user, register an account in our <a href='https://sandbox.monoova.com' target='_blank'>Sandbox Portal</a>\n  - Once registered and logged in, navigate to **Manage > API Gateway** and input your API Key (provided to you as part of Portal user registration) to activate API Gateway Access for your mAccount (If you do not know your API Key you will need to roll a new one, this can be done by navigating to **Manage > Accounts**)\n  - Card Gateway integration requires some additional back-end configuration prior to use by a member of our integration team who will reach out to onboard and confirm access as a final step to enabling your service.\n  - To notify the integration team of your interest in enabling your account for Online Card Payment Service functionality, please <a href='https://www.monoova.com/contact' target=\"_blank\">Contact us</a> and a member of the team will follow up to guide you through the final steps.\n\n# Integrating Monoova Checkout for Card Payments\n  Utilizing Monoova's Merchant SDK enables you to deploy a Card Payment Checkout that securely gathers card payment information that complies with PCI standards, without necessitating substantial PCI compliance modifications within your application. The integrated Card Payment Checkout implementation ensures the secure capture of card data and offers complete customization to seamlessly align with your application's appearance and user experience.\n\n## Before you start\n>\n  - Ensure that your mAccount has been properly configured to enable card payments. Please access the Monoova portal or contact Monoova Support to verify this.\n  - Download the Card Software Development Kit (SDK): https://github.com/Monoova/merchantSDK\n\n## Using the Merchant SDK\n  To begin, clone the Merchant SDK repository. This repository offers an example implementation of the set of tools for initiating a session with Monoova and presenting the credit card checkout for the collection of card payments. Detailed instructions on how to integrate the credit card checkout are included in the SDK.\n\n## Sample Card Details\n  The following Card details can be used to test the credit card checkout and end-to-end flow in your Sandbox Account.\n<table>\n  <tr>\n    <th>Card Type</th>\n    <th>Card Number</th>\n    <th>Card Expiry</th>\n    <th>Card CVV</th>\n  </tr>\n  <tr>\n    <td>VISA</td>\n    <td>4111 1111 1111 1111</td>\n    <td>12/31</td>\n    <td>123</td>\n  </tr>\n  <tr>\n    <td>MASTER CARD</td>\n    <td>5555 5555 5555 4444</td>\n    <td>12/31</td>\n    <td>123</td>\n  </tr>\n</table>\n\n## Customising the Checkout\n>\n  - For those using the provided checkout form, you can make adjustments to the appearance of the checkout by editing the Checkout.html and style.css files to apply host themes.\n  - To modify the styles within the card iframe, you should edit the CSS associated with the #Checkout-container ID, as host themes do not apply to the card form.\n  - Refer to our README documentation in the Card Software Development Kit (SDK). It includes programmatic examples, including checkout style and callback details, for the events\n    * onCheckoutComplete\n    * onCheckoutFail\n"
+  version: v1
+  title: Monoova Card Payments Get Transaction By Date Range API
+  contact:
+    name: Monoova Support
+    email: support@monoova.com
+    url: https://www.monoova.com
+  x-logo:
+    url: https://movdpwebsiteprodae.blob.core.windows.net/images/Monoova-Primary-Logo-Black-RGB.png
+    altText: Monoova logo
+servers:
+- url: https://api.monoova.com
+  description: Production URL#
+- url: https://sand-api.monoova.com
+  description: Sandbox URL
+security:
+- BearerAuth: []
+tags:
+- name: Get Transaction By Date Range
+paths:
+  /au/card/ccm/CreditCardTransaction/:
+    get:
+      tags:
+      - Get Transaction By Date Range
+      summary: Get Transaction By Date Range
+      description: This API endpoint can be used to get details of transactions created in a date range</br>
+      operationId: get-transaction-by-date-range
+      parameters:
+      - name: createdStartDate
+        in: query
+        required: true
+        schema:
+          type: string
+          description: ISO 8601 formatted DateTime. <br/> transaction creation DateTime from which the query will start. If time is not provided it will be defaulted to midnight.<br/> Must not be future date
+      - name: createdEndDate
+        in: query
+        required: false
+        schema:
+          type: string
+          description: ISO 8601 formatted DateTime <br/> transaction creation DateTime cutoff for query. If time is not provided it will be defaulted to midnight. <br/> Must not be earlier than createdStartDate
+      - name: pageNumber
+        in: query
+        required: false
+        schema:
+          type: integer
+          description: current page number for the results
+          minimum: 1
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          description: current page number for the results
+          minimum: 1
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditCardTransactionDetailsResponse'
+              example:
+                creditCardTransactionDetails:
+                - clientTransactionUniqueReference: 23E3F5F3-016F-4BF2-8C97-7322F1CB410D
+                  customerId: Customer123
+                  creationDateTime: '2023-09-20T04:22:19.305Z'
+                  transactionInitiationDateTime: '2023-09-20T04:23:14.401Z'
+                  amount:
+                    currencyAmount: 100.0
+                  surchargeAmount:
+                    currencyAmount: 1.0
+                  paymentDetails:
+                    saveOnSuccess: true
+                    clientPaymentTokenUniqueReference: Token_5435
+                    cardType: Visa
+                    description: sample token create
+                  transactionType: Payment
+                  status: Pending Settlement
+                - clientTransactionUniqueReference: AB9FB2C9-9281-4F4C-97C5-675C1432CDB7
+                  customerId: Customer123
+                  creationDateTime: '2023-09-20T04:26:36.477Z'
+                  transactionInitiationDateTime: '2023-09-20T04:27:05.084Z'
+                  amount:
+                    currencyAmount: 102.0
+                  paymentDetails:
+                    saveOnSuccess: true
+                    clientPaymentTokenUniqueReference: Token_5470
+                    cardType: Visa
+                    description: sample token create
+                  transactionType: Payment
+                  status: Pending Settlement
+                - clientTransactionUniqueReference: E24547D0-8492-4E1F-A986-E7AF28F1D445
+                  customerId: Customer456
+                  creationDateTime: '2023-09-20T04:30:38.201Z'
+                  transactionInitiationDateTime: '2023-09-20T04:31:07.008Z'
+                  amount:
+                    currencyAmount: 104.0
+                  paymentDetails:
+                    cardType: Mastercard
+                    saveOnSuccess: true
+                    clientPaymentTokenUniqueReference: Token_5652
+                    description: sample token create
+                  transactionType: Payment
+                  status: Pending Settlement
+                - clientTransactionUniqueReference: 5A08021A-0699-4BA3-9489-BBEE2B5F3F31
+                  customerId: Customer456
+                  creationDateTime: '2023-09-20T04:33:53.249Z'
+                  transactionInitiationDateTime: '2023-09-20T04:34:29.21Z'
+                  amount:
+                    currencyAmount: 105.0
+                  paymentDetails:
+                    cardType: Mastercard
+                    saveOnSuccess: true
+                    clientPaymentTokenUniqueReference: Token_5333
+                    description: sample token create
+                  transactionType: Payment
+                  status: Pending Settlement
+                - clientTransactionUniqueReference: 347B5DE7-B61C-4625-87A6-3499ABB0AD8C
+                  creationDateTime: '2023-09-20T05:38:01.403Z'
+                  transactionInitiationDateTime: '2023-09-20T05:38:49.741Z'
+                  amount:
+                    currencyAmount: 1.0
+                  paymentDetails:
+                    cardType: Visa
+                    saveOnSuccess: true
+                    clientPaymentTokenUniqueReference: Token_5543
+                    description: sample token create
+                  transactionType: Payment
+                  status: Pending Settlement
+                - clientTransactionUniqueReference: 42C9C5A7-1003-49CE-920B-174501C08228
+                  customerId: Customer123
+                  creationDateTime: '2023-09-20T05:40:39.992Z'
+                  transactionInitiationDateTime: '2023-09-20T05:41:15.748Z'
+                  amount:
+                    currencyAmount: 2.0
+                  paymentDetails:
+                    cardType: Mastercard
+                    saveOnSuccess: false
+                    description: sample token create
+                  transactionType: Payment
+                  status: Authorized
+                - clientTransactionUniqueReference: REAB873C38-0528-40AB-AC76-1C5C5831CBE5
+                  clientParentTransactionUniqueReference: AB873C38-0528-40AB-AC76-1C5C5831CBE5
+                  customerId: Customer123
+                  creationDateTime: '2023-09-20T06:01:16.701Z'
+                  transactionInitiationDateTime: '2023-09-20T06:01:23.948Z'
+                  amount:
+                    currencyAmount: 1.0
+                  paymentDetails:
+                    cardType: Visa
+                    saveOnSuccess: true
+                    clientPaymentTokenUniqueReference: Token_6541
+                    description: Not Applicable
+                  transactionType: Refund
+                  status: Pending
+                - clientTransactionUniqueReference: RE9D4E32EB-027B-4117-92EA-4B9245DD8880
+                  clientParentTransactionUniqueReference: 9D4E32EB-027B-4117-92EA-4B9245DD8880
+                  customerId: Customer123
+                  creationDateTime: '2023-09-20T06:35:30.335Z'
+                  transactionInitiationDateTime: '2023-09-20T06:35:34.651Z'
+                  amount:
+                    currencyAmount: 2.0
+                  paymentDetails:
+                    cardType: Mastercard
+                    saveOnSuccess: true
+                    clientPaymentTokenUniqueReference: Token_1435
+                    description: Not Applicable
+                  transactionType: Refund
+                  status: Pending
+                - clientTransactionUniqueReference: RE526E4A51-3829-4DB6-A831-FA90D42418E8
+                  clientParentTransactionUniqueReference: 526E4A51-3829-4DB6-A831-FA90D42418E8
+                  customerId: Customer987
+                  creationDateTime: '2023-09-20T06:37:16.176Z'
+                  transactionInitiationDateTime: '2023-09-20T06:37:19.397Z'
+                  amount:
+                    currencyAmount: 2.0
+                  paymentDetails:
+                    cardType: Mastercard
+                    saveOnSuccess: true
+                    clientPaymentTokenUniqueReference: Token_8435
+                    description: Not Applicable
+                  transactionType: Refund
+                  status: Pending
+                - clientTransactionUniqueReference: RE6BA001B7-79D6-49EC-9748-8C61059685FC
+                  clientParentTransactionUniqueReference: 6BA001B7-79D6-49EC-9748-8C61059685FC
+                  customerId: Customer123
+                  creationDateTime: '2023-09-20T07:05:18.298Z'
+                  transactionInitiationDateTime: '2023-09-20T07:05:24.307Z'
+                  amount:
+                    currencyAmount: 20.0
+                  paymentDetails:
+                    cardType: Visa
+                    saveOnSuccess: true
+                    clientPaymentTokenUniqueReference: Token_3395
+                    description: Not Applicable
+                  transactionType: Refund
+                  status: Pending
+                traceId: f721dec7-445e-4e21-b953-713a1fc182a6
+        '400':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: 0d4518e0-8934-489c-b303-1f82323f2595
+                errors:
+                - errorCode: CCM_ACC_LIMIT_REACHED
+                  errorMessage: transaction amount 100.00 plus existing transactions 100.00 exceeds limit 50
+components:
+  schemas:
+    RiskDetailsDto:
+      type: object
+      properties:
+        preAuthorizationResult:
+          type: string
+          description: Possible fraud check outcomes.
+        postAuthorizationResult:
+          type: string
+          description: Possible fraud check outcomes.
+      additionalProperties: false
+    PaymentDetailsDto:
+      type: object
+      properties:
+        cardType:
+          type: string
+          description: Card Type. Must be one of Visa, Mastercard. Case insensitive.
+        description:
+          type: string
+          description: Payment description. This will be saved in Monoova's system but will not be passed to the issuer.
+          maxLength: 40
+        saveOnSuccess:
+          type: boolean
+          default: false
+          description: System will save the payment method on successful payment. Optional, defaults to false.
+        allowCredit:
+          type: boolean
+          default: true
+          description: If set to true, credit card will be allowed. If set to false only Debit cards and prepaid cards will be allowed. Optional, defaults to true.
+        clientPaymentTokenUniqueReference:
+          type: string
+          description: The unique id the client will use to refer to the persisted token for future payments. Mandatory if saveOnSuccess is true, otherwise prohibited. The value must be unique for this combination of client (mAccount) and customerId. Lowercase will be converted to uppercase.
+          maxLength: 40
+          pattern: ^[a-zA-Z0-9_-]{1,40}$
+        applySurcharge:
+          type: boolean
+          default: false
+          description: Add a calculated fee to the total amount for this transaction. Optional, defaults to false. Only allowed to be true if the surcharging is enabled in the account configuration.
+        capturePayment:
+          type:
+          - boolean
+          - 'null'
+          description: Set to false (with an appropriate amount) if payment only needs to be authorized. Set to true or ignore this property if payment needs to be authorized and captured.
+          default: true
+      additionalProperties: false
+    AuthenticationDetailsDto:
+      type: object
+      properties:
+        responseCode:
+          type: string
+          description: AUTH_SUCCESS <br/> AUTH_FAILED
+        challengeIssued:
+          type: boolean
+          description: End customer prompted for 3DS.
+      additionalProperties: false
+    CreditCardTransactionDetailsResponse:
+      type: object
+      required:
+      - clientTransactionUniqueReference
+      - paymentDetails
+      - amount
+      properties:
+        clientTransactionUniqueReference:
+          type: string
+          description: Id will be used to uniquely identify each payment request made by our customer.
+          maxLength: 40
+          pattern: ^[a-zA-Z0-9_-]{1,40}$
+        transactionId:
+          type: string
+          description: Monoova transaction Id. Only available after settlement.
+        customerId:
+          type: string
+          description: Client’s customer Id as provided by the client when the session was created.
+        creationDateTime:
+          type: string
+          format: date-time
+          description: For Payments, time the session for the Transaction was created and token allocated.<br>For Refunds, time the Refund request was accepted.
+        transactionInitiationDateTime:
+          type: string
+          format: date-time
+          description: Time the payment processor initiated the transaction as ISO 8601 dateTime with UTC timezone.
+        settlementDateTime:
+          type: string
+          format: date-time
+          description: Time of final settlement by Monoova of the transaction as ISO 8601 dateTime with UTC timezone.
+        settlementBatchId:
+          type: string
+          description: Batch Id of settlement file for the payment.
+        amount:
+          type: object
+          properties:
+            currencyAmount:
+              description: Payment amount
+              type: number
+              format: decimal
+              maximum: 20000000.0
+        surchargeAmount:
+          type: object
+          properties:
+            currencyAmount:
+              description: Surcharge amount applied for the payment.
+              type:
+              - number
+              - 'null'
+              format: decimal
+              maximum: 20000000.0
+        paymentDetails:
+          $ref: '#/components/schemas/PaymentDetailsDto'
+        transactionType:
+          type: string
+          description: Payment<br>Refund<br>Chargeback.
+        status:
+          type: string
+          description: Payment transaction status. Must be one of<br>Initiated<br>Pending<br>Failed<br>Authorized<br>Pending Settlement<br>Settlement In Progress<br>Declined<br>Settlement Complete<br>Refund In Progress<br>Partially Refunded<br>Fully Refunded<br>Cancelled.
+        statusReasonCode:
+          type: string
+          description: Reason code may be provided by the payment processor if payment is declined.
+        statusReasonDescription:
+          type: string
+          description: Reason description may be provided by the payment processor if payment is declined.
+        refundStatus:
+          type: string
+          description: Only defined for payments with a refund requested. May be one of <br/>Refund Initiated<br/>Refund Approved<br/>Refund In Progress<br/>Partially Refunded<br/>Fully Refunded<br/>Refund Declined
+        clientParentTransactionUniqueReference:
+          type: string
+          description: Present if the transaction is a refund. The clientTransactionUniqueReference of the parent Payment transaction that this transaction is refunding.
+        refundTransactions:
+          $ref: '#/components/schemas/RefundTransactionsDto'
+        authenticationDetails:
+          $ref: '#/components/schemas/AuthenticationDetailsDto'
+        riskDetails:
+          $ref: '#/components/schemas/RiskDetailsDto'
+        cardDetails:
+          type: object
+          properties:
+            expirationMonth:
+              type: string
+              description: Expiration month of the card.
+            expirationYear:
+              type: string
+              description: Expiration year of the card.
+            last4Digits:
+              type: string
+              description: Last 4 digits of the card number.
+            first6Digits:
+              type: string
+              description: First 6 digits of the card number.
+            cardholderName:
+              type: string
+              description: Cardholder's full name.
+            cardType:
+              type: string
+              description: Card type (e.g., VISA, MasterCard).
+            issuerCountryCode:
+              type: string
+              description: Issuer's country code.
+            issuerName:
+              type: string
+              description: Issuer's name (e.g., ANZ).
+      additionalProperties: false
+    RefundTransactionsDto:
+      properties:
+        clientTransactionUniqueReference:
+          type: string
+          description: as provided by the client when the refund was requested.
+          maxLength: 40
+          pattern: ^[a-zA-Z0-9_-]{1,40}$
+        transactionId:
+          type: string
+          description: Monoova transaction Id for the refund.  Only available after settlement.
+        amount:
+          type: object
+          description: amount of the refund as <major_units>.<minor_units>
+          properties:
+            currencyAmount:
+              description: payment amount
+              type: number
+              format: decimal
+              maximum: 20000000.0
+        transactionType:
+          type: string
+          description: Payment<br/>Refund <br/> Chargeback
+        status:
+          type: string
+          description: refund transaction status.  Must be one of <br/> <br/>Initiated<br/>Pending<br/>Failed<br/>Authorized<br/>Pending Settlement<br/>Settlement In Progress<br/>Declined<br/>Settlement Complete<br/></br>Cancelled
+        statusReasonCode:
+          type: string
+          description: reason code may be provided by the payment processor if refund is declined
+        statusReasonDescription:
+          type: string
+          description: reason code may be provided by the payment processor if refund is declined
+        transactionInitiationDateTime:
+          type: string
+          description: Time the payment processor initiated the refund as ISO 8601 dateTime with UTC timezone
+        settlementDateTime:
+          type: string
+          description: Time of final settlement by Monoova of the refund as ISO 8601 dateTime with UTC timezone
+        settlementBatchId:
+          type: string
+          description: Batch Id of settlement file for the payment
+      required:
+      - clientTransactionUniqueReference
+      additionalProperties: false
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    BasicAuth:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: ''
+  tags:
+  - Generate a Bearer Token
+  - Generate a Client Session
+  - Get Transaction By Id
+  - Get Transaction By Date Range
+  - Request Refund Transaction
+  - Get Async Request Status
+  - Create Payment Using Token
+  - Get Payment Method Token Details
+  - Update Payment Method Token Status
+  - Webhooks
+  - Monoova Error Codes

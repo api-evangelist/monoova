@@ -1,0 +1,604 @@
+openapi: 3.2.0
+info:
+  description: "# Introduction\n\n<p> \n  Monoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n  This service is made available to Monoova’s clients through a set of easy-to-use RESTful APIs with JSON payloads described in this document.\n  The central idea is to reduce the cost, risk and effort normally associated with managing complex money movements so that you can focus on growing your business.\n</p> \n<p> \n Our clients can receive and reconcile funds via Realtime transfers (NPP), direct credits/debits, BPAY and cards. \n They can then manage those funds by building virtual account/wallet hierarchies to get bespoke reporting, reconciliation and much more. \n And finally, our clients can pay funds via Realtime transfers (NPP) direct credits and BPAY. \n As new technologies become available (e.g. NPP Mandated payments) we will make additional methods of receiving, managing and paying available.\n</p> \n<p> \n  All information flows are real-time.\n  Moving money between various Monoova accounts is also real time.\n  All money flows in and out of the Engine are as fast as the banking system allows.\n</p>\n<p> \n  The sandbox environment is open to everyone who signs up on our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a> at no cost.\n  The sandbox environment allows you to test out the functionality of our API in a consequence free development environment.\n  Access to the live environment is granted once you have (1) gone through our compliance process and (2) had formal sign-off on your sandbox integration.\n</p>\n<p>\n  Monoova regularly releases additive changes to our API, as well as new versions of the API when a breaking change would occur. \n  To ensure your integration does not break due to these additive changes, we recommend not validating the entire schema, or the position of a parameter within the schema.\n</p>\n<br/><br/>\n<p> <strong> Note&#58;</strong> Please note we do not accept TLS 1.0 or 1.1 connections</p>\n\n# Getting started\n>\n  - Sign on to our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>\n  - Get your sandbox API key under **MANAGE > ACCOUNTS** in the Sandbox Portal\n  - [Authenticate](#section/Authentication)\n  - Browse this document to find the functions you need\n  - Begin experimenting with your first API calls by sending HTTP requests to the endpoints described in this document\n  - Use the provided examples in the document as guidance\n\n# Authentication\n  All RESTful APIs in this document use BASIC Authentication (except those in public/v1) in two scenarios either\n  - <strong> API KEY </strong>\n  - <strong> OneShotSecurityToken </strong><br><br>\n\n> **Sandbox Authentication Credentials**\n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.m-pay.com.au/</td>\n  </tr>\n</table> <br>\n\n> **Live Authentication Credentials**\nThis will be provided by Monoova after a technical review. <br> \n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the Production Portal; Production credentials will be supplied by Monoova) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.mpay.com.au/</td>\n  </tr>\n</table> <br>\n\nWhen using the LIVE Engine, your Sign-In Account is given five (5) attempts to authenticate your credentials. \nOn the fifth failure your Sign-In Account is locked for one (1) hour. \nThe returned data will indicate that your account is locked and the time in UTC that the account will be unlocked. \nIf you require the account to be unlocked on the LIVE system you may contact your Monoova representative and at his or her discretion they will unlock the account.\nSee the API routes in Security to manage Passwords and Tokens. <br><br>\n\n<h3> UserName/Password </h3>\nUsing this scenario, you can configure BASIC Authentication with the following <br> <br>\n<li> <strong> UserName </strong> - API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) Production credentials will be supplied by Monoova when you have demonstrated successful implementation of the API on our Sandbox environment.</li>\n<li> <strong> Password </strong> - When using your API Key, no password is required. \nIf the key is compromised, it can be re-rolled via the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>. </li> <br>\n\n# Feedback\n\nWe value your feedback on our API. Please fill out the form <a href=\"https://ncv.microsoft.com/8eaKX3fsiJ\" target=\"_blank\">here</a> to share your feedback.\n"
+  version: v5.29
+  title: Monoova Payments BPAY API
+  contact:
+    name: Monoova Support
+    email: support@monoova.com
+    url: https://www.monoova.com
+  x-logo:
+    url: https://movdpwebsiteprodae.blob.core.windows.net/images/Monoova-Primary-Logo-Black-RGB.png
+    altText: Monoova logo
+servers:
+- url: https://api.mpay.com.au
+  description: Production URL
+- url: https://api.m-pay.com.au
+  description: Sandbox URL
+security:
+- BasicAuth: []
+tags:
+- name: BPAY
+  description: <h3>  Overview </h3> The BPAY APIs do not perform any financial transactions and are used to validate BPAY information that is used in the <a href="/payments#operation/TransactionExecute"> /financial/v2/transaction/execute </a>  API. The <a href="/payments#operation/TransactionValidate"> /financial/v2/transaction/validate </a> APIs also validates BPAY information using the same sub-system as documented in this section before performing any financial transactions.<br> <p> <strong>  Important Notes </strong> </p> <li> By design, BPAY validation can be time sensitive. If you cache valid BPAY information for later use, it may become invalid due to time expiry.</li> <li> By design, BPAY validation can be amount sensitive. If you cache valid BPAY information for later use and change the amount to pay then this could be invalid.</li> <li> BPAY validation should be performed immediately before calling the <a href="/payments#operation/TransactionExecute"> /financial/v2/transaction/execute </a> API to perform the bill payment. You have the option of calling <a href="/payments#operation/TransactionValidate"> /financial/v2/transaction/validate </a> (The first validation error will be returned which may not be a BPAY error) </li>
+paths:
+  /bpay/v1/validate/{billerCode}:
+    get:
+      tags:
+      - BPAY
+      summary: Validate a BPAY transaction
+      description: This API validates the BPAY Biller Code and optionally the BPAY Customer Reference Number and Amount. For a complete BPAY validation the BPAY Biller Code, BPAY Customer Reference Number and Amount must be supplied. When fully validated a BPAY financial transaction should be made as soon as practicable as some BPAY combinations are date sensitive. BPAY validation uses the BPAY subsystem error codes. <br/> Sample URL:&nbsp; https://api.mpay.com.au/bpay/v1/validate/{billerCode}?custRef={CRN}&amount={amount}
+      operationId: BPAYValidate
+      parameters:
+      - name: billerCode
+        in: path
+        required: true
+        description: This is the BPAY biller code that was requested. billerCode must be numeric
+        schema:
+          type: string
+          example: '857763'
+          maxLength: 10
+      - name: custRef
+        in: query
+        required: false
+        description: BPAY Customer Reference Number. If this field is empty this denotes that the customerReferenceNumber is variable for each bill and should not be reused.
+        schema:
+          type: string
+          example: '6279059700000505'
+          maxLength: 20
+      - name: amount
+        in: query
+        required: false
+        description: Bill amount to be validated. <strong> Note if CustRef is not provided, amount will not validate as it is dependent on both the CRN and Biller. </strong> The maximum value of the field is $9999999999.99.
+        schema:
+          type: number
+          example: '100'
+          maxLength: 13
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.ValidateBPAYResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /bpay/v1/biller/{billerCode}:
+    get:
+      tags:
+      - BPAY
+      summary: Get BPAY biller code details
+      description: This API returns extended information for the BPAY biller. Status will be “UnknownBillerCode” if Biller Code is invalid.
+      operationId: BPAYGetBiller
+      parameters:
+      - name: billerCode
+        in: path
+        required: true
+        description: This is the BPAY biller code that was requested. billerCode must be numeric
+        schema:
+          type: string
+          example: '857763'
+          maxLength: 10
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.BPAYBillerResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /bpay/v1/receipts:
+    post:
+      tags:
+      - BPAY
+      summary: Get BPAY receipts
+      description: This API returns the list of BPAY receipts. <br/> <strong> Note&#58;</strong>  Filters - One of the below options should be provided by customer. <br/> 1) uniqueReferenceNumber <br/> 2) billerCode + referenceNumber + date
+      operationId: BPAYGetReceipts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/bpay.receipts'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.BPAYReceiptResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /bpay/v1/billers:
+    get:
+      tags:
+      - BPAY
+      summary: Search for BPAY billers
+      description: This API returns an array of BPAY billers matched to the case insensitive search string. The system matches on the billerLongName and billerShortName. Use skip and take to page through result set. Skip and take will be changed back to their defaults if they are over-range. Status will be “UnknownBillerCode” if there are no matches.
+      operationId: BPAYGetBillers
+      parameters:
+      - name: search
+        in: query
+        required: false
+        description: The search string
+        schema:
+          type: string
+          example: pty%20ltd
+      - name: skip
+        in: query
+        required: false
+        description: The actual number of records skipped.
+        schema:
+          type: number
+          example: '0'
+      - name: take
+        in: query
+        required: false
+        description: The number of records that were requested.
+        schema:
+          type: number
+          example: '50'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.BPAYBillersResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /bpay/v1/history/{accountNumber}:
+    get:
+      tags:
+      - BPAY
+      summary: Get a wallet's BPAY History
+      description: This API returns the mWallets history of BPAY payments. The returned history list is sorted by the count property of the BPAYHistoryItem descending.
+      operationId: BPAYGetHistory
+      parameters:
+      - name: accountNumber
+        in: path
+        required: true
+        description: associated 'mWallet' 16 digit number
+        schema:
+          type: integer
+          example: 6279059700022400
+          maxLength: 16
+          minLength: 16
+      - name: take
+        in: query
+        required: false
+        description: The number of records that were requested.
+        schema:
+          type: integer
+          example: '50'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.BPAYHistoryResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /bpay/v1/bpayInReport/{date}:
+    get:
+      tags:
+      - BPAY
+      summary: BPAY Receivables Report
+      description: Returns a report of all received  BPAY transactions for the day with associated details. If requested multiple times on the current date (calendar day, AEDT), the report is cumulative. E.g. if, on the same day, a report is requested at 10am and another one at 1pm, the report at 1pm will contain all the transactions already contained in the 10am report, in addition to any new transactions. <br/> <br/> The report is an application/octet-stream, columns are comma separated. Where a comma(,) or double quote(") is present in any of the below fields, the field will be encased in double quotes and/or escaped as per <a href="https://tools.ietf.org/html/rfc4180" target="_blank">RFC4180</a><br> Columns are as follows:&nbsp; <style type="text/css"> .tb { table-layout:auto; width:100px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis; !important} </style> <table class="tb"> <tr> <td class="td"> Transaction Id </td> <td class="td"> Batch Id </td> <td class="td"> BPAY Settlement Date </td> <td class="td"> Payment Accepted DateTime </td> <td class="td"> Payment Type </td> <td class="td"> Payer Institution Code </td> <td class="td"> Payer State </td> <td class="td"> Biller Code </td> <td class="td"> Customer Reference Number </td> <td class="td"> Payment Method </td> <td class="td"> Amount </td> <td class="td"> Transaction Reference Number </td> </tr> <tr> <td class="td"> <br/> <br/> Monoova generated Unique ID.<br/> Integer.<br/> <br/> <br/> <br/> </td> <td class="td"> Payment Batch ID. <br/> Payments come in batches <br/> throughout the day. <br/> Integer.<br/> </td> <td class="td"> AEDT, Sydney. <br/> Max 27 chars. </td> <td class="td"> AEDT, Sydney. <br/> Max 27 chars. </td> <td class="td"> Possible values:&nbsp; <br/> 'Payment', 'Error Correction', 'Reversal'. </td> <td class="td"> PayerInstitutionCode. <br/> Max 3 chars. </td> <td class="td"> PayerState <br/> Max 3 chars. </td> <td class="td"> BillerCode <br/> Max 10 chars. </td> <td class="td"> CustomerReferenceNumber  <br/> Max 20 chars. </td> <td class="td"> PaymentMethod <br/> Max 3 chars.   <br/> </td> <td class="td"> Amount, <br/> 2 decimal places <br/> for cents. Max 12 chars. </td> <td class="td"> TransactionReferenceNumber. <br/> Max 21 chars. </td> </tr> </table>
+      operationId: BPAYReceivablesReport
+      parameters:
+      - name: date
+        in: path
+        required: true
+        description: Format:&nbsp; 'yyyy-MM-dd'. The date for which Monoova received the BPAY Receivable transactions.
+        schema:
+          type: string
+          example: '2020-11-01'
+      - name: skip
+        in: query
+        required: false
+        description: Number of records to skip. 1 is the first record.
+        schema:
+          type: integer
+          example: 1
+      - name: take
+        in: query
+        required: false
+        description: Number of records to take.
+        schema:
+          type: integer
+          example: 100
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              examples:
+                response:
+                  value: 'Transaction Id,Batch Id,BPAY Settlement Date,Payment Accepted DateTime,Payment Type,Payer Institution Code,Payer State,Biller Code,Customer Reference Number,Payment Method,Amount,Transaction Reference Number,Receipt Number
+
+                    10557123,57,2020-11-02T00:00:00,2020-11-02T19:58:06,Payment,CBA,NSW,857763,100014080495384,DebitAccount,20000.00,CBA202011020140276714,5678120
+
+                    '
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+components:
+  schemas:
+    DTO.BPAYBillersResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        search:
+          description: Text string to search for
+          type: string
+          example: pty ltd
+          uniqueItems: false
+        totalCount:
+          description: The total number of BPAYBiller’s that match the search criteria
+          type: integer
+          format: int32
+          example: 4984
+          uniqueItems: false
+        skip:
+          description: The search string
+          type: integer
+          format: int32
+          example: 0
+          uniqueItems: false
+        take:
+          description: The number of records that were requested
+          type: integer
+          format: int32
+          example: 50
+          uniqueItems: false
+        billers:
+          type: array
+          items:
+            $ref: '#/components/schemas/DTO.BPAYBiller_V1'
+          uniqueItems: false
+      type: object
+    DTO.BPAYReceiptResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        receipts:
+          type: array
+          items:
+            $ref: '#/components/schemas/DTO.BPAYReceipt_V1'
+          uniqueItems: false
+      type: object
+    DTO.BPAYBiller_V1:
+      properties:
+        billerCode:
+          description: This is the BPAY biller code that was requested. billerCodemust be numeric
+          type: string
+          example: '857763'
+          uniqueItems: false
+        billerLongName:
+          description: A long description of the billername
+          type: string
+          example: Monoova FINANCE PTY LTD
+          uniqueItems: false
+        billerShortName:
+          description: A short decription of the billername
+          type: string
+          example: Monoova
+          uniqueItems: false
+        acceptedPaymentMethods:
+          description: Must be set to “1”. Field reserved for future expansion
+          type: string
+          example: '1'
+          uniqueItems: false
+        activationDate:
+          description: Date this biller was activated for BPAY. ISO 8601 date format with time set to 00:00:00. Note that Timezone is suppressed.The example Timezone is Sydney local time
+          type: string
+          example: '2013-05-29T00:00:00'
+          uniqueItems: false
+        deactivationDate:
+          description: Date this biller was deactivated for BPAY. ISO 8601 date format with time set to  00:00:00 or an empty string if not deactivated.Note that Timezone is suppressed.The example Timezone is Sydney local time
+          type: string
+          example: ''
+          uniqueItems: false
+        minPaymentAmount:
+          description: This is the minimum amount that the BPAY biller associated with the billerCodeaccepts for bill payment
+          type: number
+          format: decimal
+          example: 10
+          uniqueItems: false
+        maxPaymentAmount:
+          description: This is the maximum amount that the BPAY biller associated with the billerCodeaccepts for bill payment
+          type: number
+          format: decimal
+          example: 100000
+          uniqueItems: false
+        crnValidationRuleName:
+          description: For internal use only. Set to an empty string
+          type: string
+          example: ''
+          uniqueItems: false
+        checkDigitRuleName:
+          description: For internal use only. Set to an empty string
+          type: string
+          example: ''
+          uniqueItems: false
+        lengthMask:
+          description: A mask in which the position of each ‘Y’ character indicates each valid length that the reference number can take.At least one ‘Y’ character will be present
+          type: string
+          example: '               Y    '
+          uniqueItems: false
+        fixedDigits:
+          description: This describes which, if any, fixed digits that are standard in the BPAY Customer Reference Number
+          type: string
+          example: '627905              '
+          uniqueItems: false
+        isVariableCrn:
+          description: 'Indicates whether BPAY Customer Reference Numbers (CRN) for this billerchanges for each individual customer’s bill or do they remain the same.Non variable CRNs can be stored and used later, however they must always be validated as part of paying a bill via the gateway.Variable CRNs should not be stored as they are incorrect for subsequent bills. '
+          type: boolean
+          example: false
+          uniqueItems: false
+      type: object
+    DTO.BPayHistoryItem_V1:
+      properties:
+        billerCode:
+          description: BPAY Biller code
+          type: string
+          example: '23796'
+          uniqueItems: false
+        customerReferenceNumber:
+          description: BBPAY Customer Reference Number. If this field is empty this denotes that the customerReferenceNumber is variable for each bill and should not be reused
+          type: string
+          example: '2000046986210'
+          uniqueItems: false
+        billerName:
+          description: Long form of the BPAY Biller Name
+          type: string
+          example: TELSTRA CORPORATION LTD
+          uniqueItems: false
+        count:
+          description: The number of usages of these detailsthat the mWallet has succeeded in paying previously
+          type: integer
+          format: int32
+          example: '27'
+          uniqueItems: false
+      type: object
+    bpay.receipts:
+      type: object
+      oneOf:
+      - required:
+        - date
+        - billerCode
+        - referenceNumber
+      - required:
+        - uniqueReferenceNumber
+      properties:
+        uniqueReferenceNumber:
+          type: string
+          example: 77 106 249 852
+          description: This is a unique reference generated by the calling service. This is a nonce. Its use is to determine if a request has already been received by the Engine. We strongly recommend sending a uniqueReference in your execution call to avoid duplicate transactions.
+          maxLength: 200
+        date:
+          type: string
+          example: '2020-11-01'
+          description: The date for which Monoova received the BPAY Receivable transactions. "yyyy-MM-dd" format.
+        billerCode:
+          description: This is the BPAY biller code that was requested. billerCode must be numeric.
+          type: string
+          example: '857763'
+        referenceNumber:
+          type: integer
+          example: '6279059700010918'
+          description: Reference Number as shown on the Bill. Must be a valid BPAY Customer Reference Number on token creation.
+    DTO.BPAYBillerResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        biller:
+          $ref: '#/components/schemas/DTO.BPAYBiller_V1'
+      type: object
+    DTO.BPAYValidation_V1:
+      properties:
+        billerCode:
+          description: This is the BPAY biller code that was used to validate. billerCode must be numeric
+          type: string
+          example: '857763'
+          uniqueItems: false
+        customerReferenceNumber:
+          description: This is the BPAY customer reference number that was used to validate. customerReferenceNumber must be numeric
+          type: string
+          example: '6279059700000505'
+          uniqueItems: false
+        amount:
+          description: This is the amount that was used to validate. The maximum value of the field is $9999999999.99 however BPAY Billers will generally restrict the maximum value accepted for bill payment
+          type: string
+          example: '100'
+          uniqueItems: false
+        billerName:
+          description: This is the BPAY biller long name associated with the billerCode
+          type: string
+          example: Monoova FINANCE PTY LTD
+          uniqueItems: false
+        isVariableCrn:
+          description: Indicates whether BPAY Customer Reference Numbers(CRN) for this biller change for each individual customer’s bill or do they remain the same.Non variable CRNs can be stored and used later, however they must always be validated as part of paying a bill via the gateway.Variable CRNs should not be stored as they are incorrect for subsequent bills.
+          type: boolean
+          example: false
+          uniqueItems: false
+        minimumPaymentAmount:
+          description: This is the minimum amount that the BPAY biller associated with the billerCode accepts for bill payment
+          type: number
+          format: decimal
+          example: 10
+          uniqueItems: false
+        maximumPaymentAmount:
+          description: This is the maximum amount that the BPAY biller associated with the billerCode accepts for bill payment
+          type: number
+          format: decimal
+          example: 100000
+          uniqueItems: false
+      type: object
+    DTO.ValidateBPAYResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        validation:
+          $ref: '#/components/schemas/DTO.BPAYValidation_V1'
+      type: object
+      format: DTO.ValidateBPAYResponse_V1
+    DTO.BPAYHistoryResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        history:
+          type: array
+          items:
+            $ref: '#/components/schemas/DTO.BPayHistoryItem_V1'
+          uniqueItems: false
+      type: object
+    DTO.BPAYReceipt_V1:
+      properties:
+        billerCode:
+          description: This is the BPAY biller code that was requested. billerCodemust be numeric
+          type: string
+          example: '123451'
+          uniqueItems: false
+        billerName:
+          description: This is the BPAY biller long name associated with the billerCode
+          type: string
+          example: PTY LTD
+          uniqueItems: false
+        receiptNumber:
+          description: BBPAY receipt Number.
+          type: string
+          example: '12334123'
+          uniqueItems: false
+        referenceNumber:
+          description: BBPAY Customer Reference Number. If this field is empty this denotes that the customerReferenceNumber is variable for each bill and should not be reused
+          type: string
+          example: '1223451324343434'
+          uniqueItems: false
+        status:
+          description: Status of BPAY receipts
+          type: string
+          example: Paid
+          uniqueItems: false
+        transactionDateTime:
+          description: 'The date time that the transaction was executed on the Platform Servers. Format is ISO8601 - 2015 -09 - 01T19: 19:58'
+          type: string
+          example: '2022-05-09T13:11:38'
+          uniqueItems: false
+        voidDateTime:
+          description: The date time that the transaction was void on the Platform Servers
+          type: string
+          example: ''
+          uniqueItems: false
+      type: object
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Receive and Pay
+  tags:
+  - Financial
+  - Verify
+  - Automatcher (Bank Account Receivables)
+  - Whitelisting for Automatcher (Bank Account Receivables)
+  - Ledger Account
+  - Reconciliation Rules
+  - PayID
+  - Tools
+- name: BPAY
+  tags:
+  - BPAY
+  - mWallet
+- name: Manage
+  tags:
+  - Subscriptions
+  - Webhooks
+  - mAccount
+  - Reports
+  - Security
+  - Token
+- name: Public Endpoints
+  tags:
+  - Public Endpoints

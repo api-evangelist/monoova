@@ -1,0 +1,721 @@
+openapi: 3.2.0
+info:
+  description: "# Introduction\n\n<p> \n  Monoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n  This service is made available to Monoova’s clients through a set of easy-to-use RESTful APIs with JSON payloads described in this document.\n  The central idea is to reduce the cost, risk and effort normally associated with managing complex money movements so that you can focus on growing your business.\n</p> \n<p> \n Our clients can receive and reconcile funds via Realtime transfers (NPP), direct credits/debits, BPAY and cards. \n They can then manage those funds by building virtual account/wallet hierarchies to get bespoke reporting, reconciliation and much more. \n And finally, our clients can pay funds via Realtime transfers (NPP) direct credits and BPAY. \n As new technologies become available (e.g. NPP Mandated payments) we will make additional methods of receiving, managing and paying available.\n</p> \n<p> \n  All information flows are real-time.\n  Moving money between various Monoova accounts is also real time.\n  All money flows in and out of the Engine are as fast as the banking system allows.\n</p>\n<p> \n  The sandbox environment is open to everyone who signs up on our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a> at no cost.\n  The sandbox environment allows you to test out the functionality of our API in a consequence free development environment.\n  Access to the live environment is granted once you have (1) gone through our compliance process and (2) had formal sign-off on your sandbox integration.\n</p>\n<p>\n  Monoova regularly releases additive changes to our API, as well as new versions of the API when a breaking change would occur. \n  To ensure your integration does not break due to these additive changes, we recommend not validating the entire schema, or the position of a parameter within the schema.\n</p>\n<br/><br/>\n<p> <strong> Note&#58;</strong> Please note we do not accept TLS 1.0 or 1.1 connections</p>\n\n# Getting started\n>\n  - Sign on to our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>\n  - Get your sandbox API key under **MANAGE > ACCOUNTS** in the Sandbox Portal\n  - [Authenticate](#section/Authentication)\n  - Browse this document to find the functions you need\n  - Begin experimenting with your first API calls by sending HTTP requests to the endpoints described in this document\n  - Use the provided examples in the document as guidance\n\n# Authentication\n  All RESTful APIs in this document use BASIC Authentication (except those in public/v1) in two scenarios either\n  - <strong> API KEY </strong>\n  - <strong> OneShotSecurityToken </strong><br><br>\n\n> **Sandbox Authentication Credentials**\n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.m-pay.com.au/</td>\n  </tr>\n</table> <br>\n\n> **Live Authentication Credentials**\nThis will be provided by Monoova after a technical review. <br> \n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the Production Portal; Production credentials will be supplied by Monoova) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.mpay.com.au/</td>\n  </tr>\n</table> <br>\n\nWhen using the LIVE Engine, your Sign-In Account is given five (5) attempts to authenticate your credentials. \nOn the fifth failure your Sign-In Account is locked for one (1) hour. \nThe returned data will indicate that your account is locked and the time in UTC that the account will be unlocked. \nIf you require the account to be unlocked on the LIVE system you may contact your Monoova representative and at his or her discretion they will unlock the account.\nSee the API routes in Security to manage Passwords and Tokens. <br><br>\n\n<h3> UserName/Password </h3>\nUsing this scenario, you can configure BASIC Authentication with the following <br> <br>\n<li> <strong> UserName </strong> - API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) Production credentials will be supplied by Monoova when you have demonstrated successful implementation of the API on our Sandbox environment.</li>\n<li> <strong> Password </strong> - When using your API Key, no password is required. \nIf the key is compromised, it can be re-rolled via the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>. </li> <br>\n\n# Feedback\n\nWe value your feedback on our API. Please fill out the form <a href=\"https://ncv.microsoft.com/8eaKX3fsiJ\" target=\"_blank\">here</a> to share your feedback.\n"
+  version: v5.29
+  title: Monoova Payments Ledger Account API
+  contact:
+    name: Monoova Support
+    email: support@monoova.com
+    url: https://www.monoova.com
+  x-logo:
+    url: https://movdpwebsiteprodae.blob.core.windows.net/images/Monoova-Primary-Logo-Black-RGB.png
+    altText: Monoova logo
+servers:
+- url: https://api.mpay.com.au
+  description: Production URL
+- url: https://api.m-pay.com.au
+  description: Sandbox URL
+security:
+- BasicAuth: []
+tags:
+- name: Ledger Account
+  description: Monoova allows virtual ledgers to be created and linked to an Automatcher account number and optional PayID that can be used to track funds received and paid. Moving funds in and out of ledgers is accomplished by utilising the Monoova PayTo and financial APIs. In the financial/execute call, populate “ledgerAccountNumber” in the mwallet fields, either in the disbursement object to transfer funds, or in the source object to withdraw.
+paths:
+  /ledger/v1/create:
+    post:
+      tags:
+      - Ledger Account
+      summary: Create a new ledger account
+      description: 'Create a new, active ledger with a linked automatcher. This endpoint also allows you to link an existing automatcher to the ledger by passing an existing bankAccountNumber. Optionally, you can also specify a BSB. If no existing automatcher is linked, a new one will be created.</br></br> If you wish to link a PayID to the automatcher you will need to use the PayID endpoints.</br></br> The API response will vary based on whether a new automatcher is being created, or an existing automatcher is being linked to the ledger account. Automatcher activation is an asynchronous process that can take a few minutes to complete. If a new or inactive automatcher is linked, the API will respond with isActive: false, and the statusDescription: "Account is being setup for Npp. Please allow a few minutes for the account to become active".
+
+        '
+      operationId: LedgerCreate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LedgerCreate'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.LedgerCreateResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /ledger/v1/close:
+    post:
+      tags:
+      - Ledger Account
+      summary: Close a ledger account
+      description: 'Close a ledger when it’s no longer required. For this endpoint to be used the ledger account balance must be $0, otherwise an error will be returned.
+
+        '
+      operationId: LedgerClose
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LedgerClose'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.LedgerCloseResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /ledger/v1/balance/{ledgerAccountNumber}:
+    get:
+      tags:
+      - Ledger Account
+      summary: Retrieve the current balance of a ledger
+      description: 'Query the current balance of a single ledger. This endpoint also returns a lightweight set of fields related to the ledger account, such as the status and creation date.
+
+        '
+      operationId: LedgerBalance
+      parameters:
+      - name: ledgerAccountNumber
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.LedgerBalanceResponse_V1'
+        '400':
+          description: Bad request
+        '404':
+          description: Ledger not found
+  /ledger/v1/transactions:
+    post:
+      tags:
+      - Ledger Account
+      summary: Retrieve transactions for a ledger
+      description: 'Return the transactions for a ledger account between two dates. This endpoint returns an array of transaction line items along with a running balance.</br></br> The query can be customised to order, skip and fetch as many records as required. Paging is controlled using the skip and take attributes. By default, the query will return the last months records in descending order.
+
+        '
+      operationId: LedgerTransactions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LedgerTransactionsRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.LedgerTransactionsResponse_V1'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /ledger/v1/financials:
+    post:
+      tags:
+      - Ledger Account
+      summary: Retrieve financial details of a ledger
+      description: 'This endpoint returns the automatcher details and financials for a ledger. The financials include the available balance, allowed spend & and allowed load, and the maximum balance that can be held within the ledger account.
+
+        '
+      operationId: LedgerFinancials
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LedgerFinancialsRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.LedgerFinancialsResponse_V1'
+        '400':
+          description: Bad request
+        '404':
+          description: Ledger not found
+        '500':
+          description: Internal Server Error
+  /ledger/v1/allAccounts:
+    get:
+      tags:
+      - Ledger Account
+      summary: Retrieve all ledger accounts
+      description: 'Returns a list of all ledgers attached to the requestors mAccount, with options to include closed accounts in the query. If no ledger accounts exist, an empty array will be returned.
+
+        '
+      operationId: LedgerAllAccounts
+      parameters:
+      - name: includeClosed
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTO.AllLedgersResponse_V1'
+        '400':
+          description: Bad request
+        '404':
+          description: No ledgers found
+components:
+  schemas:
+    DTO.LedgerCloseResponse_V1:
+      type: object
+      properties:
+        durationMs:
+          type: integer
+          description: Duration of the API call in milliseconds.
+          example: 41
+        status:
+          type: string
+          description: Status of the operation, e.g., "Ok".
+          example: Ok
+        statusDescription:
+          type: string
+          description: Detailed description of the status.
+          example: Account is being deactivated for Npp. Please allow a few minutes for the account to become inactive.
+    LedgerAccountFinancialDetails:
+      type: object
+      properties:
+        automatcherDetails:
+          type: object
+          properties:
+            bankAccountName:
+              type: string
+              description: The name of the bank account linked to the automatcher.
+              example: Test 99
+            bankAccountNumber:
+              type: string
+              description: The bank account number of the linked automatcher.
+              example: '619895606'
+            bsb:
+              type: string
+              description: BSB number of the automatcher.
+              example: 802-985
+            clientUniqueId:
+              type: string
+              description: Unique identifier for the client’s automatcher.
+              example: 47D8D1040AF24904BE58FE2AF6D11538
+            isActive:
+              type: boolean
+              description: Indicates whether the automatcher is currently active.
+              example: false
+        ledgerAccountNumber:
+          type: string
+          description: The unique account number of the ledger.
+          example: '6279059760654878'
+        ledgerDetails:
+          type: object
+          properties:
+            ABN:
+              type: string
+              description: The Australian Business Number associated with the ledger.
+              example: '33638924339'
+            closedDateTime:
+              type: string
+              format: date-time
+              description: The datetime when the ledger was closed, if applicable.
+              example: ''
+            createdDateTime:
+              type: string
+              format: date-time
+              description: The datetime when the ledger was created.
+              example: '2024-04-11T11:33:27'
+            description:
+              type: string
+              description: Description of the ledger, potentially containing JSON encoded data.
+              example: '{"expiryDate": "1-April-2024"}'
+            financials:
+              type: object
+              properties:
+                actualBalance:
+                  type: number
+                  description: The current actual balance of the ledger.
+                  example: 99.0
+                availableLoad:
+                  type: number
+                  description: The maximum amount that can be loaded into the ledger.
+                  example: 49901.0
+                availableSpend:
+                  type: number
+                  description: The amount available for spending from the ledger.
+                  example: 49901.0
+                maximumBalance:
+                  type: number
+                  description: The maximum balance that can be held within the ledger.
+                  example: 50000
+            isClosed:
+              type: boolean
+              description: Indicates whether the ledger is currently closed.
+              example: false
+            lastTransactionDate:
+              type: string
+              format: date-time
+              description: Date and time of the last transaction recorded.
+              example: '2024-04-11T11:44:19'
+            ledgerAccountNumber:
+              type: string
+              description: Number of the ledger.
+              example: '6279059760654878'
+            ledgerUniqueReference:
+              type: string
+              description: Unique reference ID of the ledger.
+              example: Ledger Reference - 47d8d104-0af2-4904-be58-fe2af6d11538
+            name:
+              type: string
+              description: Name of the ledger account.
+              example: Test Ledger Account-99
+    LedgerFinancialsRequest:
+      type: object
+      properties:
+        ledgerAccountNumber:
+          type: string
+          description: Ledger account number to retrieve financials for.
+          example: '6279059760654878'
+          minLength: 10
+          maxLength: 18
+        includeClosed:
+          type: boolean
+          description: Include financial details of closed accounts.
+          default: false
+          example: false
+      required:
+      - ledgerAccountNumber
+    LedgerClose:
+      type: object
+      properties:
+        ledgerAccountNumber:
+          type: string
+          description: The unique account number of the ledger to be closed.
+          example: '6279059723920473'
+        forcedClose:
+          type: boolean
+          description: Setting this to true will close the attached automatcher and PayID. By default, this will be false.
+          example: false
+    DTO.LedgerFinancialsResponse_V1:
+      type: object
+      properties:
+        status:
+          type: string
+          description: API response status.
+          example: Ok
+        statusDescription:
+          type: string
+          description: Detailed description of the response status.
+          example: Operation completed successfully
+        durationMs:
+          type: integer
+          description: Response time in milliseconds.
+          example: 91
+        ledgerAccountFinancials:
+          type: array
+          items:
+            $ref: '#/components/schemas/LedgerAccountFinancialDetails'
+    DTO.AllLedgersResponse_V1:
+      type: object
+      properties:
+        durationMs:
+          type: integer
+          description: Duration of the API call in milliseconds.
+          example: 29
+        status:
+          type: string
+          description: Status of the operation, e.g., "Ok".
+          example: Ok
+        statusDescription:
+          type: string
+          description: Detailed description of the operation's outcome.
+          example: Operation completed successfully
+        ledgerAccounts:
+          type: array
+          description: List of all ledger accounts, including closed ones if requested.
+          items:
+            type: object
+            properties:
+              ledgerAccountNumber:
+                type: string
+                description: Unique identifier of the ledger account.
+                example: '5897854269'
+              ledgerUniqueReference:
+                type: string
+                description: Unique reference associated with the ledger.
+                example: Ledger ref – 884a6207-7890-77rd-990u-484646823gc
+              name:
+                type: string
+                description: Name of the ledger.
+                example: Customer 0012
+              createdDateTime:
+                type: string
+                format: date-time
+                description: The datetime when the ledger was created.
+                example: 2024-02-08T15:02:50:43
+              closedDateTime:
+                type: string
+                format: date-time
+                description: The datetime when the ledger was closed, if applicable.
+                example: ''
+              isClosed:
+                type: boolean
+                description: Indicates whether the ledger is currently closed.
+                example: false
+              description:
+                type: string
+                description: Description of the ledger, possibly containing JSON encoded data.
+                example: '{"expiryDate": "1-Feb-2024"}'
+    DTO.LedgerBalanceResponse_V1:
+      type: object
+      properties:
+        durationMs:
+          type: integer
+          description: Duration of the API call in milliseconds.
+          example: 1033
+        status:
+          type: string
+          description: Status of the operation, e.g., "Ok".
+          example: Ok
+        statusDescription:
+          type: string
+          description: Detailed description of the operation's outcome.
+          example: Operation completed successfully
+        balance:
+          type: number
+          description: The current balance of the ledger.
+          example: 3450.0
+        ledgerAccountNumber:
+          type: string
+          description: The unique identifier for the ledger account.
+          example: '1234567890'
+        ledgerUniqueReference:
+          type: string
+          description: The unique reference for the ledger.
+          example: Ledger ref – 185a6207-3608-43ac-970a-40b0074547ea
+        automatcherBankAccountNumber:
+          type: string
+          description: The bank account number of the linked automatcher.
+          example: '376077626'
+        name:
+          type: string
+          description: Name of the ledger.
+          example: Customer 0011
+        createdDateTime:
+          type: string
+          description: The datetime when the ledger was created.
+          example: 2024-02-08T15:02:50:43
+        closedDateTime:
+          type: string
+          description: The datetime when the ledger was closed, if applicable.
+          example: 2024-02-11T10:12:25:1
+        description:
+          type: string
+          description: Description of the ledger, possibly containing JSON encoded data.
+          example: '{"expiryDate": "1-Feb-2024"}'
+        isClosed:
+          type: boolean
+          description: Indicates whether the ledger is currently closed.
+          example: true
+    DTO.LedgerCreateResponse_V1:
+      type: object
+      properties:
+        durationMs:
+          type: integer
+          description: Duration of the API call in milliseconds.
+          example: 211
+        status:
+          type: string
+          description: Operation status, e.g., "Ok".
+          example: Ok
+        statusDescription:
+          type: string
+          description: Description of the status.
+          example: Account is being setup for Npp. Please allow a few minutes for the account to become active.
+        automatcherDetails:
+          type: object
+          properties:
+            bankAccountName:
+              type: string
+              example: Test 99
+            bankAccountNumber:
+              type: string
+              example: '718817568'
+            bsb:
+              type: string
+              example: 802-985
+            clientUniqueId:
+              type: string
+              example: 694EF498924D4788AD7C7221DDAB3915
+            isActive:
+              type: boolean
+              description: Whether the automatcher is active.
+              example: false
+        ledgerAccountNumber:
+          type: string
+          description: Number of the newly created ledger account.
+          example: '6279059723920473'
+        ledgerDetails:
+          type: object
+          properties:
+            ABN:
+              type: string
+              example: '33638924339'
+            closedDateTime:
+              type: string
+              example: ''
+            createdDateTime:
+              type: string
+              example: '2024-04-19T10:12:00'
+            description:
+              type: string
+              example: '{"expiryDate": "1-April-2024"}'
+            financials:
+              type: object
+              properties:
+                actualBalance:
+                  type: number
+                  example: 0.0
+                availableLoad:
+                  type: number
+                  example: 50000.0
+                availableSpend:
+                  type: number
+                  example: 50000.0
+                maximumBalance:
+                  type: number
+                  example: 50000
+            isClosed:
+              type: boolean
+              example: false
+            lastTransactionDate:
+              type: string
+              example: ''
+            ledgerAccountNumber:
+              type: string
+              example: '6279059723920473'
+            ledgerUniqueReference:
+              type: string
+              example: Ledger Reference - 694ef498-924d-4788-ad7c-7221ddab3915
+            name:
+              type: string
+              example: Test Ledger Account-99
+    LedgerCreate:
+      type: object
+      properties:
+        ledgerUniqueReference:
+          type: string
+          description: Your unique identifier for the ledger account.
+          example: unique_ref_12345
+        abn:
+          type: string
+          description: The ABN of the payee.
+          example: '12345678901'
+        name:
+          type: string
+          description: Your alias for the ledger account.
+          example: My Ledger Account
+        description:
+          type: string
+          description: An optional free text field describing the ledger account.
+          example: This is a sample ledger account.
+        automatcherDetails:
+          type: object
+          required:
+          - bankAccountNumber
+          - bankAccountName
+          - clientUniqueId
+          properties:
+            bsb:
+              type: string
+              description: BSB number for the bank account.
+              example: 012-345
+            bankAccountNumber:
+              type: string
+              description: Bank account number to link with the automatcher.
+              example: '123456789'
+            bankAccountName:
+              type: string
+              description: Name of the bank account.
+              example: Business Account
+            clientUniqueId:
+              type: string
+              description: Unique identifier for the client's automatcher.
+              example: client_id_67890
+    LedgerTransactionsRequest:
+      type: object
+      required:
+      - startDate
+      - endDate
+      properties:
+        ledgerAccountNumber:
+          type: string
+          description: Leave this field blank to retrieve all ledger accounts with transactions between the specified start and end dates.
+          example: '1234567890'
+        startDate:
+          type: string
+          format: date-time
+          description: Start date for the transaction query. Defaults to one month earlier than the current date.
+          example: '2024-04-01T00:00:00'
+        endDate:
+          type: string
+          format: date-time
+          description: End date for the transaction query. Defaults to today's date.
+          example: '2024-04-12T17:00:00'
+        skip:
+          type: number
+          description: Number of records to skip. 0 is the first record.
+          example: 0
+        take:
+          type: number
+          description: Number of records to take. If take is 0 then all records will be returned.
+          example: 10
+        descending:
+          type: boolean
+          description: Sort the returned transaction list in descending order. Defaults to true.
+          example: true
+        useTime:
+          type: boolean
+          description: Whether to use the time component of startDate and endDate in the selection.
+          example: false
+    DTO.LedgerTransactionsResponse_V1:
+      type: object
+      properties:
+        durationMs:
+          type: integer
+          description: Duration of the API call in milliseconds.
+          example: 40
+        status:
+          type: string
+          description: Status of the operation, e.g., "Ok".
+          example: Ok
+        statusDescription:
+          type: string
+          description: Detailed description of the operation's outcome.
+          example: Operation completed successfully
+        ledgerAccounts:
+          type: array
+          description: List of ledger accounts with transaction details.
+          items:
+            type: object
+            properties:
+              ledgerAccountNumber:
+                type: string
+                description: Unique identifier of the ledger account.
+                example: '1234567890'
+              ledgerUniqueReference:
+                type: string
+                description: Unique reference associated with the ledger.
+                example: Ledger ref – 185a6207-3608-43ac-970a-40b0074547ea
+              name:
+                type: string
+                description: Name of the ledger.
+                example: Customer 011
+              description:
+                type: string
+                description: Description of the ledger, possibly containing JSON encoded data.
+                example: '{"expiryDate": "1-Feb-2024"}'
+              createdDateTime:
+                type: string
+                format: date-time
+                description: The datetime when the ledger was created.
+                example: 2024-02-08T15:02:50:43
+              closedDateTime:
+                type: string
+                format: date-time
+                description: The datetime when the ledger was closed, if applicable.
+                example: ''
+              isClosed:
+                type: boolean
+                description: Indicates whether the ledger is currently closed.
+                example: false
+              transactionLineItems:
+                type: array
+                description: Array of transaction details for the ledger.
+                items:
+                  type: object
+                  properties:
+                    rowOrder:
+                      type: integer
+                      example: 0
+                    mPaymentsId:
+                      type: string
+                      example: '1068471'
+                    transactionId:
+                      type: string
+                      example: '7221066'
+                    dateTime:
+                      type: string
+                      format: date-time
+                      example: '2024-04-12T16:01:32'
+                    mAccountName:
+                      type: string
+                      example: Merchant 0123
+                    transactionType:
+                      type: string
+                      example: LoadFunds
+                    subTransactionType:
+                      type: string
+                      example: GatewayMWalletCredit
+                    credit:
+                      type: number
+                      example: 340.0
+                    debit:
+                      type: number
+                      example: 0
+                    runningBalance:
+                      type: number
+                      example: 340.0
+                    description:
+                      type: string
+                      description: Description of the transaction.
+                      example: ledger transfer
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Receive and Pay
+  tags:
+  - Financial
+  - Verify
+  - Automatcher (Bank Account Receivables)
+  - Whitelisting for Automatcher (Bank Account Receivables)
+  - Ledger Account
+  - Reconciliation Rules
+  - PayID
+  - Tools
+- name: BPAY
+  tags:
+  - BPAY
+  - mWallet
+- name: Manage
+  tags:
+  - Subscriptions
+  - Webhooks
+  - mAccount
+  - Reports
+  - Security
+  - Token
+- name: Public Endpoints
+  tags:
+  - Public Endpoints

@@ -1,0 +1,991 @@
+openapi: 3.2.0
+info:
+  title: Monoova Notification Management API
+  version: v1
+  contact:
+    name: Monoova Support
+    email: support@monoova.com
+    url: https://www.monoova.com
+  x-logo:
+    url: https://movdpwebsiteprodae.blob.core.windows.net/images/Monoova-Primary-Logo-Black-RGB.png
+    altText: Monoova logo
+  description: 'Operations tagged Notification Management across 2 of this provider''s published API definitions: monoova-cc.yml, monoova-payto.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.monoova.com
+  description: Production URL#
+- url: https://sand-api.monoova.com
+  description: Sandbox URL
+security:
+- BearerAuth: []
+tags:
+- name: Notification Management
+paths:
+  /au/core/notification-v1/Subscription:
+    post:
+      tags:
+      - Notification Management
+      summary: Create a subscription
+      operationId: post-subscription
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionDetailUpdateRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionUpdateResponse'
+              example:
+                traceId: null
+                subscriptionId: 76852ceb-f3d2-40e6-b1e3-f97e20ce0c1b
+        '400':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '403':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '404':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '500':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '502':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '504':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+    get:
+      tags:
+      - Notification Management
+      summary: Get All Subscriptions
+      description: Retrieves details of all subscriptions.
+      operationId: getAllSubscriptions
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionListResponse_2'
+        '400':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '403':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '404':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '500':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '502':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '504':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+    servers:
+    - url: https://api.monoova.com
+      description: Production URL#
+    - url: https://sand-api.monoova.com
+      description: Sandbox URL
+  /au/core/notification-v1/Subscription/{subscriptionId}:
+    get:
+      tags:
+      - Notification Management
+      summary: GET Subscription
+      description: Gets the subscription by Id
+      operationId: get-subscription
+      parameters:
+      - name: subscriptionId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Monoova generated Guid to uniquely identify the subscription. </br> This is required when updating a subscription, if not provided then we assume we are trying to create a new subscription.</br>Is a valid Guid when not blank.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionListResponse'
+              example:
+                traceId: null
+                subscriptionDetails:
+                - subscriptionName: CardTest
+                  subscriptionId: 734d8a9d-7ac6-44a7-9e88-867fb59f54e9
+                  eventName: PaymentAgreementNotification
+                  webHookDetail:
+                    callBackUrl: http://demo7446995.mockable.io/pagnotification
+                  isActive: true
+        '400':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '403':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '404':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '500':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '502':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '504':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+    delete:
+      tags:
+      - Notification Management
+      summary: DELETE a subscription
+      operationId: delete-subscription-id
+      parameters:
+      - name: subscriptionId
+        in: path
+        required: true
+        schema:
+          type: string
+          description: Monoova generated Guid to uniquely identify the subscription. </br> This is required when updating a subscription, if not provided then we assume we are trying to create a new subscription.</br>Is a valid Guid when not blank.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionDeleteResponse'
+              example:
+                traceId: null
+        '400':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '403':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '404':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '500':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '502':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '504':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+    put:
+      tags:
+      - Notification Management
+      summary: Update a subscription
+      operationId: put-subscription
+      parameters:
+      - name: subscriptionId
+        in: path
+        required: true
+        schema:
+          type: string
+          description: Monoova generated Guid to uniquely identify the subscription. </br> This is required when updating a subscription, if not provided then we assume we are trying to create a new subscription.</br>Is a valid Guid when not blank.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionDetailUpdateRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionUpdateResponse'
+              example:
+                traceId: null
+                subscriptionId: 76852ceb-f3d2-40e6-b1e3-f97e20ce0c1b
+        '400':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '403':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '404':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '500':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '502':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '504':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+    servers:
+    - url: https://api.monoova.com
+      description: Production URL#
+    - url: https://sand-api.monoova.com
+      description: Sandbox URL
+  /au/core/notification-v1/Notification:
+    get:
+      tags:
+      - Notification Management
+      summary: GET Webhooks
+      operationId: get-webhookschedule
+      parameters:
+      - name: start
+        in: query
+        description: Format - date-time (as date-time in RFC3339).
+        schema:
+          type: string
+          format: date-time
+      - name: pageSize
+        in: query
+        description: Format - int32.
+        schema:
+          type: integer
+          format: int32
+      - name: pageNumber
+        in: query
+        description: Format - int32.
+        schema:
+          type: integer
+          format: int32
+      - name: end
+        in: query
+        description: Format - date-time (as date-time in RFC3339).
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebHookListResponse'
+              example:
+                traceId: d5e0b5ee-2aff-4ac7-a638-893b664183a3
+                notifications:
+                - eventId: 2a37987a-0486-4c6f-9267-9ff44eb168c6
+                  sourceEventName: PaymentAgreement_Updated
+                  url: https://f89be4be-781a-47cd-8048-8ba3f5438d56.mock.pstmn.io/PaymentAgreementNotificaion
+                  eventTimestamp: 2022-08-29 03:11:01.471000+00:00
+                  executionCompleteDateTimeUtc: 2022-08-29 03:11:03.365000+00:00
+                  status: Success
+                  statusDescription: Hello
+                  lastResponseCode: 200
+                  retryCount: 0
+        '400':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '403':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '404':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '500':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '502':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '504':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+    servers:
+    - url: https://api.monoova.com
+      description: Production URL#
+    - url: https://sand-api.monoova.com
+      description: Sandbox URL
+  /au/core/notification-v1/Notification/resend/{eventId}:
+    post:
+      tags:
+      - Notification Management
+      summary: Request a resend
+      operationId: post-webhookschedule-resend-eventid
+      parameters:
+      - name: eventId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebHookResendResponse'
+              example:
+                traceId: null
+        '400':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '403':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '404':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '500':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '502':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+        '504':
+          description: Error
+          content:
+            application/json:
+              example:
+                traceId: f1a7fbd7-ca39-4b98-b247-f4e0e004f152
+                errors:
+                - errorCode: string
+                  errorMessage: string
+    servers:
+    - url: https://api.monoova.com
+      description: Production URL#
+    - url: https://sand-api.monoova.com
+      description: Sandbox URL
+components:
+  schemas:
+    WebHookResponse:
+      type: object
+      properties:
+        eventId:
+          type:
+          - string
+          - 'null'
+        sourceEventName:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+        eventTimestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        executionCompleteDateTimeUtc:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        payload:
+          type:
+          - string
+          - 'null'
+        method:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - string
+          - 'null'
+        statusDescription:
+          type:
+          - string
+          - 'null'
+        lastResponseCode:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        retryCount:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        clientRequestedResend:
+          type: boolean
+      additionalProperties: false
+    SubscriptionUpdateResponse:
+      type: object
+      properties:
+        traceId:
+          type:
+          - string
+          - 'null'
+        subscriptionId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    WebHookDetail:
+      type: object
+      properties:
+        callBackUrl:
+          type:
+          - string
+          - 'null'
+          example: http://demo7446995.mockable.io/pagnotification
+          description: URL of your server.
+        securityToken:
+          type: string
+          example: Basic 13222276767676
+          description: This token will be sent back with the callback in Authorization header. (Authorization &#58;  [type] [credentials]  (e.x Basic Rjc1234567890jdGMS67890U78...)) When creating the token, both 'type' and 'credentials' are required.
+      required:
+      - callBackUrl
+      additionalProperties: false
+    SubscriptionListResponse:
+      type: object
+      properties:
+        status:
+          type:
+          - string
+          - 'null'
+        statusDescription:
+          type:
+          - string
+          - 'null'
+        subscriptionDetails:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SubscriptionDetailResponse'
+      additionalProperties: false
+    SubscriptionDetailResponse:
+      type: object
+      properties:
+        subscriptionName:
+          type:
+          - string
+          - 'null'
+          maxLength: 36
+          description: User-Defined name, to make the purpose or owner clear. </br> Name provided by customers only.
+          pattern: ^[A-Za-z0-9_-]
+        eventName:
+          type:
+          - string
+          - 'null'
+          description: The event we are subscribing to.</br> Must be “PaymentAgreementNotification” - the forwards all payment agreement events to the Webhook URL.
+        notificationType:
+          type:
+          - string
+          - 'null'
+        webHookDetail:
+          $ref: '#/components/schemas/WebHookDetailGet'
+        isActive:
+          type: boolean
+      required:
+      - subscriptionName
+      - eventName
+      - isActive
+      additionalProperties: false
+    WebHookResendResponse:
+      type: object
+      required:
+      - status
+      - statusDescription
+      properties:
+        status:
+          type:
+          - string
+          - 'null'
+        statusDescription:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    WebHookListResponse:
+      type: object
+      properties:
+        status:
+          type:
+          - string
+          - 'null'
+        statusDescription:
+          type:
+          - string
+          - 'null'
+        notifications:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/WebHookResponse'
+      additionalProperties: false
+    SubscriptionDetailUpdateRequest:
+      type: object
+      properties:
+        subscriptionName:
+          maxLength: 36
+          example: PayToTest
+          description: User-Defined name, to make the purpose or owner clear. </br> Name provided by customers only.
+          pattern: ^[A-Za-z0-9_-]
+        eventName:
+          type:
+          - string
+          - 'null'
+          description: The event we are subscribing to.</br> Must be “PaymentAgreementNotification” - the forwards all payment agreement events to the Webhook URL.
+          example: PaymentAgreementNotification
+        webHookDetail:
+          $ref: '#/components/schemas/WebHookDetail'
+        isActive:
+          type: boolean
+          example: true
+      required:
+      - subscriptionName
+      - eventName
+      - isActive
+      additionalProperties: false
+    SubscriptionDeleteResponse:
+      type: object
+      properties:
+        traceId:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    WebHookDetailGet:
+      type: object
+      properties:
+        callBackUrl:
+          type:
+          - string
+          - 'null'
+          example: http://demo7446995.mockable.io/pagnotification
+          description: URL of your server.
+      required:
+      - callBackUrl
+      additionalProperties: false
+    WebHookResponse_2:
+      type: object
+      properties:
+        eventId:
+          type: string
+        sourceEventName:
+          type: string
+        url:
+          type: string
+        eventTimestamp:
+          type: string
+          format: date-time
+        executionCompleteDateTimeUtc:
+          type: string
+          format: date-time
+        payload:
+          type: string
+        method:
+          type: string
+        status:
+          type: string
+        statusDescription:
+          type: string
+        lastResponseCode:
+          type: integer
+          format: int32
+        retryCount:
+          type: integer
+          format: int32
+        clientRequestedResend:
+          type: boolean
+      additionalProperties: false
+    SubscriptionUpdateResponse_2:
+      type: object
+      properties:
+        traceId:
+          type: string
+          example: 5b5d2d6e-1972-4be4-ac95-8a373b9d90c5
+        subscriptionId:
+          type: string
+          example: 5d930864-76e9-4945-bc7c-7645e38d860b
+      additionalProperties: false
+    WebHookDetail_2:
+      type: object
+      required:
+      - callBackUrl
+      properties:
+        callBackUrl:
+          type: string
+          example: http://demo62eacbbe3c14.mockable.io/pagnotification
+          description: URL of your server.
+        securityToken:
+          type: string
+          example: Basic 13222276767676
+          description: This token will be sent back with the callback in Authorization header. (Authorization &#58;  [type] [credentials]  (e.x Basic Rjc1234567890jdGMS67890U78...)) When creating the token, both 'type' and 'credentials' are required.
+      additionalProperties: false
+    SubscriptionListResponse_2:
+      type: object
+      properties:
+        traceId:
+          type: string
+          example: 5b5d2d6e-4972-4be4-ab95-8a373b9d90c5
+        subscriptionDetails:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SubscriptionDetailResponse_2'
+      additionalProperties: false
+    SubscriptionDetailResponse_2:
+      type: object
+      required:
+      - subscriptionName
+      - eventName
+      - isActive
+      properties:
+        subscriptionName:
+          type: string
+          maxLength: 36
+          description: User-Defined name, to make the purpose or owner clear. Name provided by customers only.
+          pattern: ^[A-Za-z0-9_-]+
+          example: PaytoTest
+        eventName:
+          type: string
+          description: The event we are subscribing to. Must be ‘PaymentAgreementNotification’ - forwards all payment agreement events to the Webhook URL.
+          example: PaymentAgreementNotification
+        subscriptionId:
+          type: string
+          example: 734d8a9d-7ac6-44a7-9e88-867fb59f54e9
+        notificationType:
+          type: string
+        webHookDetail:
+          $ref: '#/components/schemas/WebHookDetailGet_2'
+        isActive:
+          type: boolean
+          example: true
+      additionalProperties: false
+    WebHookResendResponse_2:
+      type: object
+      properties:
+        traceId:
+          type: string
+          example: f1a7fbd7-cb39-4b98-b2a7-f4e0e004f152
+      additionalProperties: false
+    WebHookListResponse_2:
+      type: object
+      properties:
+        notifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebHookResponse_2'
+      additionalProperties: false
+    SubscriptionDetailUpdateRequest_2:
+      type: object
+      required:
+      - subscriptionName
+      - eventName
+      - isActive
+      properties:
+        subscriptionName:
+          type: string
+          maxLength: 36
+          example: PayToTest
+          description: User-Defined name, to make the purpose or owner clear. Name provided by customers only.
+          pattern: ^[A-Za-z0-9_-]+
+        eventName:
+          type: string
+          description: The event we are subscribing to. Must be ‘PaymentAgreementNotification’ - forwards all payment agreement events to the Webhook URL.
+          example: PaymentAgreementNotification
+        webHookDetail:
+          $ref: '#/components/schemas/WebHookDetail_2'
+        isActive:
+          type: boolean
+          example: true
+      additionalProperties: false
+    SubscriptionDeleteResponse_2:
+      type: object
+      properties:
+        traceId:
+          type: string
+          example: f2db7ad2-2411-408c-b17a-5a050d30741b
+      additionalProperties: false
+    WebHookDetailGet_2:
+      type: object
+      required:
+      - callBackUrl
+      properties:
+        callBackUrl:
+          type: string
+          example: http://demo62eacbbe3c14.mockable.io/pagnotification
+          description: URL of your server.
+      additionalProperties: false
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    BasicAuth:
+      type: http
+      scheme: basic
+x-refined-from:
+- monoova-cc.yml
+- monoova-payto.yml
+x-tagGroups:
+- name: ''
+  tags:
+  - Generate a Bearer Token
+  - Generate a Client Session
+  - Get Transaction By Id
+  - Get Transaction By Date Range
+  - Request Refund Transaction
+  - Get Async Request Status
+  - Create Payment Using Token
+  - Get Payment Method Token Details
+  - Update Payment Method Token Status
+  - Webhooks
+  - Monoova Error Codes
