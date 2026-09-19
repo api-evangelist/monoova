@@ -667,6 +667,8 @@ apis:
   humanURL: https://developer.monoova.com/overview
   baseURL: https://api.mpay.com.au
   tags:
+  - Tokens
+  tags_raw:
   - Token
   properties:
   - type: OpenAPI
