@@ -1,6 +1,8 @@
 openapi: 3.2.0
 info:
-  description: "# Introduction\n  Monoova's Online Card Payment Service incorporates a next-gen Card Payment Checkout integrated with our expansive Payments API to allow merchants to capture card and mobile wallet payments from your customers online and receive funds into your Monoova account for automated reconciliation and disbursement. To integrate the Card Payment Gateway into your website, all you need is Monoova's <a href=\"https://github.com/Monoova/merchantSDK\" target='_blank'>Merchant Software Development Kit</a> (SDK) hosted on GitHub and a set of straightforward RESTful APIs detailed below.  We will continue to update this API documentation as we release additional functionality.\n\n# How to Enable the Card Payment Gateway and Sandbox API’s\n>\n  - If not already a user, register an account in our <a href='https://sandbox.monoova.com' target='_blank'>Sandbox Portal</a>\n  - Once registered and logged in, navigate to **Manage > API Gateway** and input your API Key (provided to you as part of Portal user registration) to activate API Gateway Access for your mAccount (If you do not know your API Key you will need to roll a new one, this can be done by navigating to **Manage > Accounts**)\n  - Card Gateway integration requires some additional back-end configuration prior to use by a member of our integration team who will reach out to onboard and confirm access as a final step to enabling your service.\n  - To notify the integration team of your interest in enabling your account for Online Card Payment Service functionality, please <a href='https://www.monoova.com/contact' target=\"_blank\">Contact us</a> and a member of the team will follow up to guide you through the final steps.\n\n# Integrating Monoova Checkout for Card Payments\n  Utilizing Monoova's Merchant SDK enables you to deploy a Card Payment Checkout that securely gathers card payment information that complies with PCI standards, without necessitating substantial PCI compliance modifications within your application. The integrated Card Payment Checkout implementation ensures the secure capture of card data and offers complete customization to seamlessly align with your application's appearance and user experience.\n\n## Before you start\n>\n  - Ensure that your mAccount has been properly configured to enable card payments. Please access the Monoova portal or contact Monoova Support to verify this.\n  - Download the Card Software Development Kit (SDK): https://github.com/Monoova/merchantSDK\n\n## Using the Merchant SDK\n  To begin, clone the Merchant SDK repository. This repository offers an example implementation of the set of tools for initiating a session with Monoova and presenting the credit card checkout for the collection of card payments. Detailed instructions on how to integrate the credit card checkout are included in the SDK.\n\n## Sample Card Details\n  The following Card details can be used to test the credit card checkout and end-to-end flow in your Sandbox Account.\n<table>\n  <tr>\n    <th>Card Type</th>\n    <th>Card Number</th>\n    <th>Card Expiry</th>\n    <th>Card CVV</th>\n  </tr>\n  <tr>\n    <td>VISA</td>\n    <td>4111 1111 1111 1111</td>\n    <td>12/31</td>\n    <td>123</td>\n  </tr>\n  <tr>\n    <td>MASTER CARD</td>\n    <td>5555 5555 5555 4444</td>\n    <td>12/31</td>\n    <td>123</td>\n  </tr>\n</table>\n\n## Customising the Checkout\n>\n  - For those using the provided checkout form, you can make adjustments to the appearance of the checkout by editing the Checkout.html and style.css files to apply host themes.\n  - To modify the styles within the card iframe, you should edit the CSS associated with the #Checkout-container ID, as host themes do not apply to the card form.\n  - Refer to our README documentation in the Card Software Development Kit (SDK). It includes programmatic examples, including checkout style and callback details, for the events\n    * onCheckoutComplete\n    * onCheckoutFail\n"
+  description: '# Introduction
+
+    Monoova''s Online Card Payment Service incorporates a next-gen Card Payment Checkout integrated with our expansive Payments API to allow merchants to capture card and mobile wallet payments from your customers online and receive funds into your Monoova account for automated reconciliation and disbursement.'
   version: v1
   title: Monoova Card Payments Generate a Client Session API
   contact:
@@ -25,7 +27,7 @@ paths:
       tags:
       - Generate a Client Session
       summary: Generate a Client Session
-      description: This endpoint is used to generate a client session token which is required to render the payment screen. All the fields are mandatory and will be passed on to the issuer while creating payments.</br>
+      description: This endpoint is used to generate a client session token which is required to render the payment screen. All the fields are mandatory and will be passed on to the issuer while creating payments.
       operationId: generate-clientSession
       requestBody:
         content:
@@ -84,40 +86,6 @@ paths:
                   errorMessage: Internal server error. Please contact Monoova support.
 components:
   schemas:
-    PaymentDetailsDto:
-      type: object
-      properties:
-        cardType:
-          type: string
-          description: Card Type. Must be one of Visa, Mastercard. Case insensitive.
-        description:
-          type: string
-          description: Payment description. This will be saved in Monoova's system but will not be passed to the issuer.
-          maxLength: 40
-        saveOnSuccess:
-          type: boolean
-          default: false
-          description: System will save the payment method on successful payment. Optional, defaults to false.
-        allowCredit:
-          type: boolean
-          default: true
-          description: If set to true, credit card will be allowed. If set to false only Debit cards and prepaid cards will be allowed. Optional, defaults to true.
-        clientPaymentTokenUniqueReference:
-          type: string
-          description: The unique id the client will use to refer to the persisted token for future payments. Mandatory if saveOnSuccess is true, otherwise prohibited. The value must be unique for this combination of client (mAccount) and customerId. Lowercase will be converted to uppercase.
-          maxLength: 40
-          pattern: ^[a-zA-Z0-9_-]{1,40}$
-        applySurcharge:
-          type: boolean
-          default: false
-          description: Add a calculated fee to the total amount for this transaction. Optional, defaults to false. Only allowed to be true if the surcharging is enabled in the account configuration.
-        capturePayment:
-          type:
-          - boolean
-          - 'null'
-          description: Set to false (with an appropriate amount) if payment only needs to be authorized. Set to true or ignore this property if payment needs to be authorized and captured.
-          default: true
-      additionalProperties: false
     CreateClientSessionDto:
       type: object
       required:
@@ -238,6 +206,40 @@ components:
         clientToken:
           type: string
           example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6ImNsaWVudC10b2tlbi1zaWduaW5nLWtleSJ9.eyJleHAiOjE2NzcwMzQxNTksImFjY2Vzc1Rva2VuIjoiMDIzZGE2ZWQtMDE2MS00OThiLWI0NDgtNDBjOTc0NDk2ZWEyIiwiYW5hbHl0aWNzVXJsIjoiaHR0cHM6Ly9hbmFseXRpY3MuYXBpLnNhbmRib3guY29yZS5wcmltZXIuaW8vbWl4cGFuZWwiLCJhbmFseXRpY3NVcmxWMiI6Imh0dHBzOi8vYW5hbHl0aWNzLnNhbmRib3guZGF0YS5wcmltZXIuaW8vY2hlY2tvdXQvdHJhY2siLCJpbnRlbnQiOiJDSEVDS09VVCIsImNvbmZpZ3VyYXRpb25VcmwiOiJodHRwczovL2FwaS5zYW5kYm94LnByaW1lci5pby9jbGllbnQtc2RrL2NvbmZpZ3VyYXRpb24iLCJjb3JlVXJsIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5wcmltZXIuaW8iLCJwY2lVcmwiOiJodHRwczovL3Nkay5hcGkuc2FuZGJveC5wcmltZXIuaW8iLCJlbnYiOiJTQU5EQk9YIiwicGF5bWVudEZsb3ciOiJERUZBVUxUIn0.22vMTZEf66pOelIUpsx_98bYD5cvQWkfnsuhnPE8bII
+      additionalProperties: false
+    PaymentDetailsDto:
+      type: object
+      properties:
+        cardType:
+          type: string
+          description: Card Type. Must be one of Visa, Mastercard. Case insensitive.
+        description:
+          type: string
+          description: Payment description. This will be saved in Monoova's system but will not be passed to the issuer.
+          maxLength: 40
+        saveOnSuccess:
+          type: boolean
+          default: false
+          description: System will save the payment method on successful payment. Optional, defaults to false.
+        allowCredit:
+          type: boolean
+          default: true
+          description: If set to true, credit card will be allowed. If set to false only Debit cards and prepaid cards will be allowed. Optional, defaults to true.
+        clientPaymentTokenUniqueReference:
+          type: string
+          description: The unique id the client will use to refer to the persisted token for future payments. Mandatory if saveOnSuccess is true, otherwise prohibited. The value must be unique for this combination of client (mAccount) and customerId. Lowercase will be converted to uppercase.
+          maxLength: 40
+          pattern: ^[a-zA-Z0-9_-]{1,40}$
+        applySurcharge:
+          type: boolean
+          default: false
+          description: Add a calculated fee to the total amount for this transaction. Optional, defaults to false. Only allowed to be true if the surcharging is enabled in the account configuration.
+        capturePayment:
+          type:
+          - boolean
+          - 'null'
+          description: Set to false (with an appropriate amount) if payment only needs to be authorized. Set to true or ignore this property if payment needs to be authorized and captured.
+          default: true
       additionalProperties: false
   securitySchemes:
     BearerAuth:

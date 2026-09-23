@@ -603,6 +603,48 @@ paths:
       description: Sandbox URL
 components:
   schemas:
+    WebHookListResponse:
+      type: object
+      properties:
+        status:
+          type:
+          - string
+          - 'null'
+        statusDescription:
+          type:
+          - string
+          - 'null'
+        notifications:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/WebHookResponse'
+      additionalProperties: false
+    SubscriptionDetailUpdateRequest:
+      type: object
+      properties:
+        subscriptionName:
+          maxLength: 36
+          example: PayToTest
+          description: User-Defined name, to make the purpose or owner clear. </br> Name provided by customers only.
+          pattern: ^[A-Za-z0-9_-]
+        eventName:
+          type:
+          - string
+          - 'null'
+          description: The event we are subscribing to.</br> Must be “PaymentAgreementNotification” - the forwards all payment agreement events to the Webhook URL.
+          example: PaymentAgreementNotification
+        webHookDetail:
+          $ref: '#/components/schemas/WebHookDetail'
+        isActive:
+          type: boolean
+          example: true
+      required:
+      - subscriptionName
+      - eventName
+      - isActive
+      additionalProperties: false
     WebHookResponse:
       type: object
       properties:
@@ -669,22 +711,6 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    WebHookDetail:
-      type: object
-      properties:
-        callBackUrl:
-          type:
-          - string
-          - 'null'
-          example: http://demo7446995.mockable.io/pagnotification
-          description: URL of your server.
-        securityToken:
-          type: string
-          example: Basic 13222276767676
-          description: This token will be sent back with the callback in Authorization header. (Authorization &#58;  [type] [credentials]  (e.x Basic Rjc1234567890jdGMS67890U78...)) When creating the token, both 'type' and 'credentials' are required.
-      required:
-      - callBackUrl
-      additionalProperties: false
     SubscriptionListResponse:
       type: object
       properties:
@@ -702,6 +728,34 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/SubscriptionDetailResponse'
+      additionalProperties: false
+    SubscriptionDeleteResponse:
+      type: object
+      properties:
+        traceId:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    WebHookDetail:
+      type: object
+      properties:
+        callBackUrl:
+          type:
+          - string
+          - 'null'
+          example: http://demo7446995.mockable.io/pagnotification
+          description: URL of your server.
+        securityToken:
+          type: string
+          example: Basic 13222276767676
+          description: This token will be sent back with the callback in Authorization header. (Authorization &#58;  [type] [credentials]  (e.x Basic Rjc1234567890jdGMS67890U78...)) When creating the token, both 'type' and 'credentials' are required.
+      required:
+      - callBackUrl
       additionalProperties: false
     SubscriptionDetailResponse:
       type: object
@@ -731,6 +785,18 @@ components:
       - eventName
       - isActive
       additionalProperties: false
+    WebHookDetailGet:
+      type: object
+      properties:
+        callBackUrl:
+          type:
+          - string
+          - 'null'
+          example: http://demo7446995.mockable.io/pagnotification
+          description: URL of your server.
+      required:
+      - callBackUrl
+      additionalProperties: false
     WebHookResendResponse:
       type: object
       required:
@@ -746,71 +812,36 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    WebHookListResponse:
+    WebHookListResponse_2:
       type: object
       properties:
-        status:
-          type:
-          - string
-          - 'null'
-        statusDescription:
-          type:
-          - string
-          - 'null'
         notifications:
-          type:
-          - array
-          - 'null'
+          type: array
           items:
-            $ref: '#/components/schemas/WebHookResponse'
+            $ref: '#/components/schemas/WebHookResponse_2'
       additionalProperties: false
-    SubscriptionDetailUpdateRequest:
+    SubscriptionDetailUpdateRequest_2:
       type: object
-      properties:
-        subscriptionName:
-          maxLength: 36
-          example: PayToTest
-          description: User-Defined name, to make the purpose or owner clear. </br> Name provided by customers only.
-          pattern: ^[A-Za-z0-9_-]
-        eventName:
-          type:
-          - string
-          - 'null'
-          description: The event we are subscribing to.</br> Must be “PaymentAgreementNotification” - the forwards all payment agreement events to the Webhook URL.
-          example: PaymentAgreementNotification
-        webHookDetail:
-          $ref: '#/components/schemas/WebHookDetail'
-        isActive:
-          type: boolean
-          example: true
       required:
       - subscriptionName
       - eventName
       - isActive
-      additionalProperties: false
-    SubscriptionDeleteResponse:
-      type: object
       properties:
-        traceId:
-          type:
-          - string
-          - 'null'
-        errors:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    WebHookDetailGet:
-      type: object
-      properties:
-        callBackUrl:
-          type:
-          - string
-          - 'null'
-          example: http://demo7446995.mockable.io/pagnotification
-          description: URL of your server.
-      required:
-      - callBackUrl
+        subscriptionName:
+          type: string
+          maxLength: 36
+          example: PayToTest
+          description: User-Defined name, to make the purpose or owner clear. Name provided by customers only.
+          pattern: ^[A-Za-z0-9_-]+
+        eventName:
+          type: string
+          description: The event we are subscribing to. Must be ‘PaymentAgreementNotification’ - forwards all payment agreement events to the Webhook URL.
+          example: PaymentAgreementNotification
+        webHookDetail:
+          $ref: '#/components/schemas/WebHookDetail_2'
+        isActive:
+          type: boolean
+          example: true
       additionalProperties: false
     WebHookResponse_2:
       type: object
@@ -854,6 +885,26 @@ components:
           type: string
           example: 5d930864-76e9-4945-bc7c-7645e38d860b
       additionalProperties: false
+    SubscriptionListResponse_2:
+      type: object
+      properties:
+        traceId:
+          type: string
+          example: 5b5d2d6e-4972-4be4-ab95-8a373b9d90c5
+        subscriptionDetails:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SubscriptionDetailResponse_2'
+      additionalProperties: false
+    SubscriptionDeleteResponse_2:
+      type: object
+      properties:
+        traceId:
+          type: string
+          example: f2db7ad2-2411-408c-b17a-5a050d30741b
+      additionalProperties: false
     WebHookDetail_2:
       type: object
       required:
@@ -867,19 +918,6 @@ components:
           type: string
           example: Basic 13222276767676
           description: This token will be sent back with the callback in Authorization header. (Authorization &#58;  [type] [credentials]  (e.x Basic Rjc1234567890jdGMS67890U78...)) When creating the token, both 'type' and 'credentials' are required.
-      additionalProperties: false
-    SubscriptionListResponse_2:
-      type: object
-      properties:
-        traceId:
-          type: string
-          example: 5b5d2d6e-4972-4be4-ab95-8a373b9d90c5
-        subscriptionDetails:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SubscriptionDetailResponse_2'
       additionalProperties: false
     SubscriptionDetailResponse_2:
       type: object
@@ -909,51 +947,6 @@ components:
           type: boolean
           example: true
       additionalProperties: false
-    WebHookResendResponse_2:
-      type: object
-      properties:
-        traceId:
-          type: string
-          example: f1a7fbd7-cb39-4b98-b2a7-f4e0e004f152
-      additionalProperties: false
-    WebHookListResponse_2:
-      type: object
-      properties:
-        notifications:
-          type: array
-          items:
-            $ref: '#/components/schemas/WebHookResponse_2'
-      additionalProperties: false
-    SubscriptionDetailUpdateRequest_2:
-      type: object
-      required:
-      - subscriptionName
-      - eventName
-      - isActive
-      properties:
-        subscriptionName:
-          type: string
-          maxLength: 36
-          example: PayToTest
-          description: User-Defined name, to make the purpose or owner clear. Name provided by customers only.
-          pattern: ^[A-Za-z0-9_-]+
-        eventName:
-          type: string
-          description: The event we are subscribing to. Must be ‘PaymentAgreementNotification’ - forwards all payment agreement events to the Webhook URL.
-          example: PaymentAgreementNotification
-        webHookDetail:
-          $ref: '#/components/schemas/WebHookDetail_2'
-        isActive:
-          type: boolean
-          example: true
-      additionalProperties: false
-    SubscriptionDeleteResponse_2:
-      type: object
-      properties:
-        traceId:
-          type: string
-          example: f2db7ad2-2411-408c-b17a-5a050d30741b
-      additionalProperties: false
     WebHookDetailGet_2:
       type: object
       required:
@@ -963,6 +956,13 @@ components:
           type: string
           example: http://demo62eacbbe3c14.mockable.io/pagnotification
           description: URL of your server.
+      additionalProperties: false
+    WebHookResendResponse_2:
+      type: object
+      properties:
+        traceId:
+          type: string
+          example: f1a7fbd7-cb39-4b98-b2a7-f4e0e004f152
       additionalProperties: false
   securitySchemes:
     BearerAuth:

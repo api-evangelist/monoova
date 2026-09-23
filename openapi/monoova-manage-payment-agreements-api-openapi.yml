@@ -1,6 +1,9 @@
 openapi: 3.2.0
 info:
-  description: "# Introduction\n\nThe Monoova PayTo API is designed to efficiently handle real time financial transactions, providing a reliable platform for creating payment agreements and initiating payments. It offers a streamlined transaction process, ensuring speed and security for businesses and users with benefits above and beyond a direct debit alternative.\n\nMonoova's PayTo API supports synchronous and asynchronous operations, allowing flexible integration based on varying business needs. The asynchronous API option is particularly beneficial for handling batch operations requiring extended processing time, enhancing overall system performance and reliability. Additionally, Monoova provides webhook subscriptions, enabling users to receive timely updates and notifications about transaction events, which helps maintain transparency and control over financial activities.\n\n## Process\n\nPayTo allows you to debit an enabled domestic bank account in real time. \n\n* First, you create a **payment agreement** between a payer and a payee. The terms of the agreement determine the amount and schedule of allowed debits. When you create a Payment Agreement, the account is validated in real time, so you can ensure the account details are correct.\n\n* Next, the payer authorises the agreement through their banking app.\n\n* Finally, real time **payment initiations** can be triggered. If successful, funds will be credited to the payee account in real time and made available for disbursement. Because recipients can access funds faster than traditional direct debit systems, this is particularly beneficial for businesses or individuals relying on prompt cash flow payments.\n\n* If you would like to modify the terms of the agreement, you can use the amendment API's.\n\n# Getting Started\n\n1. Access the Domestic Payments Portal:\n\n    * Sandbox Environment:\n        - Register: If you are new, [register](https://sandbox.monoova.com) to gain Sandbox access.\n        - Login: If you already have Sandbox credentials, [log in](https://sandbox.monoova.com) to continue your work.\n\n    * Production Environment:\n        - Login: Login to the [Production portal](https://payments.monoova.com) using the credentials you obtained during onboarding.\n\n2. Activate Your API Key\n\n    * Generate API Key:\n      - If you do not know your API Key or need to reset it, navigate to Manage > Accounts to generate or regenerate your API Key after logging into the portal.\n\n    * Activate API Gateway Access:\n      - Go to Manage > API Gateway and enter your API Key to activate API Gateway access for your mAccount.\n\n3. Configure API Access\n\n    Please [contact our integration team](https://www.monoova.com/contact) to configure your account settings. This step ensures that your account is allowed to access the service.\n\n4. Explore API Endpoints\n\n    Use the API documentation to plan your integration. It provides details and examples of usage.\n\n5. Onboarding and Support\n\n    Our integration team will guide you from the initial setup to the final running implementation, providing support throughout the process.\n\n# Sandbox Testing for PayTo Agreements\n\nIn the Sandbox environment, it is possible to test different outcomes for PayTo agreements by altering the values of the agreement. This allows for a comprehensive evaluation of potential scenarios in a controlled setting.\n\n## Use the following payment details when testing in Sandbox:\n\n<style type=\"text/css\">\n.tb { table-layout:auto; width:300px;!important }\n.td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important}\n</style>\n<table class=\"tb\">\n  <tr>\n    <th>Account Name</th>\n    <th>BSB</th>\n    <th>Account Number</th>\n    <th>PayID</th>\n  </tr>\n  <tr>\n    <td class=\"td\">Monoova Sample 1</td>\n    <td class=\"td\">802950</td>\n    <td class=\"td\">22090100</td>\n    <td class=\"td\">+61-422020901</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Monoova Sample 2</td>\n    <td class=\"td\">802950</td>\n    <td class=\"td\">22090101</td>\n    <td class=\"td\">sample@monoova.com</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Monoova Sample 3</td>\n    <td class=\"td\">802950</td>\n    <td class=\"td\">22090102</td>\n    <td class=\"td\">38126015228</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Monoova Sample 4</td>\n    <td class=\"td\">802950</td>\n    <td class=\"td\">22090103</td>\n    <td class=\"td\">987654321</td>\n  </tr>\n</table>\n\n## Testing Payment Agreements\n\nPayment agreements are automatically approved or declined in the Sandbox environment, depending on the amount or `maxAmount` included in the agreement request. If both `amount` or `maxAmount` are passed, the `amount` will determine the behavior.\n\nFor basic testing of Payment Agreements, the following test cases are recommended. A more comprehensive list of test cases is available should you wish to examine edge cases.\n</br></br>\n### Response for Payment Agreements\n\n<style type=\"text/css\">\n.tb { table-layout:auto; width:300px;!important }\n.td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important}\n</style>\n<table class=\"tb\">\n  <tr>\n    <th>Response</th>\n    <th>Reason Code</th>\n    <th>Contains Value</th>\n    <th>Example</th>\n    <th>Action</th>\n  </tr>\n  <tr>\n    <td class=\"td\">Agreement Approved</td>\n    <td class=\"td\">-</td>\n    <td class=\"td\">.00</td>\n    <td class=\"td\">$5.00, $10.00, $50.00</td>\n    <td class=\"td\">Approve</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Requested By Customer</td>\n    <td class=\"td\">M019</td>\n    <td class=\"td\">.19</td>\n    <td class=\"td\">$5.19, $10.19, $50.19</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n</table>\n\n### Other Test Cases\n\n<style type=\"text/css\">\n.tb { table-layout:auto; width:300px;!important }\n.td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important}\n</style>\n<table class=\"tb\">\n  <tr>\n    <th>Response</th>\n    <th>Reason Code</th>\n    <th>Contains Value</th>\n    <th>Example</th>\n    <th>Action</th>\n  </tr>\n  <tr>\n    <td class=\"td\">Invalid Debtor Account Number</td>\n    <td class=\"td\">M001</td>\n    <td class=\"td\">.01</td>\n    <td class=\"td\">$5.01, $10.01, $50.01</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Closed Debtor Account Number</td>\n    <td class=\"td\">M003</td>\n    <td class=\"td\">.03</td>\n    <td class=\"td\">$5.03, $10.03, $50.03</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Blocked Account</td>\n    <td class=\"td\">M004</td>\n    <td class=\"td\">.04</td>\n    <td class=\"td\">$5.04, $10.04, $50.04</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Invalid Debtor Account Type</td>\n    <td class=\"td\">M005</td>\n    <td class=\"td\">.05</td>\n    <td class=\"td\">$5.05, $10.05, $50.05</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Transaction Forbidden</td>\n    <td class=\"td\">M006</td>\n    <td class=\"td\">.06</td>\n    <td class=\"td\">$5.06, $10.06, $50.06</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Transaction Not Supported</td>\n    <td class=\"td\">M007</td>\n    <td class=\"td\">.07</td>\n    <td class=\"td\">$5.07, $10.07, $50.07</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Not Allowed Currency</td>\n    <td class=\"td\">M008</td>\n    <td class=\"td\">.08</td>\n    <td class=\"td\">$5.08, $10.08, $50.08</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Invalid Amount</td>\n    <td class=\"td\">M009</td>\n    <td class=\"td\">.09</td>\n    <td class=\"td\">$5.09, $10.09, $50.09</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Amount Exceeds Agreed Limit</td>\n    <td class=\"td\">M010</td>\n    <td class=\"td\">.10</td>\n    <td class=\"td\">$5.10, $10.10, $50.10</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">No Mandate Service On Customer</td>\n    <td class=\"td\">M018</td>\n    <td class=\"td\">.18</td>\n    <td class=\"td\">$5.18, $10.18, $50.18</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Mandate Cancelled Due To Fraud</td>\n    <td class=\"td\">M022</td>\n    <td class=\"td\">.22</td>\n    <td class=\"td\">$5.22, $10.22, $50.22</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">No Answer From Customer</td>\n    <td class=\"td\">M027</td>\n    <td class=\"td\">.27</td>\n    <td class=\"td\">$5.27, $10.27, $50.27</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Regulatory Reason</td>\n    <td class=\"td\">M028</td>\n    <td class=\"td\">.28</td>\n    <td class=\"td\">$5.28, $10.28, $50.28</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Creditor not on Whitelist of Debtor</td>\n    <td class=\"td\">M030</td>\n    <td class=\"td\">.30</td>\n    <td class=\"td\">$5.30, $10.30, $50.30</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Creditor on Blacklist of Debtor</td>\n    <td class=\"td\">M031</td>\n    <td class=\"td\">.31</td>\n    <td class=\"td\">$5.31, $10.31, $50.31</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n  <tr>\n    <td class=\"td\">Unknown end Customer</td>\n    <td class=\"td\">M032</td>\n    <td class=\"td\">.32</td>\n    <td class=\"td\">$5.32, $10.32, $50.32</td>\n    <td class=\"td\">Decline</td>\n  </tr>\n</table>\n\n\n<br/>\n\nIn addition to a sample request, the scheme for each endpoint and associated data tables are in the appendix at the end of this document.\n\nTo try out our API, you can use a client such as [Postman](https://www.getpostman.com).\n\nYou can download a postman collection of our API by clicking the link below:\n\n[![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/19891519-fccdc471-7f26-4f4c-bba7-4e0dda5ab9e3?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D19891519-fccdc471-7f26-4f4c-bba7-4e0dda5ab9e3%26entityType%3Dcollection%26workspaceId%3D0a304f49-2e6e-4498-8d43-3b68ee26aee6)\n\n**Note:** Please note we do not accept TLS 1.0 or 1.1 connections\n"
+  description: '# Introduction
+
+
+    The Monoova PayTo API is designed to efficiently handle real time financial transactions, providing a reliable platform for creating payment agreements and initiating payments.'
   version: v1
   title: Monoova PayTo Manage Payment Agreements API
   contact:
@@ -26,18 +29,114 @@ paths:
       tags:
       - Manage Payment Agreements
       summary: Create a Payment Agreement
-      description: 'The purpose of this endpoint is to create a payment agreement. An agreement can only initiate payments once the Payer approves it. Payers must respond by the respondByTime specified while creating the mandate. If respondByTime is not provided, it will be defaulted to 5 days for the Payer to approve or decline a payment agreement.</br> </br> <strong>Rate Limit</strong></br> Payment Agreement and Initiation endpoints have rate limits applied at a service level. If you process at volumes that surpass the rate limits, you will get a 429 HTTP status code for ''too many requests''. If you see this error, you will need to retry. If you experience this issue frequently, space out the calls. Alternatively, the Async endpoints have a much higher rate limit applied. </br></br> A webhook will notify customers about the approval/declination of a payment agreement. There is also get payment agreement endpoints to check the status of the payment agreement. <br/><br/> To receive payments in an account with Monoova, please <a href=''https://api-docs.monoova.com/payments#operation/ReceivablesCreate'' taget=''_blank''>create an automatcher account</a> and use it under payee details when creating payment agreement. Automatcher accounts can also be created through the Sandbox Portal. Received payments through an automatcher account will be reported via webhook notification event name <a href="https://api-docs.monoova.com/payments#tag/Webhooks/operation/PayToReceivePaymentWebhook" target="_blank">“PayToReceivePayment”</a>.
-
-        <br/>Additionally, sample test accounts will need to be used for the payer-consumer side of the mandate on Sandbox. Please find below sample test payer accounts&#58; <style type="text/css"> .tb { table-layout:auto; width:100px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important} </style> <table class="tb"> <tr> <th> Account Name </th> <th> Monoova Sample 1 </th> <th> Monoova Sample 2 </th> <th> Monoova Sample 3 </th> <th> Monoova Sample 4 </th> <th> Monoova Sample 5 </th> </tr> <tr><td>    BSB    </td><td>    802950    </td><td>        </td><td>        </td><td>        </td><td>        </td></tr> <tr><td>    Account Number    </td><td>    22090100    </td><td>        </td><td>        </td><td>        </td><td>        </td></tr> <tr><td>    PayID - Phone    </td><td>        </td><td>    +61-422020901    </td><td>        </td><td>        </td><td>        </td></tr> <tr><td>    PayID - Email    </td><td>        </td><td>        </td><td>    sample@monoova.com    </td><td>        </td><td>        </td></tr> <tr><td>    PayID - ABN    </td><td>        </td><td>        </td><td>        </td><td>    38126015228    </td><td>        </td></tr> <tr><td>    PayID - Organisation ID    </td><td>        </td><td>        </td><td>        </td><td>        </td><td>    987654321    </td></tr>
-
-        </table>
-
-        </strong> </br> </br> Below are a series of reference tables for the create and initiate payment agreement schemas </br> </br> <h3>Frequency</h3> <style type="text/css"> .tb { table-layout:auto; width:100px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important} </style> <table class="tb"> <tr> <th> Code </th> <th> Name </th> <th> Description </th> </tr> <tr><td>    ADHO    </td><td>    Adhoc    </td><td>    Event takes place on request or as necessary.    </td></tr> <tr><td>    DAIL    </td><td>    Daily    </td><td>    Event takes place every day.    </td></tr> <tr><td>    FRTN    </td><td>    Fortnightly    </td><td>    Event takes place every two weeks.    </td></tr> <tr><td>    INDA    </td><td>    IntraDay    </td><td>    Event takes place several times a day.    </td></tr> <tr><td>    MIAN    </td><td>    SemiAnnual    </td><td>    Event takes place every six months or two times a year.    </td></tr> <tr><td>    MNTH    </td><td>    Monthly    </td><td>    Event takes place every month or once a month.    </td></tr> <tr><td>    QURT    </td><td>    Quarterly    </td><td>    Event takes place every three months or four times a year.    </td></tr> <tr><td>    WEEK    </td><td>    Weekly    </td><td>    Event takes place once a week.    </td></tr> <tr><td>    YEAR    </td><td>    Annual    </td><td>    Event takes place every year or once a year.    </td></tr>
+      description: 'The purpose of this endpoint is to create a payment agreement. An agreement can only initiate payments once the Payer approves it. Payers must respond by the respondByTime specified while creating the mandate. If respondByTime is not provided, it will be defaulted to 5 days for the Payer to approve or decline a payment agreement.
 
 
-        </table>
+        Rate Limit
 
-        </br> </br> <h3>Agreement Type</h3> <style type="text/css"> .tb { table-layout:auto; width:200px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important} </style> <table class="tb"> <tr> <th> Code </th> <th> Name </th> <th> Description </th> </tr> <tr><td>    FIXE    </td><td>    Fixed    </td><td>    Payment amount is fixed.    </td></tr> <tr><td>    USGB    </td><td>    UsageBased    </td><td>    Payment amount is based on usage.    </td></tr> <tr><td>    VARI    </td><td>    Variable    </td><td>    Payment amount is variable.    </td></tr> </table> </br> </br> <h3>Agreement Type + Amount</h3> <style type="text/css"> .tb { table-layout:auto; width:100px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important} </style> <table class="tb"> <tr> <th> agreementType </th> <th> amount </th> <th> maximumAmount </th> <th> Rules </th> </tr> <tr><td>    FIXE    </td><td>    Valid numeric value    </td><td>    NA    </td><td>    If Fixed, only amount should have values. Max amount should not be present    </td></tr> <tr><td>    USGB    </td><td>    Valid numeric value    </td><td>    Valid numeric value    </td><td>    If Usage based, max amount is recommended. However, amount and max amount are optional. If both amount and max amount are present, amount should be less than max amount    </td></tr> <tr><td>    VARI    </td><td>    Valid numeric value    </td><td>    Valid numeric value    </td><td>    If Variable, max amount is recommended. However, amount and max amount are optional. If both amount and max amount are present, amount should be less than max amount    </td></tr> </table>'
+        Payment Agreement and Initiation endpoints have rate limits applied at a service level. If you process at volumes that surpass the rate limits, you will get a 429 HTTP status code for ''too many requests''. If you see this error, you will need to retry. If you experience this issue frequently, space out the calls. Alternatively, the Async endpoints have a much higher rate limit applied.
+
+
+        A webhook will notify customers about the approval/declination of a payment agreement. There is also get payment agreement endpoints to check the status of the payment agreement.
+
+
+        To receive payments in an account with Monoova, please create an automatcher account and use it under payee details when creating payment agreement. Automatcher accounts can also be created through the Sandbox Portal. Received payments through an automatcher account will be reported via webhook notification event name “PayToReceivePayment”.
+
+
+        Additionally, sample test accounts will need to be used for the payer-consumer side of the mandate on Sandbox. Please find below sample test payer accounts: .tb { table-layout:auto; width:100px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important}
+
+
+        Account Name Monoova Sample 1 Monoova Sample 2 Monoova Sample 3 Monoova Sample 4 Monoova Sample 5
+
+
+        BSB 802950
+
+
+        Account Number 22090100
+
+
+        PayID - Phone +61-422020901
+
+
+        PayID - Email sample@monoova.com
+
+
+        PayID - ABN 38126015228
+
+
+        PayID - Organisation ID 987654321
+
+
+        Below are a series of reference tables for the create and initiate payment agreement schemas
+
+
+        Frequency
+
+        .tb { table-layout:auto; width:100px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important}
+
+
+        Code Name Description
+
+
+        ADHO Adhoc Event takes place on request or as necessary.
+
+
+        DAIL Daily Event takes place every day.
+
+
+        FRTN Fortnightly Event takes place every two weeks.
+
+
+        INDA IntraDay Event takes place several times a day.
+
+
+        MIAN SemiAnnual Event takes place every six months or two times a year.
+
+
+        MNTH Monthly Event takes place every month or once a month.
+
+
+        QURT Quarterly Event takes place every three months or four times a year.
+
+
+        WEEK Weekly Event takes place once a week.
+
+
+        YEAR Annual Event takes place every year or once a year.
+
+
+        Agreement Type
+
+        .tb { table-layout:auto; width:200px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important}
+
+
+        Code Name Description
+
+
+        FIXE Fixed Payment amount is fixed.
+
+
+        USGB UsageBased Payment amount is based on usage.
+
+
+        VARI Variable Payment amount is variable.
+
+
+        Agreement Type + Amount
+
+        .tb { table-layout:auto; width:100px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important}
+
+
+        agreementType amount maximumAmount Rules
+
+
+        FIXE Valid numeric value NA If Fixed, only amount should have values. Max amount should not be present
+
+
+        USGB Valid numeric value Valid numeric value If Usage based, max amount is recommended. However, amount and max amount are optional. If both amount and max amount are present, amount should be less than max amount
+
+
+        VARI Valid numeric value Valid numeric value If Variable, max amount is recommended. However, amount and max amount are optional. If both amount and max amount are present, amount should be less than max amount'
       operationId: post-paymentagreement
       requestBody:
         content:
@@ -207,7 +306,7 @@ paths:
       - Manage Payment Agreements
       summary: Bilateral Amendment
       operationId: patch-paymentagreement-id-bilateral
-      description: Bilateral changes can't be done without the payer’s approval. Changes can be made to payment terms. Changes made using this end point will only get reflected after payer approves the change.  Until new terms are approved, payment agreement will be active with its last approved terms.
+      description: Bilateral changes can't be done without the payer’s approval. Changes can be made to payment terms. Changes made using this end point will only get reflected after payer approves the change. Until new terms are approved, payment agreement will be active with its last approved terms.
       parameters:
       - name: paymentAgreementUID
         in: path
@@ -298,89 +397,111 @@ paths:
       tags:
       - Manage Payment Agreements
       summary: Amend Payment Agreement Status
-      description: 'This endpoint allows the initiator to change the status of a payment agreement. Available statuses are `active`, `pause`, or `cancel`.</br>
+      description: 'This endpoint allows the initiator to change the status of a payment agreement. Available statuses are `active`, `pause`, or `cancel`.
 
-        </br>
 
-        <h3>Status Reason Code</h3>
+        Status Reason Code
 
-        <style type="text/css">
 
         .tb { table-layout:auto; width:200px;!important }
 
         .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important}
 
-        </style>
 
-        <table class="tb">
+        Code Reason
 
-        <tr><th> Code </th><th> Reason </th></tr>
 
-        <tr><td>AC02</td><td>Invalid Debtor Account Number</td></tr>
+        AC02Invalid Debtor Account Number
 
-        <tr><td>AC04</td><td>Closed Account Number</td></tr>
 
-        <tr><td>AC05</td><td>Closed Debtor Account Number</td></tr>
+        AC04Closed Account Number
 
-        <tr><td>AC06</td><td>Blocked Account</td></tr>
 
-        <tr><td>AC13</td><td>Invalid Debtor Account Type</td></tr>
+        AC05Closed Debtor Account Number
 
-        <tr><td>AG01</td><td>Transaction Forbidden</td></tr>
 
-        <tr><td>AG03</td><td>Transaction Not Supported</td></tr>
+        AC06Blocked Account
 
-        <tr><td>AM03</td><td>Not Allowed Currency</td></tr>
 
-        <tr><td>AM12</td><td>Invalid Amount</td></tr>
+        AC13Invalid Debtor Account Type
 
-        <tr><td>AM14</td><td>Amount Exceeds Agreed Limit</td></tr>
 
-        <tr><td>CTAM</td><td>Contract Amended</td></tr>
+        AG01Transaction Forbidden
 
-        <tr><td>CTCA</td><td>Contract Cancellation Initiated By Debtor</td></tr>
 
-        <tr><td>CTEX</td><td>Contract Expired</td></tr>
+        AG03Transaction Not Supported
 
-        <tr><td>MCFC</td><td>Payment Agreement Suspended Final Collection</td></tr>
 
-        <tr><td>MCOC</td><td>Payment Agreement Suspended Once Off Collection</td></tr>
+        AM03Not Allowed Currency
 
-        <tr><td>MD07</td><td>End Customer Deceased</td></tr>
 
-        <tr><td>MD08</td><td>No Payment Agreement Service By Agent</td></tr>
+        AM12Invalid Amount
 
-        <tr><td>MD09</td><td>No Payment Agreement Service On Customer</td></tr>
 
-        <tr><td>MD16</td><td>Requested By Customer</td></tr>
+        AM14Amount Exceeds Agreed Limit
 
-        <tr><td>MD17</td><td>Requested By Initiating Party</td></tr>
 
-        <tr><td>MD20</td><td>Payment Agreement Expired</td></tr>
+        CTAMContract Amended
 
-        <tr><td>MD21</td><td>Payment Agreement Cancelled Due To Fraud</td></tr>
 
-        <tr><td>MS02</td><td>Not Specified Reason Customer Generated</td></tr>
+        CTCAContract Cancellation Initiated By Debtor
 
-        <tr><td>MS03</td><td>Not Specified Reason Agent Generated</td></tr>
 
-        <tr><td>MSUC</td><td>Payment Agreement Suspended 7 Consecutive Unsuccessful Collections</td></tr>
+        CTEXContract Expired
 
-        <tr><td>NARR</td><td>Narrative</td></tr>
 
-        <tr><td>NOAS</td><td>No Answer From Customer</td></tr>
+        MCFCPayment Agreement Suspended Final Collection
 
-        <tr><td>RR04</td><td>Regulatory Reason</td></tr>
 
-        <tr><td>SL01</td><td>Specific Service Offered By Debtor Agent</td></tr>
+        MCOCPayment Agreement Suspended Once Off Collection
 
-        <tr><td>SL11</td><td>Creditor Not On Whitelist Of Debtor</td></tr>
 
-        <tr><td>SL12</td><td>Creditor On Blacklist Of Debtor</td></tr>
+        MD07End Customer Deceased
 
-        </table>
 
-        '
+        MD08No Payment Agreement Service By Agent
+
+
+        MD09No Payment Agreement Service On Customer
+
+
+        MD16Requested By Customer
+
+
+        MD17Requested By Initiating Party
+
+
+        MD20Payment Agreement Expired
+
+
+        MD21Payment Agreement Cancelled Due To Fraud
+
+
+        MS02Not Specified Reason Customer Generated
+
+
+        MS03Not Specified Reason Agent Generated
+
+
+        MSUCPayment Agreement Suspended 7 Consecutive Unsuccessful Collections
+
+
+        NARRNarrative
+
+
+        NOASNo Answer From Customer
+
+
+        RR04Regulatory Reason
+
+
+        SL01Specific Service Offered By Debtor Agent
+
+
+        SL11Creditor Not On Whitelist Of Debtor
+
+
+        SL12Creditor On Blacklist Of Debtor'
       operationId: patch-paymentagreement-id-status
       parameters:
       - name: paymentAgreementUID
@@ -551,6 +672,74 @@ paths:
                   errorMessage: string
 components:
   schemas:
+    PayerDetailsDto:
+      type: object
+      required:
+      - payerType
+      - payer
+      - ultimatePayer
+      - payerPartyReference
+      oneOf:
+      - required:
+        - linkedBsb
+        - linkedAccount
+      - required:
+        - linkedPayId
+        - linkedPayIdType
+      properties:
+        payerType:
+          type:
+          - string
+          - 'null'
+          description: Identifies the type of party. </br> Possible Values - ORGN (Organization),    PERS (Person)
+          example: ORGN
+        linkedBsb:
+          type:
+          - string
+          - 'null'
+          description: BSB (Bank-State-Branch) number. </br>Required if 'linkedPayId' and 'linkedPayIdType' are not provided.
+          example: 802950
+        linkedAccount:
+          type:
+          - string
+          - 'null'
+          description: Bank account number. </br>Required if 'linkedPayId' and 'linkedPayIdType' are not provided.
+          maxLength: 28
+          example: 10109010
+        linkedPayId:
+          type:
+          - string
+          - 'null'
+          example: null
+          description: PayID. </br> Email, phone number, ABN, ACN or Organisation ID. </br>Required if 'linkedBsb' and 'linkedAccount' are not provided. <a href="/payTo#tag/PAYID-Format-Validation">See PAYID Format Validation.</a>
+        linkedPayIdType:
+          type:
+          - string
+          - 'null'
+          example: null
+          description: PayID Type. </br>Possible Values - Email, PhoneNumber, ABN, ACN, OrganisationId. </br>Required if 'linkedBsb' and 'linkedAccount' are not provided.
+        payer:
+          type:
+          - string
+          - 'null'
+          description: Bank Account Name.
+          maxLength: 140
+          example: ABCCORPCo
+        ultimatePayer:
+          type:
+          - string
+          - 'null'
+          maxLength: 140
+          description: Name by which the party is known, and which is usually used to identify that party.
+          example: ABCCORPCo
+        payerPartyReference:
+          type:
+          - string
+          - 'null'
+          maxLength: 35
+          description: This field will be presented to Payer in the detail agreement view. This field also be used group payment initiations associated with a payment agreement.
+          example: Payer54321
+      additionalProperties: false
     CreatePaymentAgreementResponse:
       type: object
       properties:
@@ -584,66 +773,6 @@ components:
         actionIdentification:
           type: string
           example: b9c91b0f382b1fa5bf7e87aaad094eee
-      additionalProperties: false
-    AmendUnilateralDetailsDto:
-      type: object
-      properties:
-        description:
-          type:
-          - string
-          - 'null'
-          description: Reason for the mandate setup as narrative text.</br> Either "description" or "short_description" must be present.
-          maxLength: 140
-          example: payroll pag1
-        shortDescription:
-          type:
-          - string
-          - 'null'
-          description: Reason for the mandate setup as narrative text.</br> Either "description" or "short_description" must be present.
-          maxLength: 35
-          example: payroll pag1
-        payeeDetails:
-          $ref: '#/components/schemas/PayeeDetailsDto'
-      additionalProperties: false
-    AmendUnilateralDetailsResponse:
-      type: object
-      properties:
-        paymentAgreementUID:
-          type: string
-          description: Id to uniquely Identify a payment agreement.
-          maxLength: 35
-          pattern: ^[A-Z0-9_-]
-          example: BCORP1662358223
-        traceId:
-          type: string
-          example: 1dabfaa9-abe8-4d2d-a69a-b723079d84ed
-        mmsId:
-          type: string
-          description: This is the unique ID that identifies this payment agreement.
-          example: aa0a5d7eedcd1c01999b2906b1edd8cd
-        actionIdentification:
-          type: string
-          example: b9c91b0f382b1fa5bf7e87aaad094eee
-      additionalProperties: false
-    CreatePaymentAgreementDto:
-      type: object
-      required:
-      - paymentAgreementUID
-      properties:
-        paymentAgreementUID:
-          type: string
-          description: Id to uniquely Identify a payment agreement.
-          maxLength: 35
-          pattern: ^[A-Z0-9_-]
-          example: ABCORP123456
-        payeeDetails:
-          $ref: '#/components/schemas/PayeeDetailsDto'
-        payerDetails:
-          $ref: '#/components/schemas/PayerDetailsDto'
-        paymentTerms:
-          $ref: '#/components/schemas/PaymentTermsDto'
-        paymentDetails:
-          $ref: '#/components/schemas/PaymentDetailsDto'
       additionalProperties: false
     AmendPaymentAgreementStatusDto:
       type: object
@@ -690,7 +819,7 @@ components:
         paymentTerms:
           $ref: '#/components/schemas/PaymentTermsDto'
       additionalProperties: false
-    RecallPaymentAgreementLastActionResponse:
+    AmendUnilateralDetailsResponse:
       type: object
       properties:
         paymentAgreementUID:
@@ -698,24 +827,95 @@ components:
           description: Id to uniquely Identify a payment agreement.
           maxLength: 35
           pattern: ^[A-Z0-9_-]
-          example: BCORP12345678
+          example: BCORP1662358223
+        traceId:
+          type: string
+          example: 1dabfaa9-abe8-4d2d-a69a-b723079d84ed
         mmsId:
           type: string
           description: This is the unique ID that identifies this payment agreement.
-          example: cf9cba5ea20c1e6b87aa04cc8955abcc
-        paymentAgreementStatus:
-          type: string
-          description: This is the status of the payment agreement.
-          example: Cancelled
-        paymentAgreementStatusDescription:
-          type: string
-          description: This describes the status. For example, a status of ‘created’ will have a description of ‘Pending Payer Approval’
-          example: Mandate action recalled
+          example: aa0a5d7eedcd1c01999b2906b1edd8cd
         actionIdentification:
           type: string
-          description: unique Id used to identify pending(unapproved) actions. This id is assigned when a new payment agreement is created or when a bilateral amendment is made.
-          example: 6ae818d80ba362618a2aece46ee70e4a
+          example: b9c91b0f382b1fa5bf7e87aaad094eee
       additionalProperties: false
+    PaymentTermsDto:
+      required:
+      - numberOfTransactionsPermitted
+      - frequency
+      - amount
+      - agreementType
+      type: object
+      properties:
+        numberOfTransactionsPermitted:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: Quantifies the number of transactions allowed per frequency
+          example: 10
+        frequency:
+          type:
+          - string
+          - 'null'
+          description: Specifies the regularity of an event. See Frequency Table for allowed values
+          example: WEEK
+        pointInTime:
+          type:
+          - number
+          - 'null'
+          description: Qualifies the frequency in terms of an exact point in time or moment within the specified period.</br> Valid non decimal numeric value. Supported values will be 01 to 31 </br> This field works in combination with frequency and can only be provided when frequency = MNTH </br> This field should not be provided if numberOfTransactionsPermitted is provided
+          example: null
+        amount:
+          type:
+          - number
+          - 'null'
+          maxLength: 34
+          example: null
+          description: Exact amount that may be paid from the Creditor's account, per instruction. Refer to AgreementType & Amount table below
+        maximumAmount:
+          type:
+          - number
+          - 'null'
+          maxLength: 34
+          example: 100.0
+          description: Maximum amount that may be paid from the Creditor's account, per instruction. Refer to AgreementType & Amount table below
+        agreementType:
+          type:
+          - string
+          - 'null'
+          description: Based on the AgreementType table
+          example: VARI
+      additionalProperties: false
+    AmendPaymentAgreementStatusResponse:
+      type: object
+      properties:
+        traceId:
+          type: string
+          description: Trace ID for tracking the request.
+        paymentAgreementUID:
+          type: string
+          description: Id to uniquely Identify a payment agreement.
+          maxLength: 35
+          pattern: ^[A-Z0-9_-]
+          example: MONPAG12345
+        paymentAgreementStatus:
+          type: string
+          description: 'The current status of the payment agreement.
+
+            '
+          example: Paused
+        paymentAgreementStatusDescription:
+          type: string
+          description: 'Detailed description of the current status.
+
+            '
+          example: Status changed from Active to Paused
+        mmsId:
+          type: string
+          description: 'Unique ID that identifies this payment agreement within the system.
+
+            '
     PaymentDetailsDto:
       required:
       - automaticRenewal
@@ -845,150 +1045,71 @@ components:
           type: string
           example: eea687ee114eae368ca066aa62bae488
       additionalProperties: false
-    PayerDetailsDto:
+    AmendUnilateralDetailsDto:
+      type: object
+      properties:
+        description:
+          type:
+          - string
+          - 'null'
+          description: Reason for the mandate setup as narrative text.</br> Either "description" or "short_description" must be present.
+          maxLength: 140
+          example: payroll pag1
+        shortDescription:
+          type:
+          - string
+          - 'null'
+          description: Reason for the mandate setup as narrative text.</br> Either "description" or "short_description" must be present.
+          maxLength: 35
+          example: payroll pag1
+        payeeDetails:
+          $ref: '#/components/schemas/PayeeDetailsDto'
+      additionalProperties: false
+    CreatePaymentAgreementDto:
       type: object
       required:
-      - payerType
-      - payer
-      - ultimatePayer
-      - payerPartyReference
-      oneOf:
-      - required:
-        - linkedBsb
-        - linkedAccount
-      - required:
-        - linkedPayId
-        - linkedPayIdType
+      - paymentAgreementUID
       properties:
-        payerType:
-          type:
-          - string
-          - 'null'
-          description: Identifies the type of party. </br> Possible Values - ORGN (Organization),    PERS (Person)
-          example: ORGN
-        linkedBsb:
-          type:
-          - string
-          - 'null'
-          description: BSB (Bank-State-Branch) number. </br>Required if 'linkedPayId' and 'linkedPayIdType' are not provided.
-          example: 802950
-        linkedAccount:
-          type:
-          - string
-          - 'null'
-          description: Bank account number. </br>Required if 'linkedPayId' and 'linkedPayIdType' are not provided.
-          maxLength: 28
-          example: 10109010
-        linkedPayId:
-          type:
-          - string
-          - 'null'
-          example: null
-          description: PayID. </br> Email, phone number, ABN, ACN or Organisation ID. </br>Required if 'linkedBsb' and 'linkedAccount' are not provided. <a href="/payTo#tag/PAYID-Format-Validation">See PAYID Format Validation.</a>
-        linkedPayIdType:
-          type:
-          - string
-          - 'null'
-          example: null
-          description: PayID Type. </br>Possible Values - Email, PhoneNumber, ABN, ACN, OrganisationId. </br>Required if 'linkedBsb' and 'linkedAccount' are not provided.
-        payer:
-          type:
-          - string
-          - 'null'
-          description: Bank Account Name.
-          maxLength: 140
-          example: ABCCORPCo
-        ultimatePayer:
-          type:
-          - string
-          - 'null'
-          maxLength: 140
-          description: Name by which the party is known, and which is usually used to identify that party.
-          example: ABCCORPCo
-        payerPartyReference:
-          type:
-          - string
-          - 'null'
-          maxLength: 35
-          description: This field will be presented to Payer in the detail agreement view. This field also be used group payment initiations associated with a payment agreement.
-          example: Payer54321
-      additionalProperties: false
-    AmendPaymentAgreementStatusResponse:
-      type: object
-      properties:
-        traceId:
-          type: string
-          description: Trace ID for tracking the request.
         paymentAgreementUID:
           type: string
           description: Id to uniquely Identify a payment agreement.
           maxLength: 35
           pattern: ^[A-Z0-9_-]
-          example: MONPAG12345
-        paymentAgreementStatus:
-          type: string
-          description: 'The current status of the payment agreement.
-
-            '
-          example: Paused
-        paymentAgreementStatusDescription:
-          type: string
-          description: 'Detailed description of the current status.
-
-            '
-          example: Status changed from Active to Paused
-        mmsId:
-          type: string
-          description: 'Unique ID that identifies this payment agreement within the system.
-
-            '
-    PaymentTermsDto:
-      required:
-      - numberOfTransactionsPermitted
-      - frequency
-      - amount
-      - agreementType
+          example: ABCORP123456
+        payeeDetails:
+          $ref: '#/components/schemas/PayeeDetailsDto'
+        payerDetails:
+          $ref: '#/components/schemas/PayerDetailsDto'
+        paymentTerms:
+          $ref: '#/components/schemas/PaymentTermsDto'
+        paymentDetails:
+          $ref: '#/components/schemas/PaymentDetailsDto'
+      additionalProperties: false
+    RecallPaymentAgreementLastActionResponse:
       type: object
       properties:
-        numberOfTransactionsPermitted:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: Quantifies the number of transactions allowed per frequency
-          example: 10
-        frequency:
-          type:
-          - string
-          - 'null'
-          description: Specifies the regularity of an event. See Frequency Table for allowed values
-          example: WEEK
-        pointInTime:
-          type:
-          - number
-          - 'null'
-          description: Qualifies the frequency in terms of an exact point in time or moment within the specified period.</br> Valid non decimal numeric value. Supported values will be 01 to 31 </br> This field works in combination with frequency and can only be provided when frequency = MNTH </br> This field should not be provided if numberOfTransactionsPermitted is provided
-          example: null
-        amount:
-          type:
-          - number
-          - 'null'
-          maxLength: 34
-          example: null
-          description: Exact amount that may be paid from the Creditor's account, per instruction. Refer to AgreementType & Amount table below
-        maximumAmount:
-          type:
-          - number
-          - 'null'
-          maxLength: 34
-          example: 100.0
-          description: Maximum amount that may be paid from the Creditor's account, per instruction. Refer to AgreementType & Amount table below
-        agreementType:
-          type:
-          - string
-          - 'null'
-          description: Based on the AgreementType table
-          example: VARI
+        paymentAgreementUID:
+          type: string
+          description: Id to uniquely Identify a payment agreement.
+          maxLength: 35
+          pattern: ^[A-Z0-9_-]
+          example: BCORP12345678
+        mmsId:
+          type: string
+          description: This is the unique ID that identifies this payment agreement.
+          example: cf9cba5ea20c1e6b87aa04cc8955abcc
+        paymentAgreementStatus:
+          type: string
+          description: This is the status of the payment agreement.
+          example: Cancelled
+        paymentAgreementStatusDescription:
+          type: string
+          description: This describes the status. For example, a status of ‘created’ will have a description of ‘Pending Payer Approval’
+          example: Mandate action recalled
+        actionIdentification:
+          type: string
+          description: unique Id used to identify pending(unapproved) actions. This id is assigned when a new payment agreement is created or when a bilateral amendment is made.
+          example: 6ae818d80ba362618a2aece46ee70e4a
       additionalProperties: false
   securitySchemes:
     BearerAuth:

@@ -1,6 +1,9 @@
 openapi: 3.2.0
 info:
-  description: "# Introduction\n\n<p> \n  Monoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n  This service is made available to Monoova’s clients through a set of easy-to-use RESTful APIs with JSON payloads described in this document.\n  The central idea is to reduce the cost, risk and effort normally associated with managing complex money movements so that you can focus on growing your business.\n</p> \n<p> \n Our clients can receive and reconcile funds via Realtime transfers (NPP), direct credits/debits, BPAY and cards. \n They can then manage those funds by building virtual account/wallet hierarchies to get bespoke reporting, reconciliation and much more. \n And finally, our clients can pay funds via Realtime transfers (NPP) direct credits and BPAY. \n As new technologies become available (e.g. NPP Mandated payments) we will make additional methods of receiving, managing and paying available.\n</p> \n<p> \n  All information flows are real-time.\n  Moving money between various Monoova accounts is also real time.\n  All money flows in and out of the Engine are as fast as the banking system allows.\n</p>\n<p> \n  The sandbox environment is open to everyone who signs up on our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a> at no cost.\n  The sandbox environment allows you to test out the functionality of our API in a consequence free development environment.\n  Access to the live environment is granted once you have (1) gone through our compliance process and (2) had formal sign-off on your sandbox integration.\n</p>\n<p>\n  Monoova regularly releases additive changes to our API, as well as new versions of the API when a breaking change would occur. \n  To ensure your integration does not break due to these additive changes, we recommend not validating the entire schema, or the position of a parameter within the schema.\n</p>\n<br/><br/>\n<p> <strong> Note&#58;</strong> Please note we do not accept TLS 1.0 or 1.1 connections</p>\n\n# Getting started\n>\n  - Sign on to our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>\n  - Get your sandbox API key under **MANAGE > ACCOUNTS** in the Sandbox Portal\n  - [Authenticate](#section/Authentication)\n  - Browse this document to find the functions you need\n  - Begin experimenting with your first API calls by sending HTTP requests to the endpoints described in this document\n  - Use the provided examples in the document as guidance\n\n# Authentication\n  All RESTful APIs in this document use BASIC Authentication (except those in public/v1) in two scenarios either\n  - <strong> API KEY </strong>\n  - <strong> OneShotSecurityToken </strong><br><br>\n\n> **Sandbox Authentication Credentials**\n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.m-pay.com.au/</td>\n  </tr>\n</table> <br>\n\n> **Live Authentication Credentials**\nThis will be provided by Monoova after a technical review. <br> \n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the Production Portal; Production credentials will be supplied by Monoova) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.mpay.com.au/</td>\n  </tr>\n</table> <br>\n\nWhen using the LIVE Engine, your Sign-In Account is given five (5) attempts to authenticate your credentials. \nOn the fifth failure your Sign-In Account is locked for one (1) hour. \nThe returned data will indicate that your account is locked and the time in UTC that the account will be unlocked. \nIf you require the account to be unlocked on the LIVE system you may contact your Monoova representative and at his or her discretion they will unlock the account.\nSee the API routes in Security to manage Passwords and Tokens. <br><br>\n\n<h3> UserName/Password </h3>\nUsing this scenario, you can configure BASIC Authentication with the following <br> <br>\n<li> <strong> UserName </strong> - API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) Production credentials will be supplied by Monoova when you have demonstrated successful implementation of the API on our Sandbox environment.</li>\n<li> <strong> Password </strong> - When using your API Key, no password is required. \nIf the key is compromised, it can be re-rolled via the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>. </li> <br>\n\n# Feedback\n\nWe value your feedback on our API. Please fill out the form <a href=\"https://ncv.microsoft.com/8eaKX3fsiJ\" target=\"_blank\">here</a> to share your feedback.\n"
+  description: '# Introduction
+
+
+    Monoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.'
   version: v5.29
   title: Monoova Payments M Wallet API
   contact:
@@ -19,7 +22,9 @@ security:
 - BasicAuth: []
 tags:
 - name: mWallet
-  description: <h3>  Overview </h3> mWallet is the name we have given to the digital wallet required for our BPAY payments. For any other digital-wallet uses, we recommend our mAccount. The APIs in this section do not perform any financial transactions. They are used to manage mWallet information used by the Engine. The /financial/v2/transaction API verifies mWallet information using this subsystem before performing the transaction.
+  description: 'Overview
+
+    mWallet is the name we have given to the digital wallet required for our BPAY payments. For any other digital-wallet uses, we recommend our mAccount. The APIs in this section do not perform any financial transactions. They are used to manage mWallet information used by the Engine. The /financial/v2/transaction API verifies mWallet information using this subsystem before performing the transaction.'
 paths:
   /mWallet/v1/create:
     post:
@@ -253,389 +258,6 @@ paths:
           description: Internal Server Error
 components:
   schemas:
-    mWallet.update:
-      type: object
-      required:
-      - accountNumber
-      - pin
-      - name
-      properties:
-        accountNumber:
-          type: string
-          uniqueItems: true
-          example: '6279059736211111'
-          minLength: 16
-          maxLength: 16
-          description: 16-Digit mWallet account number to update.
-        pin:
-          type: number
-          uniqueItems: false
-          example: '5555'
-          minLength: 4
-          maxLength: 4
-          description: 4 digit numerical pin.
-        name:
-          type: string
-          uniqueItems: false
-          example: mPayments Retail
-          description: Full name of customer.
-        nickName:
-          type: string
-          uniqueItems: false
-          example: mPayments
-          description: This is a short form name of the customer. Can be empty
-        phone:
-          type: number
-          uniqueItems: false
-          example: 0414 555 555
-          description: Contact phone number. This is not used for authentication. Required field in conjunction with email address that must start with 0. All non-numbers are stripped.
-        email:
-          type: string
-          uniqueItems: false
-          example: mPayments@monoova.com
-          description: Contact email. This is not used for authentication. Limited to 300 characters. Required field in conjunction with phone and should contain @ and follow normal email format conventions. Converted to lowercase.
-        abn:
-          description: Company ABN of the mAccount. All non numbers are stripped
-          type: string
-          example: '77106249852'
-          uniqueItems: false
-        options:
-          type: array
-          items:
-            $ref: '#/components/schemas/mWallet.create.options'
-    DTO.mWalletUpdateResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-        mWallet:
-          $ref: '#/components/schemas/DTO.mWalletDetails'
-      type: object
-      format: DTO.mWalletUpdateResponse_V1
-    DTO.mWalletTransactionsResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-        openingBalance:
-          description: Opening balance of the mWalletfor the returned items
-          type: number
-          format: decimal
-          example: '0'
-          uniqueItems: false
-        closingBalance:
-          description: Closing balance of the mWalletfor the returned items
-          type: number
-          format: decimal
-          example: '0'
-          uniqueItems: false
-        totalDebits:
-          description: Total debits for the returned items
-          type: number
-          format: decimal
-          example: '25'
-          uniqueItems: false
-        totalCredits:
-          description: Total credits for the returned items
-          type: number
-          format: decimal
-          example: '25'
-          uniqueItems: false
-        items:
-          description: mWalletTransactionLineItem
-          type: array
-          items:
-            $ref: '#/components/schemas/DTO.mWalletTransactionLineItem'
-          uniqueItems: false
-      type: object
-      format: DTO.mWalletTransactionsResponse_V1
-    DTO.mWalletTransactionLineItem:
-      properties:
-        rowOrder:
-          description: If you need to sort the results, only use this field. If you sort the results on any other field, the runningBalance won’t make sense.rowOrder start at 0.
-          type: integer
-          format: int32
-          example: '0'
-          uniqueItems: false
-        mPaymentsId:
-          description: This is the Platform internal Id for the row returned
-          type: integer
-          format: int32
-          example: '2303203'
-          uniqueItems: false
-        transactionId:
-          description: This is the transactionId that was returned from a financial transaction
-          type: integer
-          format: int32
-          example: '4958475'
-          uniqueItems: false
-        dateTime:
-          description: The time the transaction occurred in ISO 8601 date-time format. Note that Timezone is suppressed. The example Timezone is Sydney local time
-          type: string
-          example: '2017-11-18T19:06:09'
-          uniqueItems: false
-        mAccountName:
-          description: Name of the mAccount that conducted the transaction
-          type: string
-          example: '6279059600052340'
-          uniqueItems: false
-        transactionType:
-          description: Major keyword describing the transaction. E.g. include Payment, LoadFunds, DailySettlement
-          type: string
-          example: LoadFunds
-          uniqueItems: false
-        subTransactionType:
-          description: Minor keyword describing thetransaction. E.g. GatewayMWalletCredit
-          type: string
-          example: GatewayMWalletCredit
-          uniqueItems: false
-        credit:
-          description: The amount of funds credited from the mWallet
-          type: number
-          format: decimal
-          example: '0'
-          uniqueItems: false
-        debit:
-          description: The amount of funds debited from the mWallet
-          type: number
-          format: decimal
-          example: '25'
-          uniqueItems: false
-        runningBalance:
-          description: The current balance of the mAccount at the end of this single row transaction
-          type: number
-          format: decimal
-          example: '0'
-          uniqueItems: false
-        description:
-          description: This is the description that was provided by the caller to the financial API with your unique reference prepended
-          type: string
-          example: 0bbae2f1-428a-4843-0b3e4bc. - test description
-          uniqueItems: false
-      type: object
-      format: DTO.mWalletTransactionLineItem
-    mWallet.create.options:
-      type: object
-      title: MobileForSms
-      properties:
-        key:
-          description: Unique identifier of the value.  this is to use for receiving SMS notifications.
-          type: string
-          example: MobileForSms
-          enum:
-          - MobileForSms
-        value:
-          description: The actual value represented by the Key.
-          type: number
-          example: '0414123123'
-          enum:
-          - 70297171
-    DTO.mWalletReopenResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-      type: object
-      format: DTO.mWalletReopenResponse_V1
-    DTO.mWalletCloseResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-      type: object
-      format: DTO.mWalletCloseResponse_V1
-    DTO.mWalletSearchResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-        mWallets:
-          description: Array of WalletDetails
-          type: array
-          items:
-            $ref: '#/components/schemas/DTO.mWalletDetails'
-          uniqueItems: false
-      type: object
-      format: DTO.mWalletSearchResponse_V1
-    mWallet.transactions:
-      type: object
-      required:
-      - accountNumber
-      - pin
-      properties:
-        accountNumber:
-          type: string
-          uniqueItems: true
-          example: '6279059700022400'
-          minLength: 16
-          maxLength: 16
-          description: The 16-Digit number that uniquely identifies the Ledger Account or mWallet.
-        pin:
-          type: number
-          uniqueItems: true
-          example: '5555'
-          minLength: 4
-          maxLength: 4
-          description: 4 digit numerical pin.
-        startDate:
-          type: string
-          format: date-time
-          example: '2018-07-11T00:00:00'
-          description: Start date of statement when the frequency is set to custom. In ISO 8601 date-time format. Note that Timezone is suppressed. The default Timezone is Sydney local time. Required field when frequency is set to custom.
-        endDate:
-          type: string
-          format: date-time
-          example: '2018-02-28T00:00:00'
-          description: End date of statement when the frequency is set to custom. In ISO 8601 date-time format. Note that Timezone is suppressed. The default Timezone is Sydney local time. Required field when frequency is set to custom.
-        skip:
-          type: number
-          uniqueItems: true
-          example: '0'
-          description: Number of records to skip. 0 is the first record.
-        take:
-          type: number
-          uniqueItems: true
-          example: '50'
-          description: Number of records to take. If take is 0 the all records will be returned.
-        descending:
-          type: boolean
-          example: false
-          description: Sort the returned transaction list ascending or descending.
-        useTime:
-          type: boolean
-          example: false
-          description: Use the time component of startDate and endDate in the selection.
-    mWallet.create:
-      type: object
-      required:
-      - identifier
-      - pin
-      - name
-      - dateOfBirth
-      properties:
-        identifier:
-          type: string
-          uniqueItems: true
-          example: '0200000000'
-          maxLength: 300
-          description: Email address, Telephone number, landline number or mWallet account number.
-        pin:
-          type: number
-          uniqueItems: false
-          example: '0000'
-          minLength: 4
-          maxLength: 4
-          description: 4 digit numerical pin.
-        name:
-          type: string
-          uniqueItems: false
-          example: Sample mWallet Name
-          maxLength: 50
-          description: Full name of customer.
-        nickName:
-          type: string
-          uniqueItems: false
-          example: Your mWallet Nickname
-          maxLength: 20
-          description: This is a short form name of the customer. Can be empty.
-        dateOfBirth:
-          type: string
-          format: date-time
-          uniqueItems: false
-          example: '1990-01-01T12:00:00'
-          description: Birth date of customer or require field in ISO 8601 date-time format. Note that Timezone is suppressed. The default Timezone is Sydney local time.
-        phone:
-          type: number
-          uniqueItems: false
-          example: 0414 555 555
-          maxLength: 11
-          description: Contact phone number. This is not used for authentication. Required field in conjunction with email address that must start with 0. All non-numbers are stripped. <br/>Phone numbers are validated with google’s common <a href="https://github.com/google/libphonenumber" target='_blank' rel="noopener noreferrer">library</a>. Numbers that can't be validated as correct cannot be used in mWallet creation. A test tool for the validation routine can be found <a target='_blank' href="https://libphonenumber.appspot.com/" rel="noopener noreferrer">here</a>.
-        email:
-          type: string
-          uniqueItems: false
-          example: walletuser@monoova.com
-          maxLength: 300
-          description: Contact email. This is not used for authentication. Limited to 300 characters. Required field in conjunction with phone and should contain @ and follow normal email format conventions. Converted to lowercase. This email address is used to email the customer receipts for BPAY transactions.
-        allowDuplicates:
-          type: boolean
-          uniqueItems: true
-          example: false
-          description: If true, allow the creation of a duplicate mWallet of any identifier type.
-        abn:
-          description: Company ABN of the mAccount. All non numbers are stripped
-          type: string
-          example: '77106249852'
-          uniqueItems: false
-        options:
-          type: array
-          items:
-            anyOf:
-            - $ref: '#/components/schemas/mWallet.create.options'
     DTO.mWalletDetails:
       properties:
         createdDateTime:
@@ -744,68 +366,6 @@ components:
           $ref: '#/components/schemas/DTO.mWalletFinancials'
       type: object
       format: DTO.mWalletGetFinancialsResponse_V1
-    DTO.mWalletOptionItem:
-      properties:
-        key:
-          description: Unique identifier of the value.
-          type: string
-          example: MobileForSms
-          enum:
-          - MobileForSms
-          uniqueItems: false
-        value:
-          description: The actual value represented by the Key
-          type: string
-          example: '0414123123'
-          uniqueItems: false
-      type: object
-    DTO.mWalletResetPinResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-      type: object
-      format: DTO.mWalletResetPinResponse_V1
-    DTO.mWalletCreateResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-        accountNumber:
-          description: New 16 character mWallet account number
-          type: string
-          example: '6279052236217305'
-          uniqueItems: false
-        mWallet:
-          $ref: '#/components/schemas/DTO.mWalletDetails'
-      type: object
-      format: DTO.mWalletCreateResponse_V1
     mWallet.resetPin:
       type: object
       required:
@@ -854,6 +414,451 @@ components:
           example: '3000'
           uniqueItems: false
       type: object
+    DTO.mWalletCreateResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        accountNumber:
+          description: New 16 character mWallet account number
+          type: string
+          example: '6279052236217305'
+          uniqueItems: false
+        mWallet:
+          $ref: '#/components/schemas/DTO.mWalletDetails'
+      type: object
+      format: DTO.mWalletCreateResponse_V1
+    DTO.mWalletTransactionLineItem:
+      properties:
+        rowOrder:
+          description: If you need to sort the results, only use this field. If you sort the results on any other field, the runningBalance won’t make sense.rowOrder start at 0.
+          type: integer
+          format: int32
+          example: '0'
+          uniqueItems: false
+        mPaymentsId:
+          description: This is the Platform internal Id for the row returned
+          type: integer
+          format: int32
+          example: '2303203'
+          uniqueItems: false
+        transactionId:
+          description: This is the transactionId that was returned from a financial transaction
+          type: integer
+          format: int32
+          example: '4958475'
+          uniqueItems: false
+        dateTime:
+          description: The time the transaction occurred in ISO 8601 date-time format. Note that Timezone is suppressed. The example Timezone is Sydney local time
+          type: string
+          example: '2017-11-18T19:06:09'
+          uniqueItems: false
+        mAccountName:
+          description: Name of the mAccount that conducted the transaction
+          type: string
+          example: '6279059600052340'
+          uniqueItems: false
+        transactionType:
+          description: Major keyword describing the transaction. E.g. include Payment, LoadFunds, DailySettlement
+          type: string
+          example: LoadFunds
+          uniqueItems: false
+        subTransactionType:
+          description: Minor keyword describing thetransaction. E.g. GatewayMWalletCredit
+          type: string
+          example: GatewayMWalletCredit
+          uniqueItems: false
+        credit:
+          description: The amount of funds credited from the mWallet
+          type: number
+          format: decimal
+          example: '0'
+          uniqueItems: false
+        debit:
+          description: The amount of funds debited from the mWallet
+          type: number
+          format: decimal
+          example: '25'
+          uniqueItems: false
+        runningBalance:
+          description: The current balance of the mAccount at the end of this single row transaction
+          type: number
+          format: decimal
+          example: '0'
+          uniqueItems: false
+        description:
+          description: This is the description that was provided by the caller to the financial API with your unique reference prepended
+          type: string
+          example: 0bbae2f1-428a-4843-0b3e4bc. - test description
+          uniqueItems: false
+      type: object
+      format: DTO.mWalletTransactionLineItem
+    mWallet.update:
+      type: object
+      required:
+      - accountNumber
+      - pin
+      - name
+      properties:
+        accountNumber:
+          type: string
+          uniqueItems: true
+          example: '6279059736211111'
+          minLength: 16
+          maxLength: 16
+          description: 16-Digit mWallet account number to update.
+        pin:
+          type: number
+          uniqueItems: false
+          example: '5555'
+          minLength: 4
+          maxLength: 4
+          description: 4 digit numerical pin.
+        name:
+          type: string
+          uniqueItems: false
+          example: mPayments Retail
+          description: Full name of customer.
+        nickName:
+          type: string
+          uniqueItems: false
+          example: mPayments
+          description: This is a short form name of the customer. Can be empty
+        phone:
+          type: number
+          uniqueItems: false
+          example: 0414 555 555
+          description: Contact phone number. This is not used for authentication. Required field in conjunction with email address that must start with 0. All non-numbers are stripped.
+        email:
+          type: string
+          uniqueItems: false
+          example: mPayments@monoova.com
+          description: Contact email. This is not used for authentication. Limited to 300 characters. Required field in conjunction with phone and should contain @ and follow normal email format conventions. Converted to lowercase.
+        abn:
+          description: Company ABN of the mAccount. All non numbers are stripped
+          type: string
+          example: '77106249852'
+          uniqueItems: false
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/mWallet.create.options'
+    DTO.mWalletUpdateResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        mWallet:
+          $ref: '#/components/schemas/DTO.mWalletDetails'
+      type: object
+      format: DTO.mWalletUpdateResponse_V1
+    DTO.mWalletOptionItem:
+      properties:
+        key:
+          description: Unique identifier of the value.
+          type: string
+          example: MobileForSms
+          enum:
+          - MobileForSms
+          uniqueItems: false
+        value:
+          description: The actual value represented by the Key
+          type: string
+          example: '0414123123'
+          uniqueItems: false
+      type: object
+    DTO.mWalletTransactionsResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        openingBalance:
+          description: Opening balance of the mWalletfor the returned items
+          type: number
+          format: decimal
+          example: '0'
+          uniqueItems: false
+        closingBalance:
+          description: Closing balance of the mWalletfor the returned items
+          type: number
+          format: decimal
+          example: '0'
+          uniqueItems: false
+        totalDebits:
+          description: Total debits for the returned items
+          type: number
+          format: decimal
+          example: '25'
+          uniqueItems: false
+        totalCredits:
+          description: Total credits for the returned items
+          type: number
+          format: decimal
+          example: '25'
+          uniqueItems: false
+        items:
+          description: mWalletTransactionLineItem
+          type: array
+          items:
+            $ref: '#/components/schemas/DTO.mWalletTransactionLineItem'
+          uniqueItems: false
+      type: object
+      format: DTO.mWalletTransactionsResponse_V1
+    DTO.mWalletResetPinResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+      type: object
+      format: DTO.mWalletResetPinResponse_V1
+    mWallet.create.options:
+      type: object
+      title: MobileForSms
+      properties:
+        key:
+          description: Unique identifier of the value.  this is to use for receiving SMS notifications.
+          type: string
+          example: MobileForSms
+          enum:
+          - MobileForSms
+        value:
+          description: The actual value represented by the Key.
+          type: number
+          example: '0414123123'
+          enum:
+          - 70297171
+    mWallet.transactions:
+      type: object
+      required:
+      - accountNumber
+      - pin
+      properties:
+        accountNumber:
+          type: string
+          uniqueItems: true
+          example: '6279059700022400'
+          minLength: 16
+          maxLength: 16
+          description: The 16-Digit number that uniquely identifies the Ledger Account or mWallet.
+        pin:
+          type: number
+          uniqueItems: true
+          example: '5555'
+          minLength: 4
+          maxLength: 4
+          description: 4 digit numerical pin.
+        startDate:
+          type: string
+          format: date-time
+          example: '2018-07-11T00:00:00'
+          description: Start date of statement when the frequency is set to custom. In ISO 8601 date-time format. Note that Timezone is suppressed. The default Timezone is Sydney local time. Required field when frequency is set to custom.
+        endDate:
+          type: string
+          format: date-time
+          example: '2018-02-28T00:00:00'
+          description: End date of statement when the frequency is set to custom. In ISO 8601 date-time format. Note that Timezone is suppressed. The default Timezone is Sydney local time. Required field when frequency is set to custom.
+        skip:
+          type: number
+          uniqueItems: true
+          example: '0'
+          description: Number of records to skip. 0 is the first record.
+        take:
+          type: number
+          uniqueItems: true
+          example: '50'
+          description: Number of records to take. If take is 0 the all records will be returned.
+        descending:
+          type: boolean
+          example: false
+          description: Sort the returned transaction list ascending or descending.
+        useTime:
+          type: boolean
+          example: false
+          description: Use the time component of startDate and endDate in the selection.
+    DTO.mWalletSearchResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        mWallets:
+          description: Array of WalletDetails
+          type: array
+          items:
+            $ref: '#/components/schemas/DTO.mWalletDetails'
+          uniqueItems: false
+      type: object
+      format: DTO.mWalletSearchResponse_V1
+    mWallet.create:
+      type: object
+      required:
+      - identifier
+      - pin
+      - name
+      - dateOfBirth
+      properties:
+        identifier:
+          type: string
+          uniqueItems: true
+          example: '0200000000'
+          maxLength: 300
+          description: Email address, Telephone number, landline number or mWallet account number.
+        pin:
+          type: number
+          uniqueItems: false
+          example: '0000'
+          minLength: 4
+          maxLength: 4
+          description: 4 digit numerical pin.
+        name:
+          type: string
+          uniqueItems: false
+          example: Sample mWallet Name
+          maxLength: 50
+          description: Full name of customer.
+        nickName:
+          type: string
+          uniqueItems: false
+          example: Your mWallet Nickname
+          maxLength: 20
+          description: This is a short form name of the customer. Can be empty.
+        dateOfBirth:
+          type: string
+          format: date-time
+          uniqueItems: false
+          example: '1990-01-01T12:00:00'
+          description: Birth date of customer or require field in ISO 8601 date-time format. Note that Timezone is suppressed. The default Timezone is Sydney local time.
+        phone:
+          type: number
+          uniqueItems: false
+          example: 0414 555 555
+          maxLength: 11
+          description: Contact phone number. This is not used for authentication. Required field in conjunction with email address that must start with 0. All non-numbers are stripped. <br/>Phone numbers are validated with google’s common <a href="https://github.com/google/libphonenumber" target='_blank' rel="noopener noreferrer">library</a>. Numbers that can't be validated as correct cannot be used in mWallet creation. A test tool for the validation routine can be found <a target='_blank' href="https://libphonenumber.appspot.com/" rel="noopener noreferrer">here</a>.
+        email:
+          type: string
+          uniqueItems: false
+          example: walletuser@monoova.com
+          maxLength: 300
+          description: Contact email. This is not used for authentication. Limited to 300 characters. Required field in conjunction with phone and should contain @ and follow normal email format conventions. Converted to lowercase. This email address is used to email the customer receipts for BPAY transactions.
+        allowDuplicates:
+          type: boolean
+          uniqueItems: true
+          example: false
+          description: If true, allow the creation of a duplicate mWallet of any identifier type.
+        abn:
+          description: Company ABN of the mAccount. All non numbers are stripped
+          type: string
+          example: '77106249852'
+          uniqueItems: false
+        options:
+          type: array
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/mWallet.create.options'
+    DTO.mWalletCloseResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+      type: object
+      format: DTO.mWalletCloseResponse_V1
+    DTO.mWalletReopenResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+      type: object
+      format: DTO.mWalletReopenResponse_V1
   securitySchemes:
     BasicAuth:
       type: http

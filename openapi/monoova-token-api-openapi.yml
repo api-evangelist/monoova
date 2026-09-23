@@ -1,6 +1,9 @@
 openapi: 3.2.0
 info:
-  description: "# Introduction\n\n<p> \n  Monoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n  This service is made available to Monoova’s clients through a set of easy-to-use RESTful APIs with JSON payloads described in this document.\n  The central idea is to reduce the cost, risk and effort normally associated with managing complex money movements so that you can focus on growing your business.\n</p> \n<p> \n Our clients can receive and reconcile funds via Realtime transfers (NPP), direct credits/debits, BPAY and cards. \n They can then manage those funds by building virtual account/wallet hierarchies to get bespoke reporting, reconciliation and much more. \n And finally, our clients can pay funds via Realtime transfers (NPP) direct credits and BPAY. \n As new technologies become available (e.g. NPP Mandated payments) we will make additional methods of receiving, managing and paying available.\n</p> \n<p> \n  All information flows are real-time.\n  Moving money between various Monoova accounts is also real time.\n  All money flows in and out of the Engine are as fast as the banking system allows.\n</p>\n<p> \n  The sandbox environment is open to everyone who signs up on our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a> at no cost.\n  The sandbox environment allows you to test out the functionality of our API in a consequence free development environment.\n  Access to the live environment is granted once you have (1) gone through our compliance process and (2) had formal sign-off on your sandbox integration.\n</p>\n<p>\n  Monoova regularly releases additive changes to our API, as well as new versions of the API when a breaking change would occur. \n  To ensure your integration does not break due to these additive changes, we recommend not validating the entire schema, or the position of a parameter within the schema.\n</p>\n<br/><br/>\n<p> <strong> Note&#58;</strong> Please note we do not accept TLS 1.0 or 1.1 connections</p>\n\n# Getting started\n>\n  - Sign on to our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>\n  - Get your sandbox API key under **MANAGE > ACCOUNTS** in the Sandbox Portal\n  - [Authenticate](#section/Authentication)\n  - Browse this document to find the functions you need\n  - Begin experimenting with your first API calls by sending HTTP requests to the endpoints described in this document\n  - Use the provided examples in the document as guidance\n\n# Authentication\n  All RESTful APIs in this document use BASIC Authentication (except those in public/v1) in two scenarios either\n  - <strong> API KEY </strong>\n  - <strong> OneShotSecurityToken </strong><br><br>\n\n> **Sandbox Authentication Credentials**\n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.m-pay.com.au/</td>\n  </tr>\n</table> <br>\n\n> **Live Authentication Credentials**\nThis will be provided by Monoova after a technical review. <br> \n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the Production Portal; Production credentials will be supplied by Monoova) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.mpay.com.au/</td>\n  </tr>\n</table> <br>\n\nWhen using the LIVE Engine, your Sign-In Account is given five (5) attempts to authenticate your credentials. \nOn the fifth failure your Sign-In Account is locked for one (1) hour. \nThe returned data will indicate that your account is locked and the time in UTC that the account will be unlocked. \nIf you require the account to be unlocked on the LIVE system you may contact your Monoova representative and at his or her discretion they will unlock the account.\nSee the API routes in Security to manage Passwords and Tokens. <br><br>\n\n<h3> UserName/Password </h3>\nUsing this scenario, you can configure BASIC Authentication with the following <br> <br>\n<li> <strong> UserName </strong> - API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) Production credentials will be supplied by Monoova when you have demonstrated successful implementation of the API on our Sandbox environment.</li>\n<li> <strong> Password </strong> - When using your API Key, no password is required. \nIf the key is compromised, it can be re-rolled via the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>. </li> <br>\n\n# Feedback\n\nWe value your feedback on our API. Please fill out the form <a href=\"https://ncv.microsoft.com/8eaKX3fsiJ\" target=\"_blank\">here</a> to share your feedback.\n"
+  description: '# Introduction
+
+
+    Monoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.'
   version: v5.29
   title: Monoova Payments Token API
   contact:
@@ -19,7 +22,10 @@ security:
 - BasicAuth: []
 tags:
 - name: Token
-  description: <h3> Overview </h3> <p> Using tokens is a way of increasing the security around sensitive information. A token can be used to obfuscate debit and credit details. The details of a token (its payload) are stored encrypted on the Engine servers. The tokening system has been designed such the generated token has no mathematical or algorithmic connection to the secret data held as the payload. The token is a random number that is manifested as a GUID. Currently two types of payloads can be held within the tokening system </p> <ul> <li> Australian Bank Account </li> <li> BPAY details </li> </ul> <p> Other payload types can be added if required. For example, if you have asked the user to enter their bank-account details on your website you can use the security/v1/createOneShotSecurityToken API to embed an OneShotSecurityToken in your page. Using this OneShotSecurityToken you can call the appropriate token/v1/create API passing the details. This way, the customer’s payload details are never passed through your server. </p>
+  description: 'Overview
+
+
+    Using tokens is a way of increasing the security around sensitive information.'
 paths:
   /token/v1/createAustralianBankAccount:
     post:
@@ -221,6 +227,75 @@ paths:
           description: Internal Server Error
 components:
   schemas:
+    token.createBPAY:
+      type: object
+      required:
+      - accountNumber
+      - billerCode
+      - customerReferenceNumber
+      - amount
+      properties:
+        accountNumber:
+          type: string
+          uniqueItems: false
+          example: '6279059700010827'
+          description: The mWallet or mAccount 16-Digit number that owns the payload.
+        description:
+          type: string
+          uniqueItems: false
+          example: Monthly Electricity Bill BPAY
+          description: A simple text description that is associated with the token. For example “Monthly Electricity Bill BPAY”.
+        billerCode:
+          type: integer
+          uniqueItems: false
+          example: '857763'
+          description: Biller Code as shown on the Bill. Must be a valid BPAY Biller on token creation.
+        customerReferenceNumber:
+          type: integer
+          example: '6279059700010918'
+          description: Customer Reference Number as shown on the Bill. Must be a valid BPAY Customer Reference Number on token creation.
+        amount:
+          type: number
+          format: decimal
+          example: 100.0
+          description: Amount as shown on the Bill. Must be a valid amount on token creation.
+    token.createAustralianBankAccount:
+      type: object
+      required:
+      - accountNumber
+      - bankAccountName
+      - bankAccountNumber
+      - bsb
+      properties:
+        accountNumber:
+          type: string
+          example: '6279059700010827'
+          minLength: 16
+          maxLength: 16
+          description: The mWallet or mAccount 16-Digit number that owns the payload.
+        description:
+          type: string
+          maxLength: 256
+          uniqueItems: false
+          example: Savings Account
+          description: A simple text description that is associated with the token. For example “Savings Account”.
+        bankAccountName:
+          type: string
+          uniqueItems: false
+          minLength: 2
+          example: Monoova Bank Account
+          description: Name associated with the bank account. Minimum length is 2.
+        bankAccountNumber:
+          type: integer
+          example: 123456789
+          minimum: 1
+          maximum: 999999999
+          description: This is the bank account number. Range of '1' to '999999999'.
+        bsb:
+          type: string
+          uniqueItems: false
+          example: 012-366
+          description: Bank-State-Branch number. Format is 3-3 digits. (Eg. '000-000')
     DTO.TokenDetails:
       properties:
         token:
@@ -304,6 +379,26 @@ components:
           format: decimal
           example: 100.0
           description: Amount as shown on the Bill. Must be a valid amount on token creation.
+    DTO.TokenValidateResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+      type: object
+      format: DTO.TokenValidateResponse_V1
     DTO.TokenUpdateResponse_V1:
       properties:
         durationMs:
@@ -334,82 +429,6 @@ components:
           uniqueItems: false
       type: object
       format: DTO.TokenUpdateResponse_V1
-    DTO.TokenValidateResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-      type: object
-      format: DTO.TokenValidateResponse_V1
-    DTO.TokenListResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-        tokens:
-          description: An array of TokenDetails
-          type: array
-          items:
-            $ref: '#/components/schemas/DTO.TokenDetails'
-          uniqueItems: false
-      type: object
-      format: DTO.TokenListResponse_V1
-    DTO.TokenCreateResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-        token:
-          description: New token in the form of a GUID
-          type: string
-          example: 9395ddef-69cb-4f38-8836-3c6502c72182
-          uniqueItems: false
-        hint:
-          description: Text that gives sufficient information to allow the token to be selected but does not compromise security
-          type: string
-          example: 'Bank: ANZ Account: 123456789'
-          uniqueItems: false
-      type: object
-      format: DTO.TokenCreateResponse_V1
     DTO.TokenGetResponse_V1:
       properties:
         durationMs:
@@ -489,75 +508,62 @@ components:
           uniqueItems: false
           example: 012-366
           description: Bank-State-Branch number. Format is 3-3 digits. (Eg.'000-000')
-    token.createBPAY:
-      type: object
-      required:
-      - accountNumber
-      - billerCode
-      - customerReferenceNumber
-      - amount
+    DTO.TokenListResponse_V1:
       properties:
-        accountNumber:
-          type: string
-          uniqueItems: false
-          example: '6279059700010827'
-          description: The mWallet or mAccount 16-Digit number that owns the payload.
-        description:
-          type: string
-          uniqueItems: false
-          example: Monthly Electricity Bill BPAY
-          description: A simple text description that is associated with the token. For example “Monthly Electricity Bill BPAY”.
-        billerCode:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
           type: integer
+          format: int64
+          example: 20
           uniqueItems: false
-          example: '857763'
-          description: Biller Code as shown on the Bill. Must be a valid BPAY Biller on token creation.
-        customerReferenceNumber:
-          type: integer
-          example: '6279059700010918'
-          description: Customer Reference Number as shown on the Bill. Must be a valid BPAY Customer Reference Number on token creation.
-        amount:
-          type: number
-          format: decimal
-          example: 100.0
-          description: Amount as shown on the Bill. Must be a valid amount on token creation.
-    token.createAustralianBankAccount:
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        tokens:
+          description: An array of TokenDetails
+          type: array
+          items:
+            $ref: '#/components/schemas/DTO.TokenDetails'
+          uniqueItems: false
       type: object
-      required:
-      - accountNumber
-      - bankAccountName
-      - bankAccountNumber
-      - bsb
+      format: DTO.TokenListResponse_V1
+    DTO.TokenCreateResponse_V1:
       properties:
-        accountNumber:
-          type: string
-          example: '6279059700010827'
-          minLength: 16
-          maxLength: 16
-          description: The mWallet or mAccount 16-Digit number that owns the payload.
-        description:
-          type: string
-          maxLength: 256
-          uniqueItems: false
-          example: Savings Account
-          description: A simple text description that is associated with the token. For example “Savings Account”.
-        bankAccountName:
-          type: string
-          uniqueItems: false
-          minLength: 2
-          example: Monoova Bank Account
-          description: Name associated with the bank account. Minimum length is 2.
-        bankAccountNumber:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
           type: integer
-          example: 123456789
-          minimum: 1
-          maximum: 999999999
-          description: This is the bank account number. Range of '1' to '999999999'.
-        bsb:
-          type: string
+          format: int64
+          example: 20
           uniqueItems: false
-          example: 012-366
-          description: Bank-State-Branch number. Format is 3-3 digits. (Eg. '000-000')
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        token:
+          description: New token in the form of a GUID
+          type: string
+          example: 9395ddef-69cb-4f38-8836-3c6502c72182
+          uniqueItems: false
+        hint:
+          description: Text that gives sufficient information to allow the token to be selected but does not compromise security
+          type: string
+          example: 'Bank: ANZ Account: 123456789'
+          uniqueItems: false
+      type: object
+      format: DTO.TokenCreateResponse_V1
   securitySchemes:
     BasicAuth:
       type: http

@@ -1,6 +1,9 @@
 openapi: 3.2.0
 info:
-  description: "# Introduction\n\n<p> \n  Monoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n  This service is made available to Monoova’s clients through a set of easy-to-use RESTful APIs with JSON payloads described in this document.\n  The central idea is to reduce the cost, risk and effort normally associated with managing complex money movements so that you can focus on growing your business.\n</p> \n<p> \n Our clients can receive and reconcile funds via Realtime transfers (NPP), direct credits/debits, BPAY and cards. \n They can then manage those funds by building virtual account/wallet hierarchies to get bespoke reporting, reconciliation and much more. \n And finally, our clients can pay funds via Realtime transfers (NPP) direct credits and BPAY. \n As new technologies become available (e.g. NPP Mandated payments) we will make additional methods of receiving, managing and paying available.\n</p> \n<p> \n  All information flows are real-time.\n  Moving money between various Monoova accounts is also real time.\n  All money flows in and out of the Engine are as fast as the banking system allows.\n</p>\n<p> \n  The sandbox environment is open to everyone who signs up on our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a> at no cost.\n  The sandbox environment allows you to test out the functionality of our API in a consequence free development environment.\n  Access to the live environment is granted once you have (1) gone through our compliance process and (2) had formal sign-off on your sandbox integration.\n</p>\n<p>\n  Monoova regularly releases additive changes to our API, as well as new versions of the API when a breaking change would occur. \n  To ensure your integration does not break due to these additive changes, we recommend not validating the entire schema, or the position of a parameter within the schema.\n</p>\n<br/><br/>\n<p> <strong> Note&#58;</strong> Please note we do not accept TLS 1.0 or 1.1 connections</p>\n\n# Getting started\n>\n  - Sign on to our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>\n  - Get your sandbox API key under **MANAGE > ACCOUNTS** in the Sandbox Portal\n  - [Authenticate](#section/Authentication)\n  - Browse this document to find the functions you need\n  - Begin experimenting with your first API calls by sending HTTP requests to the endpoints described in this document\n  - Use the provided examples in the document as guidance\n\n# Authentication\n  All RESTful APIs in this document use BASIC Authentication (except those in public/v1) in two scenarios either\n  - <strong> API KEY </strong>\n  - <strong> OneShotSecurityToken </strong><br><br>\n\n> **Sandbox Authentication Credentials**\n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.m-pay.com.au/</td>\n  </tr>\n</table> <br>\n\n> **Live Authentication Credentials**\nThis will be provided by Monoova after a technical review. <br> \n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the Production Portal; Production credentials will be supplied by Monoova) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.mpay.com.au/</td>\n  </tr>\n</table> <br>\n\nWhen using the LIVE Engine, your Sign-In Account is given five (5) attempts to authenticate your credentials. \nOn the fifth failure your Sign-In Account is locked for one (1) hour. \nThe returned data will indicate that your account is locked and the time in UTC that the account will be unlocked. \nIf you require the account to be unlocked on the LIVE system you may contact your Monoova representative and at his or her discretion they will unlock the account.\nSee the API routes in Security to manage Passwords and Tokens. <br><br>\n\n<h3> UserName/Password </h3>\nUsing this scenario, you can configure BASIC Authentication with the following <br> <br>\n<li> <strong> UserName </strong> - API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) Production credentials will be supplied by Monoova when you have demonstrated successful implementation of the API on our Sandbox environment.</li>\n<li> <strong> Password </strong> - When using your API Key, no password is required. \nIf the key is compromised, it can be re-rolled via the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>. </li> <br>\n\n# Feedback\n\nWe value your feedback on our API. Please fill out the form <a href=\"https://ncv.microsoft.com/8eaKX3fsiJ\" target=\"_blank\">here</a> to share your feedback.\n"
+  description: '# Introduction
+
+
+    Monoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.'
   version: v5.29
   title: Monoova Payments M Account API
   contact:
@@ -19,7 +22,9 @@ security:
 - BasicAuth: []
 tags:
 - name: mAccount
-  description: <h3>  Overview </h3> The mAccount is the name we have given our virtual account. It is at the centre of anything you do with our Payments Engine. In many ways, your mAccount(s) is you in the Engine, this is where you get authenticated, where your funds flow in and out, and where you get your reports. It is also the building block for a bespoke ecosystem of virtual accounts which you can build in the Engine. And though we call it an account, it can just as easily be used as a wallet. The APIs in this section do not perform financial transactions. Instead, they are used to manage mAccount information in the Engine. The /financial/v2/transaction API verifies mAccount information using this subsystem before performing a transaction.
+  description: 'Overview
+
+    The mAccount is the name we have given our virtual account.'
 paths:
   /mAccount/v1/create:
     post:
@@ -217,6 +222,133 @@ paths:
           description: Internal Server Error
 components:
   schemas:
+    mAccount.create.options:
+      type: object
+      title: MinimumSettlementAmount
+      properties:
+        key:
+          type: string
+          example: MinimumSettlementAmount
+          enum:
+          - MinimumSettlementAmount
+        value:
+          type: number
+          format: decimal
+          example: 0.02
+          minimum: 0.02
+          maximum: 100
+    DTO.mAccountListResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        mAccounts:
+          description: Array of 16-Digit account numbers
+          type: array
+          items:
+            type: string
+          example: '6279059600000779'
+          uniqueItems: false
+      type: object
+      format: DTO.mAccountListResponse_V1
+    mAccount.create.options6:
+      type: object
+      title: SendMonthlyStatement
+      properties:
+        key:
+          type: string
+          example: SendMonthlyStatement
+          enum:
+          - SendMonthlyStatement
+        value:
+          type: boolean
+          example: true
+          default: true
+    mAccount.create.options4:
+      type: object
+      title: SendSettlementStatement
+      properties:
+        key:
+          type: string
+          example: SendSettlementStatement
+          enum:
+          - SendSettlementStatement
+        value:
+          type: boolean
+          example: true
+          default: true
+    mAccount.create.options5:
+      type: object
+      title: SendDailyStatement
+      properties:
+        key:
+          type: string
+          example: SendDailyStatement
+          enum:
+          - SendDailyStatement
+        value:
+          type: boolean
+          example: true
+          default: true
+    mAccount.create.options3:
+      type: object
+      title: SettlementFrequency
+      properties:
+        key:
+          type: string
+          example: SettlementFrequency
+          enum:
+          - SettlementFrequency
+        value:
+          type: string
+          example: Daily
+          default: Daily
+          enum:
+          - None
+          - Daily
+          - BeginningOfMonth
+          - EndOfMonth
+          - MidMonth
+          - OnDemand
+          - OnDemandWithCatch
+          - OncePerDay
+          - Ignore
+          description: 'None (No Settlement)<br>  Daily (Every Business Day)<br>  BeginningOfMonth (First Business Day of Month)<br>  EndOfMonth (Last Business Day of Month)<br>  MidMonth (15th of month)<br>  OnDemand (Only when user initiated)<br>  OnDemandWithCatch (User initiated and EOD)<br>  OncePerDay (Will not run at EOD if a manual settlement prior to for same day)<br>  Ignore (Ignore during import)<br>
+
+            '
+    DTO.mAccountUpdateResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+      type: object
+      format: DTO.mAccountUpdateResponse_V1
     mAccount.update:
       type: object
       required:
@@ -428,19 +560,193 @@ components:
             - $ref: '#/components/schemas/mAccount.create.options4'
             - $ref: '#/components/schemas/mAccount.create.options5'
             - $ref: '#/components/schemas/mAccount.create.options6'
-    DTO.OptionItem:
+    mAccount.create.options1:
+      type: object
+      title: DebitTplusXDays
       properties:
         key:
-          description: Unique identifier of the value.
           type: string
           example: DebitTplusXDays
-          uniqueItems: false
+          enum:
+          - DebitTplusXDays
         value:
-          description: The actual value represented by the Key
+          type: integer
+          example: 0
+          default: 0
+    DTO.mAccountTransactionLineItem:
+      properties:
+        credit:
+          description: The amount of funds credited from the mAccount
+          type: number
+          format: decimal
+          example: 0
+        dateTime:
+          description: The time the transaction occurred in ISO 8601 date-time format. Note that Timezone is suppressed. The example Timezone is Sydney local time
           type: string
-          example: '1'
+          example: '2017-11-18T19:06:09'
+        debit:
+          description: The amount of funds debited from the mAccount
+          type: number
+          format: decimal
+          example: 25.0
+        description:
+          description: This is the description that was provided by the caller to the financial API with your unique reference prepended
+          type: string
+          example: 'Payment Unique Reference: e9f49db3-66a9-4448-bb36-84499c0c8f2d'
+        destinationMAccountCardNumber:
+          description: If funds were being moved to an mAccount, then this is the mAccount 16-Digit card number
+          type: string
+          example: '6279059600052340'
+        isWaitingForFundsToClear:
+          type: boolean
+          example: false
+        mPaymentsId:
+          description: This is the Platform internal Id for the row returned
+          type: integer
+          format: int32
+          example: 2303203
+        mWalletAccountNumber:
+          description: If funds were being moved to/from an mWallet, then this is the mWallets 16-Digit account number
+          type: string
+          example: '6279059600052340'
+        rowOrder:
+          description: If you need to sort the results, only use this field. If you sort the results on any other field, the runningBalance won’t make sense.rowOrder start at 0.
+          type: integer
+          format: int32
+          example: 0
+        runningBalance:
+          description: The current balance of the mAccount at the end of this single row transaction
+          type: number
+          format: decimal
+          example: 25.0
+        sourceMAccountCardNumber:
+          description: If funds were being moved from an mAccount, then this is the source mAccount 16-Digit Card number
+          type: string
+          example: '6279059600052340'
+        subTransactionType:
+          description: Minor keyword describing thetransaction. E.g. GatewayMWalletCredit
+          type: string
+          example: GatewayMWalletCredit
+        transactionDescription:
+          description: A small description describing the financial action
+          type: string
+          example: Payment To mWallet
+        transactionId:
+          description: This is the transactionId that was returned from a financial transaction
+          type: integer
+          format: int32
+          example: 4958475
+        transactionType:
+          description: Major keyword describing the transaction. E.g. include Payment, LoadFunds, DailySettlement
+          type: string
+          example: LoadFunds
+        uniqueReference:
+          description: This is the unique reference that was passed in by the calling service
+          type: string
+          example: 0bbae2f1-428a-4843-0b3e4bc
+      type: object
+    mAccount.create.options2:
+      type: object
+      title: CreditTplusXDays
+      properties:
+        key:
+          type: string
+          example: CreditTplusXDays
+          enum:
+          - CreditTplusXDays
+        value:
+          type: integer
+          example: 4
+          default: 0
+    DTO.mAccountSendStatementResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
           uniqueItems: false
       type: object
+      format: DTO.mAccountSendStatementResponse_V1
+    DTO.mAccountCloseResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+      type: object
+      format: DTO.mAccountCloseResponse_V1
+    mAccount.sendStatement:
+      type: object
+      required:
+      - accountNumber
+      - frequency
+      properties:
+        accountNumber:
+          type: string
+          description: The 16-Digit account number that uniquely identifies the mAccount.
+          example: '6279059700023123'
+        frequency:
+          type: string
+          uniqueItems: true
+          example: Custom
+          description: An enumeration of fixed selection types. <strong> All, Today, ThisMonth, LastMonth, ThisFinancialYear, LastFinancialYear, Custom </strong>
+        startDate:
+          type: string
+          format: date-time
+          uniqueItems: false
+          example: '2018-07-11T00:00:00'
+          description: Start date of statement when the frequency is set to custom. In ISO 8601 date-time format. Note that Timezone is suppressed. The default Timezone is Sydney local time. Required field when frequency is set to custom.
+        endDate:
+          type: string
+          format: date-time
+          uniqueItems: false
+          example: '2018-08-11T00:00:00'
+          description: End date of statement when the frequency is set to custom. In ISO 8601 date-time format. Note that Timezone is suppressed. The default Timezone is Sydney local time. Required field when frequency is set to custom.
+    DTO.mAccountGetResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        details:
+          $ref: '#/components/schemas/DTO.mAccountDetails'
+      type: object
+      format: DTO.mAccountGetResponse_V1
     DTO.mAccountFinancials:
       properties:
         accountNumber:
@@ -525,50 +831,6 @@ components:
         clearedFundsAccountFinancials:
           $ref: '#/components/schemas/DTO.mAccountClearedFundsAccount'
       type: object
-    DTO.mAccountGetFinancialsResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-        financials:
-          $ref: '#/components/schemas/DTO.mAccountFinancials'
-      type: object
-      format: DTO.mAccountGetFinancialsResponse_V1
-    DTO.mAccountGetResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-        details:
-          $ref: '#/components/schemas/DTO.mAccountDetails'
-      type: object
-      format: DTO.mAccountGetResponse_V1
     DTO.mAccountClearedFundsAccount:
       properties:
         availableBalance:
@@ -591,33 +853,48 @@ components:
             example: '12312312'
           uniqueItems: true
       type: object
-    mAccount.sendStatement:
-      type: object
-      required:
-      - accountNumber
-      - frequency
+    DTO.mAccountTransactionsResponse_V1:
       properties:
-        accountNumber:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
           type: string
-          description: The 16-Digit account number that uniquely identifies the mAccount.
-          example: '6279059700023123'
-        frequency:
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
           type: string
-          uniqueItems: true
-          example: Custom
-          description: An enumeration of fixed selection types. <strong> All, Today, ThisMonth, LastMonth, ThisFinancialYear, LastFinancialYear, Custom </strong>
-        startDate:
-          type: string
-          format: date-time
-          uniqueItems: false
-          example: '2018-07-11T00:00:00'
-          description: Start date of statement when the frequency is set to custom. In ISO 8601 date-time format. Note that Timezone is suppressed. The default Timezone is Sydney local time. Required field when frequency is set to custom.
-        endDate:
-          type: string
-          format: date-time
-          uniqueItems: false
-          example: '2018-08-11T00:00:00'
-          description: End date of statement when the frequency is set to custom. In ISO 8601 date-time format. Note that Timezone is suppressed. The default Timezone is Sydney local time. Required field when frequency is set to custom.
+          example: Operation completed successfully
+        openingBalance:
+          description: Opening balance of the mAccountfor the returned items
+          type: number
+          format: decimal
+          example: 0.0
+        closingBalance:
+          description: Closing balance of the mAccountfor the returned items
+          type: number
+          format: decimal
+          example: 25.0
+        totalDebits:
+          description: Total debits for the returned items
+          type: number
+          format: decimal
+          example: 25.0
+        totalCredits:
+          description: Total credits for the returned items
+          type: number
+          format: decimal
+          example: 0.0
+        items:
+          description: an Array of mAccountTransactionLineItem
+          type: array
+          items:
+            $ref: '#/components/schemas/DTO.mAccountTransactionLineItem'
+      type: object
+      format: DTO.mAccountTransactionsResponse_V1
     DTO.mAccountCreateResponse_V1:
       properties:
         durationMs:
@@ -643,20 +920,59 @@ components:
           uniqueItems: false
       type: object
       format: DTO.mAccountCreateResponse_V1
-    mAccount.create.options4:
+    mAccount.transactions:
       type: object
-      title: SendSettlementStatement
+      required:
+      - accountNumber
+      - frequency
       properties:
-        key:
+        accountNumber:
           type: string
-          example: SendSettlementStatement
+          example: '6279059700023123'
+          description: 16-Digit account number that uniquely identifies the mAccount.
+        frequency:
+          type: string
+          example: Custom
           enum:
-          - SendSettlementStatement
-        value:
+          - Custom
+          - ThisMonth
+          - LastMonth
+          - Today
+          description: An enumeration of fixed selection types. possible values:&nbsp; Today, ThisMonth, LastMonth, Custom. A maximum of 3 months can be retrieved through Frequency = “Custom”
+        startDate:
+          type: string
+          format: date-time
+          example: '2020-04-05T00:00:00'
+          description: Start date of statement when the frequency is set to custom. In ISO 8601 date-time format '2018-07-11T00:00:00'. Note that Timezone is suppressed. The default Timezone is Sydney local time. Required field when frequency is set to custom.
+        endDate:
+          type: string
+          format: date-time
+          example: '2020-04-22T00:00:00'
+          description: End date of statement when the frequency is set to custom. In ISO 8601 date-time format 2018-08-11T00:00:00' . Note that Timezone is suppressed. The default Timezone is Sydney local time. Required field when frequency is set to custom.
+        descending:
           type: boolean
           example: true
-          default: true
-    DTO.mAccountListResponse_V1:
+          default: false
+          description: Default to false. true to sort the returned transaction list as descending order.
+        useTime:
+          type: boolean
+          example: true
+          default: false
+          description: Default to false. true to use startDate and endDate when the frequency is set to custom.
+    DTO.OptionItem:
+      properties:
+        key:
+          description: Unique identifier of the value.
+          type: string
+          example: DebitTplusXDays
+          uniqueItems: false
+        value:
+          description: The actual value represented by the Key
+          type: string
+          example: '1'
+          uniqueItems: false
+      type: object
+    DTO.mAccountGetFinancialsResponse_V1:
       properties:
         durationMs:
           description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
@@ -674,28 +990,10 @@ components:
           type: string
           example: Operation completed successfully
           uniqueItems: false
-        mAccounts:
-          description: Array of 16-Digit account numbers
-          type: array
-          items:
-            type: string
-          example: '6279059600000779'
-          uniqueItems: false
+        financials:
+          $ref: '#/components/schemas/DTO.mAccountFinancials'
       type: object
-      format: DTO.mAccountListResponse_V1
-    mAccount.create.options5:
-      type: object
-      title: SendDailyStatement
-      properties:
-        key:
-          type: string
-          example: SendDailyStatement
-          enum:
-          - SendDailyStatement
-        value:
-          type: boolean
-          example: true
-          default: true
+      format: DTO.mAccountGetFinancialsResponse_V1
     DTO.mAccountDetails:
       properties:
         accountNumber:
@@ -786,299 +1084,6 @@ components:
             $ref: '#/components/schemas/DTO.OptionItem'
           uniqueItems: false
       type: object
-    DTO.mAccountUpdateResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-      type: object
-      format: DTO.mAccountUpdateResponse_V1
-    DTO.mAccountTransactionLineItem:
-      properties:
-        credit:
-          description: The amount of funds credited from the mAccount
-          type: number
-          format: decimal
-          example: 0
-        dateTime:
-          description: The time the transaction occurred in ISO 8601 date-time format. Note that Timezone is suppressed. The example Timezone is Sydney local time
-          type: string
-          example: '2017-11-18T19:06:09'
-        debit:
-          description: The amount of funds debited from the mAccount
-          type: number
-          format: decimal
-          example: 25.0
-        description:
-          description: This is the description that was provided by the caller to the financial API with your unique reference prepended
-          type: string
-          example: 'Payment Unique Reference: e9f49db3-66a9-4448-bb36-84499c0c8f2d'
-        destinationMAccountCardNumber:
-          description: If funds were being moved to an mAccount, then this is the mAccount 16-Digit card number
-          type: string
-          example: '6279059600052340'
-        isWaitingForFundsToClear:
-          type: boolean
-          example: false
-        mPaymentsId:
-          description: This is the Platform internal Id for the row returned
-          type: integer
-          format: int32
-          example: 2303203
-        mWalletAccountNumber:
-          description: If funds were being moved to/from an mWallet, then this is the mWallets 16-Digit account number
-          type: string
-          example: '6279059600052340'
-        rowOrder:
-          description: If you need to sort the results, only use this field. If you sort the results on any other field, the runningBalance won’t make sense.rowOrder start at 0.
-          type: integer
-          format: int32
-          example: 0
-        runningBalance:
-          description: The current balance of the mAccount at the end of this single row transaction
-          type: number
-          format: decimal
-          example: 25.0
-        sourceMAccountCardNumber:
-          description: If funds were being moved from an mAccount, then this is the source mAccount 16-Digit Card number
-          type: string
-          example: '6279059600052340'
-        subTransactionType:
-          description: Minor keyword describing thetransaction. E.g. GatewayMWalletCredit
-          type: string
-          example: GatewayMWalletCredit
-        transactionDescription:
-          description: A small description describing the financial action
-          type: string
-          example: Payment To mWallet
-        transactionId:
-          description: This is the transactionId that was returned from a financial transaction
-          type: integer
-          format: int32
-          example: 4958475
-        transactionType:
-          description: Major keyword describing the transaction. E.g. include Payment, LoadFunds, DailySettlement
-          type: string
-          example: LoadFunds
-        uniqueReference:
-          description: This is the unique reference that was passed in by the calling service
-          type: string
-          example: 0bbae2f1-428a-4843-0b3e4bc
-      type: object
-    mAccount.create.options3:
-      type: object
-      title: SettlementFrequency
-      properties:
-        key:
-          type: string
-          example: SettlementFrequency
-          enum:
-          - SettlementFrequency
-        value:
-          type: string
-          example: Daily
-          default: Daily
-          enum:
-          - None
-          - Daily
-          - BeginningOfMonth
-          - EndOfMonth
-          - MidMonth
-          - OnDemand
-          - OnDemandWithCatch
-          - OncePerDay
-          - Ignore
-          description: 'None (No Settlement)<br>  Daily (Every Business Day)<br>  BeginningOfMonth (First Business Day of Month)<br>  EndOfMonth (Last Business Day of Month)<br>  MidMonth (15th of month)<br>  OnDemand (Only when user initiated)<br>  OnDemandWithCatch (User initiated and EOD)<br>  OncePerDay (Will not run at EOD if a manual settlement prior to for same day)<br>  Ignore (Ignore during import)<br>
-
-            '
-    DTO.mAccountTransactionsResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-        openingBalance:
-          description: Opening balance of the mAccountfor the returned items
-          type: number
-          format: decimal
-          example: 0.0
-        closingBalance:
-          description: Closing balance of the mAccountfor the returned items
-          type: number
-          format: decimal
-          example: 25.0
-        totalDebits:
-          description: Total debits for the returned items
-          type: number
-          format: decimal
-          example: 25.0
-        totalCredits:
-          description: Total credits for the returned items
-          type: number
-          format: decimal
-          example: 0.0
-        items:
-          description: an Array of mAccountTransactionLineItem
-          type: array
-          items:
-            $ref: '#/components/schemas/DTO.mAccountTransactionLineItem'
-      type: object
-      format: DTO.mAccountTransactionsResponse_V1
-    DTO.mAccountCloseResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-      type: object
-      format: DTO.mAccountCloseResponse_V1
-    mAccount.transactions:
-      type: object
-      required:
-      - accountNumber
-      - frequency
-      properties:
-        accountNumber:
-          type: string
-          example: '6279059700023123'
-          description: 16-Digit account number that uniquely identifies the mAccount.
-        frequency:
-          type: string
-          example: Custom
-          enum:
-          - Custom
-          - ThisMonth
-          - LastMonth
-          - Today
-          description: An enumeration of fixed selection types. possible values:&nbsp; Today, ThisMonth, LastMonth, Custom. A maximum of 3 months can be retrieved through Frequency = “Custom”
-        startDate:
-          type: string
-          format: date-time
-          example: '2020-04-05T00:00:00'
-          description: Start date of statement when the frequency is set to custom. In ISO 8601 date-time format '2018-07-11T00:00:00'. Note that Timezone is suppressed. The default Timezone is Sydney local time. Required field when frequency is set to custom.
-        endDate:
-          type: string
-          format: date-time
-          example: '2020-04-22T00:00:00'
-          description: End date of statement when the frequency is set to custom. In ISO 8601 date-time format 2018-08-11T00:00:00' . Note that Timezone is suppressed. The default Timezone is Sydney local time. Required field when frequency is set to custom.
-        descending:
-          type: boolean
-          example: true
-          default: false
-          description: Default to false. true to sort the returned transaction list as descending order.
-        useTime:
-          type: boolean
-          example: true
-          default: false
-          description: Default to false. true to use startDate and endDate when the frequency is set to custom.
-    mAccount.create.options6:
-      type: object
-      title: SendMonthlyStatement
-      properties:
-        key:
-          type: string
-          example: SendMonthlyStatement
-          enum:
-          - SendMonthlyStatement
-        value:
-          type: boolean
-          example: true
-          default: true
-    mAccount.create.options:
-      type: object
-      title: MinimumSettlementAmount
-      properties:
-        key:
-          type: string
-          example: MinimumSettlementAmount
-          enum:
-          - MinimumSettlementAmount
-        value:
-          type: number
-          format: decimal
-          example: 0.02
-          minimum: 0.02
-          maximum: 100
-    mAccount.create.options1:
-      type: object
-      title: DebitTplusXDays
-      properties:
-        key:
-          type: string
-          example: DebitTplusXDays
-          enum:
-          - DebitTplusXDays
-        value:
-          type: integer
-          example: 0
-          default: 0
-    DTO.mAccountSendStatementResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-      type: object
-      format: DTO.mAccountSendStatementResponse_V1
-    mAccount.create.options2:
-      type: object
-      title: CreditTplusXDays
-      properties:
-        key:
-          type: string
-          example: CreditTplusXDays
-          enum:
-          - CreditTplusXDays
-        value:
-          type: integer
-          example: 4
-          default: 0
   securitySchemes:
     BasicAuth:
       type: http

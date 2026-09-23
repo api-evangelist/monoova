@@ -1,15 +1,15 @@
 generated: '2026-07-24'
 method: searched
-note: >-
-  Probed the /.well-known/ discovery surface on every Monoova host. None are
-  served (all 404). Recorded for auditability; no WellKnown/SecurityTxt pointer
-  is emitted because no document was found.
+note: Probed the /.well-known/ discovery surface on every Monoova host. None are served (all 404). Recorded
+  for auditability; no WellKnown/SecurityTxt pointer is emitted because no document was found.
 hosts_probed:
-  - https://api.mpay.com.au
-  - https://api.monoova.com
-  - https://developer.monoova.com
-  - https://www.monoova.com
-documents:
+- https://api.mpay.com.au
+- https://api.monoova.com
+- https://developer.monoova.com
+- https://www.monoova.com
+hosts:
+- host: ''
+  documents:
   - path: /.well-known/security.txt
     status: 404
   - path: /.well-known/openid-configuration
@@ -20,5 +20,8 @@ documents:
     status: 404
   - path: /.well-known/ai-plugin.json
     status: 404
-  - path: /security.txt
-    status: 404
+x-shape-fix:
+  converted: '2026-08-20'
+  from: documents
+  note: Rewritten into hosts[] -> documents[], the only shape well_known_docs() in score.rb reads. A served
+    .well-known surface recorded in any other shape scores as absent.

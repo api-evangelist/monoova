@@ -21,14 +21,47 @@ servers:
   description: Sandbox URL
 tags:
 - name: Webhooks
-  description: <p> In addition to callable reporting endpoints, webhooks will also be available for state changes for payment agreements and funds received. </p> </br></br>
+  description: In addition to callable reporting endpoints, webhooks will also be available for state changes for payment agreements and funds received.
 paths:
   /WEBHOOK_TARGET_URL:
     post:
       tags:
       - Webhooks
       summary: Payment Status Notification
-      description: "<p>When the status of the payment changes, Monoova will send a webhook to notify the customer. Webhook will be triggered for the below statuses:</p>\n<ul>\n  <li>Failed</li>\n  <li>Declined</li>\n  <li>Settlement Complete</li>\n  <li>Cancelled</li>\n</ul>\n<p>Additionally, “interim” webhooks will be triggered when surcharging is in effect for the client, once the payment is authorised for a new client session. This is the point at which the surcharging information becomes available and can be communicated. In this scenario, the payment status could also be one of the following non-final status values:</p>\n<ul>\n  <li>Pending</li>\n  <li>Authorized</li>\n  <li>Settling</li>\n</ul>\n<p>Note that if the payment is made using a previously vaulted payment method, the surcharge is already known at new payment creation, so there is no additional interim webhook generated.</p>\n</br>\n<p>This webhook can be subscribed using APIs provided in <a href='/payTo#tag/Notification-Management'>Notification Management</a>.</p>\n</br>\n<p>Event name - <b>CreditCardPaymentNotification</b></p>\n"
+      description: 'When the status of the payment changes, Monoova will send a webhook to notify the customer. Webhook will be triggered for the below statuses:
+
+
+        Failed
+
+
+        Declined
+
+
+        Settlement Complete
+
+
+        Cancelled
+
+
+        Additionally, “interim” webhooks will be triggered when surcharging is in effect for the client, once the payment is authorised for a new client session. This is the point at which the surcharging information becomes available and can be communicated. In this scenario, the payment status could also be one of the following non-final status values:
+
+
+        Pending
+
+
+        Authorized
+
+
+        Settling
+
+
+        Note that if the payment is made using a previously vaulted payment method, the surcharge is already known at new payment creation, so there is no additional interim webhook generated.
+
+
+        This webhook can be subscribed using APIs provided in Notification Management.
+
+
+        Event name - CreditCardPaymentNotification'
       parameters:
       - name: Authorization
         in: header
@@ -113,9 +146,21 @@ paths:
       tags:
       - Webhooks
       summary: Refund Status Notification
-      description: '<p> When the status of the refund changes, Monoova will send a webhook to notify the customer.  Webhook will be triggered for the below status </p> <ul> <li>Failed</li> <li>Declined</li> <li>Settlement Complete</li>
+      description: 'When the status of the refund changes, Monoova will send a webhook to notify the customer. Webhook will be triggered for the below status
 
-        </ul> </br> These webhook can be subscribed using API''s provided in <a href=''/payTo#tag/Notification-Management''>Notification Management</a>. </br> Event name - <b>CreditCardRefundNotification</b>'
+
+        Failed
+
+
+        Declined
+
+
+        Settlement Complete
+
+
+        These webhook can be subscribed using API''s provided in Notification Management.
+
+        Event name - CreditCardRefundNotification'
       parameters:
       - name: Authorization
         in: header
@@ -174,7 +219,9 @@ paths:
       tags:
       - Webhooks
       summary: Asynchronous Request Notification
-      description: This webhook can be subscribed using API's provided in <a href='/payTo#tag/Notification-Management'>Notification Management</a>. </br> Event name - <b>AsyncJobResultNotification</b>
+      description: 'This webhook can be subscribed using API''s provided in Notification Management.
+
+        Event name - AsyncJobResultNotification'
       operationId: AsyncRequestNotification
       security: []
       parameters:
@@ -221,7 +268,7 @@ paths:
       tags:
       - Webhooks
       summary: Receive Payment Webhook
-      description: When an NPP payment is received, Monoova will send a callback with the below format. To subscribe to a webhook use the <a href="/payments#tag/Subscriptions"> Subscriptions </a> APIs. Event name:&nbsp;<strong>NPPReceivePayment</strong> <br/>
+      description: 'When an NPP payment is received, Monoova will send a callback with the below format. To subscribe to a webhook use the Subscriptions APIs. Event name: NPPReceivePayment'
       operationId: ReceivablesReceivePaymentWebhook
       security: []
       parameters:
@@ -262,13 +309,9 @@ paths:
       tags:
       - Webhooks
       summary: Direct Debit Clearance Webhook
-      description: 'Receive a daily notification with a list of all direct debit transactions cleared on that day. To subscribe to this webhook, use the <a href="/payments#tag/Subscriptions">Subscriptions</a> APIs.
+      description: 'Receive a daily notification with a list of all direct debit transactions cleared on that day. To subscribe to this webhook, use the Subscriptions APIs.
 
-        Event name: <strong>DirectDebitClearance</strong>.
-
-        <br/>
-
-        '
+        Event name: DirectDebitClearance.'
       operationId: DirectDebitClearanceWebhook
       security: []
       parameters:
@@ -309,7 +352,7 @@ paths:
       tags:
       - Webhooks
       summary: Pay To Receive Payment Webhook
-      description: When an NPP payment is received, Monoova will send a callback with the below format. To subscribe to a webhook use the <a href="/payments#tag/Subscriptions"> Subscriptions </a> APIs. Event name:&nbsp;<strong>PayToReceivePayment</strong> <br/>
+      description: 'When an NPP payment is received, Monoova will send a callback with the below format. To subscribe to a webhook use the Subscriptions APIs. Event name: PayToReceivePayment'
       operationId: PayToReceivePaymentWebhook
       security: []
       parameters:
@@ -350,7 +393,7 @@ paths:
       tags:
       - Webhooks
       summary: Receive Inbound Direct Credits Webhook
-      description: Subscribing to the direct credit event webhook will allow us to notify you when an inbound direct credit is received on one of your accounts. As direct credits arrive in batches, you will receive the data in an JSON array with multiple transactions multiple times per day. Event name:&nbsp;<strong>InboundDirectCredit</strong> <br/>
+      description: 'Subscribing to the direct credit event webhook will allow us to notify you when an inbound direct credit is received on one of your accounts. As direct credits arrive in batches, you will receive the data in an JSON array with multiple transactions multiple times per day. Event name: InboundDirectCredit'
       operationId: InboundDirectCreditWebhook
       security: []
       parameters:
@@ -393,8 +436,11 @@ paths:
     post:
       tags:
       - Webhooks
-      summary: Receive Inbound Direct Debits  Webhook
-      description: Subscribing to the direct debit event webhook will allow us to notify you when an inbound direct debit is received on one of your accounts. As direct debits arrive in batches, you will receive the data in an JSON array with multiple transactions multiple times per day. Event name:&nbsp;<strong>InboundDirectDebit</strong> <br/> <br/> Note:&nbsp; Source account details do not appear by default, please contact Monoova for further information <br/>
+      summary: Receive Inbound Direct Debits Webhook
+      description: 'Subscribing to the direct debit event webhook will allow us to notify you when an inbound direct debit is received on one of your accounts. As direct debits arrive in batches, you will receive the data in an JSON array with multiple transactions multiple times per day. Event name: InboundDirectDebit
+
+
+        Note: Source account details do not appear by default, please contact Monoova for further information'
       operationId: InboundDirectDebitWebhook
       security: []
       parameters:
@@ -438,7 +484,7 @@ paths:
       tags:
       - Webhooks
       summary: Receive Direct Entry Dishonours Webhook
-      description: Subscribing to the direct entry dishonours event webhook will allow us to notify you when an dishonour transaction is made. Event name:&nbsp;<strong>DirectEntryDishonour</strong> <br/>
+      description: 'Subscribing to the direct entry dishonours event webhook will allow us to notify you when an dishonour transaction is made. Event name: DirectEntryDishonour'
       operationId: DirectEntryDishonour
       security: []
       parameters:
@@ -482,7 +528,7 @@ paths:
       tags:
       - Webhooks
       summary: Receive Pending Rtgs/Imt Webhook
-      description: Subscribing to the Pending RTGS/IMT event webhook will allow us to notify you when a RTGS/IMT transaction is received on one of your accounts. As RTGS/IMT transaction arrive in batches, you will receive the data in an JSON array with multiple transactions multiple times per day. Event name:&nbsp;<strong>PendingInboundRtgsImt</strong> <br/>
+      description: 'Subscribing to the Pending RTGS/IMT event webhook will allow us to notify you when a RTGS/IMT transaction is received on one of your accounts. As RTGS/IMT transaction arrive in batches, you will receive the data in an JSON array with multiple transactions multiple times per day. Event name: PendingInboundRtgsImt'
       operationId: PendingInboundRtgsImt
       security: []
       parameters:
@@ -526,7 +572,7 @@ paths:
       tags:
       - Webhooks
       summary: Receive Rtgs/Imt status Webhook
-      description: Subscribing to the RTGS/IMT status event webhook will allow us to notify you when status of an RTGS/IMT transaction changes. Event name:&nbsp;<strong>InboundRtgsImtStatus</strong> <br/>
+      description: 'Subscribing to the RTGS/IMT status event webhook will allow us to notify you when status of an RTGS/IMT transaction changes. Event name: InboundRtgsImtStatus'
       operationId: InboundRtgsImtStatus
       security: []
       parameters:
@@ -570,7 +616,7 @@ paths:
       tags:
       - Webhooks
       summary: Receive Npp Payment Return Webhook
-      description: Subscribing to the npp return event webhook will allow us to notify you when an npp payment gets returned is made. Event name:&nbsp;<strong>NppReturn</strong> <br/>
+      description: 'Subscribing to the npp return event webhook will allow us to notify you when an npp payment gets returned is made. Event name: NppReturn'
       operationId: NppReturn
       security: []
       parameters:
@@ -614,7 +660,9 @@ paths:
       tags:
       - Webhooks
       summary: Receive Npp Payment Status Webhook
-      description: Subscribing to the npp payment status event webhook will allow us to notify you when the status of a pending NPP Payment gets updated. Event name:&nbsp;<strong>NppPaymentStatus</strong> <br/> <strong>Note:&nbsp; </strong> Receive an NPP Payment Status Webhook notification when the status of an NPP payment changes so you don’t need to poll for updates. The "Pending" status is not reported by this webhook.<br/>
+      description: 'Subscribing to the npp payment status event webhook will allow us to notify you when the status of a pending NPP Payment gets updated. Event name: NppPaymentStatus
+
+        Note: Receive an NPP Payment Status Webhook notification when the status of an NPP payment changes so you don’t need to poll for updates. The "Pending" status is not reported by this webhook.'
       operationId: NppPaymentStatus
       security: []
       parameters:
@@ -658,7 +706,7 @@ paths:
       tags:
       - Webhooks
       summary: Inbound Direct Credit Rejections Webhook
-      description: Subscribing to the inbound direct credit rejection event webhook will allow us to notify you when an inbound direct credit intended for an ABA/PayId belonging to you is rejected because they didn't match any active reconciliation rule or the payer account was not included in your whitelist. As direct credits arrive in batches, you will receive the data in an JSON array with multiple transactions multiple times during the day. To subscribe to a webhook use the <a href="/payments#tag/Subscriptions"> Subscriptions </a> APIs. Event name:&nbsp; <strong> InboundDirectCreditRejections </strong> <br/>
+      description: 'Subscribing to the inbound direct credit rejection event webhook will allow us to notify you when an inbound direct credit intended for an ABA/PayId belonging to you is rejected because they didn''t match any active reconciliation rule or the payer account was not included in your whitelist. As direct credits arrive in batches, you will receive the data in an JSON array with multiple transactions multiple times during the day. To subscribe to a webhook use the Subscriptions APIs. Event name: InboundDirectCreditRejections'
       operationId: InboundDirectCreditRejections
       security: []
       parameters:
@@ -702,7 +750,7 @@ paths:
       tags:
       - Webhooks
       summary: NPP Credit Rejections Webhook
-      description: When an NPP payment  intended for an ABA/PayId belonging to you is rejected because they didnt match any active reconciliation rule, Monoova will send a callback with the below format. To subscribe to a webhook use the <a href="/payments#tag/Subscriptions"> Subscriptions </a> APIs. Event name:&nbsp; <strong> NPPCreditRejections </strong> <br/>
+      description: 'When an NPP payment intended for an ABA/PayId belonging to you is rejected because they didnt match any active reconciliation rule, Monoova will send a callback with the below format. To subscribe to a webhook use the Subscriptions APIs. Event name: NPPCreditRejections'
       operationId: NPPCreditRejections
       security: []
       parameters:
@@ -761,7 +809,12 @@ paths:
           type: string
         example: e+AFAj2W69rAwbsGn+rSSnFm2ISEblo0MXnx9Qtoh2k5mst1cEEpcrVSzGL jzOPlEL2Ea/iYLbFGzDdxVRTcNLINOhsXM/smimNjBt8sq30FbvSNMjlfDn rZ6FOIkl3E3cu9B+M4OVL8HafPohb67IRNDNyCnCvBM10qHrioiak=
         description: This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href="/payments#operation/PublicCertificatePublicKey"> /public/v1/certificate/public-key </a>.
-      description: ' <p> Clients need to implement an API endpoint on their system to receive PaymentInstructionStatus notifications from Monoova. <br/> Event name: PaymentInstructionNotification </p></br> These webhook can be subscribed using API''s provided in <a href=''/payTo#tag/Notification-Management''>Notification Management</a>. '
+      description: 'Clients need to implement an API endpoint on their system to receive PaymentInstructionStatus notifications from Monoova.
+
+        Event name: PaymentInstructionNotification
+
+
+        These webhook can be subscribed using API''s provided in Notification Management.'
       operationId: PaymentInstructionStatusNotification
       security: []
       requestBody:
@@ -802,6 +855,90 @@ paths:
       description: Sandbox URL
 components:
   schemas:
+    WebhookPaymentStatusResponseDto:
+      type: object
+      properties:
+        eventId:
+          type: string
+          description: eventId must be a string not an integer. It should allow at least 40 characters including alphanumerics and hyphen “-”
+        sourceEventName:
+          type: string
+          enum:
+          - CreditCardTransactionUpdated
+        eventTimestamp:
+          type: string
+          format: date-time
+          description: ISO Date Time in UTC
+        paymentDetails:
+          $ref: '#/components/schemas/PaymentDetailsResponseDto'
+        authenticationDetails:
+          $ref: '#/components/schemas/AuthenticationDetailsDto'
+        riskDetails:
+          $ref: '#/components/schemas/RiskDetailsDto'
+      additionalProperties: false
+    AuthenticationDetailsDto:
+      type: object
+      properties:
+        responseCode:
+          type: string
+          description: AUTH_SUCCESS <br/> AUTH_FAILED
+        challengeIssued:
+          type: boolean
+          description: End customer prompted for 3DS.
+      additionalProperties: false
+    WebhookAsyncRequestResponseDto:
+      type: object
+      required:
+      - uniqueRequestId
+      properties:
+        eventId:
+          type: string
+          description: eventId must be a string not an integer. It should allow at least 40 characters including alphanumerics and hyphen “-”
+        sourceEventName:
+          type: string
+          enum:
+          - CreditCardRefundUpdated
+        eventTimestamp:
+          type: string
+          format: date-time
+          description: ISO Date Time in UTC
+        uniqueRequestId:
+          type: string
+          pattern: '[a-z0-9-]{36}'
+          description: The async request Id returned by the original async API call
+        status:
+          type: string
+          description: One of <br/> Completed - successful completion <br/> Failed - error encountered <br/> Expired - request could not be completed within a reasonable time (currently 48 hours)
+        location:
+          type: string
+          format: uri
+          description: URL Location of the updated resource <br/> Only if status = Completed
+        errorCode:
+          type: string
+          description: Only if status = Failed
+        errorMessage:
+          type: string
+          description: Only if status = Failed
+        entityType:
+          type: string
+          enum:
+          - PaymentAgreement
+          - PaymentInstruction
+          - CreditCardPayment
+          - CreditCardRefund
+          description: The type of the entity involved in the transaction.
+        actionType:
+          type: string
+          enum:
+          - Create
+          - Amend
+          - Cancel
+          - RecallAction
+          - AmendStatus
+          description: 'The type of action being performed.  - ''Create'' is valid for PaymentAgreement, PaymentInstruction, CreditCardRefund. - ''Amend'' is valid for PaymentAgreement. - ''Cancel'' is valid for CreditCardPayment (Note: Cancellations are currently disabled). - ''RecallAction'' and ''AmendStatus'' are valid for PaymentAgreement.
+
+            '
+      additionalProperties: false
     RefundDetailsResponseDto:
       type: object
       properties:
@@ -847,17 +984,7 @@ components:
           type: boolean
           description: System will save the refund method on successful processing. Optional, defaults to false.
       additionalProperties: false
-    RiskDetailsDto:
-      type: object
-      properties:
-        preAuthorizationResult:
-          type: string
-          description: Possible fraud check outcomes.
-        postAuthorizationResult:
-          type: string
-          description: Possible fraud check outcomes.
-      additionalProperties: false
-    WebhookPaymentStatusResponseDto:
+    WebhookRefundStatusResponseDto:
       type: object
       properties:
         eventId:
@@ -866,17 +993,13 @@ components:
         sourceEventName:
           type: string
           enum:
-          - CreditCardTransactionUpdated
+          - CreditCardRefundUpdated
         eventTimestamp:
           type: string
           format: date-time
           description: ISO Date Time in UTC
-        paymentDetails:
-          $ref: '#/components/schemas/PaymentDetailsResponseDto'
-        authenticationDetails:
-          $ref: '#/components/schemas/AuthenticationDetailsDto'
-        riskDetails:
-          $ref: '#/components/schemas/RiskDetailsDto'
+        refundDetails:
+          $ref: '#/components/schemas/RefundDetailsResponseDto'
       additionalProperties: false
     PaymentDetailsResponseDto:
       type: object
@@ -939,174 +1062,16 @@ components:
           type: string
           description: Client's own customerId for their customer, as provided when the payment token was created.
       additionalProperties: false
-    WebhookRefundStatusResponseDto:
+    RiskDetailsDto:
       type: object
       properties:
-        eventId:
+        preAuthorizationResult:
           type: string
-          description: eventId must be a string not an integer. It should allow at least 40 characters including alphanumerics and hyphen “-”
-        sourceEventName:
+          description: Possible fraud check outcomes.
+        postAuthorizationResult:
           type: string
-          enum:
-          - CreditCardRefundUpdated
-        eventTimestamp:
-          type: string
-          format: date-time
-          description: ISO Date Time in UTC
-        refundDetails:
-          $ref: '#/components/schemas/RefundDetailsResponseDto'
+          description: Possible fraud check outcomes.
       additionalProperties: false
-    WebhookAsyncRequestResponseDto:
-      type: object
-      required:
-      - uniqueRequestId
-      properties:
-        eventId:
-          type: string
-          description: eventId must be a string not an integer. It should allow at least 40 characters including alphanumerics and hyphen “-”
-        sourceEventName:
-          type: string
-          enum:
-          - CreditCardRefundUpdated
-        eventTimestamp:
-          type: string
-          format: date-time
-          description: ISO Date Time in UTC
-        uniqueRequestId:
-          type: string
-          pattern: '[a-z0-9-]{36}'
-          description: The async request Id returned by the original async API call
-        status:
-          type: string
-          description: One of <br/> Completed - successful completion <br/> Failed - error encountered <br/> Expired - request could not be completed within a reasonable time (currently 48 hours)
-        location:
-          type: string
-          format: uri
-          description: URL Location of the updated resource <br/> Only if status = Completed
-        errorCode:
-          type: string
-          description: Only if status = Failed
-        errorMessage:
-          type: string
-          description: Only if status = Failed
-        entityType:
-          type: string
-          enum:
-          - PaymentAgreement
-          - PaymentInstruction
-          - CreditCardPayment
-          - CreditCardRefund
-          description: The type of the entity involved in the transaction.
-        actionType:
-          type: string
-          enum:
-          - Create
-          - Amend
-          - Cancel
-          - RecallAction
-          - AmendStatus
-          description: 'The type of action being performed.  - ''Create'' is valid for PaymentAgreement, PaymentInstruction, CreditCardRefund. - ''Amend'' is valid for PaymentAgreement. - ''Cancel'' is valid for CreditCardPayment (Note: Cancellations are currently disabled). - ''RecallAction'' and ''AmendStatus'' are valid for PaymentAgreement.
-
-            '
-      additionalProperties: false
-    AuthenticationDetailsDto:
-      type: object
-      properties:
-        responseCode:
-          type: string
-          description: AUTH_SUCCESS <br/> AUTH_FAILED
-        challengeIssued:
-          type: boolean
-          description: End customer prompted for 3DS.
-      additionalProperties: false
-    event.InboundRtgsImtStatus:
-      type: object
-      properties:
-        TransactionId:
-          type: string
-          maxLength: 12
-          description: Monoova generated Unique ID.
-          example: R12345678
-        AccountNumber:
-          type: string
-          example: '123456789'
-          maxLength: 34
-          description: Payee Bank Account Number.
-        Bsb:
-          type: string
-          example: 802-985
-          maxLength: 7
-          description: Payee BSB.
-        AccountName:
-          type: string
-          example: Monoova
-          maxLength: 32
-          description: Payer submitted Account Name.
-        TransactionReferenceNumber:
-          type: string
-          example: MONOOVARE070222b-2
-          description: Transaction Reference Number.
-          maxLength: 21
-        Amount:
-          type: number
-          format: decimal
-          example: 800.0
-          description: Payment amount,2 decimal places for cents.
-          maxLength: 11
-        Status:
-          description: Transaction Status. Possible value Confirmed/Rejected.
-          type: string
-          example: Confirmed
-        LodgementRef:
-          type: string
-          example: IMT Gift CF3528811 0737599
-          description: Payer submitted reference
-          maxLength: 280
-        Date:
-          type: string
-          example: '2019-07-22T00:00:00'
-          description: AEDT, Sydney. Transaction Received date.
-        SourceDetails:
-          type: string
-          example: 123123123456789 JOHN Test 123 SAMPLE ST SAMPLEVILLE NSW AUSTRALIA 1234
-          description: Source Account Name address and account number (This will be an optional field depending on merchant setting)
-        ProcessedDateTime:
-          type: string
-          example: '2022-02-08T00:00:00'
-          description: AEDT, Sydney. This will indicate the time when transaction was Confirmed/Rejected.
-        RejectReasonDescription:
-          type: string
-          example: 'null'
-          description: Reason why transaction was rejected.
-          maxLength: 500
-        SendingOrganisation:
-          type: string
-          example: ABCWAU4BAXXX
-          description: Sending Organisation
-          maxLength: 100
-        ReceivingOrganisation:
-          type: string
-          example: MONOOVA PAYMENTS P/L
-          description: Receiving Organisation
-          maxLength: 100
-        OrderingInstitution:
-          type: string
-          example: CDEWAU4BAXXX
-          description: Ordering Institution
-          maxLength: 100
-        OrderingAddress:
-          type: string
-          example: FTBAAUSRBXXX
-          description: Ordering Address
-          maxLength: 100
-        ledgerAccountNumber:
-          type: string
-          example: ''
-          description: Ledger account number linked to the RTGS transaction.
-        ledgerUniqueReference:
-          type: string
-          example: ''
-          description: Unique reference for the ledger transaction.
     inboundDirectCreditWebhook.directCreditDetails:
       type: object
       properties:
@@ -1317,60 +1282,94 @@ components:
           example: TEST TEST
           maxLength: 140
           description: This field appears for NPP transactions only and is the payers bank account name. For DE transactions please refer to the RemitterName Field.
-    event.directEntryDishonoursWebhook:
+    event.InboundRtgsImtStatus:
       type: object
       properties:
-        ReturnDate:
+        TransactionId:
           type: string
-          example: '2019-07-22T00:00:00'
-          description: Return Date.
+          maxLength: 12
+          description: Monoova generated Unique ID.
+          example: R12345678
+        AccountNumber:
+          type: string
+          example: '123456789'
+          maxLength: 34
+          description: Payee Bank Account Number.
+        Bsb:
+          type: string
+          example: 802-985
+          maxLength: 7
+          description: Payee BSB.
+        AccountName:
+          type: string
+          example: Monoova
+          maxLength: 32
+          description: Payer submitted Account Name.
+        TransactionReferenceNumber:
+          type: string
+          example: MONOOVARE070222b-2
+          description: Transaction Reference Number.
+          maxLength: 21
         Amount:
           type: number
           format: decimal
-          example: 2.0
-          description: Total Amount.
-        BankDetails:
-          type: object
-          properties:
-            Bsb:
-              type: string
-              example: 802-985
-              maxLength: 7
-              description: Payee BSB.
-            AccountNumber:
-              type: string
-              example: '123456789'
-              maxLength: 9
-              description: Payee Bank Account Number.
-            AccountName:
-              type: string
-              example: Monoova
-              maxLength: 32
-              description: Payer submitted Account Name.
-            Token:
-              description: Value will be present if token has used for the transaction. (will either have BSB, AccountNumber, AccountName OR Token)
-              type: string
-              example: null
-        Type:
+          example: 800.0
+          description: Payment amount,2 decimal places for cents.
+          maxLength: 11
+        Status:
+          description: Transaction Status. Possible value Confirmed/Rejected.
           type: string
-          example: Credit
-          description: Value will be either Credit or Debit.
-        ReturnReason:
+          example: Confirmed
+        LodgementRef:
           type: string
-          example: ACCOUNT CLOSED
-          description: Return Reason Text.
-        TransactionDate:
+          example: IMT Gift CF3528811 0737599
+          description: Payer submitted reference
+          maxLength: 280
+        Date:
           type: string
-          example: '2019-07-19T00:00:00.00'
-          description: Original Transaction Date.
-        OriginalTransactionId:
-          type: integer
-          example: 1234567
-          description: Original Transaction Id.
-        TransactionReference:
+          example: '2019-07-22T00:00:00'
+          description: AEDT, Sydney. Transaction Received date.
+        SourceDetails:
           type: string
-          example: 2215125a-b80b-41aa-af58-740d21b303ed
-          description: Client UniqueReference, generated by the calling service.
+          example: 123123123456789 JOHN Test 123 SAMPLE ST SAMPLEVILLE NSW AUSTRALIA 1234
+          description: Source Account Name address and account number (This will be an optional field depending on merchant setting)
+        ProcessedDateTime:
+          type: string
+          example: '2022-02-08T00:00:00'
+          description: AEDT, Sydney. This will indicate the time when transaction was Confirmed/Rejected.
+        RejectReasonDescription:
+          type: string
+          example: 'null'
+          description: Reason why transaction was rejected.
+          maxLength: 500
+        SendingOrganisation:
+          type: string
+          example: ABCWAU4BAXXX
+          description: Sending Organisation
+          maxLength: 100
+        ReceivingOrganisation:
+          type: string
+          example: MONOOVA PAYMENTS P/L
+          description: Receiving Organisation
+          maxLength: 100
+        OrderingInstitution:
+          type: string
+          example: CDEWAU4BAXXX
+          description: Ordering Institution
+          maxLength: 100
+        OrderingAddress:
+          type: string
+          example: FTBAAUSRBXXX
+          description: Ordering Address
+          maxLength: 100
+        ledgerAccountNumber:
+          type: string
+          example: ''
+          description: Ledger account number linked to the RTGS transaction.
+        ledgerUniqueReference:
+          type: string
+          example: ''
+          description: Unique reference for the ledger transaction.
     event.inboundDirectDebitWebhook:
       type: object
       properties:
@@ -1387,243 +1386,29 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/inboundDirectDebitWebhook.directDebitDetails'
-    event.NppReturnWebhook:
-      type: object
-      properties:
-        ReturnDate:
-          type: string
-          example: '2019-07-22T00:00:00'
-          description: Return Date.
-        Amount:
-          type: number
-          format: decimal
-          example: 2.0
-          description: Total Amount.
-        Bsb:
-          type: string
-          example: 802-985
-          maxLength: 7
-          description: Payee BSB.
-        AccountNumber:
-          type: string
-          example: '123456789'
-          maxLength: 28
-          description: Payee Bank Account Number.
-        AccountName:
-          type: string
-          example: Monoova
-          maxLength: 140
-          description: Payer submitted Account Name.
-        PayId:
-          type: string
-          example: MW9GM4@monoova.me
-          maxLength: 256
-          description: PayId Identifier of the Payee.
-        PayIdType:
-          type: string
-          example: Email
-          enum:
-          - ABN
-          - Email
-          - PhoneNumber
-          - OrganisationId
-          - ACN
-          description: PayId Type. Possible values:&nbsp; ABN, Email, PhoneNumber, OrganisationId, ACN
-        EndToEndId:
-          type: string
-          example: ABC/123-4356
-          maxLength: 35
-          description: End to End identifier submitted by Payer.
-        ReturnReason:
-          type: string
-          example: ACCOUNT CLOSED
-          description: Return Reason Text.
-        TransactionDate:
-          type: string
-          example: '2019-07-19T00:00:00'
-          description: Original Transaction Date.
-        TransactionId:
-          type: integer
-          example: 1234567
-          description: Original Transaction Id.
-        UniqueReference:
-          type: string
-          maxLength: 200
-          example: 2215125a-b80b-41aa-af58-740d21b303ed
-          description: Original Client UniqueReference, generated by the calling service.
-        RemitterName:
-          type: string
-          example: Monoova123
-          maxLength: 140
-          description: Original Remitting Entity.
-        LodgementRef:
-          type: string
-          maxLength: 280
-          example: Ref1
-          description: Original Payment reference.
-        ReturnTransactionId:
-          type: integer
-          example: 1234567
-          description: Return Transaction Id.
-    event.pendingrtgsImtWebhook:
+    event.directDebitClearanceWebhook:
       type: object
       properties:
         TotalCount:
           type: integer
-          example: 1
-          description: Total Number of records.
-        TotalAmount:
-          type: number
-          format: decimal
-          example: 800
-          description: Sum total of amount for all transactions.
-        RtgsImtDetails:
+          example: 3
+          description: Total number of Direct Credits.
+        TransactionIds:
           type: array
           items:
-            $ref: '#/components/schemas/pendingRtgsImtWebhook.details'
-    event.inboundDirectCreditWebhook:
-      type: object
-      properties:
-        TotalCount:
-          type: integer
-          example: 2
-          description: Total Number of Direct Credits.
-        TotalAmount:
-          type: number
-          format: decimal
-          example: 3.0
-          description: Total Amount of Direct Credits.
-        DirectCreditDetails:
-          type: array
-          items:
-            $ref: '#/components/schemas/inboundDirectCreditWebhook.directCreditDetails'
-      example:
-        TotalCount: 2
-        TotalAmount: 2
-        DirectCreditDetails:
-        - TransactionId: D00100537784
-          BatchId: 0000000212749
-          DateTime: '2020-01-13T14:21:50.553'
-          Bsb: 802-985
-          AccountNumber: 419001918
-          AccountName: Monoova AccountName
-          TransactionCode: '50'
-          Amount: 1.0
-          LodgementRef: Ref1
-          RemitterName: ABC XYZ
-          NameOfUserSupplyingFile: M PAYMENTS
-          NumberOfUserSupplyingFile: '483449'
-          DescriptionOfEntriesOnFile: PAYMENT TRNSFR
-          Indicator: ''
-          WithholdingTaxAmount: 0.0
-          SourceBsb: 123-123
-          SourceAccountNumber: '123456789'
-        - TransactionId: D00100537785
-          BatchId: 0000000212749
-          DateTime: '2020-01-13T14:30:50.002'
-          Bsb: 802-985
-          AccountNumber: 419001923
-          AccountName: Monoova AccountName2
-          TransactionCode: '50'
-          Amount: 1.0
-          LodgementRef: Ref2
-          RemitterName: STU XYZ
-          NameOfUserSupplyingFile: M PAYMENTS
-          NumberOfUserSupplyingFile: '483449'
-          DescriptionOfEntriesOnFile: PAYMENT TRNSFR
-          Indicator: ''
-          WithholdingTaxAmount: 0.0
-          SourceBsb: 123-123
-          SourceAccountNumber: '234123896'
-    inboundDirectDebitWebhook.directDebitDetails:
-      properties:
-        TransactionId:
-          type: string
-          minLength: 12
-          maxLength: 12
-          example: D00100537784
-          description: Monoova generated Unique ID.
-        BatchId:
-          type: string
-          example: 0000000212749
-          description: Payment Batch ID. Payments come in batches throughout the day.
-        DateTime:
-          description: Time Stamp.
-          type: string
-          example: '2020-01-13T14:21:50.553'
-        Status:
-          description: The status of the transaction. Possible values are Pending, Reject, Accept.
-          type: string
-          example: Pending
-        RespondBeforeDateTime:
-          description: Time by when you have to respond to the Inbound Direct Debit request.
-          type: string
-          example: '2020-01-14T16:30:00'
-        Bsb:
-          type: string
-          example: 802-985
-          maxLength: 7
-          description: Payee BSB.
-        AccountNumber:
-          type: string
-          example: '419001918'
-          maxLength: 9
-          description: Payee Bank Account Number.
-        AccountName:
-          type: string
-          example: DR
-          maxLength: 32
-          description: Payer submitted Account Name.
-        Amount:
-          type: number
-          format: decimal
-          maxLength: 11
-          example: 1.0
-          description: Payment amount, 2 decimal places for cents.
-        LodgementRef:
-          type: string
-          maxLength: 280
-          example: Ref1
-          description: Payer submitted reference.
-        RemitterName:
-          type: string
-          maxLength: 16
-          example: ABC XYZ
-          description: Remitting Entity.
-        NameOfUserSupplyingFile:
-          type: string
-          example: M PAYMENTS
-          description: Preferred name of the User supplying the Direct Entry file.
-        NumberOfUserSupplyingFile:
-          type: string
-          example: '483449'
-          description: This is the User Identification Number which is assigned by APCA and User Financial Institutions.
-        DescriptionOfEntriesOnFile:
-          type: string
-          example: PAYMENT TRNSFR
-          description: Direct Entry file description.
-        Indicator:
-          description: Blank; OR 'W' dividend paid to a resident of a country where a double tax agreement is in force. 'X' dividend paid to a resident of any other country. 'Y' interest paid to all non-resident.
-          type: string
-          maxLength: 1
-          example: ''
-        WithholdingTaxAmount:
-          description: Blank OR Payment amount,2 decimal places for cents.
-          maxLength: 9
-          type: number
-          format: decimal
-          example: 0.0
-        SourceBsb:
-          type: string
-          maxLength: 7
-          description: Payer BSB
-          example: 123-123
-        SourceAccountNumber:
-          type: string
-          example: '123456789'
-          maxLength: 34
-          description: Payer Bank Account Number.
-    event.payToreceivePaymentWebhook:
+            type: object
+            properties:
+              Id:
+                type: integer
+                example: 1001231559
+          description: List of transaction objects with IDs that were cleared for the merchant on that day.
+          example:
+          - Id: 1001231559
+          - Id: 1001231558
+          - Id: 1001231557
+      required:
+      - TransactionId
+    event.receivePaymentWebhook:
       type: object
       required:
       - uniqueReference
@@ -1723,125 +1508,16 @@ components:
           example: null
           maxLength: 140
           description: Used for PENS code payments only. Name of the Ultimate Creditor.
-        MmsId:
+        ReconciliationRuleReference:
           type: string
-          maxLength: 33
-        InitiatingPartyName:
-          type: string
-          description: Iniation Party name..
+          description: A unique reference used to identify the reconciliation rule. Unique to your mAccount
+          example: RR22348
           maxLength: 35
-        NPPInstructionId:
-          type: string
-          example: PI123456789
-          description: Unique identifier for tracking the initiation of the payment.
+          pattern: ^[A-Za-z0-9-_]{1,35}$
         ReceiptNumber:
           type: string
           example: '5678120'
           description: Unique identifier for tracking the transaction.
-    pendingRtgsImtWebhook.details:
-      properties:
-        TransactionId:
-          type: string
-          maxLength: 12
-          description: Monoova generated Unique ID.
-          example: R10002222
-        AccountNumber:
-          type: string
-          example: '123456789'
-          maxLength: 34
-          description: Payee Bank Account Number.
-        BSB:
-          type: string
-          example: 802-985
-          maxLength: 7
-          description: Payee BSB.
-        AccountName:
-          type: string
-          example: Monoova
-          maxLength: 32
-          description: Payer submitted Account Name.
-        TransactionReferenceNumber:
-          type: string
-          example: ''
-          description: Transaction Reference Number.
-          maxLength: 21
-        Amount:
-          type: number
-          format: decimal
-          example: 800.0
-          description: Payment amount,2 decimal places for cents.
-          maxLength: 11
-        Status:
-          description: Transaction Status. Possible value Pending.
-          type: string
-          example: Pending
-        LodgementRef:
-          type: string
-          example: Test Reference
-          description: Payer submitted reference
-          maxLength: 280
-        Date:
-          type: string
-          example: '2019-07-22T00:00:00'
-          description: AEDT, Sydney. Transaction Received date.
-        SourceDetails:
-          type: string
-          example: 123123123456789 JOHN Test 123 SAMPLE ST SAMPLEVILLE NSW AUSTRALIA 1234
-          description: Source Account Name address and account number (This will be an optional field depending on merchant setting)
-        RespondBeforeDateTime:
-          type: string
-          example: '2022-02-08T00:00:00'
-          description: AEDT, Sydney. This will indicate the time user has to Confirm/Reject a transaction.
-        SendingOrganisation:
-          type: string
-          example: ABCWAU4BAXXX
-          description: Sending Organisation
-          maxLength: 100
-        ReceivingOrganisation:
-          type: string
-          example: MONOOVA PAYMENTS P/L
-          description: Receiving Organisation
-          maxLength: 100
-        OrderingInstitution:
-          type: string
-          example: CDEWAU4BAXXX
-          description: Ordering Institution
-          maxLength: 100
-        OriginatingAddress:
-          type: string
-          example: CDEWAU4BAXXX
-          description: Originating Address
-          maxLength: 100
-        ledgerAccountNumber:
-          type: string
-          example: ''
-          description: Ledger account number linked to the RTGS transaction.
-        ledgerUniqueReference:
-          type: string
-          example: ''
-          description: Unique reference for the ledger transaction.
-    event.directDebitClearanceWebhook:
-      type: object
-      properties:
-        TotalCount:
-          type: integer
-          example: 3
-          description: Total number of Direct Credits.
-        TransactionIds:
-          type: array
-          items:
-            type: object
-            properties:
-              Id:
-                type: integer
-                example: 1001231559
-          description: List of transaction objects with IDs that were cleared for the merchant on that day.
-          example:
-          - Id: 1001231559
-          - Id: 1001231558
-          - Id: 1001231557
-      required:
-      - TransactionId
     event.InboundDirectCreditRejectionsWebhook:
       type: object
       properties:
@@ -2048,7 +1724,7 @@ components:
           type: integer
           example: 1234567
           description: Rejection Transaction Id.
-    event.receivePaymentWebhook:
+    event.payToreceivePaymentWebhook:
       type: object
       required:
       - uniqueReference
@@ -2148,16 +1824,516 @@ components:
           example: null
           maxLength: 140
           description: Used for PENS code payments only. Name of the Ultimate Creditor.
-        ReconciliationRuleReference:
+        MmsId:
           type: string
-          description: A unique reference used to identify the reconciliation rule. Unique to your mAccount
-          example: RR22348
+          maxLength: 33
+        InitiatingPartyName:
+          type: string
+          description: Iniation Party name..
           maxLength: 35
-          pattern: ^[A-Za-z0-9-_]{1,35}$
+        NPPInstructionId:
+          type: string
+          example: PI123456789
+          description: Unique identifier for tracking the initiation of the payment.
         ReceiptNumber:
           type: string
           example: '5678120'
           description: Unique identifier for tracking the transaction.
+    event.directEntryDishonoursWebhook:
+      type: object
+      properties:
+        ReturnDate:
+          type: string
+          example: '2019-07-22T00:00:00'
+          description: Return Date.
+        Amount:
+          type: number
+          format: decimal
+          example: 2.0
+          description: Total Amount.
+        BankDetails:
+          type: object
+          properties:
+            Bsb:
+              type: string
+              example: 802-985
+              maxLength: 7
+              description: Payee BSB.
+            AccountNumber:
+              type: string
+              example: '123456789'
+              maxLength: 9
+              description: Payee Bank Account Number.
+            AccountName:
+              type: string
+              example: Monoova
+              maxLength: 32
+              description: Payer submitted Account Name.
+            Token:
+              description: Value will be present if token has used for the transaction. (will either have BSB, AccountNumber, AccountName OR Token)
+              type: string
+              example: null
+        Type:
+          type: string
+          example: Credit
+          description: Value will be either Credit or Debit.
+        ReturnReason:
+          type: string
+          example: ACCOUNT CLOSED
+          description: Return Reason Text.
+        TransactionDate:
+          type: string
+          example: '2019-07-19T00:00:00.00'
+          description: Original Transaction Date.
+        OriginalTransactionId:
+          type: integer
+          example: 1234567
+          description: Original Transaction Id.
+        TransactionReference:
+          type: string
+          example: 2215125a-b80b-41aa-af58-740d21b303ed
+          description: Client UniqueReference, generated by the calling service.
+    inboundDirectDebitWebhook.directDebitDetails:
+      properties:
+        TransactionId:
+          type: string
+          minLength: 12
+          maxLength: 12
+          example: D00100537784
+          description: Monoova generated Unique ID.
+        BatchId:
+          type: string
+          example: 0000000212749
+          description: Payment Batch ID. Payments come in batches throughout the day.
+        DateTime:
+          description: Time Stamp.
+          type: string
+          example: '2020-01-13T14:21:50.553'
+        Status:
+          description: The status of the transaction. Possible values are Pending, Reject, Accept.
+          type: string
+          example: Pending
+        RespondBeforeDateTime:
+          description: Time by when you have to respond to the Inbound Direct Debit request.
+          type: string
+          example: '2020-01-14T16:30:00'
+        Bsb:
+          type: string
+          example: 802-985
+          maxLength: 7
+          description: Payee BSB.
+        AccountNumber:
+          type: string
+          example: '419001918'
+          maxLength: 9
+          description: Payee Bank Account Number.
+        AccountName:
+          type: string
+          example: DR
+          maxLength: 32
+          description: Payer submitted Account Name.
+        Amount:
+          type: number
+          format: decimal
+          maxLength: 11
+          example: 1.0
+          description: Payment amount, 2 decimal places for cents.
+        LodgementRef:
+          type: string
+          maxLength: 280
+          example: Ref1
+          description: Payer submitted reference.
+        RemitterName:
+          type: string
+          maxLength: 16
+          example: ABC XYZ
+          description: Remitting Entity.
+        NameOfUserSupplyingFile:
+          type: string
+          example: M PAYMENTS
+          description: Preferred name of the User supplying the Direct Entry file.
+        NumberOfUserSupplyingFile:
+          type: string
+          example: '483449'
+          description: This is the User Identification Number which is assigned by APCA and User Financial Institutions.
+        DescriptionOfEntriesOnFile:
+          type: string
+          example: PAYMENT TRNSFR
+          description: Direct Entry file description.
+        Indicator:
+          description: Blank; OR 'W' dividend paid to a resident of a country where a double tax agreement is in force. 'X' dividend paid to a resident of any other country. 'Y' interest paid to all non-resident.
+          type: string
+          maxLength: 1
+          example: ''
+        WithholdingTaxAmount:
+          description: Blank OR Payment amount,2 decimal places for cents.
+          maxLength: 9
+          type: number
+          format: decimal
+          example: 0.0
+        SourceBsb:
+          type: string
+          maxLength: 7
+          description: Payer BSB
+          example: 123-123
+        SourceAccountNumber:
+          type: string
+          example: '123456789'
+          maxLength: 34
+          description: Payer Bank Account Number.
+    event.inboundDirectCreditWebhook:
+      type: object
+      properties:
+        TotalCount:
+          type: integer
+          example: 2
+          description: Total Number of Direct Credits.
+        TotalAmount:
+          type: number
+          format: decimal
+          example: 3.0
+          description: Total Amount of Direct Credits.
+        DirectCreditDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/inboundDirectCreditWebhook.directCreditDetails'
+      example:
+        TotalCount: 2
+        TotalAmount: 2
+        DirectCreditDetails:
+        - TransactionId: D00100537784
+          BatchId: 0000000212749
+          DateTime: '2020-01-13T14:21:50.553'
+          Bsb: 802-985
+          AccountNumber: 419001918
+          AccountName: Monoova AccountName
+          TransactionCode: '50'
+          Amount: 1.0
+          LodgementRef: Ref1
+          RemitterName: ABC XYZ
+          NameOfUserSupplyingFile: M PAYMENTS
+          NumberOfUserSupplyingFile: '483449'
+          DescriptionOfEntriesOnFile: PAYMENT TRNSFR
+          Indicator: ''
+          WithholdingTaxAmount: 0.0
+          SourceBsb: 123-123
+          SourceAccountNumber: '123456789'
+        - TransactionId: D00100537785
+          BatchId: 0000000212749
+          DateTime: '2020-01-13T14:30:50.002'
+          Bsb: 802-985
+          AccountNumber: 419001923
+          AccountName: Monoova AccountName2
+          TransactionCode: '50'
+          Amount: 1.0
+          LodgementRef: Ref2
+          RemitterName: STU XYZ
+          NameOfUserSupplyingFile: M PAYMENTS
+          NumberOfUserSupplyingFile: '483449'
+          DescriptionOfEntriesOnFile: PAYMENT TRNSFR
+          Indicator: ''
+          WithholdingTaxAmount: 0.0
+          SourceBsb: 123-123
+          SourceAccountNumber: '234123896'
+    event.NppReturnWebhook:
+      type: object
+      properties:
+        ReturnDate:
+          type: string
+          example: '2019-07-22T00:00:00'
+          description: Return Date.
+        Amount:
+          type: number
+          format: decimal
+          example: 2.0
+          description: Total Amount.
+        Bsb:
+          type: string
+          example: 802-985
+          maxLength: 7
+          description: Payee BSB.
+        AccountNumber:
+          type: string
+          example: '123456789'
+          maxLength: 28
+          description: Payee Bank Account Number.
+        AccountName:
+          type: string
+          example: Monoova
+          maxLength: 140
+          description: Payer submitted Account Name.
+        PayId:
+          type: string
+          example: MW9GM4@monoova.me
+          maxLength: 256
+          description: PayId Identifier of the Payee.
+        PayIdType:
+          type: string
+          example: Email
+          enum:
+          - ABN
+          - Email
+          - PhoneNumber
+          - OrganisationId
+          - ACN
+          description: PayId Type. Possible values:&nbsp; ABN, Email, PhoneNumber, OrganisationId, ACN
+        EndToEndId:
+          type: string
+          example: ABC/123-4356
+          maxLength: 35
+          description: End to End identifier submitted by Payer.
+        ReturnReason:
+          type: string
+          example: ACCOUNT CLOSED
+          description: Return Reason Text.
+        TransactionDate:
+          type: string
+          example: '2019-07-19T00:00:00'
+          description: Original Transaction Date.
+        TransactionId:
+          type: integer
+          example: 1234567
+          description: Original Transaction Id.
+        UniqueReference:
+          type: string
+          maxLength: 200
+          example: 2215125a-b80b-41aa-af58-740d21b303ed
+          description: Original Client UniqueReference, generated by the calling service.
+        RemitterName:
+          type: string
+          example: Monoova123
+          maxLength: 140
+          description: Original Remitting Entity.
+        LodgementRef:
+          type: string
+          maxLength: 280
+          example: Ref1
+          description: Original Payment reference.
+        ReturnTransactionId:
+          type: integer
+          example: 1234567
+          description: Return Transaction Id.
+    event.pendingrtgsImtWebhook:
+      type: object
+      properties:
+        TotalCount:
+          type: integer
+          example: 1
+          description: Total Number of records.
+        TotalAmount:
+          type: number
+          format: decimal
+          example: 800
+          description: Sum total of amount for all transactions.
+        RtgsImtDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/pendingRtgsImtWebhook.details'
+    pendingRtgsImtWebhook.details:
+      properties:
+        TransactionId:
+          type: string
+          maxLength: 12
+          description: Monoova generated Unique ID.
+          example: R10002222
+        AccountNumber:
+          type: string
+          example: '123456789'
+          maxLength: 34
+          description: Payee Bank Account Number.
+        BSB:
+          type: string
+          example: 802-985
+          maxLength: 7
+          description: Payee BSB.
+        AccountName:
+          type: string
+          example: Monoova
+          maxLength: 32
+          description: Payer submitted Account Name.
+        TransactionReferenceNumber:
+          type: string
+          example: ''
+          description: Transaction Reference Number.
+          maxLength: 21
+        Amount:
+          type: number
+          format: decimal
+          example: 800.0
+          description: Payment amount,2 decimal places for cents.
+          maxLength: 11
+        Status:
+          description: Transaction Status. Possible value Pending.
+          type: string
+          example: Pending
+        LodgementRef:
+          type: string
+          example: Test Reference
+          description: Payer submitted reference
+          maxLength: 280
+        Date:
+          type: string
+          example: '2019-07-22T00:00:00'
+          description: AEDT, Sydney. Transaction Received date.
+        SourceDetails:
+          type: string
+          example: 123123123456789 JOHN Test 123 SAMPLE ST SAMPLEVILLE NSW AUSTRALIA 1234
+          description: Source Account Name address and account number (This will be an optional field depending on merchant setting)
+        RespondBeforeDateTime:
+          type: string
+          example: '2022-02-08T00:00:00'
+          description: AEDT, Sydney. This will indicate the time user has to Confirm/Reject a transaction.
+        SendingOrganisation:
+          type: string
+          example: ABCWAU4BAXXX
+          description: Sending Organisation
+          maxLength: 100
+        ReceivingOrganisation:
+          type: string
+          example: MONOOVA PAYMENTS P/L
+          description: Receiving Organisation
+          maxLength: 100
+        OrderingInstitution:
+          type: string
+          example: CDEWAU4BAXXX
+          description: Ordering Institution
+          maxLength: 100
+        OriginatingAddress:
+          type: string
+          example: CDEWAU4BAXXX
+          description: Originating Address
+          maxLength: 100
+        ledgerAccountNumber:
+          type: string
+          example: ''
+          description: Ledger account number linked to the RTGS transaction.
+        ledgerUniqueReference:
+          type: string
+          example: ''
+          description: Unique reference for the ledger transaction.
+    WebhookPaymentAgreementDto:
+      type: object
+      required:
+      - paymentAgreementUID
+      properties:
+        eventId:
+          type: string
+          minLength: 40
+          pattern: ^[A-Z0-9-]
+          description: This will uniquely identify each notification and can be used to request a resend.
+        sourceEventName:
+          type: string
+          description: Possible Values PaymentAgreementCreated, PaymentAgreementActive, PaymentAgreementCancelled, PaymentAgreementAmended, PaymentAgreementStatusAmended, PaymentAgreementActionCancelled, PaymentAgreementActionExpired (since 1.03), PaymentAgreementActionDeclined (since 1.03), PaymentAgreementActionCreated (since 1.06)
+        eventTimestamp:
+          type: string
+          format: date-time
+          description: ISO Date Time in UTC
+        paymentAgreementDetails:
+          type: object
+          properties:
+            paymentAgreementUID:
+              type: string
+              description: Id to uniquely Identify a payment agreement.
+              maxLength: 35
+              pattern: ^[A-Z0-9_-]
+            paymentAgreementStatus:
+              type: string
+              description: Status of the payment agreement. Must be one of Created, Active, Paused, Cancelled, Rejected, Expired
+            payeeDetails:
+              $ref: '#/components/schemas/PayeeDetailsDto'
+            payerDetails:
+              $ref: '#/components/schemas/PayerDetailsDto'
+            paymentTerms:
+              $ref: '#/components/schemas/PaymentTermsDto'
+            paymentDetails:
+              $ref: '#/components/schemas/PaymentDetailsDto'
+        action:
+          type: object
+          description: This will be populated when notifications are triggered for following events Mandate cancellation, declined by Payer, Mandate status changed by Payer, Mandate amendment declined by Payer.
+          properties:
+            agreementStatusChangeReasonCode:
+              type: string
+              description: <a href='/payTo#tag/Mandate-Status-Reason-Codes'>See Mandate Status Reason Code</a>
+            agreementStatusChangeReasonDescription:
+              type: string
+              description: Description is one of the manually inserted reason description when responding to the action, The relevant description attached to the code above from list <a href='/payTo#tag/Mandate-Status-Reason-Codes'>Mandate Status Reason Code</a>.
+            actionStatus:
+              type: string
+              description: One of <br/>Completed,<br/>Cancelled,<br/>PendingApproval,<br/>Declined,<br/>Expired,<br/>Rejected
+            actionType:
+              type: string
+              description: One of <br/>CREATE,<br/>AMEND,<br/>PAUSE,<br/>RESUME,<br/>CANCEL,<br/>PORT
+            actionIdentification:
+              type: string
+      additionalProperties: false
+    PayerDetailsDto:
+      type: object
+      required:
+      - payerType
+      - payer
+      - ultimatePayer
+      - payerPartyReference
+      oneOf:
+      - required:
+        - linkedBsb
+        - linkedAccount
+      - required:
+        - linkedPayId
+        - linkedPayIdType
+      properties:
+        payerType:
+          type:
+          - string
+          - 'null'
+          description: Identifies the type of party. </br> Possible Values - ORGN (Organization),    PERS (Person)
+          example: ORGN
+        linkedBsb:
+          type:
+          - string
+          - 'null'
+          description: BSB (Bank-State-Branch) number. </br>Required if 'linkedPayId' and 'linkedPayIdType' are not provided.
+          example: 802950
+        linkedAccount:
+          type:
+          - string
+          - 'null'
+          description: Bank account number. </br>Required if 'linkedPayId' and 'linkedPayIdType' are not provided.
+          maxLength: 28
+          example: 10109010
+        linkedPayId:
+          type:
+          - string
+          - 'null'
+          example: null
+          description: PayID. </br> Email, phone number, ABN, ACN or Organisation ID. </br>Required if 'linkedBsb' and 'linkedAccount' are not provided. <a href="/payTo#tag/PAYID-Format-Validation">See PAYID Format Validation.</a>
+        linkedPayIdType:
+          type:
+          - string
+          - 'null'
+          example: null
+          description: PayID Type. </br>Possible Values - Email, PhoneNumber, ABN, ACN, OrganisationId. </br>Required if 'linkedBsb' and 'linkedAccount' are not provided.
+        payer:
+          type:
+          - string
+          - 'null'
+          description: Bank Account Name.
+          maxLength: 140
+          example: ABCCORPCo
+        ultimatePayer:
+          type:
+          - string
+          - 'null'
+          maxLength: 140
+          description: Name by which the party is known, and which is usually used to identify that party.
+          example: ABCCORPCo
+        payerPartyReference:
+          type:
+          - string
+          - 'null'
+          maxLength: 35
+          description: This field will be presented to Payer in the detail agreement view. This field also be used group payment initiations associated with a payment agreement.
+          example: Payer54321
+      additionalProperties: false
     PaymentInitiationDetailsDto:
       type: object
       required:
@@ -2240,6 +2416,54 @@ components:
           $ref: '#/components/schemas/PayeeDetailsDto'
         paymentDetails:
           $ref: '#/components/schemas/PaymentInitiationDetailsDto'
+      additionalProperties: false
+    PaymentTermsDto:
+      required:
+      - numberOfTransactionsPermitted
+      - frequency
+      - amount
+      - agreementType
+      type: object
+      properties:
+        numberOfTransactionsPermitted:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: Quantifies the number of transactions allowed per frequency
+          example: 10
+        frequency:
+          type:
+          - string
+          - 'null'
+          description: Specifies the regularity of an event. See Frequency Table for allowed values
+          example: WEEK
+        pointInTime:
+          type:
+          - number
+          - 'null'
+          description: Qualifies the frequency in terms of an exact point in time or moment within the specified period.</br> Valid non decimal numeric value. Supported values will be 01 to 31 </br> This field works in combination with frequency and can only be provided when frequency = MNTH </br> This field should not be provided if numberOfTransactionsPermitted is provided
+          example: null
+        amount:
+          type:
+          - number
+          - 'null'
+          maxLength: 34
+          example: null
+          description: Exact amount that may be paid from the Creditor's account, per instruction. Refer to AgreementType & Amount table below
+        maximumAmount:
+          type:
+          - number
+          - 'null'
+          maxLength: 34
+          example: 100.0
+          description: Maximum amount that may be paid from the Creditor's account, per instruction. Refer to AgreementType & Amount table below
+        agreementType:
+          type:
+          - string
+          - 'null'
+          description: Based on the AgreementType table
+          example: VARI
       additionalProperties: false
     PaymentDetailsDto:
       required:
@@ -2352,177 +2576,6 @@ components:
           - 'null'
           example: ABCORP
           description: Name by which the party is known, and which is usually used to identify that party.</br> Can only provide ultimatePayee in the payload if crediting an external BSB.
-      additionalProperties: false
-    PayerDetailsDto:
-      type: object
-      required:
-      - payerType
-      - payer
-      - ultimatePayer
-      - payerPartyReference
-      oneOf:
-      - required:
-        - linkedBsb
-        - linkedAccount
-      - required:
-        - linkedPayId
-        - linkedPayIdType
-      properties:
-        payerType:
-          type:
-          - string
-          - 'null'
-          description: Identifies the type of party. </br> Possible Values - ORGN (Organization),    PERS (Person)
-          example: ORGN
-        linkedBsb:
-          type:
-          - string
-          - 'null'
-          description: BSB (Bank-State-Branch) number. </br>Required if 'linkedPayId' and 'linkedPayIdType' are not provided.
-          example: 802950
-        linkedAccount:
-          type:
-          - string
-          - 'null'
-          description: Bank account number. </br>Required if 'linkedPayId' and 'linkedPayIdType' are not provided.
-          maxLength: 28
-          example: 10109010
-        linkedPayId:
-          type:
-          - string
-          - 'null'
-          example: null
-          description: PayID. </br> Email, phone number, ABN, ACN or Organisation ID. </br>Required if 'linkedBsb' and 'linkedAccount' are not provided. <a href="/payTo#tag/PAYID-Format-Validation">See PAYID Format Validation.</a>
-        linkedPayIdType:
-          type:
-          - string
-          - 'null'
-          example: null
-          description: PayID Type. </br>Possible Values - Email, PhoneNumber, ABN, ACN, OrganisationId. </br>Required if 'linkedBsb' and 'linkedAccount' are not provided.
-        payer:
-          type:
-          - string
-          - 'null'
-          description: Bank Account Name.
-          maxLength: 140
-          example: ABCCORPCo
-        ultimatePayer:
-          type:
-          - string
-          - 'null'
-          maxLength: 140
-          description: Name by which the party is known, and which is usually used to identify that party.
-          example: ABCCORPCo
-        payerPartyReference:
-          type:
-          - string
-          - 'null'
-          maxLength: 35
-          description: This field will be presented to Payer in the detail agreement view. This field also be used group payment initiations associated with a payment agreement.
-          example: Payer54321
-      additionalProperties: false
-    WebhookPaymentAgreementDto:
-      type: object
-      required:
-      - paymentAgreementUID
-      properties:
-        eventId:
-          type: string
-          minLength: 40
-          pattern: ^[A-Z0-9-]
-          description: This will uniquely identify each notification and can be used to request a resend.
-        sourceEventName:
-          type: string
-          description: Possible Values PaymentAgreementCreated, PaymentAgreementActive, PaymentAgreementCancelled, PaymentAgreementAmended, PaymentAgreementStatusAmended, PaymentAgreementActionCancelled, PaymentAgreementActionExpired (since 1.03), PaymentAgreementActionDeclined (since 1.03), PaymentAgreementActionCreated (since 1.06)
-        eventTimestamp:
-          type: string
-          format: date-time
-          description: ISO Date Time in UTC
-        paymentAgreementDetails:
-          type: object
-          properties:
-            paymentAgreementUID:
-              type: string
-              description: Id to uniquely Identify a payment agreement.
-              maxLength: 35
-              pattern: ^[A-Z0-9_-]
-            paymentAgreementStatus:
-              type: string
-              description: Status of the payment agreement. Must be one of Created, Active, Paused, Cancelled, Rejected, Expired
-            payeeDetails:
-              $ref: '#/components/schemas/PayeeDetailsDto'
-            payerDetails:
-              $ref: '#/components/schemas/PayerDetailsDto'
-            paymentTerms:
-              $ref: '#/components/schemas/PaymentTermsDto'
-            paymentDetails:
-              $ref: '#/components/schemas/PaymentDetailsDto'
-        action:
-          type: object
-          description: This will be populated when notifications are triggered for following events Mandate cancellation, declined by Payer, Mandate status changed by Payer, Mandate amendment declined by Payer.
-          properties:
-            agreementStatusChangeReasonCode:
-              type: string
-              description: <a href='/payTo#tag/Mandate-Status-Reason-Codes'>See Mandate Status Reason Code</a>
-            agreementStatusChangeReasonDescription:
-              type: string
-              description: Description is one of the manually inserted reason description when responding to the action, The relevant description attached to the code above from list <a href='/payTo#tag/Mandate-Status-Reason-Codes'>Mandate Status Reason Code</a>.
-            actionStatus:
-              type: string
-              description: One of <br/>Completed,<br/>Cancelled,<br/>PendingApproval,<br/>Declined,<br/>Expired,<br/>Rejected
-            actionType:
-              type: string
-              description: One of <br/>CREATE,<br/>AMEND,<br/>PAUSE,<br/>RESUME,<br/>CANCEL,<br/>PORT
-            actionIdentification:
-              type: string
-      additionalProperties: false
-    PaymentTermsDto:
-      required:
-      - numberOfTransactionsPermitted
-      - frequency
-      - amount
-      - agreementType
-      type: object
-      properties:
-        numberOfTransactionsPermitted:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: Quantifies the number of transactions allowed per frequency
-          example: 10
-        frequency:
-          type:
-          - string
-          - 'null'
-          description: Specifies the regularity of an event. See Frequency Table for allowed values
-          example: WEEK
-        pointInTime:
-          type:
-          - number
-          - 'null'
-          description: Qualifies the frequency in terms of an exact point in time or moment within the specified period.</br> Valid non decimal numeric value. Supported values will be 01 to 31 </br> This field works in combination with frequency and can only be provided when frequency = MNTH </br> This field should not be provided if numberOfTransactionsPermitted is provided
-          example: null
-        amount:
-          type:
-          - number
-          - 'null'
-          maxLength: 34
-          example: null
-          description: Exact amount that may be paid from the Creditor's account, per instruction. Refer to AgreementType & Amount table below
-        maximumAmount:
-          type:
-          - number
-          - 'null'
-          maxLength: 34
-          example: 100.0
-          description: Maximum amount that may be paid from the Creditor's account, per instruction. Refer to AgreementType & Amount table below
-        agreementType:
-          type:
-          - string
-          - 'null'
-          description: Based on the AgreementType table
-          example: VARI
       additionalProperties: false
   securitySchemes:
     BearerAuth:

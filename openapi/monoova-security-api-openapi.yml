@@ -1,6 +1,9 @@
 openapi: 3.2.0
 info:
-  description: "# Introduction\n\n<p> \n  Monoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n  This service is made available to Monoova’s clients through a set of easy-to-use RESTful APIs with JSON payloads described in this document.\n  The central idea is to reduce the cost, risk and effort normally associated with managing complex money movements so that you can focus on growing your business.\n</p> \n<p> \n Our clients can receive and reconcile funds via Realtime transfers (NPP), direct credits/debits, BPAY and cards. \n They can then manage those funds by building virtual account/wallet hierarchies to get bespoke reporting, reconciliation and much more. \n And finally, our clients can pay funds via Realtime transfers (NPP) direct credits and BPAY. \n As new technologies become available (e.g. NPP Mandated payments) we will make additional methods of receiving, managing and paying available.\n</p> \n<p> \n  All information flows are real-time.\n  Moving money between various Monoova accounts is also real time.\n  All money flows in and out of the Engine are as fast as the banking system allows.\n</p>\n<p> \n  The sandbox environment is open to everyone who signs up on our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a> at no cost.\n  The sandbox environment allows you to test out the functionality of our API in a consequence free development environment.\n  Access to the live environment is granted once you have (1) gone through our compliance process and (2) had formal sign-off on your sandbox integration.\n</p>\n<p>\n  Monoova regularly releases additive changes to our API, as well as new versions of the API when a breaking change would occur. \n  To ensure your integration does not break due to these additive changes, we recommend not validating the entire schema, or the position of a parameter within the schema.\n</p>\n<br/><br/>\n<p> <strong> Note&#58;</strong> Please note we do not accept TLS 1.0 or 1.1 connections</p>\n\n# Getting started\n>\n  - Sign on to our <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>\n  - Get your sandbox API key under **MANAGE > ACCOUNTS** in the Sandbox Portal\n  - [Authenticate](#section/Authentication)\n  - Browse this document to find the functions you need\n  - Begin experimenting with your first API calls by sending HTTP requests to the endpoints described in this document\n  - Use the provided examples in the document as guidance\n\n# Authentication\n  All RESTful APIs in this document use BASIC Authentication (except those in public/v1) in two scenarios either\n  - <strong> API KEY </strong>\n  - <strong> OneShotSecurityToken </strong><br><br>\n\n> **Sandbox Authentication Credentials**\n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.m-pay.com.au/</td>\n  </tr>\n</table> <br>\n\n> **Live Authentication Credentials**\nThis will be provided by Monoova after a technical review. <br> \n<table>\n  <tr>\n    <th>Field</th>\n    <th>Value</th>\n  </tr>\n  <tr>\n    <td>Username</td>\n    <td>API Key (obtained from the Production Portal; Production credentials will be supplied by Monoova) </td>\n  </tr>\n  <tr>\n    <td>Password</td>\n    <td>leave blank when using API key; Monoova will provide password for OneShotSecurityToken</td>\n  </tr>\n  <tr>\n    <td>Base URL</td>\n    <td>https://api.mpay.com.au/</td>\n  </tr>\n</table> <br>\n\nWhen using the LIVE Engine, your Sign-In Account is given five (5) attempts to authenticate your credentials. \nOn the fifth failure your Sign-In Account is locked for one (1) hour. \nThe returned data will indicate that your account is locked and the time in UTC that the account will be unlocked. \nIf you require the account to be unlocked on the LIVE system you may contact your Monoova representative and at his or her discretion they will unlock the account.\nSee the API routes in Security to manage Passwords and Tokens. <br><br>\n\n<h3> UserName/Password </h3>\nUsing this scenario, you can configure BASIC Authentication with the following <br> <br>\n<li> <strong> UserName </strong> - API Key (obtained from the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>) Production credentials will be supplied by Monoova when you have demonstrated successful implementation of the API on our Sandbox environment.</li>\n<li> <strong> Password </strong> - When using your API Key, no password is required. \nIf the key is compromised, it can be re-rolled via the <a href=\"https://sandbox.monoova.com/user/login\" target=\"_blank\">Sandbox Portal</a>. </li> <br>\n\n# Feedback\n\nWe value your feedback on our API. Please fill out the form <a href=\"https://ncv.microsoft.com/8eaKX3fsiJ\" target=\"_blank\">here</a> to share your feedback.\n"
+  description: '# Introduction
+
+
+    Monoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.'
   version: v5.29
   title: Monoova Payments Security API
   contact:
@@ -19,14 +22,23 @@ security:
 - BasicAuth: []
 tags:
 - name: Security
-  description: <h3>  Overview </h3> <p> The security/v1 APIs allows you to manage security tokens. This gives you an alternative to using signIn API KEY for BASIC authentication for each API call. Security tokens come in two forms </p> <ul> <li> <strong> OneShotSecurityToken </strong> </li> <li> <strong> SecurityToken </strong> </li> </ul> <p> The two security tokens operate in exactly the same way. The token is used to replace your UserName when configuring BASIC Authentication. Should you provide a password anyway, it will be ignored. Each token type has an expiry time between 1 and 15 minutes. The expiry time cannot be extended. </p> <p> As the name implies, a OneShotSecurityToken can only be used once. The token is deleted on its first use or when it expires, whatever is sooner. </p> <p> A SecurityToken can be used multiple times until it expires. The expiry time of a SecurityToken can be extended. </p> <p> Please note that security tokens discussed in this section have nothing in common with the token/v1 APIs described elsewhere in this document. Security tokens provide secure sign-in from a web page; token/v1 APIs tokenize sensitive information. </p>
+  description: 'Overview
+
+
+    The security/v1 APIs allows you to manage security tokens.'
 paths:
   /security/v1/createOneShotSecurityToken/{timeOutMin}:
     get:
       tags:
       - Security
       summary: Create OneShot security Token
-      description: "This API returns a security token that can be used only once or until it expires. \nThe purpose of this token is that it can be embedded in a web form to enable you to make a single call to the Engine without exposing your Sign-In Account credentials.\nWhen setting your security credentials to call any of the APIs in this document (except for security/v1/createOneShotSecurityToken), \nset the Username to the returned OneShotSecurityToken and set the password to anything as it will be ignored.\n"
+      description: 'This API returns a security token that can be used only once or until it expires.
+
+        The purpose of this token is that it can be embedded in a web form to enable you to make a single call to the Engine without exposing your Sign-In Account credentials.
+
+        When setting your security credentials to call any of the APIs in this document (except for security/v1/createOneShotSecurityToken),
+
+        set the Username to the returned OneShotSecurityToken and set the password to anything as it will be ignored.'
       operationId: SecurityCreateOneShotSecurityToken
       parameters:
       - name: timeOutMin
@@ -104,48 +116,6 @@ components:
           example: '0.25'
           uniqueItems: false
       type: object
-    DTO.GenericPayment.CreateOneShotSecurityTokenResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-        oneShotSecurityToken:
-          description: The token to use instead of UserName
-          type: string
-          example: 2215125a-b80b-41aa-af58-740d21b303ed
-      type: object
-      format: DTO.GenericPayment.CreateOneShotSecurityTokenResponse_V1
-    DTO.GenericPayment.disbursementFee_V1:
-      properties:
-        method:
-          description: 'The type of Disbursement: mAccount, mWallet, DirectCredit, BPAY, Charity, Sign-In mAccount'
-          type: string
-          example: BPay
-          uniqueItems: false
-        feePercentageExGst:
-          description: The percentage of the amountto be taken as a fee Excluding GST
-          type: number
-          format: decimal
-          example: '0'
-          uniqueItems: false
-        feeFixedExGst:
-          description: The fixed amount to be taken as a fee Excluding GST
-          type: number
-          format: decimal
-          example: '0.4546'
-          uniqueItems: false
-      type: object
-      format: DTO.GenericPayment.disbursementFee_V1
     DTO.GenericPayment.SettingsResponse_V1:
       properties:
         durationMs:
@@ -245,6 +215,48 @@ components:
           example: true
       type: object
       format: DTO.GenericPayment.SettingsResponse_V1
+    DTO.GenericPayment.disbursementFee_V1:
+      properties:
+        method:
+          description: 'The type of Disbursement: mAccount, mWallet, DirectCredit, BPAY, Charity, Sign-In mAccount'
+          type: string
+          example: BPay
+          uniqueItems: false
+        feePercentageExGst:
+          description: The percentage of the amountto be taken as a fee Excluding GST
+          type: number
+          format: decimal
+          example: '0'
+          uniqueItems: false
+        feeFixedExGst:
+          description: The fixed amount to be taken as a fee Excluding GST
+          type: number
+          format: decimal
+          example: '0.4546'
+          uniqueItems: false
+      type: object
+      format: DTO.GenericPayment.disbursementFee_V1
+    DTO.GenericPayment.CreateOneShotSecurityTokenResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        oneShotSecurityToken:
+          description: The token to use instead of UserName
+          type: string
+          example: 2215125a-b80b-41aa-af58-740d21b303ed
+      type: object
+      format: DTO.GenericPayment.CreateOneShotSecurityTokenResponse_V1
   securitySchemes:
     BasicAuth:
       type: http
