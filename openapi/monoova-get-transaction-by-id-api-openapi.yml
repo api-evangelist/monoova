@@ -113,58 +113,15 @@ paths:
                   errorMessage: transaction amount 100.00 plus existing transactions 100.00 exceeds limit 50
 components:
   schemas:
-    AuthenticationDetailsDto:
+    RiskDetailsDto:
       type: object
       properties:
-        responseCode:
+        preAuthorizationResult:
           type: string
-          description: AUTH_SUCCESS <br/> AUTH_FAILED
-        challengeIssued:
-          type: boolean
-          description: End customer prompted for 3DS.
-      additionalProperties: false
-    RefundTransactionsDto:
-      properties:
-        clientTransactionUniqueReference:
+          description: Possible fraud check outcomes.
+        postAuthorizationResult:
           type: string
-          description: as provided by the client when the refund was requested.
-          maxLength: 40
-          pattern: ^[a-zA-Z0-9_-]{1,40}$
-        transactionId:
-          type: string
-          description: Monoova transaction Id for the refund.  Only available after settlement.
-        amount:
-          type: object
-          description: amount of the refund as <major_units>.<minor_units>
-          properties:
-            currencyAmount:
-              description: payment amount
-              type: number
-              format: decimal
-              maximum: 20000000.0
-        transactionType:
-          type: string
-          description: Payment<br/>Refund <br/> Chargeback
-        status:
-          type: string
-          description: refund transaction status.  Must be one of <br/> <br/>Initiated<br/>Pending<br/>Failed<br/>Authorized<br/>Pending Settlement<br/>Settlement In Progress<br/>Declined<br/>Settlement Complete<br/></br>Cancelled
-        statusReasonCode:
-          type: string
-          description: reason code may be provided by the payment processor if refund is declined
-        statusReasonDescription:
-          type: string
-          description: reason code may be provided by the payment processor if refund is declined
-        transactionInitiationDateTime:
-          type: string
-          description: Time the payment processor initiated the refund as ISO 8601 dateTime with UTC timezone
-        settlementDateTime:
-          type: string
-          description: Time of final settlement by Monoova of the refund as ISO 8601 dateTime with UTC timezone
-        settlementBatchId:
-          type: string
-          description: Batch Id of settlement file for the payment
-      required:
-      - clientTransactionUniqueReference
+          description: Possible fraud check outcomes.
       additionalProperties: false
     CreditCardTransactionDetailsResponse:
       type: object
@@ -305,15 +262,58 @@ components:
           description: Set to false (with an appropriate amount) if payment only needs to be authorized. Set to true or ignore this property if payment needs to be authorized and captured.
           default: true
       additionalProperties: false
-    RiskDetailsDto:
+    RefundTransactionsDto:
+      properties:
+        clientTransactionUniqueReference:
+          type: string
+          description: as provided by the client when the refund was requested.
+          maxLength: 40
+          pattern: ^[a-zA-Z0-9_-]{1,40}$
+        transactionId:
+          type: string
+          description: Monoova transaction Id for the refund.  Only available after settlement.
+        amount:
+          type: object
+          description: amount of the refund as <major_units>.<minor_units>
+          properties:
+            currencyAmount:
+              description: payment amount
+              type: number
+              format: decimal
+              maximum: 20000000.0
+        transactionType:
+          type: string
+          description: Payment<br/>Refund <br/> Chargeback
+        status:
+          type: string
+          description: refund transaction status.  Must be one of <br/> <br/>Initiated<br/>Pending<br/>Failed<br/>Authorized<br/>Pending Settlement<br/>Settlement In Progress<br/>Declined<br/>Settlement Complete<br/></br>Cancelled
+        statusReasonCode:
+          type: string
+          description: reason code may be provided by the payment processor if refund is declined
+        statusReasonDescription:
+          type: string
+          description: reason code may be provided by the payment processor if refund is declined
+        transactionInitiationDateTime:
+          type: string
+          description: Time the payment processor initiated the refund as ISO 8601 dateTime with UTC timezone
+        settlementDateTime:
+          type: string
+          description: Time of final settlement by Monoova of the refund as ISO 8601 dateTime with UTC timezone
+        settlementBatchId:
+          type: string
+          description: Batch Id of settlement file for the payment
+      required:
+      - clientTransactionUniqueReference
+      additionalProperties: false
+    AuthenticationDetailsDto:
       type: object
       properties:
-        preAuthorizationResult:
+        responseCode:
           type: string
-          description: Possible fraud check outcomes.
-        postAuthorizationResult:
-          type: string
-          description: Possible fraud check outcomes.
+          description: AUTH_SUCCESS <br/> AUTH_FAILED
+        challengeIssued:
+          type: boolean
+          description: End customer prompted for 3DS.
       additionalProperties: false
   securitySchemes:
     BearerAuth:

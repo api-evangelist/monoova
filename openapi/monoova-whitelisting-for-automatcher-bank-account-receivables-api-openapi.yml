@@ -311,30 +311,78 @@ paths:
           description: Internal Server Error
 components:
   schemas:
-    receivablesGetWhiteListingAccountsResponseArrayItem2:
-      type: object
-      description: Object containing source account details
+    receivablesUpdateWhiteListingAccountResponse_V1:
       properties:
-        accountName:
+        durationMs:
           description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: string
-          example: Monoova Source Account Name
-        accountNumber:
-          description: 3 to 9 digits.
           type: integer
-          example: 987654321
-        accountStatus:
-          description: This is a plain English description of the status. enabled/disabled.
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
           type: string
-          example: enabled
-        bsbNumber:
-          description: 6 digits with a '-'.
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
           type: string
-          example: 802-985
-        id:
-          description: identifier for whiteList sourceAccount
+          example: Operation completed successfully
+        automatcherBankAccountNumber:
+          description: Valid receivables bank account number belonging to the Sign-in mAccount.
+          type: string
+          example: '311673871'
+        sourceAccount:
+          description: Object containing source account details
+          type: object
+          properties:
+            accountName:
+              description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+              type: string
+              example: Monoova Source Account Name
+            accountNumber:
+              description: 3 to 9 digits.
+              type: string
+              minLength: 3
+              maxLength: 9
+              example: '123456789'
+            accountStatus:
+              description: This is a plain English description of the status. enabled/disabled.
+              type: string
+              example: disabled
+            bsbNumber:
+              description: 6 digits with a '-'.
+              type: string
+              example: 802-985
+            id:
+              description: identifier
+              type: integer
+              example: 107
+      type: object
+    receivablesGetWhiteListingAccountsResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
           type: integer
-          example: 108
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        automatcherBankAccountNumber:
+          description: Valid receivables bank account number belonging to the Sign-in mAccount.
+          type: string
+          example: '311673871'
+        sourceAccount:
+          description: Object containing source account details
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/receivablesGetWhiteListingAccountsResponseArrayItem1'
+            - $ref: '#/components/schemas/receivablesGetWhiteListingAccountsResponseArrayItem2'
     receivables.updateWhiteListingAccount:
       type: object
       required:
@@ -382,120 +430,6 @@ components:
               description: identifier for whiteList sourceAccount
               type: integer
               example: 107
-    receivablesGetWhiteListingAccountsResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-        automatcherBankAccountNumber:
-          description: Valid receivables bank account number belonging to the Sign-in mAccount.
-          type: string
-          example: '311673871'
-        sourceAccount:
-          description: Object containing source account details
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/receivablesGetWhiteListingAccountsResponseArrayItem1'
-            - $ref: '#/components/schemas/receivablesGetWhiteListingAccountsResponseArrayItem2'
-    receivables.createWhiteListingAccount:
-      type: object
-      required:
-      - automatcherBankAccountNumber
-      properties:
-        automatcherBankAccountNumber:
-          type: string
-          minLength: 9
-          maxLength: 9
-          example: '311673871'
-          description: Valid receivables bank account number belonging to the Sign-in mAccount.
-        automatcherBsb:
-          type: string
-          example: 802-985
-          description: Optional BSB parameter specifying the branch identifier for Australian banks. Accepts either 6 digits or with a hyphen as "XXX-XXX". If not specified, the service will use the MAccount’s configured ‘Default BSB’. If a ‘Default BSB’ has not been configured, then the Monoova ‘Default BSB’ will be used.
-        sourceAccount:
-          description: This is the sourceAccount
-          type: object
-          properties:
-            bsbNumber:
-              type: string
-              example: 802-985
-              description: 6 digits with a '-'. <br/> `at least one of BSB/AccountNumber or AccountName is required`
-            accountNumber:
-              type: string
-              minLength: 3
-              maxLength: 9
-              example: '123456789'
-              description: 3 to 9 digits. <br/> `at least one of BSB/AccountNumber or AccountName is required`
-            accountName:
-              type: string
-              maxLength: 140
-              example: Monoova Source Account Name
-              description: String of max 140 chars. Not case sensitive. <br/> `at least one of BSB/AccountNumber or AccountName is required`
-            accountStatus:
-              type: string
-              enum:
-              - enabled
-              - disabled
-              default: enabled
-              example: enabled
-              description: enabled/disabled. Default to enabled.
-    receivablesUpdateWhiteListingAccountResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-        automatcherBankAccountNumber:
-          description: Valid receivables bank account number belonging to the Sign-in mAccount.
-          type: string
-          example: '311673871'
-        sourceAccount:
-          description: Object containing source account details
-          type: object
-          properties:
-            accountName:
-              description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-              type: string
-              example: Monoova Source Account Name
-            accountNumber:
-              description: 3 to 9 digits.
-              type: string
-              minLength: 3
-              maxLength: 9
-              example: '123456789'
-            accountStatus:
-              description: This is a plain English description of the status. enabled/disabled.
-              type: string
-              example: disabled
-            bsbNumber:
-              description: 6 digits with a '-'.
-              type: string
-              example: 802-985
-            id:
-              description: identifier
-              type: integer
-              example: 107
-      type: object
     receivablesCreateWhiteListingAccountResponse_V1:
       properties:
         durationMs:
@@ -564,6 +498,72 @@ components:
           description: identifier for whiteList sourceAccount
           type: integer
           example: 107
+    receivables.createWhiteListingAccount:
+      type: object
+      required:
+      - automatcherBankAccountNumber
+      properties:
+        automatcherBankAccountNumber:
+          type: string
+          minLength: 9
+          maxLength: 9
+          example: '311673871'
+          description: Valid receivables bank account number belonging to the Sign-in mAccount.
+        automatcherBsb:
+          type: string
+          example: 802-985
+          description: Optional BSB parameter specifying the branch identifier for Australian banks. Accepts either 6 digits or with a hyphen as "XXX-XXX". If not specified, the service will use the MAccount’s configured ‘Default BSB’. If a ‘Default BSB’ has not been configured, then the Monoova ‘Default BSB’ will be used.
+        sourceAccount:
+          description: This is the sourceAccount
+          type: object
+          properties:
+            bsbNumber:
+              type: string
+              example: 802-985
+              description: 6 digits with a '-'. <br/> `at least one of BSB/AccountNumber or AccountName is required`
+            accountNumber:
+              type: string
+              minLength: 3
+              maxLength: 9
+              example: '123456789'
+              description: 3 to 9 digits. <br/> `at least one of BSB/AccountNumber or AccountName is required`
+            accountName:
+              type: string
+              maxLength: 140
+              example: Monoova Source Account Name
+              description: String of max 140 chars. Not case sensitive. <br/> `at least one of BSB/AccountNumber or AccountName is required`
+            accountStatus:
+              type: string
+              enum:
+              - enabled
+              - disabled
+              default: enabled
+              example: enabled
+              description: enabled/disabled. Default to enabled.
+    receivablesGetWhiteListingAccountsResponseArrayItem2:
+      type: object
+      description: Object containing source account details
+      properties:
+        accountName:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: string
+          example: Monoova Source Account Name
+        accountNumber:
+          description: 3 to 9 digits.
+          type: integer
+          example: 987654321
+        accountStatus:
+          description: This is a plain English description of the status. enabled/disabled.
+          type: string
+          example: enabled
+        bsbNumber:
+          description: 6 digits with a '-'.
+          type: string
+          example: 802-985
+        id:
+          description: identifier for whiteList sourceAccount
+          type: integer
+          example: 108
   securitySchemes:
     BasicAuth:
       type: http

@@ -132,51 +132,6 @@ paths:
                   errorMessage: string
 components:
   schemas:
-    InitiateMandatePaymentDto:
-      type: object
-      required:
-      - paymentAgreementUID
-      - paymentInitiationUID
-      - paymentDetails
-      properties:
-        paymentAgreementUID:
-          type:
-          - string
-          - 'null'
-          maxLength: 35
-          description: Id to uniquely Identify a payment agreement.
-        paymentInitiationUID:
-          type:
-          - string
-          - 'null'
-          maxLength: 35
-          description: Id to uniquely identify payment
-        payeeDetails:
-          $ref: '#/components/schemas/PayeeDetailsDto'
-        paymentDetails:
-          $ref: '#/components/schemas/PaymentInitiationDetailsDto'
-      additionalProperties: false
-    PaymentInitiationDetailsDto:
-      type: object
-      required:
-      - amount
-      properties:
-        amount:
-          type: string
-          description: Amount to be transferred. Amount should be >=0.01
-          maxLength: 34
-        isLastPayment:
-          type:
-          - boolean
-          - 'null'
-          description: Set to true to indicate this is the last payment initiation request associated with the mandate. Possible values - True, False.
-        lodgementReference:
-          type:
-          - string
-          - 'null'
-          description: Unique reference, as assigned by the creditor, to unambiguously refer to the payment transaction.
-          maxLength: 280
-      additionalProperties: false
     PayeeDetailsDto:
       required:
       - payeeType
@@ -234,6 +189,51 @@ components:
           - 'null'
           example: ABCORP
           description: Name by which the party is known, and which is usually used to identify that party.</br> Can only provide ultimatePayee in the payload if crediting an external BSB.
+      additionalProperties: false
+    PaymentInitiationDetailsDto:
+      type: object
+      required:
+      - amount
+      properties:
+        amount:
+          type: string
+          description: Amount to be transferred. Amount should be >=0.01
+          maxLength: 34
+        isLastPayment:
+          type:
+          - boolean
+          - 'null'
+          description: Set to true to indicate this is the last payment initiation request associated with the mandate. Possible values - True, False.
+        lodgementReference:
+          type:
+          - string
+          - 'null'
+          description: Unique reference, as assigned by the creditor, to unambiguously refer to the payment transaction.
+          maxLength: 280
+      additionalProperties: false
+    InitiateMandatePaymentDto:
+      type: object
+      required:
+      - paymentAgreementUID
+      - paymentInitiationUID
+      - paymentDetails
+      properties:
+        paymentAgreementUID:
+          type:
+          - string
+          - 'null'
+          maxLength: 35
+          description: Id to uniquely Identify a payment agreement.
+        paymentInitiationUID:
+          type:
+          - string
+          - 'null'
+          maxLength: 35
+          description: Id to uniquely identify payment
+        payeeDetails:
+          $ref: '#/components/schemas/PayeeDetailsDto'
+        paymentDetails:
+          $ref: '#/components/schemas/PaymentInitiationDetailsDto'
       additionalProperties: false
     InitiateMandatePaymentResponseDto:
       type: object

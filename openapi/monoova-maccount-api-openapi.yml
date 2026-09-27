@@ -222,21 +222,123 @@ paths:
           description: Internal Server Error
 components:
   schemas:
-    mAccount.create.options:
+    mAccount.sendStatement:
       type: object
-      title: MinimumSettlementAmount
+      required:
+      - accountNumber
+      - frequency
+      properties:
+        accountNumber:
+          type: string
+          description: The 16-Digit account number that uniquely identifies the mAccount.
+          example: '6279059700023123'
+        frequency:
+          type: string
+          uniqueItems: true
+          example: Custom
+          description: An enumeration of fixed selection types. <strong> All, Today, ThisMonth, LastMonth, ThisFinancialYear, LastFinancialYear, Custom </strong>
+        startDate:
+          type: string
+          format: date-time
+          uniqueItems: false
+          example: '2018-07-11T00:00:00'
+          description: Start date of statement when the frequency is set to custom. In ISO 8601 date-time format. Note that Timezone is suppressed. The default Timezone is Sydney local time. Required field when frequency is set to custom.
+        endDate:
+          type: string
+          format: date-time
+          uniqueItems: false
+          example: '2018-08-11T00:00:00'
+          description: End date of statement when the frequency is set to custom. In ISO 8601 date-time format. Note that Timezone is suppressed. The default Timezone is Sydney local time. Required field when frequency is set to custom.
+    mAccount.create.options4:
+      type: object
+      title: SendSettlementStatement
       properties:
         key:
           type: string
-          example: MinimumSettlementAmount
+          example: SendSettlementStatement
           enum:
-          - MinimumSettlementAmount
+          - SendSettlementStatement
         value:
+          type: boolean
+          example: true
+          default: true
+    DTO.mAccountTransactionsResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        openingBalance:
+          description: Opening balance of the mAccountfor the returned items
           type: number
           format: decimal
-          example: 0.02
-          minimum: 0.02
-          maximum: 100
+          example: 0.0
+        closingBalance:
+          description: Closing balance of the mAccountfor the returned items
+          type: number
+          format: decimal
+          example: 25.0
+        totalDebits:
+          description: Total debits for the returned items
+          type: number
+          format: decimal
+          example: 25.0
+        totalCredits:
+          description: Total credits for the returned items
+          type: number
+          format: decimal
+          example: 0.0
+        items:
+          description: an Array of mAccountTransactionLineItem
+          type: array
+          items:
+            $ref: '#/components/schemas/DTO.mAccountTransactionLineItem'
+      type: object
+      format: DTO.mAccountTransactionsResponse_V1
+    DTO.mAccountGetFinancialsResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        financials:
+          $ref: '#/components/schemas/DTO.mAccountFinancials'
+      type: object
+      format: DTO.mAccountGetFinancialsResponse_V1
+    mAccount.create.options5:
+      type: object
+      title: SendDailyStatement
+      properties:
+        key:
+          type: string
+          example: SendDailyStatement
+          enum:
+          - SendDailyStatement
+        value:
+          type: boolean
+          example: true
+          default: true
     DTO.mAccountListResponse_V1:
       properties:
         durationMs:
@@ -264,45 +366,290 @@ components:
           uniqueItems: false
       type: object
       format: DTO.mAccountListResponse_V1
-    mAccount.create.options6:
+    mAccount.transactions:
       type: object
-      title: SendMonthlyStatement
+      required:
+      - accountNumber
+      - frequency
+      properties:
+        accountNumber:
+          type: string
+          example: '6279059700023123'
+          description: 16-Digit account number that uniquely identifies the mAccount.
+        frequency:
+          type: string
+          example: Custom
+          enum:
+          - Custom
+          - ThisMonth
+          - LastMonth
+          - Today
+          description: An enumeration of fixed selection types. possible values:&nbsp; Today, ThisMonth, LastMonth, Custom. A maximum of 3 months can be retrieved through Frequency = “Custom”
+        startDate:
+          type: string
+          format: date-time
+          example: '2020-04-05T00:00:00'
+          description: Start date of statement when the frequency is set to custom. In ISO 8601 date-time format '2018-07-11T00:00:00'. Note that Timezone is suppressed. The default Timezone is Sydney local time. Required field when frequency is set to custom.
+        endDate:
+          type: string
+          format: date-time
+          example: '2020-04-22T00:00:00'
+          description: End date of statement when the frequency is set to custom. In ISO 8601 date-time format 2018-08-11T00:00:00' . Note that Timezone is suppressed. The default Timezone is Sydney local time. Required field when frequency is set to custom.
+        descending:
+          type: boolean
+          example: true
+          default: false
+          description: Default to false. true to sort the returned transaction list as descending order.
+        useTime:
+          type: boolean
+          example: true
+          default: false
+          description: Default to false. true to use startDate and endDate when the frequency is set to custom.
+    DTO.mAccountFinancials:
+      properties:
+        accountNumber:
+          description: 16 digit mAccount Number
+          type: integer
+          format: string
+          example: 6279059778044302
+        actualBalance:
+          description: Balance of the mAccount
+          type: number
+          format: decimal
+          example: 1270.3
+          uniqueItems: false
+        clearedFundsOnly:
+          description: Whether mAccount is cleared funds
+          type: boolean
+          example: true
+        creditLimit:
+          description: mAccount credit limit
+          type: number
+          example: 10000.0
+        feeAccountActualBalance:
+          description: Balance of the feeAccount
+          type: number
+          format: decimal
+          example: 17.985
+          uniqueItems: false
+        feeAccountNumber:
+          description: 16 digit feeAccount number (returns value if hasSeparateFeeAccount is 'true')
+          type: integer
+          format: string
+          example: '6279059718793620'
+        hasSeparateFeeAccount:
+          description: Whether mAccount has SeparateFeeAccount
+          type: boolean
+          example: true
+        lowerCreditLimit:
+          description: mAccount lower credit limit
+          type: number
+          example: 0.0
+        minimumSettlementAmount:
+          description: mAccount minimum SettlementAmount. minimum value is '0.02'
+          type: number
+          format: decimal
+          example: 0.02
+        settlementFrequency:
+          description: mAccount settlement frequency
+          type: string
+          example: None
+        upperCreditLimit:
+          description: mAccount upper credit limit
+          type: number
+          example: 10000.0
+        availableToDebit:
+          description: mAccount debit available
+          type: number
+          example: 10000.0
+        availableToCredit:
+          description: mAccount credit available
+          type: number
+          example: 100000.0
+        nppBalance:
+          description: mAccount npp balance
+          type: number
+          example: 0.0
+        nppPayoutLimit:
+          description: mAccount payout limit
+          type: number
+          example: 100000.0
+        isFeeAccount:
+          description: whether mAccount is fee account
+          type: boolean
+          example: false
+        isParentAccount:
+          description: whether mAccount is parent account
+          type: boolean
+          example: true
+        isParentClearedFunds:
+          description: whether mAccount is parent account
+          type: boolean
+          example: null
+        clearedFundsAccountFinancials:
+          $ref: '#/components/schemas/DTO.mAccountClearedFundsAccount'
+      type: object
+    DTO.mAccountCloseResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+      type: object
+      format: DTO.mAccountCloseResponse_V1
+    DTO.OptionItem:
+      properties:
+        key:
+          description: Unique identifier of the value.
+          type: string
+          example: DebitTplusXDays
+          uniqueItems: false
+        value:
+          description: The actual value represented by the Key
+          type: string
+          example: '1'
+          uniqueItems: false
+      type: object
+    mAccount.create.options2:
+      type: object
+      title: CreditTplusXDays
       properties:
         key:
           type: string
-          example: SendMonthlyStatement
+          example: CreditTplusXDays
           enum:
-          - SendMonthlyStatement
+          - CreditTplusXDays
         value:
-          type: boolean
-          example: true
-          default: true
-    mAccount.create.options4:
-      type: object
-      title: SendSettlementStatement
+          type: integer
+          example: 4
+          default: 0
+    DTO.mAccountCreateResponse_V1:
       properties:
-        key:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
           type: string
-          example: SendSettlementStatement
-          enum:
-          - SendSettlementStatement
-        value:
-          type: boolean
-          example: true
-          default: true
-    mAccount.create.options5:
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        accountNumber:
+          description: New 16-Digit mAccount account number
+          type: integer
+          example: 6279059700011434
+          uniqueItems: false
       type: object
-      title: SendDailyStatement
+      format: DTO.mAccountCreateResponse_V1
+    DTO.mAccountDetails:
       properties:
-        key:
+        accountNumber:
+          description: 16-Digit account number that uniquely identifies the mAccount
+          type: integer
+          example: 6279059700023123
+          uniqueItems: false
+        name:
+          description: Company name of the mAccount
           type: string
-          example: SendDailyStatement
-          enum:
-          - SendDailyStatement
-        value:
+          example: Monoova Ltd
+          uniqueItems: false
+        abn:
+          description: Company ABN of the mAccount. All non numbers are stripped
+          type: string
+          example: '77106249852'
+          uniqueItems: false
+        contactName:
+          description: Contact name. Spaces are stripped
+          type: string
+          example: mPayRetail
+          uniqueItems: false
+        contactNumber:
+          description: Contact number. All non numbers are striped
+          type: string
+          example: 0295555555
+          uniqueItems: false
+        email:
+          description: Contact email. Converted to lowercase
+          type: string
+          example: mPayments@monoova.com
+          uniqueItems: false
+        addressLine1:
+          description: An optional postal addressline such as a Building, section or unit
+          type: string
+          example: Level 6
+          uniqueItems: false
+        addressLine2:
+          description: An address line is the main postal address of the Company
+          type: string
+          example: 97 Pacific Highway
+          uniqueItems: false
+        suburb:
+          description: Postal address suburb
+          type: string
+          example: North Sydney
+          uniqueItems: false
+        state:
+          description: Postal addres sstate
+          type: string
+          example: NSW
+          uniqueItems: false
+        postCode:
+          description: Postal address post code
+          type: string
+          example: '2060'
+          uniqueItems: false
+        bsb:
+          description: BSB number of associated bank account. BSB format is ‘000-000’
+          type: string
+          example: 012-366
+          uniqueItems: false
+        bankAccountNumber:
+          description: Bank account number of associated bank account
+          type: string
+          example: '123456789'
+          uniqueItems: false
+        bankAccountTitle:
+          description: Bank account title or nameof associated bank account
+          type: string
+          example: Test Bank Account
+          uniqueItems: false
+        allowDuplicates:
+          description: If true, allow the creation of a new mAccount even though an existing mAccount with the same ABN exists
           type: boolean
           example: true
-          default: true
+          uniqueItems: false
+        feeAccount:
+          type: integer
+          format: string
+          example: '6279059718791234'
+        financials:
+          $ref: '#/components/schemas/DTO.mAccountFinancials'
+        options:
+          description: an Array of mAccountOptionItem
+          type: array
+          items:
+            $ref: '#/components/schemas/DTO.OptionItem'
+          uniqueItems: false
+      type: object
     mAccount.create.options3:
       type: object
       title: SettlementFrequency
@@ -329,7 +676,7 @@ components:
           description: 'None (No Settlement)<br>  Daily (Every Business Day)<br>  BeginningOfMonth (First Business Day of Month)<br>  EndOfMonth (Last Business Day of Month)<br>  MidMonth (15th of month)<br>  OnDemand (Only when user initiated)<br>  OnDemandWithCatch (User initiated and EOD)<br>  OncePerDay (Will not run at EOD if a manual settlement prior to for same day)<br>  Ignore (Ignore during import)<br>
 
             '
-    DTO.mAccountUpdateResponse_V1:
+    DTO.mAccountGetResponse_V1:
       properties:
         durationMs:
           description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
@@ -347,112 +694,10 @@ components:
           type: string
           example: Operation completed successfully
           uniqueItems: false
+        details:
+          $ref: '#/components/schemas/DTO.mAccountDetails'
       type: object
-      format: DTO.mAccountUpdateResponse_V1
-    mAccount.update:
-      type: object
-      required:
-      - accountNumber
-      - abn
-      - contactName
-      - contactNumber
-      - email
-      - addressLine2
-      - suburb
-      - state
-      properties:
-        accountNumber:
-          type: string
-          uniqueItems: true
-          example: '6279059700023123'
-          description: 16-Digit account number that uniquely identifies the mAccount.
-        name:
-          type: string
-          uniqueItems: false
-          example: Monoova Ltd
-          description: Company name of the mAccount.
-          maximum: 50
-        abn:
-          type: string
-          uniqueItems: false
-          example: 77 106 249 852
-          description: Company ABN of the mAccount. All non numbers are stripped. See allowDuplicates.
-          maximum: 15
-        contactName:
-          type: string
-          uniqueItems: false
-          example: mPaysales
-          description: Contact name. Spaces are stripped.
-          maximum: 30
-        contactNumber:
-          type: number
-          uniqueItems: false
-          example: 02 9555 5555
-          description: Contact number. All non numbers are striped.
-          maximum: 15
-        email:
-          type: string
-          uniqueItems: false
-          example: mPayments@monoova.com
-          description: Contact email. Converted to lowercase.
-        addressLine1:
-          type: string
-          uniqueItems: false
-          example: Level 6
-          description: An optional postal address line such as a Building, section or unit.
-          maximum: 40
-        addressLine2:
-          type: string
-          uniqueItems: false
-          example: 97 Pacific Highway
-          description: An address line is the main postal address of the Company.
-          maximum: 40
-        suburb:
-          type: string
-          uniqueItems: false
-          example: North Sydney
-          description: Postal address suburb.
-          maximum: 30
-        state:
-          type: string
-          uniqueItems: false
-          example: NSW
-          description: Postal address state.
-        postCode:
-          type: string
-          uniqueItems: false
-          example: '2060'
-          description: Postal address post code.
-        bsb:
-          type: string
-          uniqueItems: false
-          example: 012-366
-          description: BSB number of associated bank account. BSB format is ‘000-000’.
-        bankAccountNumber:
-          type: string
-          example: '123456789'
-          description: Bank account number of associated bank account.
-        bankAccountTitle:
-          type: string
-          uniqueItems: false
-          example: Monoova Bank Account
-          description: Bank account title or name of associated bank account.
-        financials:
-          type: boolean
-          uniqueItems: false
-          example: null
-          description: See mAccountFinancials class This property is ignored when calling mAccount/v1/create and mAccount/v1/update. This property only contains valid values when calling mAccount/v1/get.
-        options:
-          type: array
-          items:
-            anyOf:
-            - $ref: '#/components/schemas/mAccount.create.options'
-            - $ref: '#/components/schemas/mAccount.create.options1'
-            - $ref: '#/components/schemas/mAccount.create.options2'
-            - $ref: '#/components/schemas/mAccount.create.options3'
-            - $ref: '#/components/schemas/mAccount.create.options4'
-            - $ref: '#/components/schemas/mAccount.create.options5'
-            - $ref: '#/components/schemas/mAccount.create.options6'
+      format: DTO.mAccountGetResponse_V1
     mAccount.create:
       type: object
       required:
@@ -560,19 +805,39 @@ components:
             - $ref: '#/components/schemas/mAccount.create.options4'
             - $ref: '#/components/schemas/mAccount.create.options5'
             - $ref: '#/components/schemas/mAccount.create.options6'
-    mAccount.create.options1:
+    DTO.mAccountSendStatementResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
       type: object
-      title: DebitTplusXDays
+      format: DTO.mAccountSendStatementResponse_V1
+    mAccount.create.options6:
+      type: object
+      title: SendMonthlyStatement
       properties:
         key:
           type: string
-          example: DebitTplusXDays
+          example: SendMonthlyStatement
           enum:
-          - DebitTplusXDays
+          - SendMonthlyStatement
         value:
-          type: integer
-          example: 0
-          default: 0
+          type: boolean
+          example: true
+          default: true
     DTO.mAccountTransactionLineItem:
       properties:
         credit:
@@ -645,192 +910,158 @@ components:
           type: string
           example: 0bbae2f1-428a-4843-0b3e4bc
       type: object
-    mAccount.create.options2:
+    mAccount.create.options:
       type: object
-      title: CreditTplusXDays
+      title: MinimumSettlementAmount
       properties:
         key:
           type: string
-          example: CreditTplusXDays
+          example: MinimumSettlementAmount
           enum:
-          - CreditTplusXDays
+          - MinimumSettlementAmount
         value:
-          type: integer
-          example: 4
-          default: 0
-    DTO.mAccountSendStatementResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-      type: object
-      format: DTO.mAccountSendStatementResponse_V1
-    DTO.mAccountCloseResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-      type: object
-      format: DTO.mAccountCloseResponse_V1
-    mAccount.sendStatement:
-      type: object
-      required:
-      - accountNumber
-      - frequency
-      properties:
-        accountNumber:
-          type: string
-          description: The 16-Digit account number that uniquely identifies the mAccount.
-          example: '6279059700023123'
-        frequency:
-          type: string
-          uniqueItems: true
-          example: Custom
-          description: An enumeration of fixed selection types. <strong> All, Today, ThisMonth, LastMonth, ThisFinancialYear, LastFinancialYear, Custom </strong>
-        startDate:
-          type: string
-          format: date-time
-          uniqueItems: false
-          example: '2018-07-11T00:00:00'
-          description: Start date of statement when the frequency is set to custom. In ISO 8601 date-time format. Note that Timezone is suppressed. The default Timezone is Sydney local time. Required field when frequency is set to custom.
-        endDate:
-          type: string
-          format: date-time
-          uniqueItems: false
-          example: '2018-08-11T00:00:00'
-          description: End date of statement when the frequency is set to custom. In ISO 8601 date-time format. Note that Timezone is suppressed. The default Timezone is Sydney local time. Required field when frequency is set to custom.
-    DTO.mAccountGetResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-        details:
-          $ref: '#/components/schemas/DTO.mAccountDetails'
-      type: object
-      format: DTO.mAccountGetResponse_V1
-    DTO.mAccountFinancials:
-      properties:
-        accountNumber:
-          description: 16 digit mAccount Number
-          type: integer
-          format: string
-          example: 6279059778044302
-        actualBalance:
-          description: Balance of the mAccount
-          type: number
-          format: decimal
-          example: 1270.3
-          uniqueItems: false
-        clearedFundsOnly:
-          description: Whether mAccount is cleared funds
-          type: boolean
-          example: true
-        creditLimit:
-          description: mAccount credit limit
-          type: number
-          example: 10000.0
-        feeAccountActualBalance:
-          description: Balance of the feeAccount
-          type: number
-          format: decimal
-          example: 17.985
-          uniqueItems: false
-        feeAccountNumber:
-          description: 16 digit feeAccount number (returns value if hasSeparateFeeAccount is 'true')
-          type: integer
-          format: string
-          example: '6279059718793620'
-        hasSeparateFeeAccount:
-          description: Whether mAccount has SeparateFeeAccount
-          type: boolean
-          example: true
-        lowerCreditLimit:
-          description: mAccount lower credit limit
-          type: number
-          example: 0.0
-        minimumSettlementAmount:
-          description: mAccount minimum SettlementAmount. minimum value is '0.02'
           type: number
           format: decimal
           example: 0.02
-        settlementFrequency:
-          description: mAccount settlement frequency
-          type: string
-          example: None
-        upperCreditLimit:
-          description: mAccount upper credit limit
-          type: number
-          example: 10000.0
-        availableToDebit:
-          description: mAccount debit available
-          type: number
-          example: 10000.0
-        availableToCredit:
-          description: mAccount credit available
-          type: number
-          example: 100000.0
-        nppBalance:
-          description: mAccount npp balance
-          type: number
-          example: 0.0
-        nppPayoutLimit:
-          description: mAccount payout limit
-          type: number
-          example: 100000.0
-        isFeeAccount:
-          description: whether mAccount is fee account
-          type: boolean
-          example: false
-        isParentAccount:
-          description: whether mAccount is parent account
-          type: boolean
-          example: true
-        isParentClearedFunds:
-          description: whether mAccount is parent account
-          type: boolean
-          example: null
-        clearedFundsAccountFinancials:
-          $ref: '#/components/schemas/DTO.mAccountClearedFundsAccount'
+          minimum: 0.02
+          maximum: 100
+    mAccount.create.options1:
       type: object
+      title: DebitTplusXDays
+      properties:
+        key:
+          type: string
+          example: DebitTplusXDays
+          enum:
+          - DebitTplusXDays
+        value:
+          type: integer
+          example: 0
+          default: 0
+    mAccount.update:
+      type: object
+      required:
+      - accountNumber
+      - abn
+      - contactName
+      - contactNumber
+      - email
+      - addressLine2
+      - suburb
+      - state
+      properties:
+        accountNumber:
+          type: string
+          uniqueItems: true
+          example: '6279059700023123'
+          description: 16-Digit account number that uniquely identifies the mAccount.
+        name:
+          type: string
+          uniqueItems: false
+          example: Monoova Ltd
+          description: Company name of the mAccount.
+          maximum: 50
+        abn:
+          type: string
+          uniqueItems: false
+          example: 77 106 249 852
+          description: Company ABN of the mAccount. All non numbers are stripped. See allowDuplicates.
+          maximum: 15
+        contactName:
+          type: string
+          uniqueItems: false
+          example: mPaysales
+          description: Contact name. Spaces are stripped.
+          maximum: 30
+        contactNumber:
+          type: number
+          uniqueItems: false
+          example: 02 9555 5555
+          description: Contact number. All non numbers are striped.
+          maximum: 15
+        email:
+          type: string
+          uniqueItems: false
+          example: mPayments@monoova.com
+          description: Contact email. Converted to lowercase.
+        addressLine1:
+          type: string
+          uniqueItems: false
+          example: Level 6
+          description: An optional postal address line such as a Building, section or unit.
+          maximum: 40
+        addressLine2:
+          type: string
+          uniqueItems: false
+          example: 97 Pacific Highway
+          description: An address line is the main postal address of the Company.
+          maximum: 40
+        suburb:
+          type: string
+          uniqueItems: false
+          example: North Sydney
+          description: Postal address suburb.
+          maximum: 30
+        state:
+          type: string
+          uniqueItems: false
+          example: NSW
+          description: Postal address state.
+        postCode:
+          type: string
+          uniqueItems: false
+          example: '2060'
+          description: Postal address post code.
+        bsb:
+          type: string
+          uniqueItems: false
+          example: 012-366
+          description: BSB number of associated bank account. BSB format is ‘000-000’.
+        bankAccountNumber:
+          type: string
+          example: '123456789'
+          description: Bank account number of associated bank account.
+        bankAccountTitle:
+          type: string
+          uniqueItems: false
+          example: Monoova Bank Account
+          description: Bank account title or name of associated bank account.
+        financials:
+          type: boolean
+          uniqueItems: false
+          example: null
+          description: See mAccountFinancials class This property is ignored when calling mAccount/v1/create and mAccount/v1/update. This property only contains valid values when calling mAccount/v1/get.
+        options:
+          type: array
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/mAccount.create.options'
+            - $ref: '#/components/schemas/mAccount.create.options1'
+            - $ref: '#/components/schemas/mAccount.create.options2'
+            - $ref: '#/components/schemas/mAccount.create.options3'
+            - $ref: '#/components/schemas/mAccount.create.options4'
+            - $ref: '#/components/schemas/mAccount.create.options5'
+            - $ref: '#/components/schemas/mAccount.create.options6'
+    DTO.mAccountUpdateResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+      type: object
+      format: DTO.mAccountUpdateResponse_V1
     DTO.mAccountClearedFundsAccount:
       properties:
         availableBalance:
@@ -852,237 +1083,6 @@ components:
             type: string
             example: '12312312'
           uniqueItems: true
-      type: object
-    DTO.mAccountTransactionsResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-        openingBalance:
-          description: Opening balance of the mAccountfor the returned items
-          type: number
-          format: decimal
-          example: 0.0
-        closingBalance:
-          description: Closing balance of the mAccountfor the returned items
-          type: number
-          format: decimal
-          example: 25.0
-        totalDebits:
-          description: Total debits for the returned items
-          type: number
-          format: decimal
-          example: 25.0
-        totalCredits:
-          description: Total credits for the returned items
-          type: number
-          format: decimal
-          example: 0.0
-        items:
-          description: an Array of mAccountTransactionLineItem
-          type: array
-          items:
-            $ref: '#/components/schemas/DTO.mAccountTransactionLineItem'
-      type: object
-      format: DTO.mAccountTransactionsResponse_V1
-    DTO.mAccountCreateResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-        accountNumber:
-          description: New 16-Digit mAccount account number
-          type: integer
-          example: 6279059700011434
-          uniqueItems: false
-      type: object
-      format: DTO.mAccountCreateResponse_V1
-    mAccount.transactions:
-      type: object
-      required:
-      - accountNumber
-      - frequency
-      properties:
-        accountNumber:
-          type: string
-          example: '6279059700023123'
-          description: 16-Digit account number that uniquely identifies the mAccount.
-        frequency:
-          type: string
-          example: Custom
-          enum:
-          - Custom
-          - ThisMonth
-          - LastMonth
-          - Today
-          description: An enumeration of fixed selection types. possible values:&nbsp; Today, ThisMonth, LastMonth, Custom. A maximum of 3 months can be retrieved through Frequency = “Custom”
-        startDate:
-          type: string
-          format: date-time
-          example: '2020-04-05T00:00:00'
-          description: Start date of statement when the frequency is set to custom. In ISO 8601 date-time format '2018-07-11T00:00:00'. Note that Timezone is suppressed. The default Timezone is Sydney local time. Required field when frequency is set to custom.
-        endDate:
-          type: string
-          format: date-time
-          example: '2020-04-22T00:00:00'
-          description: End date of statement when the frequency is set to custom. In ISO 8601 date-time format 2018-08-11T00:00:00' . Note that Timezone is suppressed. The default Timezone is Sydney local time. Required field when frequency is set to custom.
-        descending:
-          type: boolean
-          example: true
-          default: false
-          description: Default to false. true to sort the returned transaction list as descending order.
-        useTime:
-          type: boolean
-          example: true
-          default: false
-          description: Default to false. true to use startDate and endDate when the frequency is set to custom.
-    DTO.OptionItem:
-      properties:
-        key:
-          description: Unique identifier of the value.
-          type: string
-          example: DebitTplusXDays
-          uniqueItems: false
-        value:
-          description: The actual value represented by the Key
-          type: string
-          example: '1'
-          uniqueItems: false
-      type: object
-    DTO.mAccountGetFinancialsResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-        financials:
-          $ref: '#/components/schemas/DTO.mAccountFinancials'
-      type: object
-      format: DTO.mAccountGetFinancialsResponse_V1
-    DTO.mAccountDetails:
-      properties:
-        accountNumber:
-          description: 16-Digit account number that uniquely identifies the mAccount
-          type: integer
-          example: 6279059700023123
-          uniqueItems: false
-        name:
-          description: Company name of the mAccount
-          type: string
-          example: Monoova Ltd
-          uniqueItems: false
-        abn:
-          description: Company ABN of the mAccount. All non numbers are stripped
-          type: string
-          example: '77106249852'
-          uniqueItems: false
-        contactName:
-          description: Contact name. Spaces are stripped
-          type: string
-          example: mPayRetail
-          uniqueItems: false
-        contactNumber:
-          description: Contact number. All non numbers are striped
-          type: string
-          example: 0295555555
-          uniqueItems: false
-        email:
-          description: Contact email. Converted to lowercase
-          type: string
-          example: mPayments@monoova.com
-          uniqueItems: false
-        addressLine1:
-          description: An optional postal addressline such as a Building, section or unit
-          type: string
-          example: Level 6
-          uniqueItems: false
-        addressLine2:
-          description: An address line is the main postal address of the Company
-          type: string
-          example: 97 Pacific Highway
-          uniqueItems: false
-        suburb:
-          description: Postal address suburb
-          type: string
-          example: North Sydney
-          uniqueItems: false
-        state:
-          description: Postal addres sstate
-          type: string
-          example: NSW
-          uniqueItems: false
-        postCode:
-          description: Postal address post code
-          type: string
-          example: '2060'
-          uniqueItems: false
-        bsb:
-          description: BSB number of associated bank account. BSB format is ‘000-000’
-          type: string
-          example: 012-366
-          uniqueItems: false
-        bankAccountNumber:
-          description: Bank account number of associated bank account
-          type: string
-          example: '123456789'
-          uniqueItems: false
-        bankAccountTitle:
-          description: Bank account title or nameof associated bank account
-          type: string
-          example: Test Bank Account
-          uniqueItems: false
-        allowDuplicates:
-          description: If true, allow the creation of a new mAccount even though an existing mAccount with the same ABN exists
-          type: boolean
-          example: true
-          uniqueItems: false
-        feeAccount:
-          type: integer
-          format: string
-          example: '6279059718791234'
-        financials:
-          $ref: '#/components/schemas/DTO.mAccountFinancials'
-        options:
-          description: an Array of mAccountOptionItem
-          type: array
-          items:
-            $ref: '#/components/schemas/DTO.OptionItem'
-          uniqueItems: false
       type: object
   securitySchemes:
     BasicAuth:

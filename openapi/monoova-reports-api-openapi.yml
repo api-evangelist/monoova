@@ -84,6 +84,30 @@ paths:
           description: Internal Server Error
 components:
   schemas:
+    DTO.GenericPayment.GenericPaymentSettlementResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        settlements:
+          description: An array of SettlementItem’s
+          type: array
+          items:
+            $ref: '#/components/schemas/DTO.GenericPayment.GenericPaymentSettlementItem_V1'
+      type: object
+      format: DTO.GenericPayment.GenericPaymentSettlementResponse_V1
     DTO.GenericPayment.GenericPaymentStatementResponse_V1:
       properties:
         durationMs:
@@ -189,30 +213,6 @@ components:
           format: decimal
           example: 0.3685
       type: object
-    DTO.GenericPayment.GenericPaymentSettlementResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-        settlements:
-          description: An array of SettlementItem’s
-          type: array
-          items:
-            $ref: '#/components/schemas/DTO.GenericPayment.GenericPaymentSettlementItem_V1'
-      type: object
-      format: DTO.GenericPayment.GenericPaymentSettlementResponse_V1
   securitySchemes:
     BasicAuth:
       type: http

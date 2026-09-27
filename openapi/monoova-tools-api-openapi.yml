@@ -121,6 +121,104 @@ paths:
           description: Internal Server Error
 components:
   schemas:
+    DTO.ToolsAbnValidateResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        abn:
+          description: The Australian Business Number that was passed as aparameter formatted as ’99 999 999 999’
+          type: string
+          example: 24 611 393 554
+          uniqueItems: false
+        lastUpdatedDate:
+          description: The date the ABN record was last updated
+          type: string
+          example: '2017-02-28T00:00:00'
+          uniqueItems: false
+        isAbnValid:
+          description: If true, indicates the identity has a valid ABN
+          type: boolean
+          example: true
+        isCharity:
+          description: If true, indicates the identity is a registered charity
+          type: boolean
+          example: false
+        entityTypeCode:
+          description: The abbreviation of the type of business entity
+          type: string
+          example: PRV
+          uniqueItems: false
+        entityTypeDescription:
+          description: A description the type of business entity
+          type: string
+          example: Australian Private Company
+          uniqueItems: false
+        organisationName:
+          description: The current name of the business entity
+          type: string
+          example: Monoova GROUP LIMITED
+          uniqueItems: false
+        legalName:
+          description: If business is a Sole Trader, contains the persons name
+          type: string
+          example: 'null'
+          uniqueItems: false
+        organisationNameFromDate:
+          description: The date the organisationName was last updated
+          type: string
+          example: '2017-02-28T00:00:00'
+          uniqueItems: false
+        businessPhysicalAddressStateCode:
+          description: The state code of the business physical address – eg. ‘NSW’
+          type: string
+          example: NSW
+          uniqueItems: false
+        businessPhysicalAddressPostCode:
+          description: The post code of the business physical address
+          type: string
+          example: '2060'
+          uniqueItems: false
+        businessPhysicalAddressEffectiveFromDate:
+          description: The date the business physical address was last updated
+          type: string
+          example: '2016-07-01T00:00:00'
+          uniqueItems: false
+      type: object
+      format: DTO.ToolsAbnValidateResponse_V1
+    DTO.ToolsSendEmailResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+      type: object
+      format: DTO.ToolsSendEmailResponse_V1
     DTO.ToolsBsbValidateResponse_V1:
       properties:
         durationMs:
@@ -225,104 +323,6 @@ components:
           uniqueItems: false
           example: I have forgotten my password
           description: Email body. Can be HTML or plain text.
-    DTO.ToolsSendEmailResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-      type: object
-      format: DTO.ToolsSendEmailResponse_V1
-    DTO.ToolsAbnValidateResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-        abn:
-          description: The Australian Business Number that was passed as aparameter formatted as ’99 999 999 999’
-          type: string
-          example: 24 611 393 554
-          uniqueItems: false
-        lastUpdatedDate:
-          description: The date the ABN record was last updated
-          type: string
-          example: '2017-02-28T00:00:00'
-          uniqueItems: false
-        isAbnValid:
-          description: If true, indicates the identity has a valid ABN
-          type: boolean
-          example: true
-        isCharity:
-          description: If true, indicates the identity is a registered charity
-          type: boolean
-          example: false
-        entityTypeCode:
-          description: The abbreviation of the type of business entity
-          type: string
-          example: PRV
-          uniqueItems: false
-        entityTypeDescription:
-          description: A description the type of business entity
-          type: string
-          example: Australian Private Company
-          uniqueItems: false
-        organisationName:
-          description: The current name of the business entity
-          type: string
-          example: Monoova GROUP LIMITED
-          uniqueItems: false
-        legalName:
-          description: If business is a Sole Trader, contains the persons name
-          type: string
-          example: 'null'
-          uniqueItems: false
-        organisationNameFromDate:
-          description: The date the organisationName was last updated
-          type: string
-          example: '2017-02-28T00:00:00'
-          uniqueItems: false
-        businessPhysicalAddressStateCode:
-          description: The state code of the business physical address – eg. ‘NSW’
-          type: string
-          example: NSW
-          uniqueItems: false
-        businessPhysicalAddressPostCode:
-          description: The post code of the business physical address
-          type: string
-          example: '2060'
-          uniqueItems: false
-        businessPhysicalAddressEffectiveFromDate:
-          description: The date the business physical address was last updated
-          type: string
-          example: '2016-07-01T00:00:00'
-          uniqueItems: false
-      type: object
-      format: DTO.ToolsAbnValidateResponse_V1
   securitySchemes:
     BasicAuth:
       type: http

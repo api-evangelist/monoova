@@ -150,6 +150,8 @@ apis:
   humanURL: https://developer.monoova.com/overview
   baseURL: https://api.mpay.com.au
   tags:
+  - Finance
+  tags_raw:
   - Financial
   properties:
   - type: OpenAPI

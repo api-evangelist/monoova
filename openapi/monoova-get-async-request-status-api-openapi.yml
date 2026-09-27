@@ -72,26 +72,6 @@ paths:
                 errorMessage: Mandatory field is missing - payment_initiator_information.party_name.
 components:
   schemas:
-    AsyncStatusResponse200:
-      type: object
-      properties:
-        traceId:
-          description: unique end to end trace id for diagnostic
-          type: string
-          example: be393fae-52c2-4c9e-a262-4974de6da750
-        uniqueRequestId:
-          description: the unique Id for this async job as returned in the originating request
-          type: string
-          example: 4834dba5-27b0-465c-aea7-aa530315c68c
-        clientTransactionUniqueReference:
-          description: unique refund Id provided by the client
-          type: string
-          example: MONCC1673935776
-        status:
-          description: one of the below - <br/> Accepted <br/> Processing <br/> Completed <br/> Failed <br/> Expired
-          type: string
-          example: Processing
-      additionalProperties: false
     AsyncStatusResponse201:
       type: object
       properties:
@@ -111,6 +91,26 @@ components:
           description: one of the below - <br/> Accepted <br/> Processing <br/> Completed <br/> Failed <br/> Expired
           type: string
           example: Completed
+      additionalProperties: false
+    AsyncStatusResponse200:
+      type: object
+      properties:
+        traceId:
+          description: unique end to end trace id for diagnostic
+          type: string
+          example: be393fae-52c2-4c9e-a262-4974de6da750
+        uniqueRequestId:
+          description: the unique Id for this async job as returned in the originating request
+          type: string
+          example: 4834dba5-27b0-465c-aea7-aa530315c68c
+        clientTransactionUniqueReference:
+          description: unique refund Id provided by the client
+          type: string
+          example: MONCC1673935776
+        status:
+          description: one of the below - <br/> Accepted <br/> Processing <br/> Completed <br/> Failed <br/> Expired
+          type: string
+          example: Processing
       additionalProperties: false
   securitySchemes:
     BearerAuth:

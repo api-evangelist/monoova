@@ -603,6 +603,33 @@ paths:
       description: Sandbox URL
 components:
   schemas:
+    WebHookDetailGet:
+      type: object
+      properties:
+        callBackUrl:
+          type:
+          - string
+          - 'null'
+          example: http://demo7446995.mockable.io/pagnotification
+          description: URL of your server.
+      required:
+      - callBackUrl
+      additionalProperties: false
+    WebHookResendResponse:
+      type: object
+      required:
+      - status
+      - statusDescription
+      properties:
+        status:
+          type:
+          - string
+          - 'null'
+        statusDescription:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     WebHookListResponse:
       type: object
       properties:
@@ -621,29 +648,63 @@ components:
           items:
             $ref: '#/components/schemas/WebHookResponse'
       additionalProperties: false
-    SubscriptionDetailUpdateRequest:
+    SubscriptionListResponse:
       type: object
       properties:
-        subscriptionName:
-          maxLength: 36
-          example: PayToTest
-          description: User-Defined name, to make the purpose or owner clear. </br> Name provided by customers only.
-          pattern: ^[A-Za-z0-9_-]
-        eventName:
+        status:
           type:
           - string
           - 'null'
-          description: The event we are subscribing to.</br> Must be “PaymentAgreementNotification” - the forwards all payment agreement events to the Webhook URL.
-          example: PaymentAgreementNotification
-        webHookDetail:
-          $ref: '#/components/schemas/WebHookDetail'
-        isActive:
-          type: boolean
-          example: true
+        statusDescription:
+          type:
+          - string
+          - 'null'
+        subscriptionDetails:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SubscriptionDetailResponse'
+      additionalProperties: false
+    SubscriptionDeleteResponse:
+      type: object
+      properties:
+        traceId:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    SubscriptionUpdateResponse:
+      type: object
+      properties:
+        traceId:
+          type:
+          - string
+          - 'null'
+        subscriptionId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    WebHookDetail:
+      type: object
+      properties:
+        callBackUrl:
+          type:
+          - string
+          - 'null'
+          example: http://demo7446995.mockable.io/pagnotification
+          description: URL of your server.
+        securityToken:
+          type: string
+          example: Basic 13222276767676
+          description: This token will be sent back with the callback in Authorization header. (Authorization &#58;  [type] [credentials]  (e.x Basic Rjc1234567890jdGMS67890U78...)) When creating the token, both 'type' and 'credentials' are required.
       required:
-      - subscriptionName
-      - eventName
-      - isActive
+      - callBackUrl
       additionalProperties: false
     WebHookResponse:
       type: object
@@ -699,64 +760,6 @@ components:
         clientRequestedResend:
           type: boolean
       additionalProperties: false
-    SubscriptionUpdateResponse:
-      type: object
-      properties:
-        traceId:
-          type:
-          - string
-          - 'null'
-        subscriptionId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    SubscriptionListResponse:
-      type: object
-      properties:
-        status:
-          type:
-          - string
-          - 'null'
-        statusDescription:
-          type:
-          - string
-          - 'null'
-        subscriptionDetails:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SubscriptionDetailResponse'
-      additionalProperties: false
-    SubscriptionDeleteResponse:
-      type: object
-      properties:
-        traceId:
-          type:
-          - string
-          - 'null'
-        errors:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    WebHookDetail:
-      type: object
-      properties:
-        callBackUrl:
-          type:
-          - string
-          - 'null'
-          example: http://demo7446995.mockable.io/pagnotification
-          description: URL of your server.
-        securityToken:
-          type: string
-          example: Basic 13222276767676
-          description: This token will be sent back with the callback in Authorization header. (Authorization &#58;  [type] [credentials]  (e.x Basic Rjc1234567890jdGMS67890U78...)) When creating the token, both 'type' and 'credentials' are required.
-      required:
-      - callBackUrl
-      additionalProperties: false
     SubscriptionDetailResponse:
       type: object
       properties:
@@ -785,32 +788,46 @@ components:
       - eventName
       - isActive
       additionalProperties: false
-    WebHookDetailGet:
+    SubscriptionDetailUpdateRequest:
       type: object
       properties:
-        callBackUrl:
+        subscriptionName:
+          maxLength: 36
+          example: PayToTest
+          description: User-Defined name, to make the purpose or owner clear. </br> Name provided by customers only.
+          pattern: ^[A-Za-z0-9_-]
+        eventName:
           type:
           - string
           - 'null'
-          example: http://demo7446995.mockable.io/pagnotification
-          description: URL of your server.
+          description: The event we are subscribing to.</br> Must be “PaymentAgreementNotification” - the forwards all payment agreement events to the Webhook URL.
+          example: PaymentAgreementNotification
+        webHookDetail:
+          $ref: '#/components/schemas/WebHookDetail'
+        isActive:
+          type: boolean
+          example: true
+      required:
+      - subscriptionName
+      - eventName
+      - isActive
+      additionalProperties: false
+    WebHookDetailGet_2:
+      type: object
       required:
       - callBackUrl
-      additionalProperties: false
-    WebHookResendResponse:
-      type: object
-      required:
-      - status
-      - statusDescription
       properties:
-        status:
-          type:
-          - string
-          - 'null'
-        statusDescription:
-          type:
-          - string
-          - 'null'
+        callBackUrl:
+          type: string
+          example: http://demo62eacbbe3c14.mockable.io/pagnotification
+          description: URL of your server.
+      additionalProperties: false
+    WebHookResendResponse_2:
+      type: object
+      properties:
+        traceId:
+          type: string
+          example: f1a7fbd7-cb39-4b98-b2a7-f4e0e004f152
       additionalProperties: false
     WebHookListResponse_2:
       type: object
@@ -820,28 +837,49 @@ components:
           items:
             $ref: '#/components/schemas/WebHookResponse_2'
       additionalProperties: false
-    SubscriptionDetailUpdateRequest_2:
+    SubscriptionListResponse_2:
+      type: object
+      properties:
+        traceId:
+          type: string
+          example: 5b5d2d6e-4972-4be4-ab95-8a373b9d90c5
+        subscriptionDetails:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SubscriptionDetailResponse_2'
+      additionalProperties: false
+    SubscriptionDeleteResponse_2:
+      type: object
+      properties:
+        traceId:
+          type: string
+          example: f2db7ad2-2411-408c-b17a-5a050d30741b
+      additionalProperties: false
+    SubscriptionUpdateResponse_2:
+      type: object
+      properties:
+        traceId:
+          type: string
+          example: 5b5d2d6e-1972-4be4-ac95-8a373b9d90c5
+        subscriptionId:
+          type: string
+          example: 5d930864-76e9-4945-bc7c-7645e38d860b
+      additionalProperties: false
+    WebHookDetail_2:
       type: object
       required:
-      - subscriptionName
-      - eventName
-      - isActive
+      - callBackUrl
       properties:
-        subscriptionName:
+        callBackUrl:
           type: string
-          maxLength: 36
-          example: PayToTest
-          description: User-Defined name, to make the purpose or owner clear. Name provided by customers only.
-          pattern: ^[A-Za-z0-9_-]+
-        eventName:
+          example: http://demo62eacbbe3c14.mockable.io/pagnotification
+          description: URL of your server.
+        securityToken:
           type: string
-          description: The event we are subscribing to. Must be ‘PaymentAgreementNotification’ - forwards all payment agreement events to the Webhook URL.
-          example: PaymentAgreementNotification
-        webHookDetail:
-          $ref: '#/components/schemas/WebHookDetail_2'
-        isActive:
-          type: boolean
-          example: true
+          example: Basic 13222276767676
+          description: This token will be sent back with the callback in Authorization header. (Authorization &#58;  [type] [credentials]  (e.x Basic Rjc1234567890jdGMS67890U78...)) When creating the token, both 'type' and 'credentials' are required.
       additionalProperties: false
     WebHookResponse_2:
       type: object
@@ -875,50 +913,6 @@ components:
         clientRequestedResend:
           type: boolean
       additionalProperties: false
-    SubscriptionUpdateResponse_2:
-      type: object
-      properties:
-        traceId:
-          type: string
-          example: 5b5d2d6e-1972-4be4-ac95-8a373b9d90c5
-        subscriptionId:
-          type: string
-          example: 5d930864-76e9-4945-bc7c-7645e38d860b
-      additionalProperties: false
-    SubscriptionListResponse_2:
-      type: object
-      properties:
-        traceId:
-          type: string
-          example: 5b5d2d6e-4972-4be4-ab95-8a373b9d90c5
-        subscriptionDetails:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SubscriptionDetailResponse_2'
-      additionalProperties: false
-    SubscriptionDeleteResponse_2:
-      type: object
-      properties:
-        traceId:
-          type: string
-          example: f2db7ad2-2411-408c-b17a-5a050d30741b
-      additionalProperties: false
-    WebHookDetail_2:
-      type: object
-      required:
-      - callBackUrl
-      properties:
-        callBackUrl:
-          type: string
-          example: http://demo62eacbbe3c14.mockable.io/pagnotification
-          description: URL of your server.
-        securityToken:
-          type: string
-          example: Basic 13222276767676
-          description: This token will be sent back with the callback in Authorization header. (Authorization &#58;  [type] [credentials]  (e.x Basic Rjc1234567890jdGMS67890U78...)) When creating the token, both 'type' and 'credentials' are required.
-      additionalProperties: false
     SubscriptionDetailResponse_2:
       type: object
       required:
@@ -947,22 +941,28 @@ components:
           type: boolean
           example: true
       additionalProperties: false
-    WebHookDetailGet_2:
+    SubscriptionDetailUpdateRequest_2:
       type: object
       required:
-      - callBackUrl
+      - subscriptionName
+      - eventName
+      - isActive
       properties:
-        callBackUrl:
+        subscriptionName:
           type: string
-          example: http://demo62eacbbe3c14.mockable.io/pagnotification
-          description: URL of your server.
-      additionalProperties: false
-    WebHookResendResponse_2:
-      type: object
-      properties:
-        traceId:
+          maxLength: 36
+          example: PayToTest
+          description: User-Defined name, to make the purpose or owner clear. Name provided by customers only.
+          pattern: ^[A-Za-z0-9_-]+
+        eventName:
           type: string
-          example: f1a7fbd7-cb39-4b98-b2a7-f4e0e004f152
+          description: The event we are subscribing to. Must be ‘PaymentAgreementNotification’ - forwards all payment agreement events to the Webhook URL.
+          example: PaymentAgreementNotification
+        webHookDetail:
+          $ref: '#/components/schemas/WebHookDetail_2'
+        isActive:
+          type: boolean
+          example: true
       additionalProperties: false
   securitySchemes:
     BearerAuth:

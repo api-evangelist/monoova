@@ -86,33 +86,58 @@ paths:
                   errorMessage: Internal server error. Please contact Monoova support.
 components:
   schemas:
-    CreateClientSessionDto:
+    PaymentDetailsDto:
       type: object
-      required:
-      - clientTransactionUniqueReference
-      - customer
-      - paymentDetails
-      - amount
       properties:
-        clientTransactionUniqueReference:
+        cardType:
           type: string
-          description: Id will be used to uniquely identify each payment request made by our customer. <br/> Id should be unique across Payment and Refund.
+          description: Card Type. Must be one of Visa, Mastercard. Case insensitive.
+        description:
+          type: string
+          description: Payment description. This will be saved in Monoova's system but will not be passed to the issuer.
+          maxLength: 40
+        saveOnSuccess:
+          type: boolean
+          default: false
+          description: System will save the payment method on successful payment. Optional, defaults to false.
+        allowCredit:
+          type: boolean
+          default: true
+          description: If set to true, credit card will be allowed. If set to false only Debit cards and prepaid cards will be allowed. Optional, defaults to true.
+        clientPaymentTokenUniqueReference:
+          type: string
+          description: The unique id the client will use to refer to the persisted token for future payments. Mandatory if saveOnSuccess is true, otherwise prohibited. The value must be unique for this combination of client (mAccount) and customerId. Lowercase will be converted to uppercase.
           maxLength: 40
           pattern: ^[a-zA-Z0-9_-]{1,40}$
-        customer:
-          $ref: '#/components/schemas/CustomerDetailsDto'
-        paymentDetails:
-          $ref: '#/components/schemas/PaymentDetailsDto'
-        amount:
-          type: object
-          properties:
-            currencyAmount:
-              description: Payment amount. Must be zero when capturePayment is false, otherwise must be greater than zero.
-              type: number
-              format: decimal
-              maximum: 20000000.0
-              minimum: 0.0
-              multipleOf: 0.01
+        applySurcharge:
+          type: boolean
+          default: false
+          description: Add a calculated fee to the total amount for this transaction. Optional, defaults to false. Only allowed to be true if the surcharging is enabled in the account configuration.
+        capturePayment:
+          type:
+          - boolean
+          - 'null'
+          description: Set to false (with an appropriate amount) if payment only needs to be authorized. Set to true or ignore this property if payment needs to be authorized and captured.
+          default: true
+      additionalProperties: false
+    GenerateClientSessionResponse:
+      type: object
+      properties:
+        traceId:
+          type: string
+          example: 36ed60f5-dcf1-4947-a31e-8ec93d06ca4b
+        clientTransactionUniqueReference:
+          type: string
+          example: DCCCC5DE-CC48-4942-A419-F1B84EC122C4
+        clientTokenExpirationDate:
+          type:
+          - string
+          - 'null'
+          description: The date and time that the session expires.
+          example: 2023-02-22 02:49:19.525918+00:00
+        clientToken:
+          type: string
+          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6ImNsaWVudC10b2tlbi1zaWduaW5nLWtleSJ9.eyJleHAiOjE2NzcwMzQxNTksImFjY2Vzc1Rva2VuIjoiMDIzZGE2ZWQtMDE2MS00OThiLWI0NDgtNDBjOTc0NDk2ZWEyIiwiYW5hbHl0aWNzVXJsIjoiaHR0cHM6Ly9hbmFseXRpY3MuYXBpLnNhbmRib3guY29yZS5wcmltZXIuaW8vbWl4cGFuZWwiLCJhbmFseXRpY3NVcmxWMiI6Imh0dHBzOi8vYW5hbHl0aWNzLnNhbmRib3guZGF0YS5wcmltZXIuaW8vY2hlY2tvdXQvdHJhY2siLCJpbnRlbnQiOiJDSEVDS09VVCIsImNvbmZpZ3VyYXRpb25VcmwiOiJodHRwczovL2FwaS5zYW5kYm94LnByaW1lci5pby9jbGllbnQtc2RrL2NvbmZpZ3VyYXRpb24iLCJjb3JlVXJsIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5wcmltZXIuaW8iLCJwY2lVcmwiOiJodHRwczovL3Nkay5hcGkuc2FuZGJveC5wcmltZXIuaW8iLCJlbnYiOiJTQU5EQk9YIiwicGF5bWVudEZsb3ciOiJERUZBVUxUIn0.22vMTZEf66pOelIUpsx_98bYD5cvQWkfnsuhnPE8bII
       additionalProperties: false
     CustomerDetailsDto:
       type: object
@@ -188,58 +213,33 @@ components:
 
             '
       additionalProperties: false
-    GenerateClientSessionResponse:
+    CreateClientSessionDto:
       type: object
+      required:
+      - clientTransactionUniqueReference
+      - customer
+      - paymentDetails
+      - amount
       properties:
-        traceId:
-          type: string
-          example: 36ed60f5-dcf1-4947-a31e-8ec93d06ca4b
         clientTransactionUniqueReference:
           type: string
-          example: DCCCC5DE-CC48-4942-A419-F1B84EC122C4
-        clientTokenExpirationDate:
-          type:
-          - string
-          - 'null'
-          description: The date and time that the session expires.
-          example: 2023-02-22 02:49:19.525918+00:00
-        clientToken:
-          type: string
-          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6ImNsaWVudC10b2tlbi1zaWduaW5nLWtleSJ9.eyJleHAiOjE2NzcwMzQxNTksImFjY2Vzc1Rva2VuIjoiMDIzZGE2ZWQtMDE2MS00OThiLWI0NDgtNDBjOTc0NDk2ZWEyIiwiYW5hbHl0aWNzVXJsIjoiaHR0cHM6Ly9hbmFseXRpY3MuYXBpLnNhbmRib3guY29yZS5wcmltZXIuaW8vbWl4cGFuZWwiLCJhbmFseXRpY3NVcmxWMiI6Imh0dHBzOi8vYW5hbHl0aWNzLnNhbmRib3guZGF0YS5wcmltZXIuaW8vY2hlY2tvdXQvdHJhY2siLCJpbnRlbnQiOiJDSEVDS09VVCIsImNvbmZpZ3VyYXRpb25VcmwiOiJodHRwczovL2FwaS5zYW5kYm94LnByaW1lci5pby9jbGllbnQtc2RrL2NvbmZpZ3VyYXRpb24iLCJjb3JlVXJsIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5wcmltZXIuaW8iLCJwY2lVcmwiOiJodHRwczovL3Nkay5hcGkuc2FuZGJveC5wcmltZXIuaW8iLCJlbnYiOiJTQU5EQk9YIiwicGF5bWVudEZsb3ciOiJERUZBVUxUIn0.22vMTZEf66pOelIUpsx_98bYD5cvQWkfnsuhnPE8bII
-      additionalProperties: false
-    PaymentDetailsDto:
-      type: object
-      properties:
-        cardType:
-          type: string
-          description: Card Type. Must be one of Visa, Mastercard. Case insensitive.
-        description:
-          type: string
-          description: Payment description. This will be saved in Monoova's system but will not be passed to the issuer.
-          maxLength: 40
-        saveOnSuccess:
-          type: boolean
-          default: false
-          description: System will save the payment method on successful payment. Optional, defaults to false.
-        allowCredit:
-          type: boolean
-          default: true
-          description: If set to true, credit card will be allowed. If set to false only Debit cards and prepaid cards will be allowed. Optional, defaults to true.
-        clientPaymentTokenUniqueReference:
-          type: string
-          description: The unique id the client will use to refer to the persisted token for future payments. Mandatory if saveOnSuccess is true, otherwise prohibited. The value must be unique for this combination of client (mAccount) and customerId. Lowercase will be converted to uppercase.
+          description: Id will be used to uniquely identify each payment request made by our customer. <br/> Id should be unique across Payment and Refund.
           maxLength: 40
           pattern: ^[a-zA-Z0-9_-]{1,40}$
-        applySurcharge:
-          type: boolean
-          default: false
-          description: Add a calculated fee to the total amount for this transaction. Optional, defaults to false. Only allowed to be true if the surcharging is enabled in the account configuration.
-        capturePayment:
-          type:
-          - boolean
-          - 'null'
-          description: Set to false (with an appropriate amount) if payment only needs to be authorized. Set to true or ignore this property if payment needs to be authorized and captured.
-          default: true
+        customer:
+          $ref: '#/components/schemas/CustomerDetailsDto'
+        paymentDetails:
+          $ref: '#/components/schemas/PaymentDetailsDto'
+        amount:
+          type: object
+          properties:
+            currencyAmount:
+              description: Payment amount. Must be zero when capturePayment is false, otherwise must be greater than zero.
+              type: number
+              format: decimal
+              maximum: 20000000.0
+              minimum: 0.0
+              multipleOf: 0.01
       additionalProperties: false
   securitySchemes:
     BearerAuth:

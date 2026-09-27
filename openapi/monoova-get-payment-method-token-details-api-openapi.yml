@@ -89,73 +89,6 @@ paths:
                   errorMessage: 'PaymentMethodTokens disabled for accountId '
 components:
   schemas:
-    PaymentMethodTokenDetailsResponse:
-      type: object
-      properties:
-        traceId:
-          type: string
-          description: Unique id for logging
-          example: 68a885bc-1f6b-4571-9ed6-f0e50e082103
-        paymentMethodTokenDetails:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentMethodTokenDetail'
-    Customer:
-      type: object
-      properties:
-        customerId:
-          type: string
-          description: Client’s own customerId for their customer, as provided when the payment token was created
-          example: cust123456789
-        billingAddress:
-          $ref: '#/components/schemas/BillingAddress'
-        emailAddress:
-          type: string
-          description: Customer email address
-          example: jane.doe@example.com
-    BillingAddress:
-      type: object
-      required:
-      - firstName
-      - lastName
-      - street
-      - suburb
-      - state
-      - postalCode
-      - countryCode
-      properties:
-        firstName:
-          type: string
-          description: Customer first name
-          example: Jane
-        lastName:
-          type: string
-          description: Customer last name
-          example: Doe
-        street:
-          type: array
-          items:
-            type: string
-          description: 1 to 2 lines of street name
-          example:
-          - 123 Main St
-          - Unit 4
-        suburb:
-          type: string
-          description: Suburb
-          example: Springfield
-        state:
-          type: string
-          description: State code
-          example: QLD
-        postalCode:
-          type: string
-          description: Postal code
-          example: '4550'
-        countryCode:
-          type: string
-          description: ISO2 country code
-          example: AU
     PaymentMethodTokenDetail:
       type: object
       properties:
@@ -215,6 +148,73 @@ components:
           type: string
           description: Unique hash generated from payment method token. Can be used to identify duplicates of the same payment method token
           example: 900150983cd24fb0d6963f7d28e17f72
+    PaymentMethodTokenDetailsResponse:
+      type: object
+      properties:
+        traceId:
+          type: string
+          description: Unique id for logging
+          example: 68a885bc-1f6b-4571-9ed6-f0e50e082103
+        paymentMethodTokenDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentMethodTokenDetail'
+    BillingAddress:
+      type: object
+      required:
+      - firstName
+      - lastName
+      - street
+      - suburb
+      - state
+      - postalCode
+      - countryCode
+      properties:
+        firstName:
+          type: string
+          description: Customer first name
+          example: Jane
+        lastName:
+          type: string
+          description: Customer last name
+          example: Doe
+        street:
+          type: array
+          items:
+            type: string
+          description: 1 to 2 lines of street name
+          example:
+          - 123 Main St
+          - Unit 4
+        suburb:
+          type: string
+          description: Suburb
+          example: Springfield
+        state:
+          type: string
+          description: State code
+          example: QLD
+        postalCode:
+          type: string
+          description: Postal code
+          example: '4550'
+        countryCode:
+          type: string
+          description: ISO2 country code
+          example: AU
+    Customer:
+      type: object
+      properties:
+        customerId:
+          type: string
+          description: Client’s own customerId for their customer, as provided when the payment token was created
+          example: cust123456789
+        billingAddress:
+          $ref: '#/components/schemas/BillingAddress'
+        emailAddress:
+          type: string
+          description: Customer email address
+          example: jane.doe@example.com
   securitySchemes:
     BearerAuth:
       type: http

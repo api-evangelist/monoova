@@ -90,6 +90,26 @@ paths:
                   errorMessage: transaction amount 100.00 plus existing transactions 100.00 exceeds limit 50
 components:
   schemas:
+    PaymentResponse:
+      type: object
+      required:
+      - traceId
+      - clientTransactionUniqueReference
+      - clientPaymentTokenUniqueReference
+      - status
+      properties:
+        traceId:
+          type: string
+          description: Unique identifier for logging
+        clientTransactionUniqueReference:
+          type: string
+          description: Unique identifier for each payment request
+        clientPaymentTokenUniqueReference:
+          type: string
+          description: Token against which Payment should be created
+        status:
+          type: string
+          description: Current status of the transaction
     CreatePaymentRequest:
       type: object
       required:
@@ -172,26 +192,6 @@ components:
               type: number
               format: decimal
               maximum: 20000000.0
-    PaymentResponse:
-      type: object
-      required:
-      - traceId
-      - clientTransactionUniqueReference
-      - clientPaymentTokenUniqueReference
-      - status
-      properties:
-        traceId:
-          type: string
-          description: Unique identifier for logging
-        clientTransactionUniqueReference:
-          type: string
-          description: Unique identifier for each payment request
-        clientPaymentTokenUniqueReference:
-          type: string
-          description: Token against which Payment should be created
-        status:
-          type: string
-          description: Current status of the transaction
   securitySchemes:
     BearerAuth:
       type: http
