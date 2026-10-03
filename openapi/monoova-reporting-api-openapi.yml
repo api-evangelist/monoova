@@ -386,6 +386,191 @@ paths:
                   errorMessage: string
 components:
   schemas:
+    PaymentStatusResponseDto:
+      type: object
+      properties:
+        paymentAgreementUID:
+          type: string
+          description: Id to uniquely Identify a payment agreement.
+          maxLength: 35
+          pattern: ^[A-Z0-9_-]
+          example: MONPAG12345
+        paymentInitiationUID:
+          type: string
+          description: Id to uniquely Identify a payment initiation.
+          maxLength: 35
+          pattern: ^[A-Z0-9_-]
+          example: TRANSACTIONREFERRENCE2345
+        paymentInitiationStatus:
+          type: string
+          description: A valid <a href='/payTo#tag/Payment-Initiation-Status'>Payment Initiation Status</a>.
+          example: ACSC
+        paymentInitiationStatusDescription:
+          type: string
+          description: This describes the  paymentinitiationstatus.
+          example: Accepted & Settled
+        mmsId:
+          type: string
+          description: This is the unique ID that identifies this payment agreement.
+          example: ed8569b4fd8616259d15bcb9a2da2bc0
+        statusReasonCode:
+          type:
+          - string
+          - 'null'
+          example: R002
+        statusReasonDescription:
+          type:
+          - string
+          - 'null'
+          example: Account to be debited does not exist
+      additionalProperties: false
+    PaymentTermsResponseDto:
+      type: object
+      properties:
+        numberOfTransactionsPermitted:
+          type: integer
+          format: int32
+          description: Specifies the maximum number of transactions allowed within the specified frequency period.
+          example: 100
+        frequency:
+          type: string
+          description: Defines how often transactions can occur
+          example: WEEK
+        amount:
+          type:
+          - number
+          - 'null'
+          format: double
+          description: Fixed amount for transactions if applicable; null if variable amounts are allowed.
+          example: null
+        maximumAmount:
+          type:
+          - number
+          - 'null'
+          format: double
+          description: The maximum allowable amount for a transaction under this agreement.
+          example: 100.0
+        agreementType:
+          type: string
+          description: Type of agreement, such as variable (VARI) or fixed, dictating how amounts and terms are treated.
+          example: VARI
+      additionalProperties: false
+    PaymentAgreement:
+      type: object
+      properties:
+        paymentAgreementUID:
+          type:
+          - string
+          - 'null'
+          description: A user-provided unique identifier for the payment agreement.
+          example: BCORP1662344139
+        paymentAgreementStatus:
+          type:
+          - string
+          - 'null'
+          description: Current status of the payment agreement. Status (e.g. Active, Cancelled, ...). See <a href="/payTo#tag/Payment-Agreement-Status">Payment Agreement Status</a> for all options.
+          example: Paused
+        statusReasonCode:
+          type:
+          - string
+          - 'null'
+          example: R006
+        statusReasonDescription:
+          type:
+          - string
+          - 'null'
+          example: Account is now closed
+        mmsId:
+          type:
+          - string
+          - 'null'
+          description: A unique identifier for the payment agreement.
+          example: d6765e4ff2eb1e7f83d72c1f8d3e2a07
+        payeeDetails:
+          $ref: '#/components/schemas/PayeeDetailsResponseDto'
+        payerDetails:
+          $ref: '#/components/schemas/PayerDetailsResponseDto'
+        paymentTerms:
+          $ref: '#/components/schemas/PaymentTermsResponseDto'
+        paymentDetails:
+          $ref: '#/components/schemas/PaymentDetailsResponseDto'
+        pendingActions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActionDetails'
+      additionalProperties: false
+    PayerDetailsResponseDto:
+      type: object
+      properties:
+        payerType:
+          type: string
+          description: Type of the payer entity, such as 'ORGN' for organization.
+          example: ORGN
+        linkedBsb:
+          type:
+          - string
+          - 'null'
+          description: BSB number associated with the payer’s bank account.
+          example: 802950
+        linkedAccount:
+          type:
+          - string
+          - 'null'
+          description: Bank account number of the payer.
+          example: 10109010
+        linkedPayId:
+          type:
+          - string
+          - 'null'
+          description: PayID linked to the payer’s account, may be null if not used.
+          example: null
+        linkedPayIdType:
+          type:
+          - string
+          - 'null'
+          description: Type of the linked PayID, such as 'Email' or 'Phone', may be null if PayID is not used.
+          example: null
+        payer:
+          type: string
+          description: Name of the payer.
+          example: WidgetCo
+        ultimatePayer:
+          type: string
+          description: The final entity responsible for making the payment.
+          example: WidgetCo
+        payerPartyReference:
+          type: string
+          description: A reference identifier provided by the payer.
+          example: Payer1662333659
+      additionalProperties: false
+    ActionDetails:
+      type: object
+      properties:
+        actionId:
+          type: string
+          description: A unique identifier for the action.
+          example: 45df1d4abc914455a0e377051cb39fd7
+        actionType:
+          type: string
+          enum:
+          - Create
+          - Amend
+          description: The type of action, which can be either 'Create' or 'Amend'.
+        bilateral:
+          type: boolean
+          description: Indicates whether the action is bilateral.
+          example: true
+        status:
+          type: string
+          enum:
+          - Completed
+          - Cancelled
+          - PendingApproval
+          - Declined
+          - Expired
+          - Queued
+          description: The current status of the action.
+          example: PendingApproval
     PaymentAgreementResponse:
       type: object
       properties:
@@ -437,204 +622,6 @@ components:
           description: The final recipient of the funds.
           example: BCORP
       additionalProperties: false
-    PaymentAgreementsListResponse:
-      type: object
-      properties:
-        paymentAgreementDetails:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentAgreement'
-        traceId:
-          type:
-          - string
-          - 'null'
-          example: 7fcb7dc4-ab8d-4bc8-8fa8-1335172377e2
-      additionalProperties: false
-    PayerDetailsResponseDto:
-      type: object
-      properties:
-        payerType:
-          type: string
-          description: Type of the payer entity, such as 'ORGN' for organization.
-          example: ORGN
-        linkedBsb:
-          type:
-          - string
-          - 'null'
-          description: BSB number associated with the payer’s bank account.
-          example: 802950
-        linkedAccount:
-          type:
-          - string
-          - 'null'
-          description: Bank account number of the payer.
-          example: 10109010
-        linkedPayId:
-          type:
-          - string
-          - 'null'
-          description: PayID linked to the payer’s account, may be null if not used.
-          example: null
-        linkedPayIdType:
-          type:
-          - string
-          - 'null'
-          description: Type of the linked PayID, such as 'Email' or 'Phone', may be null if PayID is not used.
-          example: null
-        payer:
-          type: string
-          description: Name of the payer.
-          example: WidgetCo
-        ultimatePayer:
-          type: string
-          description: The final entity responsible for making the payment.
-          example: WidgetCo
-        payerPartyReference:
-          type: string
-          description: A reference identifier provided by the payer.
-          example: Payer1662333659
-      additionalProperties: false
-    PaymentTermsResponseDto:
-      type: object
-      properties:
-        numberOfTransactionsPermitted:
-          type: integer
-          format: int32
-          description: Specifies the maximum number of transactions allowed within the specified frequency period.
-          example: 100
-        frequency:
-          type: string
-          description: Defines how often transactions can occur
-          example: WEEK
-        amount:
-          type:
-          - number
-          - 'null'
-          format: double
-          description: Fixed amount for transactions if applicable; null if variable amounts are allowed.
-          example: null
-        maximumAmount:
-          type:
-          - number
-          - 'null'
-          format: double
-          description: The maximum allowable amount for a transaction under this agreement.
-          example: 100.0
-        agreementType:
-          type: string
-          description: Type of agreement, such as variable (VARI) or fixed, dictating how amounts and terms are treated.
-          example: VARI
-      additionalProperties: false
-    ActionDetails:
-      type: object
-      properties:
-        actionId:
-          type: string
-          description: A unique identifier for the action.
-          example: 45df1d4abc914455a0e377051cb39fd7
-        actionType:
-          type: string
-          enum:
-          - Create
-          - Amend
-          description: The type of action, which can be either 'Create' or 'Amend'.
-        bilateral:
-          type: boolean
-          description: Indicates whether the action is bilateral.
-          example: true
-        status:
-          type: string
-          enum:
-          - Completed
-          - Cancelled
-          - PendingApproval
-          - Declined
-          - Expired
-          - Queued
-          description: The current status of the action.
-          example: PendingApproval
-    PaymentStatusResponseDto:
-      type: object
-      properties:
-        paymentAgreementUID:
-          type: string
-          description: Id to uniquely Identify a payment agreement.
-          maxLength: 35
-          pattern: ^[A-Z0-9_-]
-          example: MONPAG12345
-        paymentInitiationUID:
-          type: string
-          description: Id to uniquely Identify a payment initiation.
-          maxLength: 35
-          pattern: ^[A-Z0-9_-]
-          example: TRANSACTIONREFERRENCE2345
-        paymentInitiationStatus:
-          type: string
-          description: A valid <a href='/payTo#tag/Payment-Initiation-Status'>Payment Initiation Status</a>.
-          example: ACSC
-        paymentInitiationStatusDescription:
-          type: string
-          description: This describes the  paymentinitiationstatus.
-          example: Accepted & Settled
-        mmsId:
-          type: string
-          description: This is the unique ID that identifies this payment agreement.
-          example: ed8569b4fd8616259d15bcb9a2da2bc0
-        statusReasonCode:
-          type:
-          - string
-          - 'null'
-          example: R002
-        statusReasonDescription:
-          type:
-          - string
-          - 'null'
-          example: Account to be debited does not exist
-      additionalProperties: false
-    PaymentAgreement:
-      type: object
-      properties:
-        paymentAgreementUID:
-          type:
-          - string
-          - 'null'
-          description: A user-provided unique identifier for the payment agreement.
-          example: BCORP1662344139
-        paymentAgreementStatus:
-          type:
-          - string
-          - 'null'
-          description: Current status of the payment agreement. Status (e.g. Active, Cancelled, ...). See <a href="/payTo#tag/Payment-Agreement-Status">Payment Agreement Status</a> for all options.
-          example: Paused
-        statusReasonCode:
-          type:
-          - string
-          - 'null'
-          example: R006
-        statusReasonDescription:
-          type:
-          - string
-          - 'null'
-          example: Account is now closed
-        mmsId:
-          type:
-          - string
-          - 'null'
-          description: A unique identifier for the payment agreement.
-          example: d6765e4ff2eb1e7f83d72c1f8d3e2a07
-        payeeDetails:
-          $ref: '#/components/schemas/PayeeDetailsResponseDto'
-        payerDetails:
-          $ref: '#/components/schemas/PayerDetailsResponseDto'
-        paymentTerms:
-          $ref: '#/components/schemas/PaymentTermsResponseDto'
-        paymentDetails:
-          $ref: '#/components/schemas/PaymentDetailsResponseDto'
-        pendingActions:
-          type: array
-          items:
-            $ref: '#/components/schemas/ActionDetails'
-      additionalProperties: false
     PaymentDetailsResponseDto:
       type: object
       properties:
@@ -666,6 +653,19 @@ components:
           type: string
           description: End date of the mandate's validity.
           example: 2023-08-24
+      additionalProperties: false
+    PaymentAgreementsListResponse:
+      type: object
+      properties:
+        paymentAgreementDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentAgreement'
+        traceId:
+          type:
+          - string
+          - 'null'
+          example: 7fcb7dc4-ab8d-4bc8-8fa8-1335172377e2
       additionalProperties: false
   securitySchemes:
     BearerAuth:

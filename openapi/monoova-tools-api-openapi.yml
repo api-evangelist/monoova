@@ -121,6 +121,26 @@ paths:
           description: Internal Server Error
 components:
   schemas:
+    tools.sendEmailToIssuer:
+      type: object
+      required:
+      - subject
+      properties:
+        subject:
+          type: string
+          uniqueItems: false
+          example: Please call me ASAP
+          description: This is the emails subject.
+        isBodyHtml:
+          type: boolean
+          example: false
+          default: false
+          description: Set to true if the body contains HTML.
+        body:
+          type: string
+          uniqueItems: false
+          example: I have forgotten my password
+          description: Email body. Can be HTML or plain text.
     DTO.ToolsAbnValidateResponse_V1:
       properties:
         durationMs:
@@ -303,26 +323,6 @@ components:
           uniqueItems: false
       type: object
       format: DTO.ToolsPingResponse_V1
-    tools.sendEmailToIssuer:
-      type: object
-      required:
-      - subject
-      properties:
-        subject:
-          type: string
-          uniqueItems: false
-          example: Please call me ASAP
-          description: This is the emails subject.
-        isBodyHtml:
-          type: boolean
-          example: false
-          default: false
-          description: Set to true if the body contains HTML.
-        body:
-          type: string
-          uniqueItems: false
-          example: I have forgotten my password
-          description: Email body. Can be HTML or plain text.
   securitySchemes:
     BasicAuth:
       type: http

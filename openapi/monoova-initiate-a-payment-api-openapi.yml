@@ -132,6 +132,63 @@ paths:
                   errorMessage: string
 components:
   schemas:
+    InitiateMandatePaymentResponseDto:
+      type: object
+      properties:
+        traceId:
+          type: string
+          example: f3ae20c5-e400-4eab-8fb0-16e03c8481be
+        paymentAgreementUID:
+          type: string
+          description: Id to uniquely Identify a payment agreement.
+          maxLength: 35
+          pattern: ^[A-Z0-9_-]
+          example: MOA1222333
+        paymentInitiationUID:
+          type: string
+          description: Id to uniquely Identify a payment initiation.
+          maxLength: 35
+          pattern: ^[A-Z0-9_-]
+          example: C150D6FAE2044CA9A3ADB470874E8F86
+        nppInstructionId:
+          type: string
+          description: Unique identifier for the NPP instruction.
+          maxLength: 35
+          example: MOPYAUS1XXXI20241119004756058205270
+        paymentInitiationStatus:
+          type: string
+          description: This is the status of the payment agreement.
+          example: ACSC
+        paymentInitiationStatusDescription:
+          type: string
+          description: This describes the status. For example, a status of ‘created’ will have a description of ‘Pending Payer Approval’
+          example: Accepted & Settled
+        mmsId:
+          type: string
+          description: This is the unique ID that identifies this payment agreement.
+          example: ed8569b5fd8616259d15b5b9a2d52bc0
+      additionalProperties: false
+    PaymentInitiationDetailsDto:
+      type: object
+      required:
+      - amount
+      properties:
+        amount:
+          type: string
+          description: Amount to be transferred. Amount should be >=0.01
+          maxLength: 34
+        isLastPayment:
+          type:
+          - boolean
+          - 'null'
+          description: Set to true to indicate this is the last payment initiation request associated with the mandate. Possible values - True, False.
+        lodgementReference:
+          type:
+          - string
+          - 'null'
+          description: Unique reference, as assigned by the creditor, to unambiguously refer to the payment transaction.
+          maxLength: 280
+      additionalProperties: false
     PayeeDetailsDto:
       required:
       - payeeType
@@ -190,27 +247,6 @@ components:
           example: ABCORP
           description: Name by which the party is known, and which is usually used to identify that party.</br> Can only provide ultimatePayee in the payload if crediting an external BSB.
       additionalProperties: false
-    PaymentInitiationDetailsDto:
-      type: object
-      required:
-      - amount
-      properties:
-        amount:
-          type: string
-          description: Amount to be transferred. Amount should be >=0.01
-          maxLength: 34
-        isLastPayment:
-          type:
-          - boolean
-          - 'null'
-          description: Set to true to indicate this is the last payment initiation request associated with the mandate. Possible values - True, False.
-        lodgementReference:
-          type:
-          - string
-          - 'null'
-          description: Unique reference, as assigned by the creditor, to unambiguously refer to the payment transaction.
-          maxLength: 280
-      additionalProperties: false
     InitiateMandatePaymentDto:
       type: object
       required:
@@ -234,42 +270,6 @@ components:
           $ref: '#/components/schemas/PayeeDetailsDto'
         paymentDetails:
           $ref: '#/components/schemas/PaymentInitiationDetailsDto'
-      additionalProperties: false
-    InitiateMandatePaymentResponseDto:
-      type: object
-      properties:
-        traceId:
-          type: string
-          example: f3ae20c5-e400-4eab-8fb0-16e03c8481be
-        paymentAgreementUID:
-          type: string
-          description: Id to uniquely Identify a payment agreement.
-          maxLength: 35
-          pattern: ^[A-Z0-9_-]
-          example: MOA1222333
-        paymentInitiationUID:
-          type: string
-          description: Id to uniquely Identify a payment initiation.
-          maxLength: 35
-          pattern: ^[A-Z0-9_-]
-          example: C150D6FAE2044CA9A3ADB470874E8F86
-        nppInstructionId:
-          type: string
-          description: Unique identifier for the NPP instruction.
-          maxLength: 35
-          example: MOPYAUS1XXXI20241119004756058205270
-        paymentInitiationStatus:
-          type: string
-          description: This is the status of the payment agreement.
-          example: ACSC
-        paymentInitiationStatusDescription:
-          type: string
-          description: This describes the status. For example, a status of ‘created’ will have a description of ‘Pending Payer Approval’
-          example: Accepted & Settled
-        mmsId:
-          type: string
-          description: This is the unique ID that identifies this payment agreement.
-          example: ed8569b5fd8616259d15b5b9a2d52bc0
       additionalProperties: false
   securitySchemes:
     BearerAuth:

@@ -107,6 +107,36 @@ components:
           uniqueItems: false
       type: object
       format: DTO.GenericPayment.disbursementFee_V1
+    DTO.GenericPayment.loadFee_V1:
+      properties:
+        method:
+          description: 'The type of Disbursement: mAccount, mWallet, DirectCredit, BPAY, Charity, Sign-In mAccount'
+          type: string
+          example: BPAY
+          uniqueItems: false
+        cardType:
+          description: 'Type of credit card. Null if method is not CreditCard: Mastercard, Visa, Diners, Amex'
+          type: string
+          example: Amex
+          uniqueItems: false
+        debitFromMAccount:
+          description: ' Contains the 16-Digit if the fee is associated to a specific mAccount, otherwise null'
+          type: string
+          example: 'null'
+          uniqueItems: false
+        feePercentageExGst:
+          description: The percentage of the amountto be taken as a fee Excluding GST
+          type: number
+          format: decimal
+          example: '3'
+          uniqueItems: false
+        feeFixedExGst:
+          description: The fixed amount to be taken as a fee Excluding GST
+          type: number
+          format: decimal
+          example: '0.25'
+          uniqueItems: false
+      type: object
     DTO.GenericPayment.SettingsResponse_V1:
       properties:
         durationMs:
@@ -206,36 +236,6 @@ components:
           example: true
       type: object
       format: DTO.GenericPayment.SettingsResponse_V1
-    DTO.GenericPayment.loadFee_V1:
-      properties:
-        method:
-          description: 'The type of Disbursement: mAccount, mWallet, DirectCredit, BPAY, Charity, Sign-In mAccount'
-          type: string
-          example: BPAY
-          uniqueItems: false
-        cardType:
-          description: 'Type of credit card. Null if method is not CreditCard: Mastercard, Visa, Diners, Amex'
-          type: string
-          example: Amex
-          uniqueItems: false
-        debitFromMAccount:
-          description: ' Contains the 16-Digit if the fee is associated to a specific mAccount, otherwise null'
-          type: string
-          example: 'null'
-          uniqueItems: false
-        feePercentageExGst:
-          description: The percentage of the amountto be taken as a fee Excluding GST
-          type: number
-          format: decimal
-          example: '3'
-          uniqueItems: false
-        feeFixedExGst:
-          description: The fixed amount to be taken as a fee Excluding GST
-          type: number
-          format: decimal
-          example: '0.25'
-          uniqueItems: false
-      type: object
     DTO.GenericPayment.CreateOneShotSecurityTokenResponse_V1:
       properties:
         durationMs:

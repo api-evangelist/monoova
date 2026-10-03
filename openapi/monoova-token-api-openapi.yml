@@ -227,7 +227,7 @@ paths:
           description: Internal Server Error
 components:
   schemas:
-    DTO.TokenUpdateResponse_V1:
+    DTO.TokenCreateResponse_V1:
       properties:
         durationMs:
           description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
@@ -246,17 +246,139 @@ components:
           example: Operation completed successfully
           uniqueItems: false
         token:
-          description: Token updated in the form of a GUID
+          description: New token in the form of a GUID
           type: string
           example: 9395ddef-69cb-4f38-8836-3c6502c72182
           uniqueItems: false
         hint:
-          description: Updated Text that gives sufficient information to allow the tokento be selected but does not compromise security
+          description: Text that gives sufficient information to allow the token to be selected but does not compromise security
           type: string
           example: 'Bank: ANZ Account: 123456789'
           uniqueItems: false
       type: object
-      format: DTO.TokenUpdateResponse_V1
+      format: DTO.TokenCreateResponse_V1
+    DTO.TokenListResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        tokens:
+          description: An array of TokenDetails
+          type: array
+          items:
+            $ref: '#/components/schemas/DTO.TokenDetails'
+          uniqueItems: false
+      type: object
+      format: DTO.TokenListResponse_V1
+    token.updateBPAY:
+      type: object
+      required:
+      - accountNumber
+      - tokenToUpdate
+      - billerCode
+      - customerReferenceNumber
+      - amount
+      properties:
+        accountNumber:
+          type: string
+          uniqueItems: false
+          example: '6279059700010827'
+          description: The mWallet or mAccount 16-Digit number that owns the payload.
+        tokenToUpdate:
+          type: string
+          uniqueItems: false
+          example: 20c3a494-7010-4f22-babe-34d643e5e64f
+          description: The text (GUID) that identifies the token.
+        description:
+          type: string
+          uniqueItems: false
+          example: Monthly Electricity Bill BPAY
+          description: A simple text description that is associated with the token. For example “Monthly Electricity Bill BPAY”.
+        billerCode:
+          type: integer
+          uniqueItems: false
+          example: '857763'
+          description: Biller Code as shown on the Bill. Must be a valid BPAY Biller on token creation.
+        customerReferenceNumber:
+          type: integer
+          uniqueItems: false
+          example: '6279059700010918'
+          description: Customer Reference Number as shown on the Bill. Must be a valid BPAY Customer Reference Number on token creation
+        amount:
+          type: number
+          format: decimal
+          example: 100.0
+          description: Amount as shown on the Bill. Must be a valid amount on token creation.
+    DTO.TokenDeleteResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+      type: object
+      format: DTO.TokenDeleteResponse_V1
+    token.createAustralianBankAccount:
+      type: object
+      required:
+      - accountNumber
+      - bankAccountName
+      - bankAccountNumber
+      - bsb
+      properties:
+        accountNumber:
+          type: string
+          example: '6279059700010827'
+          minLength: 16
+          maxLength: 16
+          description: The mWallet or mAccount 16-Digit number that owns the payload.
+        description:
+          type: string
+          maxLength: 256
+          uniqueItems: false
+          example: Savings Account
+          description: A simple text description that is associated with the token. For example “Savings Account”.
+        bankAccountName:
+          type: string
+          uniqueItems: false
+          minLength: 2
+          example: Monoova Bank Account
+          description: Name associated with the bank account. Minimum length is 2.
+        bankAccountNumber:
+          type: integer
+          example: 123456789
+          minimum: 1
+          maximum: 999999999
+          description: This is the bank account number. Range of '1' to '999999999'.
+        bsb:
+          type: string
+          uniqueItems: false
+          example: 012-366
+          description: Bank-State-Branch number. Format is 3-3 digits. (Eg. '000-000')
     DTO.TokenGetResponse_V1:
       properties:
         durationMs:
@@ -297,112 +419,30 @@ components:
           uniqueItems: false
       type: object
       format: DTO.TokenGetResponse_V1
-    token.updateAustralianBankAccount:
-      type: object
-      required:
-      - accountNumber
-      - tokenToUpdate
-      - bankAccountName
-      - bankAccountNumber
-      - bsb
+    DTO.TokenDetails:
       properties:
-        accountNumber:
-          type: string
-          uniqueItems: false
-          example: '6279059700010827'
-          description: The mWallet or mAccount 16-Digit number that owns the payload.
-        tokenToUpdate:
-          type: string
-          uniqueItems: false
-          example: 9395ddef-69cb-4f38-8836-3c6502c72182
-          description: The text (GUID) that identifies the token.
-        description:
-          type: string
-          uniqueItems: false
-          example: Savings Account
-          description: A simple text description that is associated with the token. For example “Savings Account”.
-        bankAccountName:
-          type: string
-          uniqueItems: false
-          example: Monoova Bank Account
-          minLength: 2
-          description: Name associated with the bank account.
-        bankAccountNumber:
-          type: string
-          example: '123456789'
-          description: This is the bank account number.
-        bsb:
-          type: string
-          uniqueItems: false
-          example: 012-366
-          description: Bank-State-Branch number. Format is 3-3 digits. (Eg.'000-000')
-    DTO.TokenCreateResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
         token:
-          description: New token in the form of a GUID
+          description: The text (GUID) that identifies the token
           type: string
-          example: 9395ddef-69cb-4f38-8836-3c6502c72182
+          example: 0a4fe0d3-43c7-47ec-b089-4977cead9451
           uniqueItems: false
         hint:
-          description: Text that gives sufficient information to allow the token to be selected but does not compromise security
+          description: Text that gives sufficient information to allow the tokento be selected but does not compromise security
           type: string
-          example: 'Bank: ANZ Account: 123456789'
+          example: 'Bank: CBA Account: 12345678'
           uniqueItems: false
-      type: object
-      format: DTO.TokenCreateResponse_V1
-    token.createAustralianBankAccount:
-      type: object
-      required:
-      - accountNumber
-      - bankAccountName
-      - bankAccountNumber
-      - bsb
-      properties:
-        accountNumber:
+        payloadType:
+          description: BPAY or AustralianBankAccount
           type: string
-          example: '6279059700010827'
-          minLength: 16
-          maxLength: 16
-          description: The mWallet or mAccount 16-Digit number that owns the payload.
+          example: BPAY
+          uniqueItems: false
         description:
+          description: Text supplied when the tokenwas created
           type: string
-          maxLength: 256
+          example: Everyday use bank
           uniqueItems: false
-          example: Savings Account
-          description: A simple text description that is associated with the token. For example “Savings Account”.
-        bankAccountName:
-          type: string
-          uniqueItems: false
-          minLength: 2
-          example: Monoova Bank Account
-          description: Name associated with the bank account. Minimum length is 2.
-        bankAccountNumber:
-          type: integer
-          example: 123456789
-          minimum: 1
-          maximum: 999999999
-          description: This is the bank account number. Range of '1' to '999999999'.
-        bsb:
-          type: string
-          uniqueItems: false
-          example: 012-366
-          description: Bank-State-Branch number. Format is 3-3 digits. (Eg. '000-000')
+      type: object
+      format: DTO.TokenDetails
     token.createBPAY:
       type: object
       required:
@@ -455,84 +495,14 @@ components:
           uniqueItems: false
       type: object
       format: DTO.TokenValidateResponse_V1
-    DTO.TokenListResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-        tokens:
-          description: An array of TokenDetails
-          type: array
-          items:
-            $ref: '#/components/schemas/DTO.TokenDetails'
-          uniqueItems: false
-      type: object
-      format: DTO.TokenListResponse_V1
-    DTO.TokenDetails:
-      properties:
-        token:
-          description: The text (GUID) that identifies the token
-          type: string
-          example: 0a4fe0d3-43c7-47ec-b089-4977cead9451
-          uniqueItems: false
-        hint:
-          description: Text that gives sufficient information to allow the tokento be selected but does not compromise security
-          type: string
-          example: 'Bank: CBA Account: 12345678'
-          uniqueItems: false
-        payloadType:
-          description: BPAY or AustralianBankAccount
-          type: string
-          example: BPAY
-          uniqueItems: false
-        description:
-          description: Text supplied when the tokenwas created
-          type: string
-          example: Everyday use bank
-          uniqueItems: false
-      type: object
-      format: DTO.TokenDetails
-    DTO.TokenDeleteResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-      type: object
-      format: DTO.TokenDeleteResponse_V1
-    token.updateBPAY:
+    token.updateAustralianBankAccount:
       type: object
       required:
       - accountNumber
       - tokenToUpdate
-      - billerCode
-      - customerReferenceNumber
-      - amount
+      - bankAccountName
+      - bankAccountNumber
+      - bsb
       properties:
         accountNumber:
           type: string
@@ -542,28 +512,58 @@ components:
         tokenToUpdate:
           type: string
           uniqueItems: false
-          example: 20c3a494-7010-4f22-babe-34d643e5e64f
+          example: 9395ddef-69cb-4f38-8836-3c6502c72182
           description: The text (GUID) that identifies the token.
         description:
           type: string
           uniqueItems: false
-          example: Monthly Electricity Bill BPAY
-          description: A simple text description that is associated with the token. For example “Monthly Electricity Bill BPAY”.
-        billerCode:
-          type: integer
+          example: Savings Account
+          description: A simple text description that is associated with the token. For example “Savings Account”.
+        bankAccountName:
+          type: string
           uniqueItems: false
-          example: '857763'
-          description: Biller Code as shown on the Bill. Must be a valid BPAY Biller on token creation.
-        customerReferenceNumber:
-          type: integer
+          example: Monoova Bank Account
+          minLength: 2
+          description: Name associated with the bank account.
+        bankAccountNumber:
+          type: string
+          example: '123456789'
+          description: This is the bank account number.
+        bsb:
+          type: string
           uniqueItems: false
-          example: '6279059700010918'
-          description: Customer Reference Number as shown on the Bill. Must be a valid BPAY Customer Reference Number on token creation
-        amount:
-          type: number
-          format: decimal
-          example: 100.0
-          description: Amount as shown on the Bill. Must be a valid amount on token creation.
+          example: 012-366
+          description: Bank-State-Branch number. Format is 3-3 digits. (Eg.'000-000')
+    DTO.TokenUpdateResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        token:
+          description: Token updated in the form of a GUID
+          type: string
+          example: 9395ddef-69cb-4f38-8836-3c6502c72182
+          uniqueItems: false
+        hint:
+          description: Updated Text that gives sufficient information to allow the tokento be selected but does not compromise security
+          type: string
+          example: 'Bank: ANZ Account: 123456789'
+          uniqueItems: false
+      type: object
+      format: DTO.TokenUpdateResponse_V1
   securitySchemes:
     BasicAuth:
       type: http

@@ -137,40 +137,6 @@ components:
           description: This is a plain English description of the status.
           type: string
           example: Operation completed successfully
-    payId.enquiry:
-      type: object
-      required:
-      - payId
-      properties:
-        payId:
-          type: string
-          example: f3y237@monoova.com
-          description: Email address for the PayID.
-    payId.registerpayId:
-      type: object
-      required:
-      - bankAccountNumber
-      - payIdName
-      properties:
-        bankAccountNumber:
-          type: string
-          example: '123409870'
-          description: The bank account number for the account against which you are trying to Register a PayID
-          maxLength: 9
-        bsb:
-          type: string
-          example: 802-985
-          description: Optional BSB parameter. If not specified, the service will use the MAccount’s configured ‘Default BSB’. If a ‘Default BSB’ has not been configured, then the Monoova ‘Default BSB’ will be used.
-        payIdName:
-          type: string
-          example: John Smith
-          maxLength: 140
-          description: Name displayed to the payers in order to identify you.
-        payId:
-          type: string
-          example: ''
-          maxLength: 256
-          description: Email address for the PayID.
     payId.updatePayIdName:
       type: object
       required:
@@ -197,6 +163,46 @@ components:
           example: John Smith
           description: Name displayed to the payers in order to identify you.
           maxLength: 140
+    receivablesRegisterPayIdResponse_V1:
+      type: object
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        PayIdDetails:
+          type: object
+          properties:
+            BankAccountNumber:
+              description: The bank account number for the account against which you are trying to Register a PayID
+              type: string
+              example: '123409870'
+            PayId:
+              description: 'Email address for the PayID. Max length: 256'
+              type: string
+              example: f3y237@monoova.me
+            PayIdName:
+              description: Name displayed to the payers in order to identify you
+              type: string
+              example: John Smith
+            PayIdStatus:
+              description: 'Status of your PayID. Possible values: Enable, Disable, Deregister, Port'
+              type: string
+              enum:
+              - Enable
+              - Disable
+              - Deregister
+              - Port
+              example: Enable
     receivablesUpdatePayIdStatusResponse_V1:
       type: object
       properties:
@@ -258,46 +264,40 @@ components:
           - Disable
           - Deregister
           - Port
-    receivablesRegisterPayIdResponse_V1:
+    payId.registerpayId:
       type: object
+      required:
+      - bankAccountNumber
+      - payIdName
       properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+        bankAccountNumber:
           type: string
-          example: Ok
-        statusDescription:
-          description: This is a plain English description of the status.
+          example: '123409870'
+          description: The bank account number for the account against which you are trying to Register a PayID
+          maxLength: 9
+        bsb:
           type: string
-          example: Operation completed successfully
-        PayIdDetails:
-          type: object
-          properties:
-            BankAccountNumber:
-              description: The bank account number for the account against which you are trying to Register a PayID
-              type: string
-              example: '123409870'
-            PayId:
-              description: 'Email address for the PayID. Max length: 256'
-              type: string
-              example: f3y237@monoova.me
-            PayIdName:
-              description: Name displayed to the payers in order to identify you
-              type: string
-              example: John Smith
-            PayIdStatus:
-              description: 'Status of your PayID. Possible values: Enable, Disable, Deregister, Port'
-              type: string
-              enum:
-              - Enable
-              - Disable
-              - Deregister
-              - Port
-              example: Enable
+          example: 802-985
+          description: Optional BSB parameter. If not specified, the service will use the MAccount’s configured ‘Default BSB’. If a ‘Default BSB’ has not been configured, then the Monoova ‘Default BSB’ will be used.
+        payIdName:
+          type: string
+          example: John Smith
+          maxLength: 140
+          description: Name displayed to the payers in order to identify you.
+        payId:
+          type: string
+          example: ''
+          maxLength: 256
+          description: Email address for the PayID.
+    payId.enquiry:
+      type: object
+      required:
+      - payId
+      properties:
+        payId:
+          type: string
+          example: f3y237@monoova.com
+          description: Email address for the PayID.
     payId.updatePayIdStatus:
       type: object
       required:

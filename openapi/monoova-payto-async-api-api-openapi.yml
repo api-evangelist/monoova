@@ -677,6 +677,25 @@ paths:
                   errorMessage: string
 components:
   schemas:
+    PendingInitiationAsyncResponse:
+      type: object
+      properties:
+        traceId:
+          type: string
+          description: Error log trace identifier.
+          example: be393fae-52c2-4c9e-a262-4974de6da750
+        uniqueRequestId:
+          type: string
+          description: Server generated unique request identifier.
+          example: 4834dba5-27b0-465c-aea7-aa530315c68c
+        paymentInitiationUID:
+          type: string
+          description: User supplied PIR identifier.
+          example: MONPIR1673935776
+        status:
+          type: string
+          description: Current status of the request.
+          example: Processing
     PendingAgreementAsyncResponse:
       type: object
       properties:
@@ -696,6 +715,45 @@ components:
           type: string
           description: Current status of the request.
           example: Processing
+    CreatePaymentAgreementDto:
+      type: object
+      required:
+      - paymentAgreementUID
+      properties:
+        paymentAgreementUID:
+          type: string
+          description: Id to uniquely Identify a payment agreement.
+          maxLength: 35
+          pattern: ^[A-Z0-9_-]
+          example: ABCORP123456
+        payeeDetails:
+          $ref: '#/components/schemas/PayeeDetailsDto'
+        payerDetails:
+          $ref: '#/components/schemas/PayerDetailsDto'
+        paymentTerms:
+          $ref: '#/components/schemas/PaymentTermsDto'
+        paymentDetails:
+          $ref: '#/components/schemas/PaymentDetailsDto'
+      additionalProperties: false
+    SuccessInitiationAsyncResponse:
+      type: object
+      properties:
+        traceId:
+          type: string
+          description: Error log trace identifier.
+          example: c0905f60-80b7-4a6a-abe3-0207b3e19b8e
+        uniqueRequestId:
+          type: string
+          description: Server generated unique request identifier.
+          example: 595a3202-e9aa-406e-a2a3-5efb6ca8b72a
+        paymentInitiationUID:
+          type: string
+          description: User supplied PIR identifier.
+          example: MONPIR1673930138
+        status:
+          type: string
+          description: Final status of the request.
+          example: Completed
     PayerDetailsDto:
       type: object
       required:
@@ -764,71 +822,64 @@ components:
           description: This field will be presented to Payer in the detail agreement view. This field also be used group payment initiations associated with a payment agreement.
           example: Payer54321
       additionalProperties: false
-    AsyncMandateRequestFailedResponse:
+    AsyncGenericResponse:
       type: object
       properties:
         traceId:
           type: string
-          description: Error log trace identifier.
-          example: c0905f60-80b7-4a6a-abe3-0207b3e19b8e
+          description: Unique identifier for this request instance, useful for tracing.
+          example: ac819ad0-c3ee-44f9-964a-34a0a5ff5a24
         uniqueRequestId:
           type: string
-          description: Server generated unique request identifier.
+          description: Unique identifier assigned to the request to correlate with the response.
           example: 595a3202-e9aa-406e-a2a3-5efb6ca8b72a
-        paymentAgreementUID:
-          type: string
-          description: User supplied PAG identifier.
-          example: MONPAG1673930138
-        status:
-          type: string
-          description: Final status of the request indicating failure.
-          example: Failed
-        errorCode:
-          type: string
-          description: Error code indicating the reason for failure.
-          example: MOV_UNEXPECTED_VALIDATION_FAILURE
-        errorMessage:
-          type: string
-          description: Detailed message explaining the reason for failure.
-          example: Validation failed with banking partner. Contact Monoova for more information
-    SuccessAgreementAsyncResponse:
+    PaymentTermsDto:
+      required:
+      - numberOfTransactionsPermitted
+      - frequency
+      - amount
+      - agreementType
       type: object
       properties:
-        traceId:
-          type: string
-          description: Error log trace identifier.
-          example: c0905f60-80b7-4a6a-abe3-0207b3e19b8e
-        uniqueRequestId:
-          type: string
-          description: Server generated unique request identifier.
-          example: 595a3202-e9aa-406e-a2a3-5efb6ca8b72a
-        paymentAgreementUID:
-          type: string
-          description: User supplied PAG identifier.
-          example: MONPAG1673930138
-        status:
-          type: string
-          description: Final status of the request.
-          example: Completed
-    AmendUnilateralDetailsDto:
-      type: object
-      properties:
-        description:
+        numberOfTransactionsPermitted:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: Quantifies the number of transactions allowed per frequency
+          example: 10
+        frequency:
           type:
           - string
           - 'null'
-          description: Reason for the mandate setup as narrative text.</br> Either "description" or "short_description" must be present.
-          maxLength: 140
-          example: payroll pag1
-        shortDescription:
+          description: Specifies the regularity of an event. See Frequency Table for allowed values
+          example: WEEK
+        pointInTime:
+          type:
+          - number
+          - 'null'
+          description: Qualifies the frequency in terms of an exact point in time or moment within the specified period.</br> Valid non decimal numeric value. Supported values will be 01 to 31 </br> This field works in combination with frequency and can only be provided when frequency = MNTH </br> This field should not be provided if numberOfTransactionsPermitted is provided
+          example: null
+        amount:
+          type:
+          - number
+          - 'null'
+          maxLength: 34
+          example: null
+          description: Exact amount that may be paid from the Creditor's account, per instruction. Refer to AgreementType & Amount table below
+        maximumAmount:
+          type:
+          - number
+          - 'null'
+          maxLength: 34
+          example: 100.0
+          description: Maximum amount that may be paid from the Creditor's account, per instruction. Refer to AgreementType & Amount table below
+        agreementType:
           type:
           - string
           - 'null'
-          description: Reason for the mandate setup as narrative text.</br> Either "description" or "short_description" must be present.
-          maxLength: 35
-          example: payroll pag1
-        payeeDetails:
-          $ref: '#/components/schemas/PayeeDetailsDto'
+          description: Based on the AgreementType table
+          example: VARI
       additionalProperties: false
     PaymentDetailsDto:
       required:
@@ -884,53 +935,6 @@ components:
           example: 2023-08-24
           description: End date of the validity of the mandate. If specified, the mandate is valid until 23:59:59.999 Australia Sydney time on this date.
       additionalProperties: false
-    CreatePaymentAgreementDto:
-      type: object
-      required:
-      - paymentAgreementUID
-      properties:
-        paymentAgreementUID:
-          type: string
-          description: Id to uniquely Identify a payment agreement.
-          maxLength: 35
-          pattern: ^[A-Z0-9_-]
-          example: ABCORP123456
-        payeeDetails:
-          $ref: '#/components/schemas/PayeeDetailsDto'
-        payerDetails:
-          $ref: '#/components/schemas/PayerDetailsDto'
-        paymentTerms:
-          $ref: '#/components/schemas/PaymentTermsDto'
-        paymentDetails:
-          $ref: '#/components/schemas/PaymentDetailsDto'
-      additionalProperties: false
-    AsyncInitiationRequestFailedResponse:
-      type: object
-      properties:
-        traceId:
-          type: string
-          description: Error log trace identifier.
-          example: c0905f60-80b7-4a6a-abe3-0207b3e19b8e
-        uniqueRequestId:
-          type: string
-          description: Server generated unique request identifier.
-          example: 595a3202-e9aa-406e-a2a3-5efb6ca8b72a
-        paymentInitiationUID:
-          type: string
-          description: User supplied PIR identifier.
-          example: MONPIR1673930138
-        status:
-          type: string
-          description: Final status of the request indicating failure.
-          example: Failed
-        errorCode:
-          type: string
-          description: Error code indicating the reason for failure.
-          example: MOV_UNEXPECTED_VALIDATION_FAILURE
-        errorMessage:
-          type: string
-          description: Detailed message explaining the reason for failure.
-          example: Validation failed with banking partner. Contact Monoova for more information
     PaymentInitiationDetailsDto:
       type: object
       required:
@@ -952,110 +956,45 @@ components:
           description: Unique reference, as assigned by the creditor, to unambiguously refer to the payment transaction.
           maxLength: 280
       additionalProperties: false
-    PaymentTermsDto:
-      required:
-      - numberOfTransactionsPermitted
-      - frequency
-      - amount
-      - agreementType
+    AmendUnilateralDetailsDto:
       type: object
       properties:
-        numberOfTransactionsPermitted:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: Quantifies the number of transactions allowed per frequency
-          example: 10
-        frequency:
+        description:
           type:
           - string
           - 'null'
-          description: Specifies the regularity of an event. See Frequency Table for allowed values
-          example: WEEK
-        pointInTime:
-          type:
-          - number
-          - 'null'
-          description: Qualifies the frequency in terms of an exact point in time or moment within the specified period.</br> Valid non decimal numeric value. Supported values will be 01 to 31 </br> This field works in combination with frequency and can only be provided when frequency = MNTH </br> This field should not be provided if numberOfTransactionsPermitted is provided
-          example: null
-        amount:
-          type:
-          - number
-          - 'null'
-          maxLength: 34
-          example: null
-          description: Exact amount that may be paid from the Creditor's account, per instruction. Refer to AgreementType & Amount table below
-        maximumAmount:
-          type:
-          - number
-          - 'null'
-          maxLength: 34
-          example: 100.0
-          description: Maximum amount that may be paid from the Creditor's account, per instruction. Refer to AgreementType & Amount table below
-        agreementType:
+          description: Reason for the mandate setup as narrative text.</br> Either "description" or "short_description" must be present.
+          maxLength: 140
+          example: payroll pag1
+        shortDescription:
           type:
           - string
           - 'null'
-          description: Based on the AgreementType table
-          example: VARI
+          description: Reason for the mandate setup as narrative text.</br> Either "description" or "short_description" must be present.
+          maxLength: 35
+          example: payroll pag1
+        payeeDetails:
+          $ref: '#/components/schemas/PayeeDetailsDto'
       additionalProperties: false
-    AsyncGenericResponse:
+    SuccessAgreementAsyncResponse:
       type: object
       properties:
         traceId:
           type: string
-          description: Unique identifier for this request instance, useful for tracing.
-          example: ac819ad0-c3ee-44f9-964a-34a0a5ff5a24
+          description: Error log trace identifier.
+          example: c0905f60-80b7-4a6a-abe3-0207b3e19b8e
         uniqueRequestId:
           type: string
-          description: Unique identifier assigned to the request to correlate with the response.
+          description: Server generated unique request identifier.
           example: 595a3202-e9aa-406e-a2a3-5efb6ca8b72a
-    AmendBilateralDetailsDto:
-      type: object
-      properties:
-        automaticRenewal:
-          type:
-          - boolean
-          - 'null'
-        endDate:
-          type:
-          - string
-          - 'null'
-          description: End date of the validity of the mandate. If specified, the mandate is valid until 23:59:59.999 Australia Sydney time on this date.
-        respondByTime:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Optional time used to indicate by when resolution of a bilateral action is requested from the other party to the payment agreement. It will be provided in any notification sent to the counterparty. This time is for informational purposes only and does not affect the expiry time imposed by the MMS. Must be future date and less than 5 days If not provided value will be defaulted to agreement creation datetime + 5 day Default time zone is UTC
-        paymentTerms:
-          $ref: '#/components/schemas/PaymentTermsDto'
-      additionalProperties: false
-    AmendPaymentAgreementStatusDto:
-      type: object
-      properties:
         paymentAgreementUID:
           type: string
-          description: 'Unique ID of the payment agreement.
-
-            '
-        statusChange:
+          description: User supplied PAG identifier.
+          example: MONPAG1673930138
+        status:
           type: string
-          description: The status that you wish to change the payment agreement to. </br> <strong> Note&#58;</strong> You cannot change a status from ‘Created’ to ‘Cancel’. If you wish to recall a payment agreement before the payer has approved it, you need to use the Recall Agreement endpoint.</b> </br> <style type="text/css"> .tb { table-layout:auto; width:300px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important} </style> <table class="tb"> <tr> <th> Current Status </th> <th> Payload Status </th> <th> New Status </th> <th> Note </th> </tr> <tr><td>    Active    </td><td>    Cancel    </td> <td>    Cancelled    </td><td>    Reason Code is mandatory.    </td></tr> <tr><td>    Active     </td><td>    Pause    </td><td>    Paused    </td><td>    Reason Code is mandatory.    </td></tr> <tr><td>    Paused    </td><td>    Resume    </td><td>    Active    </td><td>    Only party who suspended can Activate payment agreement    </td></tr> <tr><td>    Paused    </td><td>    Cancel    </td><td>    Cancelled    </td><td>    Reason Code is mandatory.    </td></tr> <tr><td>    Cancel    </td><td>-</td><td>-</td><td>    This is the final status    </td></tr> </table>
-        reasonCode:
-          type: string
-          description: 'Reason code for changing the agreement status. Must be provided when the status is `Cancel` or `Pause`.
-
-            '
-          example: AC02
-        reasonDescription:
-          type: string
-          description: 'Description of the reason for the change in status.
-
-            '
-          example: Invalid Debtor Account Number
-          maxLength: 256
+          description: Final status of the request.
+          example: Completed
     PayeeDetailsDto:
       required:
       - payeeType
@@ -1114,44 +1053,6 @@ components:
           example: ABCORP
           description: Name by which the party is known, and which is usually used to identify that party.</br> Can only provide ultimatePayee in the payload if crediting an external BSB.
       additionalProperties: false
-    PendingInitiationAsyncResponse:
-      type: object
-      properties:
-        traceId:
-          type: string
-          description: Error log trace identifier.
-          example: be393fae-52c2-4c9e-a262-4974de6da750
-        uniqueRequestId:
-          type: string
-          description: Server generated unique request identifier.
-          example: 4834dba5-27b0-465c-aea7-aa530315c68c
-        paymentInitiationUID:
-          type: string
-          description: User supplied PIR identifier.
-          example: MONPIR1673935776
-        status:
-          type: string
-          description: Current status of the request.
-          example: Processing
-    SuccessInitiationAsyncResponse:
-      type: object
-      properties:
-        traceId:
-          type: string
-          description: Error log trace identifier.
-          example: c0905f60-80b7-4a6a-abe3-0207b3e19b8e
-        uniqueRequestId:
-          type: string
-          description: Server generated unique request identifier.
-          example: 595a3202-e9aa-406e-a2a3-5efb6ca8b72a
-        paymentInitiationUID:
-          type: string
-          description: User supplied PIR identifier.
-          example: MONPIR1673930138
-        status:
-          type: string
-          description: Final status of the request.
-          example: Completed
     InitiateMandatePaymentDto:
       type: object
       required:
@@ -1176,6 +1077,105 @@ components:
         paymentDetails:
           $ref: '#/components/schemas/PaymentInitiationDetailsDto'
       additionalProperties: false
+    AmendBilateralDetailsDto:
+      type: object
+      properties:
+        automaticRenewal:
+          type:
+          - boolean
+          - 'null'
+        endDate:
+          type:
+          - string
+          - 'null'
+          description: End date of the validity of the mandate. If specified, the mandate is valid until 23:59:59.999 Australia Sydney time on this date.
+        respondByTime:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Optional time used to indicate by when resolution of a bilateral action is requested from the other party to the payment agreement. It will be provided in any notification sent to the counterparty. This time is for informational purposes only and does not affect the expiry time imposed by the MMS. Must be future date and less than 5 days If not provided value will be defaulted to agreement creation datetime + 5 day Default time zone is UTC
+        paymentTerms:
+          $ref: '#/components/schemas/PaymentTermsDto'
+      additionalProperties: false
+    AmendPaymentAgreementStatusDto:
+      type: object
+      properties:
+        paymentAgreementUID:
+          type: string
+          description: 'Unique ID of the payment agreement.
+
+            '
+        statusChange:
+          type: string
+          description: The status that you wish to change the payment agreement to. </br> <strong> Note&#58;</strong> You cannot change a status from ‘Created’ to ‘Cancel’. If you wish to recall a payment agreement before the payer has approved it, you need to use the Recall Agreement endpoint.</b> </br> <style type="text/css"> .tb { table-layout:auto; width:300px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important} </style> <table class="tb"> <tr> <th> Current Status </th> <th> Payload Status </th> <th> New Status </th> <th> Note </th> </tr> <tr><td>    Active    </td><td>    Cancel    </td> <td>    Cancelled    </td><td>    Reason Code is mandatory.    </td></tr> <tr><td>    Active     </td><td>    Pause    </td><td>    Paused    </td><td>    Reason Code is mandatory.    </td></tr> <tr><td>    Paused    </td><td>    Resume    </td><td>    Active    </td><td>    Only party who suspended can Activate payment agreement    </td></tr> <tr><td>    Paused    </td><td>    Cancel    </td><td>    Cancelled    </td><td>    Reason Code is mandatory.    </td></tr> <tr><td>    Cancel    </td><td>-</td><td>-</td><td>    This is the final status    </td></tr> </table>
+        reasonCode:
+          type: string
+          description: 'Reason code for changing the agreement status. Must be provided when the status is `Cancel` or `Pause`.
+
+            '
+          example: AC02
+        reasonDescription:
+          type: string
+          description: 'Description of the reason for the change in status.
+
+            '
+          example: Invalid Debtor Account Number
+          maxLength: 256
+    AsyncInitiationRequestFailedResponse:
+      type: object
+      properties:
+        traceId:
+          type: string
+          description: Error log trace identifier.
+          example: c0905f60-80b7-4a6a-abe3-0207b3e19b8e
+        uniqueRequestId:
+          type: string
+          description: Server generated unique request identifier.
+          example: 595a3202-e9aa-406e-a2a3-5efb6ca8b72a
+        paymentInitiationUID:
+          type: string
+          description: User supplied PIR identifier.
+          example: MONPIR1673930138
+        status:
+          type: string
+          description: Final status of the request indicating failure.
+          example: Failed
+        errorCode:
+          type: string
+          description: Error code indicating the reason for failure.
+          example: MOV_UNEXPECTED_VALIDATION_FAILURE
+        errorMessage:
+          type: string
+          description: Detailed message explaining the reason for failure.
+          example: Validation failed with banking partner. Contact Monoova for more information
+    AsyncMandateRequestFailedResponse:
+      type: object
+      properties:
+        traceId:
+          type: string
+          description: Error log trace identifier.
+          example: c0905f60-80b7-4a6a-abe3-0207b3e19b8e
+        uniqueRequestId:
+          type: string
+          description: Server generated unique request identifier.
+          example: 595a3202-e9aa-406e-a2a3-5efb6ca8b72a
+        paymentAgreementUID:
+          type: string
+          description: User supplied PAG identifier.
+          example: MONPAG1673930138
+        status:
+          type: string
+          description: Final status of the request indicating failure.
+          example: Failed
+        errorCode:
+          type: string
+          description: Error code indicating the reason for failure.
+          example: MOV_UNEXPECTED_VALIDATION_FAILURE
+        errorMessage:
+          type: string
+          description: Detailed message explaining the reason for failure.
+          example: Validation failed with banking partner. Contact Monoova for more information
   securitySchemes:
     BearerAuth:
       type: http

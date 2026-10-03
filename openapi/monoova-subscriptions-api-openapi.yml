@@ -181,7 +181,106 @@ paths:
           description: Internal Server Error
 components:
   schemas:
-    subscriptionsResendResponse_V2:
+    subscriptions.create:
+      type: object
+      required:
+      - eventName
+      - targetUrl
+      - subscriptionStatus
+      properties:
+        eventName:
+          type: string
+          example: NPPReceivePayment
+          maxLength: 50
+          enum:
+          - NppReturn
+          - NppPaymentStatus
+          - PayToReceivePayment
+          - NPPReceivePayment
+          - InboundDirectCredit
+          - InboundDirectDebit
+          - DirectEntryDishonour
+          - PendingInboundRtgsImt
+          - InboundRtgsImtStatus
+          - InboundDirectCreditRejections
+          - NPPCreditRejections
+          - DirectDebitClearance
+          description: The type of event to be sent to this URL via callback.
+        targetUrl:
+          type: string
+          example: http://www.abc.com.au
+          description: This is the API endpoint where the call back notification will be sent.
+        subscriptionStatus:
+          type: string
+          maxLength: 50
+          default: 'Off'
+          example: 'On'
+          description: On/Off. Defaults to Off.
+        securityToken:
+          type: string
+          example: Basic Rjc1234567890jdGMS00MUU01234567890I3OTUyRk1234567890UEB51234567890TM0NjM=
+          description: This token will be sent back with the callback in Authorization header. <br> (Authorization:&nbsp; <strong>[type] [credentials] </strong>&nbsp;(e.x Basic Rjc1234567890jdGMS67890U78...)) <br> When creating the token, both 'type' and 'credentials' are required.
+    subscriptionsCreateResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        id:
+          description: Unique id for the subscription
+          type: integer
+          example: 2
+        dateTime:
+          description: Date time the subscription was last updated
+          type: string
+          example: 11/14/2019 3:41:05 PM
+        eventName:
+          description: 'The type of event to be sent to this URL via callback. Possible values: NPPReceivePayment'
+          type: string
+          example: NPPReceivePayment
+        targetUrl:
+          description: This is the API endpoint where the call back notification will be sent.
+          type: string
+          example: http://www.abc.com.au
+      type: object
+    subscriptionsListItems:
+      type: object
+      properties:
+        eventName:
+          type: string
+          example: NPPReceivePayment
+          description: 'The type of event to be sent to this URL via callback. Possible values: NPPReceivePayment'
+        id:
+          type: integer
+          example: 1
+          description: Unique id for the subscription that needs to be updated
+        targetUrl:
+          type: string
+          example: http://www.abc1.com.au
+          description: This is the API endpoint where the call back notification will be sent.
+        status:
+          type: string
+          default: 'Off'
+          example: 'On'
+          description: This is the Subscription Status. Can be On/off
+        LastUpdated:
+          type: string
+          example: 11/14/2019 3:41:05 PM
+          description: Last Updated Time
+        createdDate:
+          type: string
+          example: 11/14/2019 3:41:05 PM
+          description: Created Time
+    subscriptionsDeleteResponse_V1:
       type: object
       properties:
         durationMs:
@@ -229,74 +328,27 @@ components:
           type: string
           example: http://www.abc1.com.au
       type: object
-    subscriptionsListItems:
+    subscriptionsReport_V1:
       type: object
       properties:
-        eventName:
-          type: string
-          example: NPPReceivePayment
-          description: 'The type of event to be sent to this URL via callback. Possible values: NPPReceivePayment'
-        id:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
           type: integer
-          example: 1
-          description: Unique id for the subscription that needs to be updated
-        targetUrl:
-          type: string
-          example: http://www.abc1.com.au
-          description: This is the API endpoint where the call back notification will be sent.
+          format: int64
+          example: 20
         status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
           type: string
-          default: 'Off'
-          example: 'On'
-          description: This is the Subscription Status. Can be On/off
-        LastUpdated:
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
           type: string
-          example: 11/14/2019 3:41:05 PM
-          description: Last Updated Time
-        createdDate:
-          type: string
-          example: 11/14/2019 3:41:05 PM
-          description: Created Time
-    NotificationResponse:
-      type: object
-      properties:
-        dateTime:
-          description: Date time the subscription was last updated
-          type: string
-          example: 11/14/2019 3:41:05 PM
-        eventName:
-          type: string
-          example: NPPReceivePayment
-          maxLength: 50
-          enum:
-          - NPPReceivePayment
-          - InboundDirectCredit
-          - InboundDirectDebit
-          - DirectEntryDishonour
-          description: The type of event to be sent to this URL via callback.
-        lastResponseCode:
-          type: integer
-          description: last response code received
-        lastRetryDateTime:
-          description: Date time the last retry was done
-          type: string
-          example: 11/14/2019 3:41:05 PM
-        retryCount:
-          type: integer
-          description: Number of retry
-        status:
-          type: string
-          example: Error
-          enum:
-          - Error
-          - Sent
-        url:
-          type: string
-          example: api.mpay.com/URL1
-        webhookId:
-          description: Unique Id to identify this webhook notification.
-          type: integer
-          example: 678901
+          example: Operation completed successfully
+        notifications:
+          description: Object containing notification details
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationResponse'
     subscriptions.update:
       type: object
       required:
@@ -343,7 +395,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/subscriptionsListItems'
-    subscriptionsCreateResponse_V1:
+    subscriptionsResendResponse_V2:
+      type: object
       properties:
         durationMs:
           description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
@@ -358,99 +411,46 @@ components:
           description: This is a plain English description of the status.
           type: string
           example: Operation completed successfully
-        id:
-          description: Unique id for the subscription
-          type: integer
-          example: 2
+    NotificationResponse:
+      type: object
+      properties:
         dateTime:
           description: Date time the subscription was last updated
           type: string
           example: 11/14/2019 3:41:05 PM
         eventName:
-          description: 'The type of event to be sent to this URL via callback. Possible values: NPPReceivePayment'
-          type: string
-          example: NPPReceivePayment
-        targetUrl:
-          description: This is the API endpoint where the call back notification will be sent.
-          type: string
-          example: http://www.abc.com.au
-      type: object
-    subscriptions.create:
-      type: object
-      required:
-      - eventName
-      - targetUrl
-      - subscriptionStatus
-      properties:
-        eventName:
           type: string
           example: NPPReceivePayment
           maxLength: 50
           enum:
-          - NppReturn
-          - NppPaymentStatus
-          - PayToReceivePayment
           - NPPReceivePayment
           - InboundDirectCredit
           - InboundDirectDebit
           - DirectEntryDishonour
-          - PendingInboundRtgsImt
-          - InboundRtgsImtStatus
-          - InboundDirectCreditRejections
-          - NPPCreditRejections
-          - DirectDebitClearance
           description: The type of event to be sent to this URL via callback.
-        targetUrl:
-          type: string
-          example: http://www.abc.com.au
-          description: This is the API endpoint where the call back notification will be sent.
-        subscriptionStatus:
-          type: string
-          maxLength: 50
-          default: 'Off'
-          example: 'On'
-          description: On/Off. Defaults to Off.
-        securityToken:
-          type: string
-          example: Basic Rjc1234567890jdGMS00MUU01234567890I3OTUyRk1234567890UEB51234567890TM0NjM=
-          description: This token will be sent back with the callback in Authorization header. <br> (Authorization:&nbsp; <strong>[type] [credentials] </strong>&nbsp;(e.x Basic Rjc1234567890jdGMS67890U78...)) <br> When creating the token, both 'type' and 'credentials' are required.
-    subscriptionsReport_V1:
-      type: object
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+        lastResponseCode:
           type: integer
-          format: int64
-          example: 20
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          description: last response code received
+        lastRetryDateTime:
+          description: Date time the last retry was done
           type: string
-          example: Ok
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-        notifications:
-          description: Object containing notification details
-          type: array
-          items:
-            $ref: '#/components/schemas/NotificationResponse'
-    subscriptionsDeleteResponse_V1:
-      type: object
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          example: 11/14/2019 3:41:05 PM
+        retryCount:
           type: integer
-          format: int64
-          example: 20
+          description: Number of retry
         status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
           type: string
-          example: Ok
-        statusDescription:
-          description: This is a plain English description of the status.
+          example: Error
+          enum:
+          - Error
+          - Sent
+        url:
           type: string
-          example: Operation completed successfully
+          example: api.mpay.com/URL1
+        webhookId:
+          description: Unique Id to identify this webhook notification.
+          type: integer
+          example: 678901
   securitySchemes:
     BasicAuth:
       type: http

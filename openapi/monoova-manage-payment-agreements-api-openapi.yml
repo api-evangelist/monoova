@@ -672,6 +672,75 @@ paths:
                   errorMessage: string
 components:
   schemas:
+    AmendUnilateralDetailsResponse:
+      type: object
+      properties:
+        paymentAgreementUID:
+          type: string
+          description: Id to uniquely Identify a payment agreement.
+          maxLength: 35
+          pattern: ^[A-Z0-9_-]
+          example: BCORP1662358223
+        traceId:
+          type: string
+          example: 1dabfaa9-abe8-4d2d-a69a-b723079d84ed
+        mmsId:
+          type: string
+          description: This is the unique ID that identifies this payment agreement.
+          example: aa0a5d7eedcd1c01999b2906b1edd8cd
+        actionIdentification:
+          type: string
+          example: b9c91b0f382b1fa5bf7e87aaad094eee
+      additionalProperties: false
+    AmendPaymentAgreementStatusResponse:
+      type: object
+      properties:
+        traceId:
+          type: string
+          description: Trace ID for tracking the request.
+        paymentAgreementUID:
+          type: string
+          description: Id to uniquely Identify a payment agreement.
+          maxLength: 35
+          pattern: ^[A-Z0-9_-]
+          example: MONPAG12345
+        paymentAgreementStatus:
+          type: string
+          description: 'The current status of the payment agreement.
+
+            '
+          example: Paused
+        paymentAgreementStatusDescription:
+          type: string
+          description: 'Detailed description of the current status.
+
+            '
+          example: Status changed from Active to Paused
+        mmsId:
+          type: string
+          description: 'Unique ID that identifies this payment agreement within the system.
+
+            '
+    CreatePaymentAgreementDto:
+      type: object
+      required:
+      - paymentAgreementUID
+      properties:
+        paymentAgreementUID:
+          type: string
+          description: Id to uniquely Identify a payment agreement.
+          maxLength: 35
+          pattern: ^[A-Z0-9_-]
+          example: ABCORP123456
+        payeeDetails:
+          $ref: '#/components/schemas/PayeeDetailsDto'
+        payerDetails:
+          $ref: '#/components/schemas/PayerDetailsDto'
+        paymentTerms:
+          $ref: '#/components/schemas/PaymentTermsDto'
+        paymentDetails:
+          $ref: '#/components/schemas/PaymentDetailsDto'
+      additionalProperties: false
     PayerDetailsDto:
       type: object
       required:
@@ -740,100 +809,53 @@ components:
           description: This field will be presented to Payer in the detail agreement view. This field also be used group payment initiations associated with a payment agreement.
           example: Payer54321
       additionalProperties: false
-    AmendPaymentAgreementStatusResponse:
+    PaymentTermsDto:
+      required:
+      - numberOfTransactionsPermitted
+      - frequency
+      - amount
+      - agreementType
       type: object
       properties:
-        traceId:
-          type: string
-          description: Trace ID for tracking the request.
-        paymentAgreementUID:
-          type: string
-          description: Id to uniquely Identify a payment agreement.
-          maxLength: 35
-          pattern: ^[A-Z0-9_-]
-          example: MONPAG12345
-        paymentAgreementStatus:
-          type: string
-          description: 'The current status of the payment agreement.
-
-            '
-          example: Paused
-        paymentAgreementStatusDescription:
-          type: string
-          description: 'Detailed description of the current status.
-
-            '
-          example: Status changed from Active to Paused
-        mmsId:
-          type: string
-          description: 'Unique ID that identifies this payment agreement within the system.
-
-            '
-    AmendUnilateralDetailsResponse:
-      type: object
-      properties:
-        paymentAgreementUID:
-          type: string
-          description: Id to uniquely Identify a payment agreement.
-          maxLength: 35
-          pattern: ^[A-Z0-9_-]
-          example: BCORP1662358223
-        traceId:
-          type: string
-          example: 1dabfaa9-abe8-4d2d-a69a-b723079d84ed
-        mmsId:
-          type: string
-          description: This is the unique ID that identifies this payment agreement.
-          example: aa0a5d7eedcd1c01999b2906b1edd8cd
-        actionIdentification:
-          type: string
-          example: b9c91b0f382b1fa5bf7e87aaad094eee
-      additionalProperties: false
-    AmendUnilateralDetailsDto:
-      type: object
-      properties:
-        description:
+        numberOfTransactionsPermitted:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: Quantifies the number of transactions allowed per frequency
+          example: 10
+        frequency:
           type:
           - string
           - 'null'
-          description: Reason for the mandate setup as narrative text.</br> Either "description" or "short_description" must be present.
-          maxLength: 140
-          example: payroll pag1
-        shortDescription:
+          description: Specifies the regularity of an event. See Frequency Table for allowed values
+          example: WEEK
+        pointInTime:
+          type:
+          - number
+          - 'null'
+          description: Qualifies the frequency in terms of an exact point in time or moment within the specified period.</br> Valid non decimal numeric value. Supported values will be 01 to 31 </br> This field works in combination with frequency and can only be provided when frequency = MNTH </br> This field should not be provided if numberOfTransactionsPermitted is provided
+          example: null
+        amount:
+          type:
+          - number
+          - 'null'
+          maxLength: 34
+          example: null
+          description: Exact amount that may be paid from the Creditor's account, per instruction. Refer to AgreementType & Amount table below
+        maximumAmount:
+          type:
+          - number
+          - 'null'
+          maxLength: 34
+          example: 100.0
+          description: Maximum amount that may be paid from the Creditor's account, per instruction. Refer to AgreementType & Amount table below
+        agreementType:
           type:
           - string
           - 'null'
-          description: Reason for the mandate setup as narrative text.</br> Either "description" or "short_description" must be present.
-          maxLength: 35
-          example: payroll pag1
-        payeeDetails:
-          $ref: '#/components/schemas/PayeeDetailsDto'
-      additionalProperties: false
-    RecallPaymentAgreementLastActionResponse:
-      type: object
-      properties:
-        paymentAgreementUID:
-          type: string
-          description: Id to uniquely Identify a payment agreement.
-          maxLength: 35
-          pattern: ^[A-Z0-9_-]
-          example: BCORP12345678
-        mmsId:
-          type: string
-          description: This is the unique ID that identifies this payment agreement.
-          example: cf9cba5ea20c1e6b87aa04cc8955abcc
-        paymentAgreementStatus:
-          type: string
-          description: This is the status of the payment agreement.
-          example: Cancelled
-        paymentAgreementStatusDescription:
-          type: string
-          description: This describes the status. For example, a status of ‘created’ will have a description of ‘Pending Payer Approval’
-          example: Mandate action recalled
-        actionIdentification:
-          type: string
-          description: unique Id used to identify pending(unapproved) actions. This id is assigned when a new payment agreement is created or when a bilateral amendment is made.
-          example: 6ae818d80ba362618a2aece46ee70e4a
+          description: Based on the AgreementType table
+          example: VARI
       additionalProperties: false
     PaymentDetailsDto:
       required:
@@ -889,90 +911,25 @@ components:
           example: 2023-08-24
           description: End date of the validity of the mandate. If specified, the mandate is valid until 23:59:59.999 Australia Sydney time on this date.
       additionalProperties: false
-    CreatePaymentAgreementDto:
+    AmendUnilateralDetailsDto:
       type: object
-      required:
-      - paymentAgreementUID
       properties:
-        paymentAgreementUID:
-          type: string
-          description: Id to uniquely Identify a payment agreement.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Reason for the mandate setup as narrative text.</br> Either "description" or "short_description" must be present.
+          maxLength: 140
+          example: payroll pag1
+        shortDescription:
+          type:
+          - string
+          - 'null'
+          description: Reason for the mandate setup as narrative text.</br> Either "description" or "short_description" must be present.
           maxLength: 35
-          pattern: ^[A-Z0-9_-]
-          example: ABCORP123456
+          example: payroll pag1
         payeeDetails:
           $ref: '#/components/schemas/PayeeDetailsDto'
-        payerDetails:
-          $ref: '#/components/schemas/PayerDetailsDto'
-        paymentTerms:
-          $ref: '#/components/schemas/PaymentTermsDto'
-        paymentDetails:
-          $ref: '#/components/schemas/PaymentDetailsDto'
-      additionalProperties: false
-    AmendBilateralDetailsResponse:
-      type: object
-      properties:
-        paymentAgreementUID:
-          type: string
-          description: Id to uniquely Identify a payment agreement.
-          maxLength: 35
-          pattern: ^[A-Z0-9_-]
-          example: MONPAG12345
-        mmsId:
-          type: string
-          description: This is the unique ID that identifies this payment agreement.
-          example: 684211c8a4076eeea68e63eeaa8ea6aa
-        actionIdentification:
-          type: string
-          example: eea687ee114eae368ca066aa62bae488
-      additionalProperties: false
-    PaymentTermsDto:
-      required:
-      - numberOfTransactionsPermitted
-      - frequency
-      - amount
-      - agreementType
-      type: object
-      properties:
-        numberOfTransactionsPermitted:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: Quantifies the number of transactions allowed per frequency
-          example: 10
-        frequency:
-          type:
-          - string
-          - 'null'
-          description: Specifies the regularity of an event. See Frequency Table for allowed values
-          example: WEEK
-        pointInTime:
-          type:
-          - number
-          - 'null'
-          description: Qualifies the frequency in terms of an exact point in time or moment within the specified period.</br> Valid non decimal numeric value. Supported values will be 01 to 31 </br> This field works in combination with frequency and can only be provided when frequency = MNTH </br> This field should not be provided if numberOfTransactionsPermitted is provided
-          example: null
-        amount:
-          type:
-          - number
-          - 'null'
-          maxLength: 34
-          example: null
-          description: Exact amount that may be paid from the Creditor's account, per instruction. Refer to AgreementType & Amount table below
-        maximumAmount:
-          type:
-          - number
-          - 'null'
-          maxLength: 34
-          example: 100.0
-          description: Maximum amount that may be paid from the Creditor's account, per instruction. Refer to AgreementType & Amount table below
-        agreementType:
-          type:
-          - string
-          - 'null'
-          description: Based on the AgreementType table
-          example: VARI
       additionalProperties: false
     AmendBilateralDetailsDto:
       type: object
@@ -995,30 +952,6 @@ components:
         paymentTerms:
           $ref: '#/components/schemas/PaymentTermsDto'
       additionalProperties: false
-    AmendPaymentAgreementStatusDto:
-      type: object
-      properties:
-        paymentAgreementUID:
-          type: string
-          description: 'Unique ID of the payment agreement.
-
-            '
-        statusChange:
-          type: string
-          description: The status that you wish to change the payment agreement to. </br> <strong> Note&#58;</strong> You cannot change a status from ‘Created’ to ‘Cancel’. If you wish to recall a payment agreement before the payer has approved it, you need to use the Recall Agreement endpoint.</b> </br> <style type="text/css"> .tb { table-layout:auto; width:300px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important} </style> <table class="tb"> <tr> <th> Current Status </th> <th> Payload Status </th> <th> New Status </th> <th> Note </th> </tr> <tr><td>    Active    </td><td>    Cancel    </td> <td>    Cancelled    </td><td>    Reason Code is mandatory.    </td></tr> <tr><td>    Active     </td><td>    Pause    </td><td>    Paused    </td><td>    Reason Code is mandatory.    </td></tr> <tr><td>    Paused    </td><td>    Resume    </td><td>    Active    </td><td>    Only party who suspended can Activate payment agreement    </td></tr> <tr><td>    Paused    </td><td>    Cancel    </td><td>    Cancelled    </td><td>    Reason Code is mandatory.    </td></tr> <tr><td>    Cancel    </td><td>-</td><td>-</td><td>    This is the final status    </td></tr> </table>
-        reasonCode:
-          type: string
-          description: 'Reason code for changing the agreement status. Must be provided when the status is `Cancel` or `Pause`.
-
-            '
-          example: AC02
-        reasonDescription:
-          type: string
-          description: 'Description of the reason for the change in status.
-
-            '
-          example: Invalid Debtor Account Number
-          maxLength: 256
     PayeeDetailsDto:
       required:
       - payeeType
@@ -1110,6 +1043,73 @@ components:
         actionIdentification:
           type: string
           example: b9c91b0f382b1fa5bf7e87aaad094eee
+      additionalProperties: false
+    AmendPaymentAgreementStatusDto:
+      type: object
+      properties:
+        paymentAgreementUID:
+          type: string
+          description: 'Unique ID of the payment agreement.
+
+            '
+        statusChange:
+          type: string
+          description: The status that you wish to change the payment agreement to. </br> <strong> Note&#58;</strong> You cannot change a status from ‘Created’ to ‘Cancel’. If you wish to recall a payment agreement before the payer has approved it, you need to use the Recall Agreement endpoint.</b> </br> <style type="text/css"> .tb { table-layout:auto; width:300px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important} </style> <table class="tb"> <tr> <th> Current Status </th> <th> Payload Status </th> <th> New Status </th> <th> Note </th> </tr> <tr><td>    Active    </td><td>    Cancel    </td> <td>    Cancelled    </td><td>    Reason Code is mandatory.    </td></tr> <tr><td>    Active     </td><td>    Pause    </td><td>    Paused    </td><td>    Reason Code is mandatory.    </td></tr> <tr><td>    Paused    </td><td>    Resume    </td><td>    Active    </td><td>    Only party who suspended can Activate payment agreement    </td></tr> <tr><td>    Paused    </td><td>    Cancel    </td><td>    Cancelled    </td><td>    Reason Code is mandatory.    </td></tr> <tr><td>    Cancel    </td><td>-</td><td>-</td><td>    This is the final status    </td></tr> </table>
+        reasonCode:
+          type: string
+          description: 'Reason code for changing the agreement status. Must be provided when the status is `Cancel` or `Pause`.
+
+            '
+          example: AC02
+        reasonDescription:
+          type: string
+          description: 'Description of the reason for the change in status.
+
+            '
+          example: Invalid Debtor Account Number
+          maxLength: 256
+    RecallPaymentAgreementLastActionResponse:
+      type: object
+      properties:
+        paymentAgreementUID:
+          type: string
+          description: Id to uniquely Identify a payment agreement.
+          maxLength: 35
+          pattern: ^[A-Z0-9_-]
+          example: BCORP12345678
+        mmsId:
+          type: string
+          description: This is the unique ID that identifies this payment agreement.
+          example: cf9cba5ea20c1e6b87aa04cc8955abcc
+        paymentAgreementStatus:
+          type: string
+          description: This is the status of the payment agreement.
+          example: Cancelled
+        paymentAgreementStatusDescription:
+          type: string
+          description: This describes the status. For example, a status of ‘created’ will have a description of ‘Pending Payer Approval’
+          example: Mandate action recalled
+        actionIdentification:
+          type: string
+          description: unique Id used to identify pending(unapproved) actions. This id is assigned when a new payment agreement is created or when a bilateral amendment is made.
+          example: 6ae818d80ba362618a2aece46ee70e4a
+      additionalProperties: false
+    AmendBilateralDetailsResponse:
+      type: object
+      properties:
+        paymentAgreementUID:
+          type: string
+          description: Id to uniquely Identify a payment agreement.
+          maxLength: 35
+          pattern: ^[A-Z0-9_-]
+          example: MONPAG12345
+        mmsId:
+          type: string
+          description: This is the unique ID that identifies this payment agreement.
+          example: 684211c8a4076eeea68e63eeaa8ea6aa
+        actionIdentification:
+          type: string
+          example: eea687ee114eae368ca066aa62bae488
       additionalProperties: false
   securitySchemes:
     BearerAuth:
