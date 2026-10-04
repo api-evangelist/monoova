@@ -603,6 +603,85 @@ paths:
       description: Sandbox URL
 components:
   schemas:
+    WebHookResendResponse:
+      type: object
+      required:
+      - status
+      - statusDescription
+      properties:
+        status:
+          type:
+          - string
+          - 'null'
+        statusDescription:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    SubscriptionDetailUpdateRequest:
+      type: object
+      properties:
+        subscriptionName:
+          maxLength: 36
+          example: PayToTest
+          description: User-Defined name, to make the purpose or owner clear. </br> Name provided by customers only.
+          pattern: ^[A-Za-z0-9_-]
+        eventName:
+          type:
+          - string
+          - 'null'
+          description: The event we are subscribing to.</br> Must be “PaymentAgreementNotification” - the forwards all payment agreement events to the Webhook URL.
+          example: PaymentAgreementNotification
+        webHookDetail:
+          $ref: '#/components/schemas/WebHookDetail'
+        isActive:
+          type: boolean
+          example: true
+      required:
+      - subscriptionName
+      - eventName
+      - isActive
+      additionalProperties: false
+    SubscriptionDeleteResponse:
+      type: object
+      properties:
+        traceId:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    SubscriptionDetailResponse:
+      type: object
+      properties:
+        subscriptionName:
+          type:
+          - string
+          - 'null'
+          maxLength: 36
+          description: User-Defined name, to make the purpose or owner clear. </br> Name provided by customers only.
+          pattern: ^[A-Za-z0-9_-]
+        eventName:
+          type:
+          - string
+          - 'null'
+          description: The event we are subscribing to.</br> Must be “PaymentAgreementNotification” - the forwards all payment agreement events to the Webhook URL.
+        notificationType:
+          type:
+          - string
+          - 'null'
+        webHookDetail:
+          $ref: '#/components/schemas/WebHookDetailGet'
+        isActive:
+          type: boolean
+      required:
+      - subscriptionName
+      - eventName
+      - isActive
+      additionalProperties: false
     WebHookDetailGet:
       type: object
       properties:
@@ -669,42 +748,6 @@ components:
         clientRequestedResend:
           type: boolean
       additionalProperties: false
-    SubscriptionDetailUpdateRequest:
-      type: object
-      properties:
-        subscriptionName:
-          maxLength: 36
-          example: PayToTest
-          description: User-Defined name, to make the purpose or owner clear. </br> Name provided by customers only.
-          pattern: ^[A-Za-z0-9_-]
-        eventName:
-          type:
-          - string
-          - 'null'
-          description: The event we are subscribing to.</br> Must be “PaymentAgreementNotification” - the forwards all payment agreement events to the Webhook URL.
-          example: PaymentAgreementNotification
-        webHookDetail:
-          $ref: '#/components/schemas/WebHookDetail'
-        isActive:
-          type: boolean
-          example: true
-      required:
-      - subscriptionName
-      - eventName
-      - isActive
-      additionalProperties: false
-    SubscriptionUpdateResponse:
-      type: object
-      properties:
-        traceId:
-          type:
-          - string
-          - 'null'
-        subscriptionId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     SubscriptionListResponse:
       type: object
       properties:
@@ -722,21 +765,6 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/SubscriptionDetailResponse'
-      additionalProperties: false
-    WebHookResendResponse:
-      type: object
-      required:
-      - status
-      - statusDescription
-      properties:
-        status:
-          type:
-          - string
-          - 'null'
-        statusDescription:
-          type:
-          - string
-          - 'null'
       additionalProperties: false
     WebHookDetail:
       type: object
@@ -772,45 +800,82 @@ components:
           items:
             $ref: '#/components/schemas/WebHookResponse'
       additionalProperties: false
-    SubscriptionDetailResponse:
-      type: object
-      properties:
-        subscriptionName:
-          type:
-          - string
-          - 'null'
-          maxLength: 36
-          description: User-Defined name, to make the purpose or owner clear. </br> Name provided by customers only.
-          pattern: ^[A-Za-z0-9_-]
-        eventName:
-          type:
-          - string
-          - 'null'
-          description: The event we are subscribing to.</br> Must be “PaymentAgreementNotification” - the forwards all payment agreement events to the Webhook URL.
-        notificationType:
-          type:
-          - string
-          - 'null'
-        webHookDetail:
-          $ref: '#/components/schemas/WebHookDetailGet'
-        isActive:
-          type: boolean
-      required:
-      - subscriptionName
-      - eventName
-      - isActive
-      additionalProperties: false
-    SubscriptionDeleteResponse:
+    SubscriptionUpdateResponse:
       type: object
       properties:
         traceId:
           type:
           - string
           - 'null'
-        errors:
+        subscriptionId:
           type:
           - string
           - 'null'
+      additionalProperties: false
+    WebHookResendResponse_2:
+      type: object
+      properties:
+        traceId:
+          type: string
+          example: f1a7fbd7-cb39-4b98-b2a7-f4e0e004f152
+      additionalProperties: false
+    SubscriptionDetailUpdateRequest_2:
+      type: object
+      required:
+      - subscriptionName
+      - eventName
+      - isActive
+      properties:
+        subscriptionName:
+          type: string
+          maxLength: 36
+          example: PayToTest
+          description: User-Defined name, to make the purpose or owner clear. Name provided by customers only.
+          pattern: ^[A-Za-z0-9_-]+
+        eventName:
+          type: string
+          description: The event we are subscribing to. Must be ‘PaymentAgreementNotification’ - forwards all payment agreement events to the Webhook URL.
+          example: PaymentAgreementNotification
+        webHookDetail:
+          $ref: '#/components/schemas/WebHookDetail_2'
+        isActive:
+          type: boolean
+          example: true
+      additionalProperties: false
+    SubscriptionDeleteResponse_2:
+      type: object
+      properties:
+        traceId:
+          type: string
+          example: f2db7ad2-2411-408c-b17a-5a050d30741b
+      additionalProperties: false
+    SubscriptionDetailResponse_2:
+      type: object
+      required:
+      - subscriptionName
+      - eventName
+      - isActive
+      properties:
+        subscriptionName:
+          type: string
+          maxLength: 36
+          description: User-Defined name, to make the purpose or owner clear. Name provided by customers only.
+          pattern: ^[A-Za-z0-9_-]+
+          example: PaytoTest
+        eventName:
+          type: string
+          description: The event we are subscribing to. Must be ‘PaymentAgreementNotification’ - forwards all payment agreement events to the Webhook URL.
+          example: PaymentAgreementNotification
+        subscriptionId:
+          type: string
+          example: 734d8a9d-7ac6-44a7-9e88-867fb59f54e9
+        notificationType:
+          type: string
+        webHookDetail:
+          $ref: '#/components/schemas/WebHookDetailGet_2'
+        isActive:
+          type: boolean
+          example: true
       additionalProperties: false
     WebHookDetailGet_2:
       type: object
@@ -854,39 +919,6 @@ components:
         clientRequestedResend:
           type: boolean
       additionalProperties: false
-    SubscriptionDetailUpdateRequest_2:
-      type: object
-      required:
-      - subscriptionName
-      - eventName
-      - isActive
-      properties:
-        subscriptionName:
-          type: string
-          maxLength: 36
-          example: PayToTest
-          description: User-Defined name, to make the purpose or owner clear. Name provided by customers only.
-          pattern: ^[A-Za-z0-9_-]+
-        eventName:
-          type: string
-          description: The event we are subscribing to. Must be ‘PaymentAgreementNotification’ - forwards all payment agreement events to the Webhook URL.
-          example: PaymentAgreementNotification
-        webHookDetail:
-          $ref: '#/components/schemas/WebHookDetail_2'
-        isActive:
-          type: boolean
-          example: true
-      additionalProperties: false
-    SubscriptionUpdateResponse_2:
-      type: object
-      properties:
-        traceId:
-          type: string
-          example: 5b5d2d6e-1972-4be4-ac95-8a373b9d90c5
-        subscriptionId:
-          type: string
-          example: 5d930864-76e9-4945-bc7c-7645e38d860b
-      additionalProperties: false
     SubscriptionListResponse_2:
       type: object
       properties:
@@ -899,13 +931,6 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/SubscriptionDetailResponse_2'
-      additionalProperties: false
-    WebHookResendResponse_2:
-      type: object
-      properties:
-        traceId:
-          type: string
-          example: f1a7fbd7-cb39-4b98-b2a7-f4e0e004f152
       additionalProperties: false
     WebHookDetail_2:
       type: object
@@ -929,40 +954,15 @@ components:
           items:
             $ref: '#/components/schemas/WebHookResponse_2'
       additionalProperties: false
-    SubscriptionDetailResponse_2:
-      type: object
-      required:
-      - subscriptionName
-      - eventName
-      - isActive
-      properties:
-        subscriptionName:
-          type: string
-          maxLength: 36
-          description: User-Defined name, to make the purpose or owner clear. Name provided by customers only.
-          pattern: ^[A-Za-z0-9_-]+
-          example: PaytoTest
-        eventName:
-          type: string
-          description: The event we are subscribing to. Must be ‘PaymentAgreementNotification’ - forwards all payment agreement events to the Webhook URL.
-          example: PaymentAgreementNotification
-        subscriptionId:
-          type: string
-          example: 734d8a9d-7ac6-44a7-9e88-867fb59f54e9
-        notificationType:
-          type: string
-        webHookDetail:
-          $ref: '#/components/schemas/WebHookDetailGet_2'
-        isActive:
-          type: boolean
-          example: true
-      additionalProperties: false
-    SubscriptionDeleteResponse_2:
+    SubscriptionUpdateResponse_2:
       type: object
       properties:
         traceId:
           type: string
-          example: f2db7ad2-2411-408c-b17a-5a050d30741b
+          example: 5b5d2d6e-1972-4be4-ac95-8a373b9d90c5
+        subscriptionId:
+          type: string
+          example: 5d930864-76e9-4945-bc7c-7645e38d860b
       additionalProperties: false
   securitySchemes:
     BearerAuth:

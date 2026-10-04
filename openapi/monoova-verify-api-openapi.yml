@@ -173,10 +173,10 @@ paths:
           description: Internal Server Error
 components:
   schemas:
-    DTO.VerifyAccountValidateResponse_V1:
+    DTO.VerifyAccountGetResponse_V1:
       properties:
         durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          description: This value represents the total time in milliseconds that the Platform took to process the request.
           type: integer
           format: int64
           example: 20
@@ -190,9 +190,50 @@ components:
           description: This is a plain English description of the status.
           type: string
           example: Operation completed successfully
-          uniqueItems: false
+        details:
+          $ref: '#/components/schemas/DTO.VerifyAccountDetails'
       type: object
-      format: DTO.VerifyAccountValidateResponse_V1
+      format: DTO.VerifyAccountGetResponse_V1
+    DTO.VerifyAccountInitiateResponse_V2:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        token:
+          description: The text(GUID) that identifies the token.
+          type: string
+          example: 40a834c0-8819-49d4-97df-a42738b9f685
+        feeAmountExGst:
+          description: This is the fee amount Excluding GST
+          type: number
+          format: decimal
+          example: 1.0
+        feeAmountIncGst:
+          description: This is the total fee amount Including GST
+          type: number
+          format: decimal
+          example: 1.1
+        feeAmountGstComp:
+          description: This is the GST Component of the fee amount
+          type: number
+          format: decimal
+          example: 0.1
+        ownerName:
+          description: This is the PayId Name set up by account holder. `When creditMethod is 'NppCreditBankAccount' this field is always Null`
+          type: string
+          example: Monoova PayId Name
+      type: object
+      format: DTO.VerifyAccountInitiateResponse_V2
     verify.initiate:
       type: object
       required:
@@ -236,168 +277,6 @@ components:
           default: true
           example: true
           description: Can the system use this account to direct debit. Has an authority been granted.
-    verify.update:
-      type: object
-      required:
-      - token
-      - verificationIdentifier
-      - hasDDAuthority
-      properties:
-        token:
-          type: string
-          uniqueItems: false
-          example: f45d1c83-1533-4cbb-ae05-4381e181cb18
-          description: token from verify/v1/aba/initiate. (Inititiates a verification transaction)
-        remitter:
-          type: string
-          uniqueItems: false
-          example: MPRetail
-          maxLength: 16
-          description: See <a href="/payments#tag/Verify"> Verify </a> section.
-        verificationIdentifier:
-          type: string
-          uniqueItems: false
-          example: MP Retail Account
-          maxLength: 512
-          description: A description supplied by the VerificationSigninMerchant to distinguish this entry from others in a listing. This could be an encoded string from the signon merchant.
-        hasDDAuthority:
-          type: boolean
-          default: true
-          example: true
-          description: Can the system use this account to direct debit. Has an authority been granted.
-        bankAccountTitle:
-          type: string
-          uniqueItems: false
-          example: Monoova Bank Account
-          maxLength: 32
-          description: The Title of the Bank Account for DE file.
-    DTO.VerifyAccountInitiateResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-        token:
-          description: The text(GUID) that identifies the token.
-          type: string
-          example: 97649d82-fa5b-4481-90a8-ec4ef9a854ab
-          uniqueItems: false
-        feeAmountExGst:
-          description: This is the fee amount Excluding GST
-          type: number
-          format: decimal
-          example: 0.5
-          uniqueItems: false
-        feeAmountIncGst:
-          description: This is the total fee amount Including GST
-          type: number
-          format: decimal
-          example: 0.55
-          uniqueItems: false
-        feeAmountGstComp:
-          description: This is the GST Component of the fee amount
-          type: number
-          format: decimal
-          example: 0.05
-          uniqueItems: false
-      type: object
-      format: DTO.VerifyAccountInitiateResponse_V1
-    verify.validate:
-      type: object
-      required:
-      - token
-      - amount
-      - code
-      properties:
-        token:
-          type: string
-          uniqueItems: false
-          example: f45d1c83-1533-4cbb-ae05-4381e181cb18
-          description: token from verify/v1/aba/initiate.(Inititiates a verification transaction)
-        amount:
-          type: number
-          format: double
-          uniqueItems: false
-          example: 0.01
-          minimum: 0.01
-          description: amount for the verification.
-        code:
-          type: string
-          uniqueItems: false
-          example: '555555'
-          description: Once you receive the verification code, enter it here to confirm your identity.
-    DTO.VerifyAccountInitiateResponse_V2:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-        token:
-          description: The text(GUID) that identifies the token.
-          type: string
-          example: 40a834c0-8819-49d4-97df-a42738b9f685
-        feeAmountExGst:
-          description: This is the fee amount Excluding GST
-          type: number
-          format: decimal
-          example: 1.0
-        feeAmountIncGst:
-          description: This is the total fee amount Including GST
-          type: number
-          format: decimal
-          example: 1.1
-        feeAmountGstComp:
-          description: This is the GST Component of the fee amount
-          type: number
-          format: decimal
-          example: 0.1
-        ownerName:
-          description: This is the PayId Name set up by account holder. `When creditMethod is 'NppCreditBankAccount' this field is always Null`
-          type: string
-          example: Monoova PayId Name
-      type: object
-      format: DTO.VerifyAccountInitiateResponse_V2
-    DTO.VerifyAccountUpdateResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-      type: object
-      format: DTO.VerifyAccountUpdateResponse_V1
     DTO.VerifyAccountDetails:
       properties:
         token:
@@ -494,10 +373,10 @@ components:
           format: int32
           example: 438714
       type: object
-    DTO.VerifyAccountGetResponse_V1:
+    DTO.VerifyAccountInitiateResponse_V1:
       properties:
         durationMs:
-          description: This value represents the total time in milliseconds that the Platform took to process the request.
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
           type: integer
           format: int64
           example: 20
@@ -511,10 +390,32 @@ components:
           description: This is a plain English description of the status.
           type: string
           example: Operation completed successfully
-        details:
-          $ref: '#/components/schemas/DTO.VerifyAccountDetails'
+          uniqueItems: false
+        token:
+          description: The text(GUID) that identifies the token.
+          type: string
+          example: 97649d82-fa5b-4481-90a8-ec4ef9a854ab
+          uniqueItems: false
+        feeAmountExGst:
+          description: This is the fee amount Excluding GST
+          type: number
+          format: decimal
+          example: 0.5
+          uniqueItems: false
+        feeAmountIncGst:
+          description: This is the total fee amount Including GST
+          type: number
+          format: decimal
+          example: 0.55
+          uniqueItems: false
+        feeAmountGstComp:
+          description: This is the GST Component of the fee amount
+          type: number
+          format: decimal
+          example: 0.05
+          uniqueItems: false
       type: object
-      format: DTO.VerifyAccountGetResponse_V1
+      format: DTO.VerifyAccountInitiateResponse_V1
     verify.initiate2:
       type: object
       required:
@@ -573,6 +474,26 @@ components:
           example: NPP Bank Account Verification Identifier
           maxLength: 512
           description: A description supplied by the VerificationSigninMerchant to distinguish this entry from others in a listing. This could be an encoded string from the signon merchant.
+    DTO.VerifyAccountValidateResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+      type: object
+      format: DTO.VerifyAccountValidateResponse_V1
     DTO.VerifyAccountListResponse_V1:
       properties:
         durationMs:
@@ -595,6 +516,85 @@ components:
             $ref: '#/components/schemas/DTO.VerifyAccountDetails'
       type: object
       format: DTO.VerifyAccountListResponse_V1
+    verify.update:
+      type: object
+      required:
+      - token
+      - verificationIdentifier
+      - hasDDAuthority
+      properties:
+        token:
+          type: string
+          uniqueItems: false
+          example: f45d1c83-1533-4cbb-ae05-4381e181cb18
+          description: token from verify/v1/aba/initiate. (Inititiates a verification transaction)
+        remitter:
+          type: string
+          uniqueItems: false
+          example: MPRetail
+          maxLength: 16
+          description: See <a href="/payments#tag/Verify"> Verify </a> section.
+        verificationIdentifier:
+          type: string
+          uniqueItems: false
+          example: MP Retail Account
+          maxLength: 512
+          description: A description supplied by the VerificationSigninMerchant to distinguish this entry from others in a listing. This could be an encoded string from the signon merchant.
+        hasDDAuthority:
+          type: boolean
+          default: true
+          example: true
+          description: Can the system use this account to direct debit. Has an authority been granted.
+        bankAccountTitle:
+          type: string
+          uniqueItems: false
+          example: Monoova Bank Account
+          maxLength: 32
+          description: The Title of the Bank Account for DE file.
+    verify.validate:
+      type: object
+      required:
+      - token
+      - amount
+      - code
+      properties:
+        token:
+          type: string
+          uniqueItems: false
+          example: f45d1c83-1533-4cbb-ae05-4381e181cb18
+          description: token from verify/v1/aba/initiate.(Inititiates a verification transaction)
+        amount:
+          type: number
+          format: double
+          uniqueItems: false
+          example: 0.01
+          minimum: 0.01
+          description: amount for the verification.
+        code:
+          type: string
+          uniqueItems: false
+          example: '555555'
+          description: Once you receive the verification code, enter it here to confirm your identity.
+    DTO.VerifyAccountUpdateResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+      type: object
+      format: DTO.VerifyAccountUpdateResponse_V1
   securitySchemes:
     BasicAuth:
       type: http

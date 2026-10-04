@@ -113,50 +113,6 @@ paths:
                   errorMessage: transaction amount 100.00 plus existing transactions 100.00 exceeds limit 50
 components:
   schemas:
-    PaymentDetailsDto:
-      type: object
-      properties:
-        cardType:
-          type: string
-          description: Card Type. Must be one of Visa, Mastercard. Case insensitive.
-        description:
-          type: string
-          description: Payment description. This will be saved in Monoova's system but will not be passed to the issuer.
-          maxLength: 40
-        saveOnSuccess:
-          type: boolean
-          default: false
-          description: System will save the payment method on successful payment. Optional, defaults to false.
-        allowCredit:
-          type: boolean
-          default: true
-          description: If set to true, credit card will be allowed. If set to false only Debit cards and prepaid cards will be allowed. Optional, defaults to true.
-        clientPaymentTokenUniqueReference:
-          type: string
-          description: The unique id the client will use to refer to the persisted token for future payments. Mandatory if saveOnSuccess is true, otherwise prohibited. The value must be unique for this combination of client (mAccount) and customerId. Lowercase will be converted to uppercase.
-          maxLength: 40
-          pattern: ^[a-zA-Z0-9_-]{1,40}$
-        applySurcharge:
-          type: boolean
-          default: false
-          description: Add a calculated fee to the total amount for this transaction. Optional, defaults to false. Only allowed to be true if the surcharging is enabled in the account configuration.
-        capturePayment:
-          type:
-          - boolean
-          - 'null'
-          description: Set to false (with an appropriate amount) if payment only needs to be authorized. Set to true or ignore this property if payment needs to be authorized and captured.
-          default: true
-      additionalProperties: false
-    AuthenticationDetailsDto:
-      type: object
-      properties:
-        responseCode:
-          type: string
-          description: AUTH_SUCCESS <br/> AUTH_FAILED
-        challengeIssued:
-          type: boolean
-          description: End customer prompted for 3DS.
-      additionalProperties: false
     CreditCardTransactionDetailsResponse:
       type: object
       required:
@@ -262,15 +218,15 @@ components:
               type: string
               description: Issuer's name (e.g., ANZ).
       additionalProperties: false
-    RiskDetailsDto:
+    AuthenticationDetailsDto:
       type: object
       properties:
-        preAuthorizationResult:
+        responseCode:
           type: string
-          description: Possible fraud check outcomes.
-        postAuthorizationResult:
-          type: string
-          description: Possible fraud check outcomes.
+          description: AUTH_SUCCESS <br/> AUTH_FAILED
+        challengeIssued:
+          type: boolean
+          description: End customer prompted for 3DS.
       additionalProperties: false
     RefundTransactionsDto:
       properties:
@@ -314,6 +270,50 @@ components:
           description: Batch Id of settlement file for the payment
       required:
       - clientTransactionUniqueReference
+      additionalProperties: false
+    RiskDetailsDto:
+      type: object
+      properties:
+        preAuthorizationResult:
+          type: string
+          description: Possible fraud check outcomes.
+        postAuthorizationResult:
+          type: string
+          description: Possible fraud check outcomes.
+      additionalProperties: false
+    PaymentDetailsDto:
+      type: object
+      properties:
+        cardType:
+          type: string
+          description: Card Type. Must be one of Visa, Mastercard. Case insensitive.
+        description:
+          type: string
+          description: Payment description. This will be saved in Monoova's system but will not be passed to the issuer.
+          maxLength: 40
+        saveOnSuccess:
+          type: boolean
+          default: false
+          description: System will save the payment method on successful payment. Optional, defaults to false.
+        allowCredit:
+          type: boolean
+          default: true
+          description: If set to true, credit card will be allowed. If set to false only Debit cards and prepaid cards will be allowed. Optional, defaults to true.
+        clientPaymentTokenUniqueReference:
+          type: string
+          description: The unique id the client will use to refer to the persisted token for future payments. Mandatory if saveOnSuccess is true, otherwise prohibited. The value must be unique for this combination of client (mAccount) and customerId. Lowercase will be converted to uppercase.
+          maxLength: 40
+          pattern: ^[a-zA-Z0-9_-]{1,40}$
+        applySurcharge:
+          type: boolean
+          default: false
+          description: Add a calculated fee to the total amount for this transaction. Optional, defaults to false. Only allowed to be true if the surcharging is enabled in the account configuration.
+        capturePayment:
+          type:
+          - boolean
+          - 'null'
+          description: Set to false (with an appropriate amount) if payment only needs to be authorized. Set to true or ignore this property if payment needs to be authorized and captured.
+          default: true
       additionalProperties: false
   securitySchemes:
     BearerAuth:

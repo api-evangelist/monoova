@@ -86,27 +86,6 @@ paths:
           description: Internal Server Error
 components:
   schemas:
-    DTO.GenericPayment.disbursementFee_V1:
-      properties:
-        method:
-          description: 'The type of Disbursement: mAccount, mWallet, DirectCredit, BPAY, Charity, Sign-In mAccount'
-          type: string
-          example: BPay
-          uniqueItems: false
-        feePercentageExGst:
-          description: The percentage of the amountto be taken as a fee Excluding GST
-          type: number
-          format: decimal
-          example: '0'
-          uniqueItems: false
-        feeFixedExGst:
-          description: The fixed amount to be taken as a fee Excluding GST
-          type: number
-          format: decimal
-          example: '0.4546'
-          uniqueItems: false
-      type: object
-      format: DTO.GenericPayment.disbursementFee_V1
     DTO.GenericPayment.loadFee_V1:
       properties:
         method:
@@ -137,6 +116,48 @@ components:
           example: '0.25'
           uniqueItems: false
       type: object
+    DTO.GenericPayment.disbursementFee_V1:
+      properties:
+        method:
+          description: 'The type of Disbursement: mAccount, mWallet, DirectCredit, BPAY, Charity, Sign-In mAccount'
+          type: string
+          example: BPay
+          uniqueItems: false
+        feePercentageExGst:
+          description: The percentage of the amountto be taken as a fee Excluding GST
+          type: number
+          format: decimal
+          example: '0'
+          uniqueItems: false
+        feeFixedExGst:
+          description: The fixed amount to be taken as a fee Excluding GST
+          type: number
+          format: decimal
+          example: '0.4546'
+          uniqueItems: false
+      type: object
+      format: DTO.GenericPayment.disbursementFee_V1
+    DTO.GenericPayment.CreateOneShotSecurityTokenResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+        oneShotSecurityToken:
+          description: The token to use instead of UserName
+          type: string
+          example: 2215125a-b80b-41aa-af58-740d21b303ed
+      type: object
+      format: DTO.GenericPayment.CreateOneShotSecurityTokenResponse_V1
     DTO.GenericPayment.SettingsResponse_V1:
       properties:
         durationMs:
@@ -236,27 +257,6 @@ components:
           example: true
       type: object
       format: DTO.GenericPayment.SettingsResponse_V1
-    DTO.GenericPayment.CreateOneShotSecurityTokenResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-        oneShotSecurityToken:
-          description: The token to use instead of UserName
-          type: string
-          example: 2215125a-b80b-41aa-af58-740d21b303ed
-      type: object
-      format: DTO.GenericPayment.CreateOneShotSecurityTokenResponse_V1
   securitySchemes:
     BasicAuth:
       type: http

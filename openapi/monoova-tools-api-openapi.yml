@@ -121,6 +121,36 @@ paths:
           description: Internal Server Error
 components:
   schemas:
+    DTO.ToolsPingResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        version:
+          description: A string containing the Version of the Platform with the current Date Time at the server
+          type: string
+          example: 'Monoova Payments Platform Tools V:1.00 Engine V:4.74 Environment: Sandbox DateTime: 09 - Nov - 2018 10:48:09 AM'
+          uniqueItems: false
+        environment:
+          description: A string containing the Version of the Platform with the current Date Time at the server
+          type: string
+          example: Sandbox
+          uniqueItems: false
+      type: object
+      format: DTO.ToolsPingResponse_V1
     tools.sendEmailToIssuer:
       type: object
       required:
@@ -219,26 +249,6 @@ components:
           uniqueItems: false
       type: object
       format: DTO.ToolsAbnValidateResponse_V1
-    DTO.ToolsSendEmailResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-      type: object
-      format: DTO.ToolsSendEmailResponse_V1
     DTO.ToolsBsbValidateResponse_V1:
       properties:
         durationMs:
@@ -293,7 +303,7 @@ components:
           uniqueItems: false
       type: object
       format: DTO.ToolsBsbValidateResponse_V1
-    DTO.ToolsPingResponse_V1:
+    DTO.ToolsSendEmailResponse_V1:
       properties:
         durationMs:
           description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
@@ -311,18 +321,8 @@ components:
           type: string
           example: Operation completed successfully
           uniqueItems: false
-        version:
-          description: A string containing the Version of the Platform with the current Date Time at the server
-          type: string
-          example: 'Monoova Payments Platform Tools V:1.00 Engine V:4.74 Environment: Sandbox DateTime: 09 - Nov - 2018 10:48:09 AM'
-          uniqueItems: false
-        environment:
-          description: A string containing the Version of the Platform with the current Date Time at the server
-          type: string
-          example: Sandbox
-          uniqueItems: false
       type: object
-      format: DTO.ToolsPingResponse_V1
+      format: DTO.ToolsSendEmailResponse_V1
   securitySchemes:
     BasicAuth:
       type: http
