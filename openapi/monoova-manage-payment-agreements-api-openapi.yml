@@ -672,120 +672,59 @@ paths:
                   errorMessage: string
 components:
   schemas:
-    AmendPaymentAgreementStatusDto:
-      type: object
-      properties:
-        paymentAgreementUID:
-          type: string
-          description: 'Unique ID of the payment agreement.
-
-            '
-        statusChange:
-          type: string
-          description: The status that you wish to change the payment agreement to. </br> <strong> Note&#58;</strong> You cannot change a status from ‘Created’ to ‘Cancel’. If you wish to recall a payment agreement before the payer has approved it, you need to use the Recall Agreement endpoint.</b> </br> <style type="text/css"> .tb { table-layout:auto; width:300px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important} </style> <table class="tb"> <tr> <th> Current Status </th> <th> Payload Status </th> <th> New Status </th> <th> Note </th> </tr> <tr><td>    Active    </td><td>    Cancel    </td> <td>    Cancelled    </td><td>    Reason Code is mandatory.    </td></tr> <tr><td>    Active     </td><td>    Pause    </td><td>    Paused    </td><td>    Reason Code is mandatory.    </td></tr> <tr><td>    Paused    </td><td>    Resume    </td><td>    Active    </td><td>    Only party who suspended can Activate payment agreement    </td></tr> <tr><td>    Paused    </td><td>    Cancel    </td><td>    Cancelled    </td><td>    Reason Code is mandatory.    </td></tr> <tr><td>    Cancel    </td><td>-</td><td>-</td><td>    This is the final status    </td></tr> </table>
-        reasonCode:
-          type: string
-          description: 'Reason code for changing the agreement status. Must be provided when the status is `Cancel` or `Pause`.
-
-            '
-          example: AC02
-        reasonDescription:
-          type: string
-          description: 'Description of the reason for the change in status.
-
-            '
-          example: Invalid Debtor Account Number
-          maxLength: 256
-    AmendUnilateralDetailsResponse:
-      type: object
-      properties:
-        paymentAgreementUID:
-          type: string
-          description: Id to uniquely Identify a payment agreement.
-          maxLength: 35
-          pattern: ^[A-Z0-9_-]
-          example: BCORP1662358223
-        traceId:
-          type: string
-          example: 1dabfaa9-abe8-4d2d-a69a-b723079d84ed
-        mmsId:
-          type: string
-          description: This is the unique ID that identifies this payment agreement.
-          example: aa0a5d7eedcd1c01999b2906b1edd8cd
-        actionIdentification:
-          type: string
-          example: b9c91b0f382b1fa5bf7e87aaad094eee
-      additionalProperties: false
-    AmendBilateralDetailsResponse:
-      type: object
-      properties:
-        paymentAgreementUID:
-          type: string
-          description: Id to uniquely Identify a payment agreement.
-          maxLength: 35
-          pattern: ^[A-Z0-9_-]
-          example: MONPAG12345
-        mmsId:
-          type: string
-          description: This is the unique ID that identifies this payment agreement.
-          example: 684211c8a4076eeea68e63eeaa8ea6aa
-        actionIdentification:
-          type: string
-          example: eea687ee114eae368ca066aa62bae488
-      additionalProperties: false
-    CreatePaymentAgreementDto:
-      type: object
+    PaymentDetailsDto:
       required:
-      - paymentAgreementUID
+      - automaticRenewal
+      - purpose
+      - startDate
       properties:
-        paymentAgreementUID:
-          type: string
-          description: Id to uniquely Identify a payment agreement.
-          maxLength: 35
-          pattern: ^[A-Z0-9_-]
-          example: ABCORP123456
-        payeeDetails:
-          $ref: '#/components/schemas/PayeeDetailsDto'
-        payerDetails:
-          $ref: '#/components/schemas/PayerDetailsDto'
-        paymentTerms:
-          $ref: '#/components/schemas/PaymentTermsDto'
-        paymentDetails:
-          $ref: '#/components/schemas/PaymentDetailsDto'
-      additionalProperties: false
-    CreatePaymentAgreementResponse:
-      type: object
-      properties:
-        traceId:
-          type: string
-          example: 1dabfaa9-abe8-4d2d-a69a-b723079d84ed
-        paymentAgreementUID:
-          type: string
-          maxLength: 35
-          pattern: ^[A-Za-z0-9_-]
-          description: Id to uniquely Identify a payment agreement.
-          example: BCORP123456
-        PaymentAgreementStatus:
-          type: string
-          description: This is the status of the payment agreement. Status (e.g. Active, Cancelled, ...). See <a href="/payTo#tag/Payment-Agreement-Status">Payment Agreement Status</a> for all options.
-          example: Created
-        PaymentAgreementStatusDescription:
+        automaticRenewal:
+          type:
+          - boolean
+          - 'null'
+          example: false
+          description: Determines if the payment agreement automatically renews at the end of the defined period. </br> Possible values - True, False </br> endDate cannot be present if automaticRenewal is set as 'TRUE', endDate must be present if automaticRenewal is set as 'FALSE'
+        description:
           type:
           - string
           - 'null'
-          description: This describes the status. For example, a status of ‘created’ will have a description of ‘Pending Payer Approval’
-          example: Pending Payer Approval
-        mmsId:
-          type: string
-          description: This is the unique ID that identifies this payment agreement.
-          example: a9ba56f64baa1dee9ac2d7f87c2621fa
-        registrationDateTime:
-          type: string
-          description: The date and time that you created the mandate.
-          example: 2022-09-05 05:29:53.031000+00:00
-        actionIdentification:
-          type: string
-          example: b9c91b0f382b1fa5bf7e87aaad094eee
+          description: Reason for the mandate setup as narrative text. </br> Either "description" or "short_description" must be present
+          maxLength: 140
+          example: null
+        shortDescription:
+          description: Reason for the mandate setup as narrative text. </br> Either "description" or "short_description" must be present
+          type:
+          - string
+          - 'null'
+          maxLength: 35
+          example: PayToTest_001
+        purpose:
+          type:
+          - string
+          - 'null'
+          description: Payment Purpose Code. </br>  Possible Values- </br>  MORT - Mortgage Payments </br>  UTIL - Utility Payments </br>  LOAN - Loan Payments </br>  DEPD - Dependant Support Payments </br>  GAMP - Gambling Payments </br>  RETL - Retail Payments </br>  SALA - Salary Payments </br>  PERS - Personal Payment </br>  GOVT - Government Payments </br>  PENS - Pension Payments </br>  TAXS - Tax Payments </br>  OTHR - Other Service Payments
+          example: MORT
+        respondByTime:
+          type:
+          - string
+          - 'null'
+          description: Optional time used to indicate by when resolution of a bilateral action is requested from the other party to the payment agreement. It will be provided in any notification sent to the counterparty. This time is for informational purposes only and does not affect the expiry time imposed by the MMS.<br/>Must be future date and less than 5 days<br/> If not provided value will be defaulted to agreement creation datetime + 5 day<br/> Default time zone is UTC
+          format: ISODateTime ( yyyy-mm-ddThh:mm:ss+|–hh:mm)
+          example: 2022-09-13 14:35:27+00:00
+        startDate:
+          description: Start date of the validity of the mandate. The mandate is valid as of 00:00:00.000 Australia Sydney time on this date.
+          type:
+          - string
+          - 'null'
+          format: YYYY-MM-DD
+          example: 2022-09-13
+        endDate:
+          type:
+          - string
+          - 'null'
+          format: YYYY-MM-DD
+          example: 2023-08-24
+          description: End date of the validity of the mandate. If specified, the mandate is valid until 23:59:59.999 Australia Sydney time on this date.
       additionalProperties: false
     PaymentTermsDto:
       required:
@@ -861,6 +800,26 @@ components:
           description: unique Id used to identify pending(unapproved) actions. This id is assigned when a new payment agreement is created or when a bilateral amendment is made.
           example: 6ae818d80ba362618a2aece46ee70e4a
       additionalProperties: false
+    CreatePaymentAgreementDto:
+      type: object
+      required:
+      - paymentAgreementUID
+      properties:
+        paymentAgreementUID:
+          type: string
+          description: Id to uniquely Identify a payment agreement.
+          maxLength: 35
+          pattern: ^[A-Z0-9_-]
+          example: ABCORP123456
+        payeeDetails:
+          $ref: '#/components/schemas/PayeeDetailsDto'
+        payerDetails:
+          $ref: '#/components/schemas/PayerDetailsDto'
+        paymentTerms:
+          $ref: '#/components/schemas/PaymentTermsDto'
+        paymentDetails:
+          $ref: '#/components/schemas/PaymentDetailsDto'
+      additionalProperties: false
     AmendBilateralDetailsDto:
       type: object
       properties:
@@ -911,26 +870,108 @@ components:
           description: 'Unique ID that identifies this payment agreement within the system.
 
             '
-    AmendUnilateralDetailsDto:
+    PayeeDetailsDto:
+      required:
+      - payeeType
+      oneOf:
+      - required:
+        - payeeLinkedBsb
+        - payeeLinkedAccount
+      - required:
+        - payeeLinkedPayId
+        - payeeLinkedPayIdType
+        - payeeAccountName
       type: object
       properties:
-        description:
+        payeeType:
           type:
           - string
           - 'null'
-          description: Reason for the mandate setup as narrative text.</br> Either "description" or "short_description" must be present.
+          description: Identifies the type of a party.</br> Possible Values ORGN - Organization, PERS - Person
+          example: ORGN
+        payeeLinkedBsb:
+          type:
+          - string
+          - 'null'
+          description: BSB number. </br>Required if 'payeeLinkedPayId' and 'payeeLinkedPayIdType' are not provided. e.g. '999-999 or 999999'
+          example: 999-999
+        payeeLinkedAccount:
+          type:
+          - string
+          - 'null'
+          maxLength: 28
+          description: Bank Account Number. </br>Required if 'payeeLinkedPayId' and 'payeeLinkedPayIdType' are not provided.
+          example: 22222222
+        payeeLinkedPayId:
+          type:
+          - string
+          - 'null'
+          description: PayID. </br> Email, phone number, ABN, ACN or Organisation name. </br>Required if 'payeeLinkedBsb' and 'payeeLinkedAccount' are not provided. <a href="/payTo#tag/PAYID-Format-Validation">See PAYID Format Validation.</a>
+          example: ''
+        payeeLinkedPayIdType:
+          type:
+          - string
+          - 'null'
+          description: PayID Type. Possible values ABN, Email, PhoneNumber, OrganisationId, ACN. </br>Required if 'payeeLinkedBsb' and 'payeeLinkedAccount' are not provided.
+          example: ''
+        payeeAccountName:
+          type:
+          - string
+          - 'null'
+          description: Bank Account Name </br> Can only provide payeeAccountName in the payload if crediting an external BSB. Mandatory if crediting a PayID.
           maxLength: 140
-          example: payroll pag1
-        shortDescription:
+          example: ABCORP
+        ultimatePayee:
           type:
           - string
           - 'null'
-          description: Reason for the mandate setup as narrative text.</br> Either "description" or "short_description" must be present.
-          maxLength: 35
-          example: payroll pag1
-        payeeDetails:
-          $ref: '#/components/schemas/PayeeDetailsDto'
+          example: ABCORP
+          description: Name by which the party is known, and which is usually used to identify that party.</br> Can only provide ultimatePayee in the payload if crediting an external BSB.
       additionalProperties: false
+    AmendUnilateralDetailsResponse:
+      type: object
+      properties:
+        paymentAgreementUID:
+          type: string
+          description: Id to uniquely Identify a payment agreement.
+          maxLength: 35
+          pattern: ^[A-Z0-9_-]
+          example: BCORP1662358223
+        traceId:
+          type: string
+          example: 1dabfaa9-abe8-4d2d-a69a-b723079d84ed
+        mmsId:
+          type: string
+          description: This is the unique ID that identifies this payment agreement.
+          example: aa0a5d7eedcd1c01999b2906b1edd8cd
+        actionIdentification:
+          type: string
+          example: b9c91b0f382b1fa5bf7e87aaad094eee
+      additionalProperties: false
+    AmendPaymentAgreementStatusDto:
+      type: object
+      properties:
+        paymentAgreementUID:
+          type: string
+          description: 'Unique ID of the payment agreement.
+
+            '
+        statusChange:
+          type: string
+          description: The status that you wish to change the payment agreement to. </br> <strong> Note&#58;</strong> You cannot change a status from ‘Created’ to ‘Cancel’. If you wish to recall a payment agreement before the payer has approved it, you need to use the Recall Agreement endpoint.</b> </br> <style type="text/css"> .tb { table-layout:auto; width:300px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important} </style> <table class="tb"> <tr> <th> Current Status </th> <th> Payload Status </th> <th> New Status </th> <th> Note </th> </tr> <tr><td>    Active    </td><td>    Cancel    </td> <td>    Cancelled    </td><td>    Reason Code is mandatory.    </td></tr> <tr><td>    Active     </td><td>    Pause    </td><td>    Paused    </td><td>    Reason Code is mandatory.    </td></tr> <tr><td>    Paused    </td><td>    Resume    </td><td>    Active    </td><td>    Only party who suspended can Activate payment agreement    </td></tr> <tr><td>    Paused    </td><td>    Cancel    </td><td>    Cancelled    </td><td>    Reason Code is mandatory.    </td></tr> <tr><td>    Cancel    </td><td>-</td><td>-</td><td>    This is the final status    </td></tr> </table>
+        reasonCode:
+          type: string
+          description: 'Reason code for changing the agreement status. Must be provided when the status is `Cancel` or `Pause`.
+
+            '
+          example: AC02
+        reasonDescription:
+          type: string
+          description: 'Description of the reason for the change in status.
+
+            '
+          example: Invalid Debtor Account Number
+          maxLength: 256
     PayerDetailsDto:
       type: object
       required:
@@ -999,117 +1040,76 @@ components:
           description: This field will be presented to Payer in the detail agreement view. This field also be used group payment initiations associated with a payment agreement.
           example: Payer54321
       additionalProperties: false
-    PaymentDetailsDto:
-      required:
-      - automaticRenewal
-      - purpose
-      - startDate
+    AmendUnilateralDetailsDto:
+      type: object
       properties:
-        automaticRenewal:
-          type:
-          - boolean
-          - 'null'
-          example: false
-          description: Determines if the payment agreement automatically renews at the end of the defined period. </br> Possible values - True, False </br> endDate cannot be present if automaticRenewal is set as 'TRUE', endDate must be present if automaticRenewal is set as 'FALSE'
         description:
           type:
           - string
           - 'null'
-          description: Reason for the mandate setup as narrative text. </br> Either "description" or "short_description" must be present
+          description: Reason for the mandate setup as narrative text.</br> Either "description" or "short_description" must be present.
           maxLength: 140
-          example: null
+          example: payroll pag1
         shortDescription:
-          description: Reason for the mandate setup as narrative text. </br> Either "description" or "short_description" must be present
           type:
           - string
           - 'null'
+          description: Reason for the mandate setup as narrative text.</br> Either "description" or "short_description" must be present.
           maxLength: 35
-          example: PayToTest_001
-        purpose:
-          type:
-          - string
-          - 'null'
-          description: Payment Purpose Code. </br>  Possible Values- </br>  MORT - Mortgage Payments </br>  UTIL - Utility Payments </br>  LOAN - Loan Payments </br>  DEPD - Dependant Support Payments </br>  GAMP - Gambling Payments </br>  RETL - Retail Payments </br>  SALA - Salary Payments </br>  PERS - Personal Payment </br>  GOVT - Government Payments </br>  PENS - Pension Payments </br>  TAXS - Tax Payments </br>  OTHR - Other Service Payments
-          example: MORT
-        respondByTime:
-          type:
-          - string
-          - 'null'
-          description: Optional time used to indicate by when resolution of a bilateral action is requested from the other party to the payment agreement. It will be provided in any notification sent to the counterparty. This time is for informational purposes only and does not affect the expiry time imposed by the MMS.<br/>Must be future date and less than 5 days<br/> If not provided value will be defaulted to agreement creation datetime + 5 day<br/> Default time zone is UTC
-          format: ISODateTime ( yyyy-mm-ddThh:mm:ss+|–hh:mm)
-          example: 2022-09-13 14:35:27+00:00
-        startDate:
-          description: Start date of the validity of the mandate. The mandate is valid as of 00:00:00.000 Australia Sydney time on this date.
-          type:
-          - string
-          - 'null'
-          format: YYYY-MM-DD
-          example: 2022-09-13
-        endDate:
-          type:
-          - string
-          - 'null'
-          format: YYYY-MM-DD
-          example: 2023-08-24
-          description: End date of the validity of the mandate. If specified, the mandate is valid until 23:59:59.999 Australia Sydney time on this date.
+          example: payroll pag1
+        payeeDetails:
+          $ref: '#/components/schemas/PayeeDetailsDto'
       additionalProperties: false
-    PayeeDetailsDto:
-      required:
-      - payeeType
-      oneOf:
-      - required:
-        - payeeLinkedBsb
-        - payeeLinkedAccount
-      - required:
-        - payeeLinkedPayId
-        - payeeLinkedPayIdType
-        - payeeAccountName
+    CreatePaymentAgreementResponse:
       type: object
       properties:
-        payeeType:
+        traceId:
+          type: string
+          example: 1dabfaa9-abe8-4d2d-a69a-b723079d84ed
+        paymentAgreementUID:
+          type: string
+          maxLength: 35
+          pattern: ^[A-Za-z0-9_-]
+          description: Id to uniquely Identify a payment agreement.
+          example: BCORP123456
+        PaymentAgreementStatus:
+          type: string
+          description: This is the status of the payment agreement. Status (e.g. Active, Cancelled, ...). See <a href="/payTo#tag/Payment-Agreement-Status">Payment Agreement Status</a> for all options.
+          example: Created
+        PaymentAgreementStatusDescription:
           type:
           - string
           - 'null'
-          description: Identifies the type of a party.</br> Possible Values ORGN - Organization, PERS - Person
-          example: ORGN
-        payeeLinkedBsb:
-          type:
-          - string
-          - 'null'
-          description: BSB number. </br>Required if 'payeeLinkedPayId' and 'payeeLinkedPayIdType' are not provided. e.g. '999-999 or 999999'
-          example: 999-999
-        payeeLinkedAccount:
-          type:
-          - string
-          - 'null'
-          maxLength: 28
-          description: Bank Account Number. </br>Required if 'payeeLinkedPayId' and 'payeeLinkedPayIdType' are not provided.
-          example: 22222222
-        payeeLinkedPayId:
-          type:
-          - string
-          - 'null'
-          description: PayID. </br> Email, phone number, ABN, ACN or Organisation name. </br>Required if 'payeeLinkedBsb' and 'payeeLinkedAccount' are not provided. <a href="/payTo#tag/PAYID-Format-Validation">See PAYID Format Validation.</a>
-          example: ''
-        payeeLinkedPayIdType:
-          type:
-          - string
-          - 'null'
-          description: PayID Type. Possible values ABN, Email, PhoneNumber, OrganisationId, ACN. </br>Required if 'payeeLinkedBsb' and 'payeeLinkedAccount' are not provided.
-          example: ''
-        payeeAccountName:
-          type:
-          - string
-          - 'null'
-          description: Bank Account Name </br> Can only provide payeeAccountName in the payload if crediting an external BSB. Mandatory if crediting a PayID.
-          maxLength: 140
-          example: ABCORP
-        ultimatePayee:
-          type:
-          - string
-          - 'null'
-          example: ABCORP
-          description: Name by which the party is known, and which is usually used to identify that party.</br> Can only provide ultimatePayee in the payload if crediting an external BSB.
+          description: This describes the status. For example, a status of ‘created’ will have a description of ‘Pending Payer Approval’
+          example: Pending Payer Approval
+        mmsId:
+          type: string
+          description: This is the unique ID that identifies this payment agreement.
+          example: a9ba56f64baa1dee9ac2d7f87c2621fa
+        registrationDateTime:
+          type: string
+          description: The date and time that you created the mandate.
+          example: 2022-09-05 05:29:53.031000+00:00
+        actionIdentification:
+          type: string
+          example: b9c91b0f382b1fa5bf7e87aaad094eee
+      additionalProperties: false
+    AmendBilateralDetailsResponse:
+      type: object
+      properties:
+        paymentAgreementUID:
+          type: string
+          description: Id to uniquely Identify a payment agreement.
+          maxLength: 35
+          pattern: ^[A-Z0-9_-]
+          example: MONPAG12345
+        mmsId:
+          type: string
+          description: This is the unique ID that identifies this payment agreement.
+          example: 684211c8a4076eeea68e63eeaa8ea6aa
+        actionIdentification:
+          type: string
+          example: eea687ee114eae368ca066aa62bae488
       additionalProperties: false
   securitySchemes:
     BearerAuth:

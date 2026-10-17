@@ -121,6 +121,60 @@ paths:
           description: Internal Server Error
 components:
   schemas:
+    DTO.ToolsBsbValidateResponse_V1:
+      properties:
+        durationMs:
+          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
+          type: integer
+          format: int64
+          example: 20
+          uniqueItems: false
+        status:
+          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
+          type: string
+          example: Ok
+          uniqueItems: false
+        statusDescription:
+          description: This is a plain English description of the status.
+          type: string
+          example: Operation completed successfully
+          uniqueItems: false
+        bsb:
+          description: The BSBNumber that was passed as a parameter
+          type: string
+          example: 012-433
+          uniqueItems: false
+        closed:
+          description: Indicates if the branch has been closed. If true, the address field MAY contain a reference to a replacement BSB number
+          type: boolean
+          example: false
+        address:
+          description: The branch address
+          type: string
+          example: Shop 1-047 Henry St
+          uniqueItems: false
+        city:
+          description: The branch city
+          type: string
+          example: Penrith
+          uniqueItems: false
+        state:
+          description: The branch state e.g. NSW, VIC, QLD etc
+          type: string
+          example: NSW
+          uniqueItems: false
+        postCode:
+          description: The branch post code
+          type: string
+          example: '2750'
+          uniqueItems: false
+        bankCode:
+          description: The bank code e.g.ANZ, CBA, NAB, WBC etc
+          type: string
+          example: ANZ
+          uniqueItems: false
+      type: object
+      format: DTO.ToolsBsbValidateResponse_V1
     DTO.ToolsPingResponse_V1:
       properties:
         durationMs:
@@ -249,60 +303,6 @@ components:
           uniqueItems: false
       type: object
       format: DTO.ToolsAbnValidateResponse_V1
-    DTO.ToolsBsbValidateResponse_V1:
-      properties:
-        durationMs:
-          description: 'This value represents the total time in milliseconds that the Platform took to process the request. '
-          type: integer
-          format: int64
-          example: 20
-          uniqueItems: false
-        status:
-          description: This is the status of executing the request.&nbsp;A code of ‘Ok’ indicates no errors
-          type: string
-          example: Ok
-          uniqueItems: false
-        statusDescription:
-          description: This is a plain English description of the status.
-          type: string
-          example: Operation completed successfully
-          uniqueItems: false
-        bsb:
-          description: The BSBNumber that was passed as a parameter
-          type: string
-          example: 012-433
-          uniqueItems: false
-        closed:
-          description: Indicates if the branch has been closed. If true, the address field MAY contain a reference to a replacement BSB number
-          type: boolean
-          example: false
-        address:
-          description: The branch address
-          type: string
-          example: Shop 1-047 Henry St
-          uniqueItems: false
-        city:
-          description: The branch city
-          type: string
-          example: Penrith
-          uniqueItems: false
-        state:
-          description: The branch state e.g. NSW, VIC, QLD etc
-          type: string
-          example: NSW
-          uniqueItems: false
-        postCode:
-          description: The branch post code
-          type: string
-          example: '2750'
-          uniqueItems: false
-        bankCode:
-          description: The bank code e.g.ANZ, CBA, NAB, WBC etc
-          type: string
-          example: ANZ
-          uniqueItems: false
-      type: object
-      format: DTO.ToolsBsbValidateResponse_V1
     DTO.ToolsSendEmailResponse_V1:
       properties:
         durationMs:

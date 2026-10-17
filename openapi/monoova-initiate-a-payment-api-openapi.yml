@@ -153,6 +153,64 @@ components:
           description: Unique reference, as assigned by the creditor, to unambiguously refer to the payment transaction.
           maxLength: 280
       additionalProperties: false
+    PayeeDetailsDto:
+      required:
+      - payeeType
+      oneOf:
+      - required:
+        - payeeLinkedBsb
+        - payeeLinkedAccount
+      - required:
+        - payeeLinkedPayId
+        - payeeLinkedPayIdType
+        - payeeAccountName
+      type: object
+      properties:
+        payeeType:
+          type:
+          - string
+          - 'null'
+          description: Identifies the type of a party.</br> Possible Values ORGN - Organization, PERS - Person
+          example: ORGN
+        payeeLinkedBsb:
+          type:
+          - string
+          - 'null'
+          description: BSB number. </br>Required if 'payeeLinkedPayId' and 'payeeLinkedPayIdType' are not provided. e.g. '999-999 or 999999'
+          example: 999-999
+        payeeLinkedAccount:
+          type:
+          - string
+          - 'null'
+          maxLength: 28
+          description: Bank Account Number. </br>Required if 'payeeLinkedPayId' and 'payeeLinkedPayIdType' are not provided.
+          example: 22222222
+        payeeLinkedPayId:
+          type:
+          - string
+          - 'null'
+          description: PayID. </br> Email, phone number, ABN, ACN or Organisation name. </br>Required if 'payeeLinkedBsb' and 'payeeLinkedAccount' are not provided. <a href="/payTo#tag/PAYID-Format-Validation">See PAYID Format Validation.</a>
+          example: ''
+        payeeLinkedPayIdType:
+          type:
+          - string
+          - 'null'
+          description: PayID Type. Possible values ABN, Email, PhoneNumber, OrganisationId, ACN. </br>Required if 'payeeLinkedBsb' and 'payeeLinkedAccount' are not provided.
+          example: ''
+        payeeAccountName:
+          type:
+          - string
+          - 'null'
+          description: Bank Account Name </br> Can only provide payeeAccountName in the payload if crediting an external BSB. Mandatory if crediting a PayID.
+          maxLength: 140
+          example: ABCORP
+        ultimatePayee:
+          type:
+          - string
+          - 'null'
+          example: ABCORP
+          description: Name by which the party is known, and which is usually used to identify that party.</br> Can only provide ultimatePayee in the payload if crediting an external BSB.
+      additionalProperties: false
     InitiateMandatePaymentResponseDto:
       type: object
       properties:
@@ -212,64 +270,6 @@ components:
           $ref: '#/components/schemas/PayeeDetailsDto'
         paymentDetails:
           $ref: '#/components/schemas/PaymentInitiationDetailsDto'
-      additionalProperties: false
-    PayeeDetailsDto:
-      required:
-      - payeeType
-      oneOf:
-      - required:
-        - payeeLinkedBsb
-        - payeeLinkedAccount
-      - required:
-        - payeeLinkedPayId
-        - payeeLinkedPayIdType
-        - payeeAccountName
-      type: object
-      properties:
-        payeeType:
-          type:
-          - string
-          - 'null'
-          description: Identifies the type of a party.</br> Possible Values ORGN - Organization, PERS - Person
-          example: ORGN
-        payeeLinkedBsb:
-          type:
-          - string
-          - 'null'
-          description: BSB number. </br>Required if 'payeeLinkedPayId' and 'payeeLinkedPayIdType' are not provided. e.g. '999-999 or 999999'
-          example: 999-999
-        payeeLinkedAccount:
-          type:
-          - string
-          - 'null'
-          maxLength: 28
-          description: Bank Account Number. </br>Required if 'payeeLinkedPayId' and 'payeeLinkedPayIdType' are not provided.
-          example: 22222222
-        payeeLinkedPayId:
-          type:
-          - string
-          - 'null'
-          description: PayID. </br> Email, phone number, ABN, ACN or Organisation name. </br>Required if 'payeeLinkedBsb' and 'payeeLinkedAccount' are not provided. <a href="/payTo#tag/PAYID-Format-Validation">See PAYID Format Validation.</a>
-          example: ''
-        payeeLinkedPayIdType:
-          type:
-          - string
-          - 'null'
-          description: PayID Type. Possible values ABN, Email, PhoneNumber, OrganisationId, ACN. </br>Required if 'payeeLinkedBsb' and 'payeeLinkedAccount' are not provided.
-          example: ''
-        payeeAccountName:
-          type:
-          - string
-          - 'null'
-          description: Bank Account Name </br> Can only provide payeeAccountName in the payload if crediting an external BSB. Mandatory if crediting a PayID.
-          maxLength: 140
-          example: ABCORP
-        ultimatePayee:
-          type:
-          - string
-          - 'null'
-          example: ABCORP
-          description: Name by which the party is known, and which is usually used to identify that party.</br> Can only provide ultimatePayee in the payload if crediting an external BSB.
       additionalProperties: false
   securitySchemes:
     BearerAuth:

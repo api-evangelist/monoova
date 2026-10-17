@@ -61,6 +61,16 @@ paths:
                   errorMessage: clientParentTransactionUniqueReference required
 components:
   schemas:
+    RefundResponse:
+      type: object
+      properties:
+        traceId:
+          description: unique end to end trace id for diagnostic
+          type: string
+        uniqueRequestId:
+          description: the unique Id generated for this async request as needed for the status polling
+          type: string
+      additionalProperties: false
     RefundRequest:
       type: object
       required:
@@ -86,16 +96,6 @@ components:
           description: reason for the refund
           type: string
           maxLength: 40
-      additionalProperties: false
-    RefundResponse:
-      type: object
-      properties:
-        traceId:
-          description: unique end to end trace id for diagnostic
-          type: string
-        uniqueRequestId:
-          description: the unique Id generated for this async request as needed for the status polling
-          type: string
       additionalProperties: false
   securitySchemes:
     BearerAuth:

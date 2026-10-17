@@ -86,34 +86,6 @@ paths:
                   errorMessage: Internal server error. Please contact Monoova support.
 components:
   schemas:
-    CreateClientSessionDto:
-      type: object
-      required:
-      - clientTransactionUniqueReference
-      - customer
-      - paymentDetails
-      - amount
-      properties:
-        clientTransactionUniqueReference:
-          type: string
-          description: Id will be used to uniquely identify each payment request made by our customer. <br/> Id should be unique across Payment and Refund.
-          maxLength: 40
-          pattern: ^[a-zA-Z0-9_-]{1,40}$
-        customer:
-          $ref: '#/components/schemas/CustomerDetailsDto'
-        paymentDetails:
-          $ref: '#/components/schemas/PaymentDetailsDto'
-        amount:
-          type: object
-          properties:
-            currencyAmount:
-              description: Payment amount. Must be zero when capturePayment is false, otherwise must be greater than zero.
-              type: number
-              format: decimal
-              maximum: 20000000.0
-              minimum: 0.0
-              multipleOf: 0.01
-      additionalProperties: false
     CustomerDetailsDto:
       type: object
       required:
@@ -187,6 +159,34 @@ components:
           description: 'Customer last name. Mandatory if billingAddress is not provided
 
             '
+      additionalProperties: false
+    CreateClientSessionDto:
+      type: object
+      required:
+      - clientTransactionUniqueReference
+      - customer
+      - paymentDetails
+      - amount
+      properties:
+        clientTransactionUniqueReference:
+          type: string
+          description: Id will be used to uniquely identify each payment request made by our customer. <br/> Id should be unique across Payment and Refund.
+          maxLength: 40
+          pattern: ^[a-zA-Z0-9_-]{1,40}$
+        customer:
+          $ref: '#/components/schemas/CustomerDetailsDto'
+        paymentDetails:
+          $ref: '#/components/schemas/PaymentDetailsDto'
+        amount:
+          type: object
+          properties:
+            currencyAmount:
+              description: Payment amount. Must be zero when capturePayment is false, otherwise must be greater than zero.
+              type: number
+              format: decimal
+              maximum: 20000000.0
+              minimum: 0.0
+              multipleOf: 0.01
       additionalProperties: false
     PaymentDetailsDto:
       type: object
