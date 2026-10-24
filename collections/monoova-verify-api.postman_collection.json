@@ -1,0 +1,1300 @@
+{
+  "info": {
+    "_postman_id": "360c155f-192a-45b0-b2f3-42288ace3376",
+    "name": "Monoova Payments Verify API",
+    "description": "# Introduction\n\nMonoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:01:22.000Z",
+    "updatedAt": "2026-10-22T02:01:22.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-360c155f-192a-45b0-b2f3-42288ace3376"
+  },
+  "item": [
+    {
+      "name": "verify",
+      "item": [
+        {
+          "name": "v2",
+          "item": [
+            {
+              "name": "aba",
+              "item": [
+                {
+                  "name": "initiate",
+                  "item": [
+                    {
+                      "name": "Initiate a NPP verification transaction",
+                      "id": "c8929427-8acc-4ec7-8119-df754c9e9754",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"creditMethod\": \"NppCreditBankAccount\",\n  \"accountName\": \"<string>\",\n  \"verificationIdentifier\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"bankAccountNumber\": \"<string>\",\n  \"remitter\": \"<string>\",\n  \"payIdType\": \"PhoneNumber\",\n  \"payId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/verify/v2/aba/initiate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "verify",
+                            "v2",
+                            "aba",
+                            "initiate"
+                          ]
+                        },
+                        "description": "Initiates a verification transaction against a designated bank account or PayID via NPP rail using the v2 endpoint."
+                      },
+                      "response": [
+                        {
+                          "id": "ff5fd224-0b19-4265-af66-5108619eeebc",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"creditMethod\": \"NppCreditBankAccount\",\n  \"accountName\": \"<string>\",\n  \"verificationIdentifier\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"bankAccountNumber\": \"<string>\",\n  \"remitter\": \"<string>\",\n  \"payIdType\": \"PhoneNumber\",\n  \"payId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/verify/v2/aba/initiate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "verify",
+                                "v2",
+                                "aba",
+                                "initiate"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"token\": \"<string>\",\n  \"feeAmountExGst\": \"<number>\",\n  \"feeAmountIncGst\": \"<number>\",\n  \"feeAmountGstComp\": \"<number>\",\n  \"ownerName\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:01:22.000Z",
+                          "updatedAt": "2026-10-22T02:01:22.000Z",
+                          "uid": "35240-ff5fd224-0b19-4265-af66-5108619eeebc"
+                        },
+                        {
+                          "id": "7cbc06da-2a56-4db8-95aa-c3d742dd5f01",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"creditMethod\": \"NppCreditBankAccount\",\n  \"accountName\": \"<string>\",\n  \"verificationIdentifier\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"bankAccountNumber\": \"<string>\",\n  \"remitter\": \"<string>\",\n  \"payIdType\": \"PhoneNumber\",\n  \"payId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/verify/v2/aba/initiate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "verify",
+                                "v2",
+                                "aba",
+                                "initiate"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:22.000Z",
+                          "updatedAt": "2026-10-22T02:01:22.000Z",
+                          "uid": "35240-7cbc06da-2a56-4db8-95aa-c3d742dd5f01"
+                        },
+                        {
+                          "id": "60e621b7-b223-4e82-83ce-49b458d143ed",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"creditMethod\": \"NppCreditBankAccount\",\n  \"accountName\": \"<string>\",\n  \"verificationIdentifier\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"bankAccountNumber\": \"<string>\",\n  \"remitter\": \"<string>\",\n  \"payIdType\": \"PhoneNumber\",\n  \"payId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/verify/v2/aba/initiate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "verify",
+                                "v2",
+                                "aba",
+                                "initiate"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:22.000Z",
+                          "updatedAt": "2026-10-22T02:01:22.000Z",
+                          "uid": "35240-60e621b7-b223-4e82-83ce-49b458d143ed"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:01:22.000Z",
+                      "updatedAt": "2026-10-22T02:01:22.000Z",
+                      "uid": "35240-c8929427-8acc-4ec7-8119-df754c9e9754"
+                    }
+                  ],
+                  "id": "6f96405d-802d-4739-979f-f51cedadbea3",
+                  "createdAt": "2026-10-22T02:01:22.000Z",
+                  "updatedAt": "2026-10-22T02:01:22.000Z",
+                  "uid": "35240-6f96405d-802d-4739-979f-f51cedadbea3"
+                }
+              ],
+              "id": "e0dd9adf-1836-4813-9050-f8c3112233d5",
+              "createdAt": "2026-10-22T02:01:22.000Z",
+              "updatedAt": "2026-10-22T02:01:22.000Z",
+              "uid": "35240-e0dd9adf-1836-4813-9050-f8c3112233d5"
+            }
+          ],
+          "id": "3071df6e-d75e-4bfa-95d0-3edf3e5ee291",
+          "createdAt": "2026-10-22T02:01:22.000Z",
+          "updatedAt": "2026-10-22T02:01:22.000Z",
+          "uid": "35240-3071df6e-d75e-4bfa-95d0-3edf3e5ee291"
+        },
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "aba",
+              "item": [
+                {
+                  "name": "initiate",
+                  "item": [
+                    {
+                      "name": "Initiate a DE Verification Transaction",
+                      "id": "3e87308b-80f7-4c8e-9d05-9afecc912e47",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"bsb\": \"<string>\",\n  \"bankAccountNumber\": \"<string>\",\n  \"bankAccountTitle\": \"<string>\",\n  \"verificationIdentifier\": \"<string>\",\n  \"hasDDAuthority\": true,\n  \"remitter\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/verify/v1/aba/initiate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "verify",
+                            "v1",
+                            "aba",
+                            "initiate"
+                          ]
+                        },
+                        "description": "Inititiates a verification transaction against a designated bank account."
+                      },
+                      "response": [
+                        {
+                          "id": "080bbf2d-ce65-4d17-8cc0-39f17a81ccea",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"bsb\": \"<string>\",\n  \"bankAccountNumber\": \"<string>\",\n  \"bankAccountTitle\": \"<string>\",\n  \"verificationIdentifier\": \"<string>\",\n  \"hasDDAuthority\": true,\n  \"remitter\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/verify/v1/aba/initiate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "verify",
+                                "v1",
+                                "aba",
+                                "initiate"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"token\": \"<string>\",\n  \"feeAmountExGst\": \"<number>\",\n  \"feeAmountIncGst\": \"<number>\",\n  \"feeAmountGstComp\": \"<number>\"\n}",
+                          "createdAt": "2026-10-22T02:01:22.000Z",
+                          "updatedAt": "2026-10-22T02:01:22.000Z",
+                          "uid": "35240-080bbf2d-ce65-4d17-8cc0-39f17a81ccea"
+                        },
+                        {
+                          "id": "763f6b08-1fc5-47a1-950b-84bb1a81674c",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"bsb\": \"<string>\",\n  \"bankAccountNumber\": \"<string>\",\n  \"bankAccountTitle\": \"<string>\",\n  \"verificationIdentifier\": \"<string>\",\n  \"hasDDAuthority\": true,\n  \"remitter\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/verify/v1/aba/initiate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "verify",
+                                "v1",
+                                "aba",
+                                "initiate"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:22.000Z",
+                          "updatedAt": "2026-10-22T02:01:22.000Z",
+                          "uid": "35240-763f6b08-1fc5-47a1-950b-84bb1a81674c"
+                        },
+                        {
+                          "id": "02ca92c6-4a03-44cc-ab5c-6fcddc9bc3d0",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"bsb\": \"<string>\",\n  \"bankAccountNumber\": \"<string>\",\n  \"bankAccountTitle\": \"<string>\",\n  \"verificationIdentifier\": \"<string>\",\n  \"hasDDAuthority\": true,\n  \"remitter\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/verify/v1/aba/initiate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "verify",
+                                "v1",
+                                "aba",
+                                "initiate"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:22.000Z",
+                          "updatedAt": "2026-10-22T02:01:22.000Z",
+                          "uid": "35240-02ca92c6-4a03-44cc-ab5c-6fcddc9bc3d0"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:01:22.000Z",
+                      "updatedAt": "2026-10-22T02:01:22.000Z",
+                      "uid": "35240-3e87308b-80f7-4c8e-9d05-9afecc912e47"
+                    }
+                  ],
+                  "id": "de633616-016c-4c6c-ab28-a136e6e7ef8d",
+                  "createdAt": "2026-10-22T02:01:22.000Z",
+                  "updatedAt": "2026-10-22T02:01:22.000Z",
+                  "uid": "35240-de633616-016c-4c6c-ab28-a136e6e7ef8d"
+                },
+                {
+                  "name": "validate",
+                  "item": [
+                    {
+                      "name": "Complete an account verification",
+                      "id": "70edb445-5870-41c4-838c-5bfdfd3ca829",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"token\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"code\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/verify/v1/aba/validate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "verify",
+                            "v1",
+                            "aba",
+                            "validate"
+                          ]
+                        },
+                        "description": "Validates a code against a token generated via the initiate call. After 3 failed attempts the token will get locked for 1 hour. Users can retry with same token after 1 hour or initiate a new verification anytime."
+                      },
+                      "response": [
+                        {
+                          "id": "88da4a58-1301-47e4-be0d-441902daf7e2",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"token\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"code\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/verify/v1/aba/validate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "verify",
+                                "v1",
+                                "aba",
+                                "validate"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:01:22.000Z",
+                          "updatedAt": "2026-10-22T02:01:22.000Z",
+                          "uid": "35240-88da4a58-1301-47e4-be0d-441902daf7e2"
+                        },
+                        {
+                          "id": "dabbdaa3-70d1-4110-ad92-bbfb2d086127",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"token\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"code\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/verify/v1/aba/validate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "verify",
+                                "v1",
+                                "aba",
+                                "validate"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:22.000Z",
+                          "updatedAt": "2026-10-22T02:01:22.000Z",
+                          "uid": "35240-dabbdaa3-70d1-4110-ad92-bbfb2d086127"
+                        },
+                        {
+                          "id": "1dd3c75f-46fb-4840-b68a-9b5ef4b48d91",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"token\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"code\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/verify/v1/aba/validate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "verify",
+                                "v1",
+                                "aba",
+                                "validate"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:22.000Z",
+                          "updatedAt": "2026-10-22T02:01:22.000Z",
+                          "uid": "35240-1dd3c75f-46fb-4840-b68a-9b5ef4b48d91"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:01:22.000Z",
+                      "updatedAt": "2026-10-22T02:01:22.000Z",
+                      "uid": "35240-70edb445-5870-41c4-838c-5bfdfd3ca829"
+                    }
+                  ],
+                  "id": "bd74d2a6-1ae6-48d3-bb09-200472867722",
+                  "createdAt": "2026-10-22T02:01:22.000Z",
+                  "updatedAt": "2026-10-22T02:01:22.000Z",
+                  "uid": "35240-bd74d2a6-1ae6-48d3-bb09-200472867722"
+                },
+                {
+                  "name": "get",
+                  "item": [
+                    {
+                      "name": "{token}",
+                      "item": [
+                        {
+                          "name": "Get a verification token's details",
+                          "id": "6ab80c42-236a-4633-bd7c-16e2094dfef6",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/verify/v1/aba/get/:token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "verify",
+                                "v1",
+                                "aba",
+                                "get",
+                                ":token"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "c016a243-b79a-4774-9d84-d637a56f3c19",
+                                  "key": "token",
+                                  "value": "<string>",
+                                  "description": "(Required) Generated Token from verify/v1/aba/initiate (Initiates a verification transaction)"
+                                }
+                              ]
+                            },
+                            "description": "Return details for a specific verification token."
+                          },
+                          "response": [
+                            {
+                              "id": "4ed2797c-7581-465e-88a2-d6bd50c10bf0",
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/verify/v1/aba/get/:token",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "verify",
+                                    "v1",
+                                    "aba",
+                                    "get",
+                                    ":token"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "token"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"details\": {\n    \"token\": \"<string>\",\n    \"created\": \"<string>\",\n    \"updated\": \"<string>\",\n    \"lastSystemBSBValidation\": \"<string>\",\n    \"comment\": \"<string>\",\n    \"bsb\": \"<string>\",\n    \"bankAccountNumber\": \"<string>\",\n    \"bankAccountTitle\": \"<string>\",\n    \"remitter\": \"<string>\",\n    \"isBlacklisted\": \"<boolean>\",\n    \"hasDDAuthority\": \"<boolean>\",\n    \"ddAuthorityChangedTimestamp\": \"<string>\",\n    \"ddAuthorityChangedBy\": \"<string>\",\n    \"verificationIdentifier\": \"<string>\",\n    \"verificationStatus\": \"<string>\",\n    \"verificationSignonMerchant\": \"<string>\",\n    \"verificationRetryCount\": \"<integer>\",\n    \"verificationRetyCountBeforeLockout\": \"<integer>\",\n    \"verificationLastRetryTimestamp\": \"<string>\",\n    \"verificationLastRetryLockoutMinutes\": \"<integer>\",\n    \"verificationDEJobId\": \"<integer>\",\n    \"verificationRootId\": \"<integer>\"\n  }\n}",
+                              "createdAt": "2026-10-22T02:01:22.000Z",
+                              "updatedAt": "2026-10-22T02:01:22.000Z",
+                              "uid": "35240-4ed2797c-7581-465e-88a2-d6bd50c10bf0"
+                            },
+                            {
+                              "id": "707122d1-019a-4b7a-b18a-50fd31d8bf12",
+                              "name": "Bad request",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/verify/v1/aba/get/:token",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "verify",
+                                    "v1",
+                                    "aba",
+                                    "get",
+                                    ":token"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "token"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-22T02:01:22.000Z",
+                              "updatedAt": "2026-10-22T02:01:22.000Z",
+                              "uid": "35240-707122d1-019a-4b7a-b18a-50fd31d8bf12"
+                            },
+                            {
+                              "id": "e0bf836b-4f6e-4b8e-8333-7c2229d3d112",
+                              "name": "Internal Server Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/verify/v1/aba/get/:token",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "verify",
+                                    "v1",
+                                    "aba",
+                                    "get",
+                                    ":token"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "token"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-22T02:01:22.000Z",
+                              "updatedAt": "2026-10-22T02:01:22.000Z",
+                              "uid": "35240-e0bf836b-4f6e-4b8e-8333-7c2229d3d112"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T02:01:22.000Z",
+                          "updatedAt": "2026-10-22T02:01:22.000Z",
+                          "uid": "35240-6ab80c42-236a-4633-bd7c-16e2094dfef6"
+                        }
+                      ],
+                      "id": "315a9d62-9a76-4f81-bcf5-1b07d80e9c80",
+                      "createdAt": "2026-10-22T02:01:22.000Z",
+                      "updatedAt": "2026-10-22T02:01:22.000Z",
+                      "uid": "35240-315a9d62-9a76-4f81-bcf5-1b07d80e9c80"
+                    }
+                  ],
+                  "id": "ee14de27-fe0f-42f5-8472-654e792458c8",
+                  "createdAt": "2026-10-22T02:01:22.000Z",
+                  "updatedAt": "2026-10-22T02:01:22.000Z",
+                  "uid": "35240-ee14de27-fe0f-42f5-8472-654e792458c8"
+                },
+                {
+                  "name": "list",
+                  "item": [
+                    {
+                      "name": "List verified bank accounts",
+                      "id": "2e9f9cb6-bc48-45f5-87f3-a1c2b193f51c",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/verify/v1/aba/list",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "verify",
+                            "v1",
+                            "aba",
+                            "list"
+                          ]
+                        },
+                        "description": "Get a list of all verified bank accounts."
+                      },
+                      "response": [
+                        {
+                          "id": "7fdc81b5-c1c4-44a5-89cc-c2321dca780b",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/verify/v1/aba/list",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "verify",
+                                "v1",
+                                "aba",
+                                "list"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"list\": [\n    {\n      \"token\": \"<string>\",\n      \"created\": \"<string>\",\n      \"updated\": \"<string>\",\n      \"lastSystemBSBValidation\": \"<string>\",\n      \"comment\": \"<string>\",\n      \"bsb\": \"<string>\",\n      \"bankAccountNumber\": \"<string>\",\n      \"bankAccountTitle\": \"<string>\",\n      \"remitter\": \"<string>\",\n      \"isBlacklisted\": \"<boolean>\",\n      \"hasDDAuthority\": \"<boolean>\",\n      \"ddAuthorityChangedTimestamp\": \"<string>\",\n      \"ddAuthorityChangedBy\": \"<string>\",\n      \"verificationIdentifier\": \"<string>\",\n      \"verificationStatus\": \"<string>\",\n      \"verificationSignonMerchant\": \"<string>\",\n      \"verificationRetryCount\": \"<integer>\",\n      \"verificationRetyCountBeforeLockout\": \"<integer>\",\n      \"verificationLastRetryTimestamp\": \"<string>\",\n      \"verificationLastRetryLockoutMinutes\": \"<integer>\",\n      \"verificationDEJobId\": \"<integer>\",\n      \"verificationRootId\": \"<integer>\"\n    },\n    {\n      \"token\": \"<string>\",\n      \"created\": \"<string>\",\n      \"updated\": \"<string>\",\n      \"lastSystemBSBValidation\": \"<string>\",\n      \"comment\": \"<string>\",\n      \"bsb\": \"<string>\",\n      \"bankAccountNumber\": \"<string>\",\n      \"bankAccountTitle\": \"<string>\",\n      \"remitter\": \"<string>\",\n      \"isBlacklisted\": \"<boolean>\",\n      \"hasDDAuthority\": \"<boolean>\",\n      \"ddAuthorityChangedTimestamp\": \"<string>\",\n      \"ddAuthorityChangedBy\": \"<string>\",\n      \"verificationIdentifier\": \"<string>\",\n      \"verificationStatus\": \"<string>\",\n      \"verificationSignonMerchant\": \"<string>\",\n      \"verificationRetryCount\": \"<integer>\",\n      \"verificationRetyCountBeforeLockout\": \"<integer>\",\n      \"verificationLastRetryTimestamp\": \"<string>\",\n      \"verificationLastRetryLockoutMinutes\": \"<integer>\",\n      \"verificationDEJobId\": \"<integer>\",\n      \"verificationRootId\": \"<integer>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-10-22T02:01:22.000Z",
+                          "updatedAt": "2026-10-22T02:01:22.000Z",
+                          "uid": "35240-7fdc81b5-c1c4-44a5-89cc-c2321dca780b"
+                        },
+                        {
+                          "id": "c4e6c58a-6f73-4fc3-9e54-035793e6e4dc",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/verify/v1/aba/list",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "verify",
+                                "v1",
+                                "aba",
+                                "list"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:22.000Z",
+                          "updatedAt": "2026-10-22T02:01:22.000Z",
+                          "uid": "35240-c4e6c58a-6f73-4fc3-9e54-035793e6e4dc"
+                        },
+                        {
+                          "id": "c50401e6-c02a-4314-8442-0835543f175e",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/verify/v1/aba/list",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "verify",
+                                "v1",
+                                "aba",
+                                "list"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:22.000Z",
+                          "updatedAt": "2026-10-22T02:01:22.000Z",
+                          "uid": "35240-c50401e6-c02a-4314-8442-0835543f175e"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:01:22.000Z",
+                      "updatedAt": "2026-10-22T02:01:22.000Z",
+                      "uid": "35240-2e9f9cb6-bc48-45f5-87f3-a1c2b193f51c"
+                    }
+                  ],
+                  "id": "cb6dada1-fd83-478c-b5f2-5fa01e5045f3",
+                  "createdAt": "2026-10-22T02:01:22.000Z",
+                  "updatedAt": "2026-10-22T02:01:22.000Z",
+                  "uid": "35240-cb6dada1-fd83-478c-b5f2-5fa01e5045f3"
+                },
+                {
+                  "name": "update",
+                  "item": [
+                    {
+                      "name": "Update a verified bank account",
+                      "id": "d56b96dd-9ad7-421d-b11e-e07a12003d7b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"token\": \"<string>\",\n  \"verificationIdentifier\": \"<string>\",\n  \"hasDDAuthority\": true,\n  \"remitter\": \"<string>\",\n  \"bankAccountTitle\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/verify/v1/aba/update",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "verify",
+                            "v1",
+                            "aba",
+                            "update"
+                          ]
+                        },
+                        "description": "Update the following fields for a verified account's without reverifying the bank account. Bank Account Title, Has DDR authority"
+                      },
+                      "response": [
+                        {
+                          "id": "e6dd3090-98d7-43e9-85ab-56b1f4c9b443",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"token\": \"<string>\",\n  \"verificationIdentifier\": \"<string>\",\n  \"hasDDAuthority\": true,\n  \"remitter\": \"<string>\",\n  \"bankAccountTitle\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/verify/v1/aba/update",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "verify",
+                                "v1",
+                                "aba",
+                                "update"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:01:22.000Z",
+                          "updatedAt": "2026-10-22T02:01:22.000Z",
+                          "uid": "35240-e6dd3090-98d7-43e9-85ab-56b1f4c9b443"
+                        },
+                        {
+                          "id": "8da6fb32-6440-4aa6-8f99-9ef8c1cb7f8e",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"token\": \"<string>\",\n  \"verificationIdentifier\": \"<string>\",\n  \"hasDDAuthority\": true,\n  \"remitter\": \"<string>\",\n  \"bankAccountTitle\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/verify/v1/aba/update",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "verify",
+                                "v1",
+                                "aba",
+                                "update"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:22.000Z",
+                          "updatedAt": "2026-10-22T02:01:22.000Z",
+                          "uid": "35240-8da6fb32-6440-4aa6-8f99-9ef8c1cb7f8e"
+                        },
+                        {
+                          "id": "84516c15-8d48-47a9-a5e7-47a43a0e3630",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"token\": \"<string>\",\n  \"verificationIdentifier\": \"<string>\",\n  \"hasDDAuthority\": true,\n  \"remitter\": \"<string>\",\n  \"bankAccountTitle\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/verify/v1/aba/update",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "verify",
+                                "v1",
+                                "aba",
+                                "update"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:22.000Z",
+                          "updatedAt": "2026-10-22T02:01:22.000Z",
+                          "uid": "35240-84516c15-8d48-47a9-a5e7-47a43a0e3630"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:01:22.000Z",
+                      "updatedAt": "2026-10-22T02:01:22.000Z",
+                      "uid": "35240-d56b96dd-9ad7-421d-b11e-e07a12003d7b"
+                    }
+                  ],
+                  "id": "80273916-9463-46d6-b0c4-29f372acc06d",
+                  "createdAt": "2026-10-22T02:01:22.000Z",
+                  "updatedAt": "2026-10-22T02:01:22.000Z",
+                  "uid": "35240-80273916-9463-46d6-b0c4-29f372acc06d"
+                }
+              ],
+              "id": "32ce0c37-ba90-4986-9c74-ea14986e8f6a",
+              "createdAt": "2026-10-22T02:01:22.000Z",
+              "updatedAt": "2026-10-22T02:01:22.000Z",
+              "uid": "35240-32ce0c37-ba90-4986-9c74-ea14986e8f6a"
+            }
+          ],
+          "id": "d3793d4e-06b3-4ef9-9332-e9c0a05b7554",
+          "createdAt": "2026-10-22T02:01:22.000Z",
+          "updatedAt": "2026-10-22T02:01:22.000Z",
+          "uid": "35240-d3793d4e-06b3-4ef9-9332-e9c0a05b7554"
+        }
+      ],
+      "id": "1fdb3130-877e-4266-bd71-45fad50756e6",
+      "createdAt": "2026-10-22T02:01:22.000Z",
+      "updatedAt": "2026-10-22T02:01:22.000Z",
+      "uid": "35240-1fdb3130-877e-4266-bd71-45fad50756e6"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.mpay.com.au"
+    }
+  ]
+}

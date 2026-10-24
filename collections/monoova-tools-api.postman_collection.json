@@ -1,0 +1,805 @@
+{
+  "info": {
+    "_postman_id": "e8a8e846-da4f-406c-bec1-938ce40b6868",
+    "name": "Monoova Payments Tools API",
+    "description": "# Introduction\n\nMonoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:01:08.000Z",
+    "updatedAt": "2026-10-22T02:01:09.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e8a8e846-da4f-406c-bec1-938ce40b6868"
+  },
+  "item": [
+    {
+      "name": "tools",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "ping",
+              "item": [
+                {
+                  "name": "Ping (test authentication)",
+                  "id": "dcc3a2e6-e7a3-4bd4-887f-d858ebd035c8",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tools/v1/ping",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tools",
+                        "v1",
+                        "ping"
+                      ]
+                    },
+                    "description": "The primary purpose of the ping API is to validate your credentials as well validate that the Engine servers are up and running."
+                  },
+                  "response": [
+                    {
+                      "id": "461b6f40-699f-4c99-a210-d986b70a9bd7",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tools/v1/ping",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tools",
+                            "v1",
+                            "ping"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"version\": \"<string>\",\n  \"environment\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T02:01:09.000Z",
+                      "updatedAt": "2026-10-22T02:01:09.000Z",
+                      "uid": "35240-461b6f40-699f-4c99-a210-d986b70a9bd7"
+                    },
+                    {
+                      "id": "e2452645-3e13-4f18-8cb5-57d01845d163",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tools/v1/ping",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tools",
+                            "v1",
+                            "ping"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:01:09.000Z",
+                      "updatedAt": "2026-10-22T02:01:09.000Z",
+                      "uid": "35240-e2452645-3e13-4f18-8cb5-57d01845d163"
+                    },
+                    {
+                      "id": "bcedb3de-3cfd-4706-b77b-28da8865a292",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tools/v1/ping",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tools",
+                            "v1",
+                            "ping"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:01:09.000Z",
+                      "updatedAt": "2026-10-22T02:01:09.000Z",
+                      "uid": "35240-bcedb3de-3cfd-4706-b77b-28da8865a292"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:01:09.000Z",
+                  "updatedAt": "2026-10-22T02:01:09.000Z",
+                  "uid": "35240-dcc3a2e6-e7a3-4bd4-887f-d858ebd035c8"
+                }
+              ],
+              "id": "de17f324-8904-4da9-bc58-73a5b8ff971c",
+              "createdAt": "2026-10-22T02:01:09.000Z",
+              "updatedAt": "2026-10-22T02:01:09.000Z",
+              "uid": "35240-de17f324-8904-4da9-bc58-73a5b8ff971c"
+            },
+            {
+              "name": "bsbValidate",
+              "item": [
+                {
+                  "name": "{bsbNumber}",
+                  "item": [
+                    {
+                      "name": "Validate a BSB",
+                      "id": "af5d2a62-352f-4359-893a-f896f2b4f62f",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tools/v1/bsbValidate/:bsbNumber",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tools",
+                            "v1",
+                            "bsbValidate",
+                            ":bsbNumber"
+                          ],
+                          "variable": [
+                            {
+                              "id": "03b46dac-8511-40bc-a471-975593f56f50",
+                              "key": "bsbNumber",
+                              "value": "<string>",
+                              "description": "(Required) BSB (Bank-State-Branch) number. The format is a string in the following format:&nbsp;\u2018999-999\u2019."
+                            }
+                          ]
+                        },
+                        "description": "The purpose of this API is to return details about a BSB (Bank-State-Branch) number. The format is a string in the following format: \u2018999-999\u2019."
+                      },
+                      "response": [
+                        {
+                          "id": "b7a50276-754e-4e30-847e-bab25a3a318c",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/tools/v1/bsbValidate/:bsbNumber",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "tools",
+                                "v1",
+                                "bsbValidate",
+                                ":bsbNumber"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "bsbNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"closed\": \"<boolean>\",\n  \"address\": \"<string>\",\n  \"city\": \"<string>\",\n  \"state\": \"<string>\",\n  \"postCode\": \"<string>\",\n  \"bankCode\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:01:09.000Z",
+                          "updatedAt": "2026-10-22T02:01:09.000Z",
+                          "uid": "35240-b7a50276-754e-4e30-847e-bab25a3a318c"
+                        },
+                        {
+                          "id": "75d86caa-6d6f-423d-b678-dc2a75742c65",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/tools/v1/bsbValidate/:bsbNumber",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "tools",
+                                "v1",
+                                "bsbValidate",
+                                ":bsbNumber"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "bsbNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:09.000Z",
+                          "updatedAt": "2026-10-22T02:01:09.000Z",
+                          "uid": "35240-75d86caa-6d6f-423d-b678-dc2a75742c65"
+                        },
+                        {
+                          "id": "6a7b4daf-4700-461a-8269-1d57baeb9fd2",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/tools/v1/bsbValidate/:bsbNumber",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "tools",
+                                "v1",
+                                "bsbValidate",
+                                ":bsbNumber"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "bsbNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:09.000Z",
+                          "updatedAt": "2026-10-22T02:01:09.000Z",
+                          "uid": "35240-6a7b4daf-4700-461a-8269-1d57baeb9fd2"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:01:09.000Z",
+                      "updatedAt": "2026-10-22T02:01:09.000Z",
+                      "uid": "35240-af5d2a62-352f-4359-893a-f896f2b4f62f"
+                    }
+                  ],
+                  "id": "87678749-8413-4245-a3cc-6b9161c4b7d0",
+                  "createdAt": "2026-10-22T02:01:09.000Z",
+                  "updatedAt": "2026-10-22T02:01:09.000Z",
+                  "uid": "35240-87678749-8413-4245-a3cc-6b9161c4b7d0"
+                }
+              ],
+              "id": "2b52cfa9-e726-4665-9274-aa62a9379c26",
+              "createdAt": "2026-10-22T02:01:09.000Z",
+              "updatedAt": "2026-10-22T02:01:09.000Z",
+              "uid": "35240-2b52cfa9-e726-4665-9274-aa62a9379c26"
+            },
+            {
+              "name": "abnValidate",
+              "item": [
+                {
+                  "name": "{abnNumber}",
+                  "item": [
+                    {
+                      "name": "Validate an ABN",
+                      "id": "20a5d88f-f34c-423c-b8d5-a829f87bdbaf",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tools/v1/abnValidate/:abnNumber",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tools",
+                            "v1",
+                            "abnValidate",
+                            ":abnNumber"
+                          ],
+                          "variable": [
+                            {
+                              "id": "11d5e566-3c4c-44f7-941e-07b55a1a3e26",
+                              "key": "abnNumber",
+                              "value": "<string>",
+                              "description": "(Required) ABN (Australian Business Number)"
+                            }
+                          ]
+                        },
+                        "description": "The purpose of this API is to validate that an ABN (Australian Business Number) is correct and determine if it\u2019s valid. This API makes a call to the Australian Business Registry returning current details about the company. An ABN is defined as a string of eleven numeric digits.Spaces are allowed but no other characters. If the resulting status property contains \u2018Ok\u2019 then examine the property isAbnValid. The property isCharity will be true if the entity is an active registered charity. A list of codes and more information is available at http://abr.business.gov.au/Documentation/ReferenceData"
+                      },
+                      "response": [
+                        {
+                          "id": "6ab39a2e-5d55-431e-98ee-a26428566aba",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/tools/v1/abnValidate/:abnNumber",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "tools",
+                                "v1",
+                                "abnValidate",
+                                ":abnNumber"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "abnNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"abn\": \"<string>\",\n  \"lastUpdatedDate\": \"<string>\",\n  \"isAbnValid\": \"<boolean>\",\n  \"isCharity\": \"<boolean>\",\n  \"entityTypeCode\": \"<string>\",\n  \"entityTypeDescription\": \"<string>\",\n  \"organisationName\": \"<string>\",\n  \"legalName\": \"<string>\",\n  \"organisationNameFromDate\": \"<string>\",\n  \"businessPhysicalAddressStateCode\": \"<string>\",\n  \"businessPhysicalAddressPostCode\": \"<string>\",\n  \"businessPhysicalAddressEffectiveFromDate\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:01:09.000Z",
+                          "updatedAt": "2026-10-22T02:01:09.000Z",
+                          "uid": "35240-6ab39a2e-5d55-431e-98ee-a26428566aba"
+                        },
+                        {
+                          "id": "cef3508a-19fa-4340-9bd4-fa612db1e2cf",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/tools/v1/abnValidate/:abnNumber",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "tools",
+                                "v1",
+                                "abnValidate",
+                                ":abnNumber"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "abnNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:09.000Z",
+                          "updatedAt": "2026-10-22T02:01:09.000Z",
+                          "uid": "35240-cef3508a-19fa-4340-9bd4-fa612db1e2cf"
+                        },
+                        {
+                          "id": "0cd299c7-21d8-405d-bddb-6000f65e9fdc",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/tools/v1/abnValidate/:abnNumber",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "tools",
+                                "v1",
+                                "abnValidate",
+                                ":abnNumber"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "abnNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:09.000Z",
+                          "updatedAt": "2026-10-22T02:01:09.000Z",
+                          "uid": "35240-0cd299c7-21d8-405d-bddb-6000f65e9fdc"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:01:09.000Z",
+                      "updatedAt": "2026-10-22T02:01:09.000Z",
+                      "uid": "35240-20a5d88f-f34c-423c-b8d5-a829f87bdbaf"
+                    }
+                  ],
+                  "id": "46cb14db-f65b-46aa-a5be-327534052223",
+                  "createdAt": "2026-10-22T02:01:09.000Z",
+                  "updatedAt": "2026-10-22T02:01:09.000Z",
+                  "uid": "35240-46cb14db-f65b-46aa-a5be-327534052223"
+                }
+              ],
+              "id": "f7c4a7f9-81b3-4865-b6fa-cc93c3115b3b",
+              "createdAt": "2026-10-22T02:01:09.000Z",
+              "updatedAt": "2026-10-22T02:01:09.000Z",
+              "uid": "35240-f7c4a7f9-81b3-4865-b6fa-cc93c3115b3b"
+            },
+            {
+              "name": "sendEmailToIssuer",
+              "item": [
+                {
+                  "name": "Email an issuer",
+                  "id": "4c9c6118-a8c7-4cb7-9a01-1c5dea102c59",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"subject\": \"<string>\",\n  \"isBodyHtml\": false,\n  \"body\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/tools/v1/sendEmailToIssuer",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tools",
+                        "v1",
+                        "sendEmailToIssuer"
+                      ]
+                    },
+                    "description": "The purpose of this API is to provide email functionality for your application to send emails to the Sign-In Accounts Issuer."
+                  },
+                  "response": [
+                    {
+                      "id": "d17eda2f-5ca3-46c2-bfe2-9af954ada8de",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"subject\": \"<string>\",\n  \"isBodyHtml\": false,\n  \"body\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/tools/v1/sendEmailToIssuer",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tools",
+                            "v1",
+                            "sendEmailToIssuer"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T02:01:09.000Z",
+                      "updatedAt": "2026-10-22T02:01:09.000Z",
+                      "uid": "35240-d17eda2f-5ca3-46c2-bfe2-9af954ada8de"
+                    },
+                    {
+                      "id": "ad16eadf-399e-4362-b1f3-e36098712ffc",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"subject\": \"<string>\",\n  \"isBodyHtml\": false,\n  \"body\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/tools/v1/sendEmailToIssuer",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tools",
+                            "v1",
+                            "sendEmailToIssuer"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:01:09.000Z",
+                      "updatedAt": "2026-10-22T02:01:09.000Z",
+                      "uid": "35240-ad16eadf-399e-4362-b1f3-e36098712ffc"
+                    },
+                    {
+                      "id": "0fe33246-ef3c-4244-8334-b9be09c5132c",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"subject\": \"<string>\",\n  \"isBodyHtml\": false,\n  \"body\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/tools/v1/sendEmailToIssuer",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tools",
+                            "v1",
+                            "sendEmailToIssuer"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:01:09.000Z",
+                      "updatedAt": "2026-10-22T02:01:09.000Z",
+                      "uid": "35240-0fe33246-ef3c-4244-8334-b9be09c5132c"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:01:09.000Z",
+                  "updatedAt": "2026-10-22T02:01:09.000Z",
+                  "uid": "35240-4c9c6118-a8c7-4cb7-9a01-1c5dea102c59"
+                }
+              ],
+              "id": "1febf221-1063-4558-9dce-5cb9d2877326",
+              "createdAt": "2026-10-22T02:01:09.000Z",
+              "updatedAt": "2026-10-22T02:01:09.000Z",
+              "uid": "35240-1febf221-1063-4558-9dce-5cb9d2877326"
+            }
+          ],
+          "id": "03e30fd8-8912-43bb-9e10-ee286c69a1ab",
+          "createdAt": "2026-10-22T02:01:09.000Z",
+          "updatedAt": "2026-10-22T02:01:09.000Z",
+          "uid": "35240-03e30fd8-8912-43bb-9e10-ee286c69a1ab"
+        }
+      ],
+      "id": "fee0b51e-bec0-4009-9ee2-ce510b8e3599",
+      "createdAt": "2026-10-22T02:01:09.000Z",
+      "updatedAt": "2026-10-22T02:01:09.000Z",
+      "uid": "35240-fee0b51e-bec0-4009-9ee2-ce510b8e3599"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.mpay.com.au"
+    }
+  ]
+}

@@ -1,0 +1,1266 @@
+{
+  "info": {
+    "_postman_id": "a9f6d2ac-91c0-4bab-8b7c-58e8776bbf48",
+    "name": "Monoova Payments Subscriptions API",
+    "description": "# Introduction\n\nMonoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:00:59.000Z",
+    "updatedAt": "2026-10-22T02:00:59.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a9f6d2ac-91c0-4bab-8b7c-58e8776bbf48"
+  },
+  "item": [
+    {
+      "name": "subscriptions",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "create",
+              "item": [
+                {
+                  "name": "Subscribe to new Webhook",
+                  "id": "947af7fe-05ed-445f-85c7-a93281fb5088",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"eventName\": \"NPPReceivePayment\",\n  \"targetUrl\": \"<string>\",\n  \"subscriptionStatus\": \"Off\",\n  \"securityToken\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/subscriptions/v1/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "subscriptions",
+                        "v1",
+                        "create"
+                      ]
+                    },
+                    "description": "Adds a new URL to which callbacks will be sent."
+                  },
+                  "response": [
+                    {
+                      "id": "3d6bdf1a-df5c-4727-9698-80ab192b840b",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"eventName\": \"NPPReceivePayment\",\n  \"targetUrl\": \"<string>\",\n  \"subscriptionStatus\": \"Off\",\n  \"securityToken\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/subscriptions/v1/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "subscriptions",
+                            "v1",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"id\": \"<integer>\",\n  \"dateTime\": \"<string>\",\n  \"eventName\": \"<string>\",\n  \"targetUrl\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T02:01:00.000Z",
+                      "updatedAt": "2026-10-22T02:01:00.000Z",
+                      "uid": "35240-3d6bdf1a-df5c-4727-9698-80ab192b840b"
+                    },
+                    {
+                      "id": "d99a35d3-9d8c-4b86-a19f-2baf6cfff917",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"eventName\": \"NPPReceivePayment\",\n  \"targetUrl\": \"<string>\",\n  \"subscriptionStatus\": \"Off\",\n  \"securityToken\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/subscriptions/v1/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "subscriptions",
+                            "v1",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:01:00.000Z",
+                      "updatedAt": "2026-10-22T02:01:00.000Z",
+                      "uid": "35240-d99a35d3-9d8c-4b86-a19f-2baf6cfff917"
+                    },
+                    {
+                      "id": "41a178c9-8654-46d5-b2d4-8abad81fe332",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"eventName\": \"NPPReceivePayment\",\n  \"targetUrl\": \"<string>\",\n  \"subscriptionStatus\": \"Off\",\n  \"securityToken\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/subscriptions/v1/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "subscriptions",
+                            "v1",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:01:00.000Z",
+                      "updatedAt": "2026-10-22T02:01:00.000Z",
+                      "uid": "35240-41a178c9-8654-46d5-b2d4-8abad81fe332"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:01:00.000Z",
+                  "updatedAt": "2026-10-22T02:01:00.000Z",
+                  "uid": "35240-947af7fe-05ed-445f-85c7-a93281fb5088"
+                }
+              ],
+              "id": "44384f6f-4950-4eab-b17b-cbb1834df29b",
+              "createdAt": "2026-10-22T02:01:00.000Z",
+              "updatedAt": "2026-10-22T02:01:00.000Z",
+              "uid": "35240-44384f6f-4950-4eab-b17b-cbb1834df29b"
+            },
+            {
+              "name": "update",
+              "item": [
+                {
+                  "name": "Update an existing Webhook",
+                  "id": "ee6c2e17-27b2-4e14-a825-331e899d08ac",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<integer>\",\n  \"targetUrl\": \"<string>\",\n  \"subscriptionStatus\": \"Off\",\n  \"securityToken\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/subscriptions/v1/update",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "subscriptions",
+                        "v1",
+                        "update"
+                      ]
+                    },
+                    "description": "Updates an existing URL or toggles its status."
+                  },
+                  "response": [
+                    {
+                      "id": "724b455a-b423-4f01-9810-552d06b929c1",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"id\": \"<integer>\",\n  \"targetUrl\": \"<string>\",\n  \"subscriptionStatus\": \"Off\",\n  \"securityToken\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/subscriptions/v1/update",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "subscriptions",
+                            "v1",
+                            "update"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"id\": \"<integer>\",\n  \"dateTime\": \"<string>\",\n  \"eventName\": \"<string>\",\n  \"targetUrl\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T02:01:00.000Z",
+                      "updatedAt": "2026-10-22T02:01:00.000Z",
+                      "uid": "35240-724b455a-b423-4f01-9810-552d06b929c1"
+                    },
+                    {
+                      "id": "ec1e9311-b079-4ab2-99ef-f022892ea650",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"id\": \"<integer>\",\n  \"targetUrl\": \"<string>\",\n  \"subscriptionStatus\": \"Off\",\n  \"securityToken\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/subscriptions/v1/update",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "subscriptions",
+                            "v1",
+                            "update"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:01:00.000Z",
+                      "updatedAt": "2026-10-22T02:01:00.000Z",
+                      "uid": "35240-ec1e9311-b079-4ab2-99ef-f022892ea650"
+                    },
+                    {
+                      "id": "211556ff-e5e5-4d0a-bc35-fddaaf82d24f",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"id\": \"<integer>\",\n  \"targetUrl\": \"<string>\",\n  \"subscriptionStatus\": \"Off\",\n  \"securityToken\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/subscriptions/v1/update",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "subscriptions",
+                            "v1",
+                            "update"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:01:00.000Z",
+                      "updatedAt": "2026-10-22T02:01:00.000Z",
+                      "uid": "35240-211556ff-e5e5-4d0a-bc35-fddaaf82d24f"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:01:00.000Z",
+                  "updatedAt": "2026-10-22T02:01:00.000Z",
+                  "uid": "35240-ee6c2e17-27b2-4e14-a825-331e899d08ac"
+                }
+              ],
+              "id": "4e1c15aa-a46d-4b25-b4c3-51fd9157c9bd",
+              "createdAt": "2026-10-22T02:01:00.000Z",
+              "updatedAt": "2026-10-22T02:01:00.000Z",
+              "uid": "35240-4e1c15aa-a46d-4b25-b4c3-51fd9157c9bd"
+            },
+            {
+              "name": "list",
+              "item": [
+                {
+                  "name": "List all existing webhooks",
+                  "id": "cdf28b82-e186-48dc-afae-e952dc6d3f3a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/subscriptions/v1/list",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "subscriptions",
+                        "v1",
+                        "list"
+                      ]
+                    },
+                    "description": "Returns a list of all webhooks registered."
+                  },
+                  "response": [
+                    {
+                      "id": "60a41f6f-e89c-477d-93bd-59ecd6b2742e",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/subscriptions/v1/list",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "subscriptions",
+                            "v1",
+                            "list"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"eventname\": [\n    {\n      \"eventName\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"targetUrl\": \"<string>\",\n      \"status\": \"Off\",\n      \"LastUpdated\": \"<string>\",\n      \"createdDate\": \"<string>\"\n    },\n    {\n      \"eventName\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"targetUrl\": \"<string>\",\n      \"status\": \"Off\",\n      \"LastUpdated\": \"<string>\",\n      \"createdDate\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T02:01:00.000Z",
+                      "updatedAt": "2026-10-22T02:01:00.000Z",
+                      "uid": "35240-60a41f6f-e89c-477d-93bd-59ecd6b2742e"
+                    },
+                    {
+                      "id": "4e45cb4c-2ccd-4fae-bc3b-7d53f9116f24",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/subscriptions/v1/list",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "subscriptions",
+                            "v1",
+                            "list"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:01:00.000Z",
+                      "updatedAt": "2026-10-22T02:01:00.000Z",
+                      "uid": "35240-4e45cb4c-2ccd-4fae-bc3b-7d53f9116f24"
+                    },
+                    {
+                      "id": "de861dcc-7ab0-4d9c-8927-f5132a6628d4",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/subscriptions/v1/list",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "subscriptions",
+                            "v1",
+                            "list"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:01:00.000Z",
+                      "updatedAt": "2026-10-22T02:01:00.000Z",
+                      "uid": "35240-de861dcc-7ab0-4d9c-8927-f5132a6628d4"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:01:00.000Z",
+                  "updatedAt": "2026-10-22T02:01:00.000Z",
+                  "uid": "35240-cdf28b82-e186-48dc-afae-e952dc6d3f3a"
+                }
+              ],
+              "id": "8ea31266-040b-4d7c-bed3-094382f925fd",
+              "createdAt": "2026-10-22T02:01:00.000Z",
+              "updatedAt": "2026-10-22T02:01:00.000Z",
+              "uid": "35240-8ea31266-040b-4d7c-bed3-094382f925fd"
+            },
+            {
+              "name": "delete",
+              "item": [
+                {
+                  "name": "{id}",
+                  "item": [
+                    {
+                      "name": "Unsubscribe from an existing webhook",
+                      "id": "313587cc-cdf9-4e96-9236-b2df2d47c9bf",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/subscriptions/v1/delete/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "subscriptions",
+                            "v1",
+                            "delete",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "9f49b441-a902-4d81-8a1c-414d45daf629",
+                              "key": "id",
+                              "value": "<integer>",
+                              "description": "(Required) This is the Id of the Subscription you want to delete"
+                            }
+                          ]
+                        },
+                        "description": "Permanently deletes a webhook."
+                      },
+                      "response": [
+                        {
+                          "id": "d613aeff-a2e9-4c44-a16f-be053bf6a08a",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/subscriptions/v1/delete/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "subscriptions",
+                                "v1",
+                                "delete",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:01:00.000Z",
+                          "updatedAt": "2026-10-22T02:01:00.000Z",
+                          "uid": "35240-d613aeff-a2e9-4c44-a16f-be053bf6a08a"
+                        },
+                        {
+                          "id": "e41db20b-fdd9-4b20-8f69-b689cec3af5a",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/subscriptions/v1/delete/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "subscriptions",
+                                "v1",
+                                "delete",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:00.000Z",
+                          "updatedAt": "2026-10-22T02:01:00.000Z",
+                          "uid": "35240-e41db20b-fdd9-4b20-8f69-b689cec3af5a"
+                        },
+                        {
+                          "id": "9a56b1f0-803b-4b4b-a546-4acbec68a0cc",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/subscriptions/v1/delete/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "subscriptions",
+                                "v1",
+                                "delete",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:00.000Z",
+                          "updatedAt": "2026-10-22T02:01:00.000Z",
+                          "uid": "35240-9a56b1f0-803b-4b4b-a546-4acbec68a0cc"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:01:00.000Z",
+                      "updatedAt": "2026-10-22T02:01:00.000Z",
+                      "uid": "35240-313587cc-cdf9-4e96-9236-b2df2d47c9bf"
+                    }
+                  ],
+                  "id": "0721ce2c-a6e4-46ce-a30f-93519177232a",
+                  "createdAt": "2026-10-22T02:01:00.000Z",
+                  "updatedAt": "2026-10-22T02:01:00.000Z",
+                  "uid": "35240-0721ce2c-a6e4-46ce-a30f-93519177232a"
+                }
+              ],
+              "id": "fe978c6b-156f-4cbf-8e29-2bde2015b287",
+              "createdAt": "2026-10-22T02:01:00.000Z",
+              "updatedAt": "2026-10-22T02:01:00.000Z",
+              "uid": "35240-fe978c6b-156f-4cbf-8e29-2bde2015b287"
+            },
+            {
+              "name": "report",
+              "item": [
+                {
+                  "name": "{date}",
+                  "item": [
+                    {
+                      "name": "Webhook notifications report",
+                      "id": "fed05dae-a617-447e-a60f-707e3c0a7fea",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/subscriptions/v1/report/:date?skip=<integer>&take=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "subscriptions",
+                            "v1",
+                            "report",
+                            ":date"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of records to skip. 0 is the first record.",
+                              "key": "skip",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Number of records to take. If endDate is provided maximum take is 10000.",
+                              "key": "take",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "bf2e37e2-24ab-4177-8de5-0dbce6643c6a",
+                              "key": "date",
+                              "value": "<string>",
+                              "description": "(Required) date format should be 'yyyy-MM-dd' format."
+                            }
+                          ]
+                        },
+                        "description": "Provides a historical array of previously sent webhooks"
+                      },
+                      "response": [
+                        {
+                          "id": "0a5b5457-04d8-412d-82bf-ccdafbd9faa8",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/subscriptions/v1/report/:date?skip=<integer>&take=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "subscriptions",
+                                "v1",
+                                "report",
+                                ":date"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Number of records to skip. 0 is the first record.",
+                                  "key": "skip",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records to take. If endDate is provided maximum take is 10000.",
+                                  "key": "take",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"notifications\": [\n    {\n      \"dateTime\": \"<string>\",\n      \"eventName\": \"DirectEntryDishonour\",\n      \"lastResponseCode\": \"<integer>\",\n      \"lastRetryDateTime\": \"<string>\",\n      \"retryCount\": \"<integer>\",\n      \"status\": \"Sent\",\n      \"url\": \"<string>\",\n      \"webhookId\": \"<integer>\"\n    },\n    {\n      \"dateTime\": \"<string>\",\n      \"eventName\": \"InboundDirectDebit\",\n      \"lastResponseCode\": \"<integer>\",\n      \"lastRetryDateTime\": \"<string>\",\n      \"retryCount\": \"<integer>\",\n      \"status\": \"Error\",\n      \"url\": \"<string>\",\n      \"webhookId\": \"<integer>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-10-22T02:01:00.000Z",
+                          "updatedAt": "2026-10-22T02:01:00.000Z",
+                          "uid": "35240-0a5b5457-04d8-412d-82bf-ccdafbd9faa8"
+                        },
+                        {
+                          "id": "d0b75998-cb8e-4917-80ec-972ce5e4552d",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/subscriptions/v1/report/:date?skip=<integer>&take=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "subscriptions",
+                                "v1",
+                                "report",
+                                ":date"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Number of records to skip. 0 is the first record.",
+                                  "key": "skip",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records to take. If endDate is provided maximum take is 10000.",
+                                  "key": "take",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:00.000Z",
+                          "updatedAt": "2026-10-22T02:01:00.000Z",
+                          "uid": "35240-d0b75998-cb8e-4917-80ec-972ce5e4552d"
+                        },
+                        {
+                          "id": "3ae1b59a-8c65-44d7-9668-ffbb0ea03c9a",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/subscriptions/v1/report/:date?skip=<integer>&take=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "subscriptions",
+                                "v1",
+                                "report",
+                                ":date"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Number of records to skip. 0 is the first record.",
+                                  "key": "skip",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records to take. If endDate is provided maximum take is 10000.",
+                                  "key": "take",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:00.000Z",
+                          "updatedAt": "2026-10-22T02:01:00.000Z",
+                          "uid": "35240-3ae1b59a-8c65-44d7-9668-ffbb0ea03c9a"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:01:00.000Z",
+                      "updatedAt": "2026-10-22T02:01:00.000Z",
+                      "uid": "35240-fed05dae-a617-447e-a60f-707e3c0a7fea"
+                    }
+                  ],
+                  "id": "cf0438fb-8976-4291-b18e-fd2e56eb566d",
+                  "createdAt": "2026-10-22T02:01:00.000Z",
+                  "updatedAt": "2026-10-22T02:01:00.000Z",
+                  "uid": "35240-cf0438fb-8976-4291-b18e-fd2e56eb566d"
+                }
+              ],
+              "id": "26bcf672-e789-4260-89ee-ccbb0ff4bdb7",
+              "createdAt": "2026-10-22T02:01:00.000Z",
+              "updatedAt": "2026-10-22T02:01:00.000Z",
+              "uid": "35240-26bcf672-e789-4260-89ee-ccbb0ff4bdb7"
+            }
+          ],
+          "id": "b16f2f83-dd3f-43c7-bc64-0a4711a4ddb0",
+          "createdAt": "2026-10-22T02:01:00.000Z",
+          "updatedAt": "2026-10-22T02:01:00.000Z",
+          "uid": "35240-b16f2f83-dd3f-43c7-bc64-0a4711a4ddb0"
+        },
+        {
+          "name": "v2",
+          "item": [
+            {
+              "name": "resend",
+              "item": [
+                {
+                  "name": "{WebhookId}",
+                  "item": [
+                    {
+                      "name": "Request resending of a notification using webhookId",
+                      "id": "a55e1cfd-0401-4de5-847e-c1ea35bef602",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/subscriptions/v2/resend/:WebhookId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "subscriptions",
+                            "v2",
+                            "resend",
+                            ":WebhookId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "576ebfa0-c24d-479c-a401-8818f764faa5",
+                              "key": "WebhookId",
+                              "value": "<integer>",
+                              "description": "(Required) Unique Id to identify this webhook notification."
+                            }
+                          ]
+                        },
+                        "description": "Resends the associated webhook for the provided webhook ID"
+                      },
+                      "response": [
+                        {
+                          "id": "6f40741a-0721-4190-b43c-cfad3ebe0d6a",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/subscriptions/v2/resend/:WebhookId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "subscriptions",
+                                "v2",
+                                "resend",
+                                ":WebhookId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "WebhookId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:01:00.000Z",
+                          "updatedAt": "2026-10-22T02:01:00.000Z",
+                          "uid": "35240-6f40741a-0721-4190-b43c-cfad3ebe0d6a"
+                        },
+                        {
+                          "id": "cc61d6b9-40db-4398-bab8-e50c3845d158",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/subscriptions/v2/resend/:WebhookId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "subscriptions",
+                                "v2",
+                                "resend",
+                                ":WebhookId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "WebhookId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:00.000Z",
+                          "updatedAt": "2026-10-22T02:01:00.000Z",
+                          "uid": "35240-cc61d6b9-40db-4398-bab8-e50c3845d158"
+                        },
+                        {
+                          "id": "712641d8-e9f8-49fe-a988-e2d80af16b26",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/subscriptions/v2/resend/:WebhookId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "subscriptions",
+                                "v2",
+                                "resend",
+                                ":WebhookId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "WebhookId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:00.000Z",
+                          "updatedAt": "2026-10-22T02:01:00.000Z",
+                          "uid": "35240-712641d8-e9f8-49fe-a988-e2d80af16b26"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:01:00.000Z",
+                      "updatedAt": "2026-10-22T02:01:00.000Z",
+                      "uid": "35240-a55e1cfd-0401-4de5-847e-c1ea35bef602"
+                    }
+                  ],
+                  "id": "c3450cbc-0e96-4f26-9e55-3e65a6c72018",
+                  "createdAt": "2026-10-22T02:01:00.000Z",
+                  "updatedAt": "2026-10-22T02:01:00.000Z",
+                  "uid": "35240-c3450cbc-0e96-4f26-9e55-3e65a6c72018"
+                }
+              ],
+              "id": "a586dd71-c70c-4193-9dd1-1116e518fe46",
+              "createdAt": "2026-10-22T02:01:00.000Z",
+              "updatedAt": "2026-10-22T02:01:00.000Z",
+              "uid": "35240-a586dd71-c70c-4193-9dd1-1116e518fe46"
+            }
+          ],
+          "id": "a6c37d9e-adf6-49d5-9803-0ac1ebd3cf63",
+          "createdAt": "2026-10-22T02:01:00.000Z",
+          "updatedAt": "2026-10-22T02:01:00.000Z",
+          "uid": "35240-a6c37d9e-adf6-49d5-9803-0ac1ebd3cf63"
+        }
+      ],
+      "id": "bec01323-aaf9-4be5-8542-76a2c29152f1",
+      "createdAt": "2026-10-22T02:01:00.000Z",
+      "updatedAt": "2026-10-22T02:01:00.000Z",
+      "uid": "35240-bec01323-aaf9-4be5-8542-76a2c29152f1"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.mpay.com.au"
+    }
+  ]
+}

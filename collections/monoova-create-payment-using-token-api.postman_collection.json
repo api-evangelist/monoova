@@ -1,0 +1,304 @@
+{
+  "info": {
+    "_postman_id": "e7e606a8-3401-49bc-9213-af79524e5273",
+    "name": "Monoova Card Payments Create Payment Using Token API",
+    "description": "# Introduction\nMonoova's Online Card Payment Service incorporates a next-gen Card Payment Checkout integrated with our expansive Payments API to allow merchants to capture card and mobile wallet payments from your customers online and receive funds into your Monoova account for automated reconciliation and disbursement.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:58:30.000Z",
+    "updatedAt": "2026-10-22T01:58:30.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e7e606a8-3401-49bc-9213-af79524e5273"
+  },
+  "item": [
+    {
+      "name": "au",
+      "item": [
+        {
+          "name": "card",
+          "item": [
+            {
+              "name": "ccm",
+              "item": [
+                {
+                  "name": "CreditCardTransaction",
+                  "item": [
+                    {
+                      "name": "payment",
+                      "item": [
+                        {
+                          "name": "Create a Payment using Token",
+                          "id": "340b71d0-2303-4a84-ae6b-76cf6950bbd0",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"clientTransactionUniqueReference\": \"Gr18HnmttdSPLObqMs_V60S9mP160gQmb-iukEg\",\n  \"customer\": {\n    \"customerId\": \"DzMQF0Suo\",\n    \"billingAddress\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"street\": [\n        \"<string>\"\n      ],\n      \"suburb\": \"<string>\",\n      \"state\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"countryCode\": \"US\"\n    },\n    \"emailAddress\": \"<email>\"\n  },\n  \"paymentDetails\": {\n    \"clientPaymentTokenUniqueReference\": \"sBzpmmShcgPLE5uoTIAU0G\",\n    \"description\": \"<string>\"\n  },\n  \"amount\": {\n    \"currencyAmount\": \"<number>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/card/ccm/CreditCardTransaction/payment",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "card",
+                                "ccm",
+                                "CreditCardTransaction",
+                                "payment"
+                              ]
+                            },
+                            "description": "This endpoint is used to create payments using tokens."
+                          },
+                          "response": [
+                            {
+                              "id": "c512c6e4-d80c-46c8-ad19-87fd012c7bc8",
+                              "name": "Declined by gateway",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"clientTransactionUniqueReference\": \"Gr18HnmttdSPLObqMs_V60S9mP160gQmb-iukEg\",\n  \"customer\": {\n    \"customerId\": \"DzMQF0Suo\",\n    \"billingAddress\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"street\": [\n        \"<string>\"\n      ],\n      \"suburb\": \"<string>\",\n      \"state\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"countryCode\": \"US\"\n    },\n    \"emailAddress\": \"<email>\"\n  },\n  \"paymentDetails\": {\n    \"clientPaymentTokenUniqueReference\": \"sBzpmmShcgPLE5uoTIAU0G\",\n    \"description\": \"<string>\"\n  },\n  \"amount\": {\n    \"currencyAmount\": \"<number>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/card/ccm/CreditCardTransaction/payment",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "card",
+                                    "ccm",
+                                    "CreditCardTransaction",
+                                    "payment"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"traceId\": \"<string>\",\n  \"clientTransactionUniqueReference\": \"<string>\",\n  \"clientPaymentTokenUniqueReference\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T01:58:30.000Z",
+                              "updatedAt": "2026-10-22T01:58:30.000Z",
+                              "uid": "35240-c512c6e4-d80c-46c8-ad19-87fd012c7bc8"
+                            },
+                            {
+                              "id": "8224b502-4480-44bb-9069-6a2936b859c5",
+                              "name": "Accepted by gateway",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"clientTransactionUniqueReference\": \"Gr18HnmttdSPLObqMs_V60S9mP160gQmb-iukEg\",\n  \"customer\": {\n    \"customerId\": \"DzMQF0Suo\",\n    \"billingAddress\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"street\": [\n        \"<string>\"\n      ],\n      \"suburb\": \"<string>\",\n      \"state\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"countryCode\": \"US\"\n    },\n    \"emailAddress\": \"<email>\"\n  },\n  \"paymentDetails\": {\n    \"clientPaymentTokenUniqueReference\": \"sBzpmmShcgPLE5uoTIAU0G\",\n    \"description\": \"<string>\"\n  },\n  \"amount\": {\n    \"currencyAmount\": \"<number>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/card/ccm/CreditCardTransaction/payment",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "card",
+                                    "ccm",
+                                    "CreditCardTransaction",
+                                    "payment"
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"traceId\": \"<string>\",\n  \"clientTransactionUniqueReference\": \"<string>\",\n  \"clientPaymentTokenUniqueReference\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T01:58:30.000Z",
+                              "updatedAt": "2026-10-22T01:58:30.000Z",
+                              "uid": "35240-8224b502-4480-44bb-9069-6a2936b859c5"
+                            },
+                            {
+                              "id": "dae154f6-2f60-448e-a1ee-db04ba09a318",
+                              "name": "Invalid request",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"clientTransactionUniqueReference\": \"Gr18HnmttdSPLObqMs_V60S9mP160gQmb-iukEg\",\n  \"customer\": {\n    \"customerId\": \"DzMQF0Suo\",\n    \"billingAddress\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"street\": [\n        \"<string>\"\n      ],\n      \"suburb\": \"<string>\",\n      \"state\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"countryCode\": \"US\"\n    },\n    \"emailAddress\": \"<email>\"\n  },\n  \"paymentDetails\": {\n    \"clientPaymentTokenUniqueReference\": \"sBzpmmShcgPLE5uoTIAU0G\",\n    \"description\": \"<string>\"\n  },\n  \"amount\": {\n    \"currencyAmount\": \"<number>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/card/ccm/CreditCardTransaction/payment",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "card",
+                                    "ccm",
+                                    "CreditCardTransaction",
+                                    "payment"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"0d4518e0-8934-489c-b303-1f82323f2595\",\n    \"errors\": [\n      {\n        \"errorCode\": \"CCM_ACC_LIMIT_REACHED\",\n        \"errorMessage\": \"transaction amount 100.00 plus existing transactions 100.00 exceeds limit 50\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T01:58:30.000Z",
+                              "updatedAt": "2026-10-22T01:58:30.000Z",
+                              "uid": "35240-dae154f6-2f60-448e-a1ee-db04ba09a318"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T01:58:30.000Z",
+                          "updatedAt": "2026-10-22T01:58:30.000Z",
+                          "uid": "35240-340b71d0-2303-4a84-ae6b-76cf6950bbd0"
+                        }
+                      ],
+                      "id": "7e5dc478-39f6-4c72-8d66-a91045ee5245",
+                      "createdAt": "2026-10-22T01:58:30.000Z",
+                      "updatedAt": "2026-10-22T01:58:30.000Z",
+                      "uid": "35240-7e5dc478-39f6-4c72-8d66-a91045ee5245"
+                    }
+                  ],
+                  "id": "b7e5471d-96a3-4cdf-aba2-1494110e6502",
+                  "createdAt": "2026-10-22T01:58:30.000Z",
+                  "updatedAt": "2026-10-22T01:58:30.000Z",
+                  "uid": "35240-b7e5471d-96a3-4cdf-aba2-1494110e6502"
+                }
+              ],
+              "id": "b8ae8bea-d1de-4b9c-b950-c63f406b2718",
+              "createdAt": "2026-10-22T01:58:30.000Z",
+              "updatedAt": "2026-10-22T01:58:30.000Z",
+              "uid": "35240-b8ae8bea-d1de-4b9c-b950-c63f406b2718"
+            }
+          ],
+          "id": "6bf8ab83-68b7-43f6-8227-a45d29c589ad",
+          "createdAt": "2026-10-22T01:58:30.000Z",
+          "updatedAt": "2026-10-22T01:58:30.000Z",
+          "uid": "35240-6bf8ab83-68b7-43f6-8227-a45d29c589ad"
+        }
+      ],
+      "id": "4c7225d5-97dc-4064-879d-901d6c6c30b8",
+      "createdAt": "2026-10-22T01:58:30.000Z",
+      "updatedAt": "2026-10-22T01:58:30.000Z",
+      "uid": "35240-4c7225d5-97dc-4064-879d-901d6c6c30b8"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.monoova.com"
+    }
+  ]
+}

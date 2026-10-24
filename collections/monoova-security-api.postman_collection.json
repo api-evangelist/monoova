@@ -1,0 +1,429 @@
+{
+  "info": {
+    "_postman_id": "643c5970-50aa-459b-b31a-5f325f442231",
+    "name": "Monoova Payments Security API",
+    "description": "# Introduction\n\nMonoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:00:52.000Z",
+    "updatedAt": "2026-10-22T02:00:52.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-643c5970-50aa-459b-b31a-5f325f442231"
+  },
+  "item": [
+    {
+      "name": "security",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "createOneShotSecurityToken",
+              "item": [
+                {
+                  "name": "{timeOutMin}",
+                  "item": [
+                    {
+                      "name": "Create OneShot security Token",
+                      "id": "1fe2ba91-52ab-4c7e-a06e-e9fc7c21c58c",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/security/v1/createOneShotSecurityToken/:timeOutMin?Claims=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "security",
+                            "v1",
+                            "createOneShotSecurityToken",
+                            ":timeOutMin"
+                          ],
+                          "query": [
+                            {
+                              "description": "This is Optional. Passing a 'Token' in parameter to generate restricted Token which only allows user to create Token. Currently Available parameters are 'Admin', 'Reporting' and 'Token'",
+                              "key": "Claims",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "109ba504-1d78-4a50-ba17-568b56071b74",
+                              "key": "timeOutMin",
+                              "value": "<number>",
+                              "description": "(Required) Each token has an expiry time between 1 and 15 minutes"
+                            }
+                          ]
+                        },
+                        "description": "This API returns a security token that can be used only once or until it expires.\nThe purpose of this token is that it can be embedded in a web form to enable you to make a single call to the Engine without exposing your Sign-In Account credentials.\nWhen setting your security credentials to call any of the APIs in this document (except for security/v1/createOneShotSecurityToken),\nset the Username to the returned OneShotSecurityToken and set the password to anything as it will be ignored."
+                      },
+                      "response": [
+                        {
+                          "id": "f55502bc-829d-436b-9005-e4981436e7a7",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/security/v1/createOneShotSecurityToken/:timeOutMin?Claims=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "security",
+                                "v1",
+                                "createOneShotSecurityToken",
+                                ":timeOutMin"
+                              ],
+                              "query": [
+                                {
+                                  "description": "This is Optional. Passing a 'Token' in parameter to generate restricted Token which only allows user to create Token. Currently Available parameters are 'Admin', 'Reporting' and 'Token'",
+                                  "key": "Claims",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "timeOutMin"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"oneShotSecurityToken\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:00:53.000Z",
+                          "updatedAt": "2026-10-22T02:00:53.000Z",
+                          "uid": "35240-f55502bc-829d-436b-9005-e4981436e7a7"
+                        },
+                        {
+                          "id": "b49b0e86-f317-4d6f-bd5e-a0fba2057e89",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/security/v1/createOneShotSecurityToken/:timeOutMin?Claims=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "security",
+                                "v1",
+                                "createOneShotSecurityToken",
+                                ":timeOutMin"
+                              ],
+                              "query": [
+                                {
+                                  "description": "This is Optional. Passing a 'Token' in parameter to generate restricted Token which only allows user to create Token. Currently Available parameters are 'Admin', 'Reporting' and 'Token'",
+                                  "key": "Claims",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "timeOutMin"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:00:53.000Z",
+                          "updatedAt": "2026-10-22T02:00:53.000Z",
+                          "uid": "35240-b49b0e86-f317-4d6f-bd5e-a0fba2057e89"
+                        },
+                        {
+                          "id": "d254e56e-4cbd-4a99-9377-6b5678574a30",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/security/v1/createOneShotSecurityToken/:timeOutMin?Claims=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "security",
+                                "v1",
+                                "createOneShotSecurityToken",
+                                ":timeOutMin"
+                              ],
+                              "query": [
+                                {
+                                  "description": "This is Optional. Passing a 'Token' in parameter to generate restricted Token which only allows user to create Token. Currently Available parameters are 'Admin', 'Reporting' and 'Token'",
+                                  "key": "Claims",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "timeOutMin"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:00:53.000Z",
+                          "updatedAt": "2026-10-22T02:00:53.000Z",
+                          "uid": "35240-d254e56e-4cbd-4a99-9377-6b5678574a30"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:00:53.000Z",
+                      "updatedAt": "2026-10-22T02:00:53.000Z",
+                      "uid": "35240-1fe2ba91-52ab-4c7e-a06e-e9fc7c21c58c"
+                    }
+                  ],
+                  "id": "ed4c476d-865c-4351-b264-6fba70e1dbec",
+                  "createdAt": "2026-10-22T02:00:53.000Z",
+                  "updatedAt": "2026-10-22T02:00:53.000Z",
+                  "uid": "35240-ed4c476d-865c-4351-b264-6fba70e1dbec"
+                }
+              ],
+              "id": "ddb4ae14-2419-4b51-9c82-cc510251d6b3",
+              "createdAt": "2026-10-22T02:00:53.000Z",
+              "updatedAt": "2026-10-22T02:00:53.000Z",
+              "uid": "35240-ddb4ae14-2419-4b51-9c82-cc510251d6b3"
+            },
+            {
+              "name": "signInAccountSettings",
+              "item": [
+                {
+                  "name": "Get Sign-in account fees & permissions",
+                  "id": "96e93917-4b87-4069-9a78-35293f254837",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/security/v1/signInAccountSettings",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "security",
+                        "v1",
+                        "signInAccountSettings"
+                      ]
+                    },
+                    "description": "This API returns the fees and permissions that have been given to the Sign-In Account."
+                  },
+                  "response": [
+                    {
+                      "id": "bd765eee-6adb-4449-9576-24dea3252a69",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/security/v1/signInAccountSettings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "security",
+                            "v1",
+                            "signInAccountSettings"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"disbursementFees\": [\n    {\n      \"method\": \"<string>\",\n      \"feePercentageExGst\": \"<number>\",\n      \"feeFixedExGst\": \"<number>\"\n    },\n    {\n      \"method\": \"<string>\",\n      \"feePercentageExGst\": \"<number>\",\n      \"feeFixedExGst\": \"<number>\"\n    }\n  ],\n  \"loadFees\": [\n    {\n      \"method\": \"<string>\",\n      \"cardType\": \"<string>\",\n      \"debitFromMAccount\": \"<string>\",\n      \"feePercentageExGst\": \"<number>\",\n      \"feeFixedExGst\": \"<number>\"\n    },\n    {\n      \"method\": \"<string>\",\n      \"cardType\": \"<string>\",\n      \"debitFromMAccount\": \"<string>\",\n      \"feePercentageExGst\": \"<number>\",\n      \"feeFixedExGst\": \"<number>\"\n    }\n  ],\n  \"canDebitCreditCards\": \"<boolean>\",\n  \"canPayBpay\": \"<boolean>\",\n  \"canImpersonate\": \"<boolean>\",\n  \"canDirectDebit\": \"<boolean>\",\n  \"canDirectCredit\": \"<boolean>\",\n  \"canCreateMAccounts\": \"<boolean>\",\n  \"canCreateMWallets\": \"<boolean>\",\n  \"canAccessUserDatabase\": \"<boolean>\",\n  \"isIssuer\": \"<boolean>\",\n  \"issuerMAccountNumber\": \"<string>\",\n  \"monthlyFeeExGst\": \"<number>\",\n  \"clearingMAccountNumber\": \"<string>\",\n  \"feeMAccountNumber\": \"<string>\",\n  \"feeMAccountMonthlyFeeExGst\": \"<number>\",\n  \"childMAccountSetUpFeeExGst\": \"<number>\",\n  \"childMAccountMonthlyFeeExGst\": \"<number>\",\n  \"requiresClearedFundsOnly\": \"<boolean>\"\n}",
+                      "createdAt": "2026-10-22T02:00:53.000Z",
+                      "updatedAt": "2026-10-22T02:00:53.000Z",
+                      "uid": "35240-bd765eee-6adb-4449-9576-24dea3252a69"
+                    },
+                    {
+                      "id": "a55f4b9a-5cb2-4d92-8813-a76ace099003",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/security/v1/signInAccountSettings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "security",
+                            "v1",
+                            "signInAccountSettings"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:00:53.000Z",
+                      "updatedAt": "2026-10-22T02:00:53.000Z",
+                      "uid": "35240-a55f4b9a-5cb2-4d92-8813-a76ace099003"
+                    },
+                    {
+                      "id": "6864c4a8-9e89-4eab-84f8-69ee1282d821",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/security/v1/signInAccountSettings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "security",
+                            "v1",
+                            "signInAccountSettings"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:00:53.000Z",
+                      "updatedAt": "2026-10-22T02:00:53.000Z",
+                      "uid": "35240-6864c4a8-9e89-4eab-84f8-69ee1282d821"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:00:53.000Z",
+                  "updatedAt": "2026-10-22T02:00:53.000Z",
+                  "uid": "35240-96e93917-4b87-4069-9a78-35293f254837"
+                }
+              ],
+              "id": "4c0e1c2d-cf27-4686-ad73-378efdbcfef5",
+              "createdAt": "2026-10-22T02:00:53.000Z",
+              "updatedAt": "2026-10-22T02:00:53.000Z",
+              "uid": "35240-4c0e1c2d-cf27-4686-ad73-378efdbcfef5"
+            }
+          ],
+          "id": "276c1ad5-4822-41e3-b15a-23f7fc5faf3b",
+          "createdAt": "2026-10-22T02:00:53.000Z",
+          "updatedAt": "2026-10-22T02:00:53.000Z",
+          "uid": "35240-276c1ad5-4822-41e3-b15a-23f7fc5faf3b"
+        }
+      ],
+      "id": "06eb13d9-cdee-43ba-a214-1f690c63c655",
+      "createdAt": "2026-10-22T02:00:53.000Z",
+      "updatedAt": "2026-10-22T02:00:53.000Z",
+      "uid": "35240-06eb13d9-cdee-43ba-a214-1f690c63c655"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.mpay.com.au"
+    }
+  ]
+}

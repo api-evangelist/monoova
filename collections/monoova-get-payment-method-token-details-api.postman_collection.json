@@ -1,0 +1,286 @@
+{
+  "info": {
+    "_postman_id": "207058d8-571d-4e2e-a70c-291e748a2488",
+    "name": "Monoova Card Payments Get Payment Method Token Details API",
+    "description": "# Introduction\nMonoova's Online Card Payment Service incorporates a next-gen Card Payment Checkout integrated with our expansive Payments API to allow merchants to capture card and mobile wallet payments from your customers online and receive funds into your Monoova account for automated reconciliation and disbursement.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:59:04.000Z",
+    "updatedAt": "2026-10-22T01:59:04.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-207058d8-571d-4e2e-a70c-291e748a2488"
+  },
+  "item": [
+    {
+      "name": "au",
+      "item": [
+        {
+          "name": "card",
+          "item": [
+            {
+              "name": "ccm",
+              "item": [
+                {
+                  "name": "PaymentMethodToken",
+                  "item": [
+                    {
+                      "name": "Get Payment Method Token Details",
+                      "id": "b7359dba-cb3a-46d2-9bf5-c49972e1e1b7",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/au/card/ccm/PaymentMethodToken?createdStartDate=<dateTime>&createdEndDate=<dateTime>&customerId=<string>&clientPaymentTokenUniqueReference=<string>&pageNumber=1&pageSize=50",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "au",
+                            "card",
+                            "ccm",
+                            "PaymentMethodToken"
+                          ],
+                          "query": [
+                            {
+                              "description": "Start date in ISO 8601 DateTime format. Required unless customerId is provided.",
+                              "key": "createdStartDate",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "End date in ISO 8601 DateTime format.",
+                              "key": "createdEndDate",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "Customer ID. Required unless createStartDate is provided.",
+                              "key": "customerId",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Client Payment Token Unique Reference.",
+                              "key": "clientPaymentTokenUniqueReference",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Start page for retrieval.",
+                              "key": "pageNumber",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Maximum number of records to return.",
+                              "key": "pageSize",
+                              "value": "50"
+                            }
+                          ]
+                        },
+                        "description": "This endpoint can be used to get details of payment method tokens created using the payment method token vaulting."
+                      },
+                      "response": [
+                        {
+                          "id": "21d40f92-8d79-4b2a-a5b7-50ad5e141515",
+                          "name": "Payment method token details retrieved successfully",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/card/ccm/PaymentMethodToken?createdStartDate=<dateTime>&createdEndDate=<dateTime>&customerId=<string>&clientPaymentTokenUniqueReference=<string>&pageNumber=1&pageSize=50",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "card",
+                                "ccm",
+                                "PaymentMethodToken"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Start date in ISO 8601 DateTime format. Required unless customerId is provided.",
+                                  "key": "createdStartDate",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "End date in ISO 8601 DateTime format.",
+                                  "key": "createdEndDate",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Customer ID. Required unless createStartDate is provided.",
+                                  "key": "customerId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Client Payment Token Unique Reference.",
+                                  "key": "clientPaymentTokenUniqueReference",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Start page for retrieval.",
+                                  "key": "pageNumber",
+                                  "value": "1"
+                                },
+                                {
+                                  "description": "Maximum number of records to return.",
+                                  "key": "pageSize",
+                                  "value": "50"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"traceId\": \"<string>\",\n  \"paymentMethodTokenDetails\": [\n    {\n      \"clientPaymentTokenUniqueReference\": \"<string>\",\n      \"customer\": {\n        \"customerId\": \"<string>\",\n        \"billingAddress\": {\n          \"firstName\": \"<string>\",\n          \"lastName\": \"<string>\",\n          \"street\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"suburb\": \"<string>\",\n          \"state\": \"<string>\",\n          \"postalCode\": \"<string>\",\n          \"countryCode\": \"<string>\"\n        },\n        \"emailAddress\": \"<string>\"\n      },\n      \"creationDateTime\": \"<dateTime>\",\n      \"lastTransactionDate\": \"<dateTime>\",\n      \"expirationMonth\": \"<string>\",\n      \"expirationYear\": \"<string>\",\n      \"status\": \"<string>\",\n      \"last4Digits\": \"<string>\",\n      \"first6Digits\": \"<string>\",\n      \"cardholderName\": \"<string>\",\n      \"cardType\": \"<string>\",\n      \"issuerCountryCode\": \"<string>\",\n      \"issuerName\": \"<string>\",\n      \"paymentMethodTokenHash\": \"<string>\"\n    },\n    {\n      \"clientPaymentTokenUniqueReference\": \"<string>\",\n      \"customer\": {\n        \"customerId\": \"<string>\",\n        \"billingAddress\": {\n          \"firstName\": \"<string>\",\n          \"lastName\": \"<string>\",\n          \"street\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"suburb\": \"<string>\",\n          \"state\": \"<string>\",\n          \"postalCode\": \"<string>\",\n          \"countryCode\": \"<string>\"\n        },\n        \"emailAddress\": \"<string>\"\n      },\n      \"creationDateTime\": \"<dateTime>\",\n      \"lastTransactionDate\": \"<dateTime>\",\n      \"expirationMonth\": \"<string>\",\n      \"expirationYear\": \"<string>\",\n      \"status\": \"<string>\",\n      \"last4Digits\": \"<string>\",\n      \"first6Digits\": \"<string>\",\n      \"cardholderName\": \"<string>\",\n      \"cardType\": \"<string>\",\n      \"issuerCountryCode\": \"<string>\",\n      \"issuerName\": \"<string>\",\n      \"paymentMethodTokenHash\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-10-22T01:59:04.000Z",
+                          "updatedAt": "2026-10-22T01:59:04.000Z",
+                          "uid": "35240-21d40f92-8d79-4b2a-a5b7-50ad5e141515"
+                        },
+                        {
+                          "id": "d21078e1-dbdc-4c73-8972-1d47e431dc6e",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/card/ccm/PaymentMethodToken?createdStartDate=<dateTime>&createdEndDate=<dateTime>&customerId=<string>&clientPaymentTokenUniqueReference=<string>&pageNumber=1&pageSize=50",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "card",
+                                "ccm",
+                                "PaymentMethodToken"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Start date in ISO 8601 DateTime format. Required unless customerId is provided.",
+                                  "key": "createdStartDate",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "End date in ISO 8601 DateTime format.",
+                                  "key": "createdEndDate",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Customer ID. Required unless createStartDate is provided.",
+                                  "key": "customerId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Client Payment Token Unique Reference.",
+                                  "key": "clientPaymentTokenUniqueReference",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Start page for retrieval.",
+                                  "key": "pageNumber",
+                                  "value": "1"
+                                },
+                                {
+                                  "description": "Maximum number of records to return.",
+                                  "key": "pageSize",
+                                  "value": "50"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"660ed149-61db-4644-acd0-5510dc840854\",\n    \"errors\": [\n      {\n        \"errorCode\": \"CCM_PM_DISABLED_ERROR\",\n        \"errorMessage\": \"PaymentMethodTokens disabled for accountId \"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:04.000Z",
+                          "updatedAt": "2026-10-22T01:59:04.000Z",
+                          "uid": "35240-d21078e1-dbdc-4c73-8972-1d47e431dc6e"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:59:04.000Z",
+                      "updatedAt": "2026-10-22T01:59:04.000Z",
+                      "uid": "35240-b7359dba-cb3a-46d2-9bf5-c49972e1e1b7"
+                    }
+                  ],
+                  "id": "5b9329de-1c14-4417-8de3-82dcae84051a",
+                  "createdAt": "2026-10-22T01:59:04.000Z",
+                  "updatedAt": "2026-10-22T01:59:04.000Z",
+                  "uid": "35240-5b9329de-1c14-4417-8de3-82dcae84051a"
+                }
+              ],
+              "id": "e17c3ee5-69ab-4472-b4ed-0c91ad14dade",
+              "createdAt": "2026-10-22T01:59:04.000Z",
+              "updatedAt": "2026-10-22T01:59:04.000Z",
+              "uid": "35240-e17c3ee5-69ab-4472-b4ed-0c91ad14dade"
+            }
+          ],
+          "id": "b507641c-95b8-4cd0-b184-4daf64cff780",
+          "createdAt": "2026-10-22T01:59:04.000Z",
+          "updatedAt": "2026-10-22T01:59:04.000Z",
+          "uid": "35240-b507641c-95b8-4cd0-b184-4daf64cff780"
+        }
+      ],
+      "id": "dcdf9b0d-f24f-44f1-90f7-58e16da5dd32",
+      "createdAt": "2026-10-22T01:59:04.000Z",
+      "updatedAt": "2026-10-22T01:59:04.000Z",
+      "uid": "35240-dcdf9b0d-f24f-44f1-90f7-58e16da5dd32"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.monoova.com"
+    }
+  ]
+}

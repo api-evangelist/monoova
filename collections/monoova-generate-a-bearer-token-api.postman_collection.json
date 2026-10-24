@@ -1,0 +1,160 @@
+{
+  "info": {
+    "_postman_id": "cecf088b-9d70-41ba-9223-c68dba23af03",
+    "name": "Monoova Generate a Bearer Token API",
+    "description": "Operations tagged Generate a Bearer Token across 2 of this provider's published API definitions: monoova-cc.yml, monoova-payto.yml. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:58:40.000Z",
+    "updatedAt": "2026-10-22T01:58:40.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-cecf088b-9d70-41ba-9223-c68dba23af03"
+  },
+  "item": [
+    {
+      "name": "au",
+      "item": [
+        {
+          "name": "security",
+          "item": [
+            {
+              "name": "oauth-v1",
+              "item": [
+                {
+                  "name": "Token",
+                  "item": [
+                    {
+                      "name": "Token",
+                      "id": "efcb0dee-9540-48ed-a24e-3976154b50a4",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "basic",
+                          "basic": [
+                            {
+                              "key": "username",
+                              "value": "{{basicAuthUsername}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "password",
+                              "value": "{{basicAuthPassword}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/au/security/oauth-v1/Token",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "au",
+                            "security",
+                            "oauth-v1",
+                            "Token"
+                          ]
+                        },
+                        "description": "Authentication for credit card API will be handled in Auth0 and access to APIs will be based on the Bearer token. Customers should register in Portal to use the credit card service. Only the admin of the group will be able to register an account for APIM access. Customers will be notified once they have been activated for credit cards. Once approved, the Bearer token can be retrieved using token API by passing the username as mAccount and the latest API Key as password in the header. The access token expires after 3600 seconds (60 minutes), after which the customer\u2019s application should generate a new access token.\n\nThis API endpoint uses BASIC Authentication.\n.tb { table-layout:auto; width:200px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important}\n\nusername\nYour mAccount number that can be obtained from portal\n\npassword\nYour API key that can be obtained from portal\n\nPlease note that token can be of variable length. Please do not add any validation or restriction on token length. This token can be used to access all credit card APIs."
+                      },
+                      "response": [
+                        {
+                          "id": "98e66b43-92ee-4964-8050-1342bc9ed0ab",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/security/oauth-v1/Token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "security",
+                                "oauth-v1",
+                                "Token"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"token\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T01:58:40.000Z",
+                          "updatedAt": "2026-10-22T01:58:40.000Z",
+                          "uid": "35240-98e66b43-92ee-4964-8050-1342bc9ed0ab"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:58:40.000Z",
+                      "updatedAt": "2026-10-22T01:58:40.000Z",
+                      "uid": "35240-efcb0dee-9540-48ed-a24e-3976154b50a4"
+                    }
+                  ],
+                  "id": "81fbf118-47fc-407b-936e-9cb3cdcb3b78",
+                  "createdAt": "2026-10-22T01:58:40.000Z",
+                  "updatedAt": "2026-10-22T01:58:40.000Z",
+                  "uid": "35240-81fbf118-47fc-407b-936e-9cb3cdcb3b78"
+                }
+              ],
+              "id": "f9b269d2-d7a6-4742-b423-a0b9e935bebf",
+              "createdAt": "2026-10-22T01:58:40.000Z",
+              "updatedAt": "2026-10-22T01:58:40.000Z",
+              "uid": "35240-f9b269d2-d7a6-4742-b423-a0b9e935bebf"
+            }
+          ],
+          "id": "6aa3a03b-6789-4a3f-868b-2deacf0aee93",
+          "createdAt": "2026-10-22T01:58:40.000Z",
+          "updatedAt": "2026-10-22T01:58:40.000Z",
+          "uid": "35240-6aa3a03b-6789-4a3f-868b-2deacf0aee93"
+        }
+      ],
+      "id": "ed792838-0b86-48f2-8270-5e4e0c521c8e",
+      "createdAt": "2026-10-22T01:58:40.000Z",
+      "updatedAt": "2026-10-22T01:58:40.000Z",
+      "uid": "35240-ed792838-0b86-48f2-8270-5e4e0c521c8e"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.monoova.com"
+    }
+  ]
+}

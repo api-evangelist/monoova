@@ -1,0 +1,3489 @@
+{
+  "info": {
+    "_postman_id": "7789d0e2-9f17-4d32-a481-8381c15eb893",
+    "name": "Monoova Payments Automatcher (Bank Account Receivables) API",
+    "description": "# Introduction\n\nMonoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:58:17.000Z",
+    "updatedAt": "2026-10-22T01:58:17.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-7789d0e2-9f17-4d32-a481-8381c15eb893"
+  },
+  "item": [
+    {
+      "name": "receivables",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "create",
+              "item": [
+                {
+                  "name": "Create an Automatcher (Receivables) Account",
+                  "id": "b19521ca-6521-4f0d-89e8-2bb0b0762363",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"akaNames\": [\n    \"[w#b{F9&SkEj>D[)%Gh.'>W,S40S(3<iK&LcF,?/+bGqa(F'Dg}\\\"ZWTYV]pG4i]GW`1F\\\"%<&R9}wwg[5`Si&mj`UN7-eh5)H8t0EH^!uK#\\\\]63m K!|aJ|5Z&8XS_\\\"\\\"%ezvfYt`oi+\",\n    \"rM?~ig\\\\szIIzs%rBs9avZ\\\"a&P<RwJ!.fu95V{xrCw\"\n  ],\n  \"submerchantId\": \"iB\",\n  \"bankAccountName\": \"\u201c !\\\"#%&',-~/:;@f{\",\n  \"bsb\": \"<string,null>\",\n  \"clientUniqueId\": \"DDDDDDDDDDDDDDDD\",\n  \"isActive\": false\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/receivables/v1/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "receivables",
+                        "v1",
+                        "create"
+                      ]
+                    },
+                    "description": "Creates a new bank-account number. For the creation of batches of account numbers, please see /receivables/v1/batchCreate These account numbers can be used along with the returned BSB to receive payments from any bank in Australia. Payments to an invalid bank-account number, i.e. one that has not been created, will be returned by Monoova to the remitting institution. Each account number has a check digit to minimize common payer errors such as adjacent transposition errors or single-digit typos. An optional unique ID can be linked to each account number for your reference. If a unique ID is not provided, Monoova will generate and return one automatically. If isActive is omitted, it will default to false. This can be changed to true via the /receivables/v1/status endpoint."
+                  },
+                  "response": [
+                    {
+                      "id": "1d988a3e-1fbb-456b-92d5-01f8e1c04310",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"akaNames\": [\n    \"[w#b{F9&SkEj>D[)%Gh.'>W,S40S(3<iK&LcF,?/+bGqa(F'Dg}\\\"ZWTYV]pG4i]GW`1F\\\"%<&R9}wwg[5`Si&mj`UN7-eh5)H8t0EH^!uK#\\\\]63m K!|aJ|5Z&8XS_\\\"\\\"%ezvfYt`oi+\",\n    \"rM?~ig\\\\szIIzs%rBs9avZ\\\"a&P<RwJ!.fu95V{xrCw\"\n  ],\n  \"submerchantId\": \"iB\",\n  \"bankAccountName\": \"\u201c !\\\"#%&',-~/:;@f{\",\n  \"bsb\": \"<string,null>\",\n  \"clientUniqueId\": \"DDDDDDDDDDDDDDDD\",\n  \"isActive\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"bankAccountNumber\": \"<string>\",\n  \"bankAccountName\": \"<string>\",\n  \"clientUniqueId\": \"<string>\",\n  \"isActive\": \"<boolean>\"\n}",
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-1d988a3e-1fbb-456b-92d5-01f8e1c04310"
+                    },
+                    {
+                      "id": "c1179636-05cb-4499-bac2-7c4f0e3339ca",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"akaNames\": [\n    \"[w#b{F9&SkEj>D[)%Gh.'>W,S40S(3<iK&LcF,?/+bGqa(F'Dg}\\\"ZWTYV]pG4i]GW`1F\\\"%<&R9}wwg[5`Si&mj`UN7-eh5)H8t0EH^!uK#\\\\]63m K!|aJ|5Z&8XS_\\\"\\\"%ezvfYt`oi+\",\n    \"rM?~ig\\\\szIIzs%rBs9avZ\\\"a&P<RwJ!.fu95V{xrCw\"\n  ],\n  \"submerchantId\": \"iB\",\n  \"bankAccountName\": \"\u201c !\\\"#%&',-~/:;@f{\",\n  \"bsb\": \"<string,null>\",\n  \"clientUniqueId\": \"DDDDDDDDDDDDDDDD\",\n  \"isActive\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-c1179636-05cb-4499-bac2-7c4f0e3339ca"
+                    },
+                    {
+                      "id": "2a4fa7c8-6d7c-4a19-9d66-16cd8cf66c3c",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"akaNames\": [\n    \"[w#b{F9&SkEj>D[)%Gh.'>W,S40S(3<iK&LcF,?/+bGqa(F'Dg}\\\"ZWTYV]pG4i]GW`1F\\\"%<&R9}wwg[5`Si&mj`UN7-eh5)H8t0EH^!uK#\\\\]63m K!|aJ|5Z&8XS_\\\"\\\"%ezvfYt`oi+\",\n    \"rM?~ig\\\\szIIzs%rBs9avZ\\\"a&P<RwJ!.fu95V{xrCw\"\n  ],\n  \"submerchantId\": \"iB\",\n  \"bankAccountName\": \"\u201c !\\\"#%&',-~/:;@f{\",\n  \"bsb\": \"<string,null>\",\n  \"clientUniqueId\": \"DDDDDDDDDDDDDDDD\",\n  \"isActive\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-2a4fa7c8-6d7c-4a19-9d66-16cd8cf66c3c"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:58:17.000Z",
+                  "updatedAt": "2026-10-22T01:58:17.000Z",
+                  "uid": "35240-b19521ca-6521-4f0d-89e8-2bb0b0762363"
+                }
+              ],
+              "id": "73c35de4-be80-4d1e-8c76-d1fde64f8417",
+              "createdAt": "2026-10-22T01:58:17.000Z",
+              "updatedAt": "2026-10-22T01:58:17.000Z",
+              "uid": "35240-73c35de4-be80-4d1e-8c76-d1fde64f8417"
+            },
+            {
+              "name": "status",
+              "item": [
+                {
+                  "name": "Set Account Status",
+                  "id": "77cb61db-9702-4444-bc90-e50a5dd5ee2a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"bankAccountNumber\": \"<string>\",\n  \"bsb\": \"<string,null>\",\n  \"clientUniqueId\": \"<string>\",\n  \"isActive\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/receivables/v1/status",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "receivables",
+                        "v1",
+                        "status"
+                      ]
+                    },
+                    "description": "Bank accounts can be active or inactive. Inactive accounts will have all payments rejected and returned to the payer. Status can be called using either bank account number or clientuniqueId."
+                  },
+                  "response": [
+                    {
+                      "id": "95482eb3-2391-4934-87aa-433ee0f4cfdb",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"bankAccountNumber\": \"<string>\",\n  \"bsb\": \"<string,null>\",\n  \"clientUniqueId\": \"<string>\",\n  \"isActive\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/status",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "status"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"bankAccountNumber\": \"<string>\",\n  \"bankAccountName\": \"<string>\",\n  \"clientUniqueId\": \"<string>\",\n  \"isActive\": \"<boolean>\"\n}",
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-95482eb3-2391-4934-87aa-433ee0f4cfdb"
+                    },
+                    {
+                      "id": "41a6c8df-108f-412b-b19f-ac3d9504bb1e",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"bankAccountNumber\": \"<string>\",\n  \"bsb\": \"<string,null>\",\n  \"clientUniqueId\": \"<string>\",\n  \"isActive\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/status",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "status"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-41a6c8df-108f-412b-b19f-ac3d9504bb1e"
+                    },
+                    {
+                      "id": "12dc0806-c041-4948-b1d9-6a8a36a7bcd2",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"bankAccountNumber\": \"<string>\",\n  \"bsb\": \"<string,null>\",\n  \"clientUniqueId\": \"<string>\",\n  \"isActive\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/status",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "status"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-12dc0806-c041-4948-b1d9-6a8a36a7bcd2"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:58:17.000Z",
+                  "updatedAt": "2026-10-22T01:58:17.000Z",
+                  "uid": "35240-77cb61db-9702-4444-bc90-e50a5dd5ee2a"
+                }
+              ],
+              "id": "92663e86-78c4-4d69-9803-e9f855eb9156",
+              "createdAt": "2026-10-22T01:58:17.000Z",
+              "updatedAt": "2026-10-22T01:58:17.000Z",
+              "uid": "35240-92663e86-78c4-4d69-9803-e9f855eb9156"
+            },
+            {
+              "name": "statusByBankAccount",
+              "item": [
+                {
+                  "name": "{bankAccountNumber}",
+                  "item": [
+                    {
+                      "name": "Get Account Status By BankAccount",
+                      "id": "079ff23d-6555-48d8-baf6-c3fe5061c570",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/statusByBankAccount/:bankAccountNumber?bsb=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "statusByBankAccount",
+                            ":bankAccountNumber"
+                          ],
+                          "query": [
+                            {
+                              "description": "Optional BSB parameter specifying the branch identifier for Australian banks. Accepts either 6 digits or with a hyphen as \"XXX-XXX\". If not specified, the service will use the MAccount\u2019s configured \u2018Default BSB\u2019. If a \u2018Default BSB\u2019 has not been configured, then the Monoova \u2018Default BSB\u2019 will be used.",
+                              "key": "bsb",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "71ff5f11-0d50-4ac1-ac8d-aa3fe4313ba8",
+                              "key": "bankAccountNumber",
+                              "value": "<string>",
+                              "description": "(Required) The bank account number generated."
+                            }
+                          ]
+                        },
+                        "description": "Returns the status of a bank account number. Without changing the status, this API is used for checking the status of a bank account. Status can be called using either bankaccount number or clientUniqueId."
+                      },
+                      "response": [
+                        {
+                          "id": "01620714-8ee8-450b-abf5-78711b0a3e4e",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/statusByBankAccount/:bankAccountNumber?bsb=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "statusByBankAccount",
+                                ":bankAccountNumber"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Optional BSB parameter specifying the branch identifier for Australian banks. Accepts either 6 digits or with a hyphen as \"XXX-XXX\". If not specified, the service will use the MAccount\u2019s configured \u2018Default BSB\u2019. If a \u2018Default BSB\u2019 has not been configured, then the Monoova \u2018Default BSB\u2019 will be used.",
+                                  "key": "bsb",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "bankAccountNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"bankAccountNumber\": \"<string>\",\n  \"bankAccountName\": \"<string>\",\n  \"clientUniqueId\": \"<string>\",\n  \"isActive\": \"<boolean>\"\n}",
+                          "createdAt": "2026-10-22T01:58:17.000Z",
+                          "updatedAt": "2026-10-22T01:58:17.000Z",
+                          "uid": "35240-01620714-8ee8-450b-abf5-78711b0a3e4e"
+                        },
+                        {
+                          "id": "d10bc05a-38e0-4ee4-849f-db13410a5106",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/statusByBankAccount/:bankAccountNumber?bsb=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "statusByBankAccount",
+                                ":bankAccountNumber"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Optional BSB parameter specifying the branch identifier for Australian banks. Accepts either 6 digits or with a hyphen as \"XXX-XXX\". If not specified, the service will use the MAccount\u2019s configured \u2018Default BSB\u2019. If a \u2018Default BSB\u2019 has not been configured, then the Monoova \u2018Default BSB\u2019 will be used.",
+                                  "key": "bsb",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "bankAccountNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:17.000Z",
+                          "updatedAt": "2026-10-22T01:58:17.000Z",
+                          "uid": "35240-d10bc05a-38e0-4ee4-849f-db13410a5106"
+                        },
+                        {
+                          "id": "e0fbccd4-0c2b-48f8-b661-c9562d57cb69",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/statusByBankAccount/:bankAccountNumber?bsb=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "statusByBankAccount",
+                                ":bankAccountNumber"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Optional BSB parameter specifying the branch identifier for Australian banks. Accepts either 6 digits or with a hyphen as \"XXX-XXX\". If not specified, the service will use the MAccount\u2019s configured \u2018Default BSB\u2019. If a \u2018Default BSB\u2019 has not been configured, then the Monoova \u2018Default BSB\u2019 will be used.",
+                                  "key": "bsb",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "bankAccountNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:17.000Z",
+                          "updatedAt": "2026-10-22T01:58:17.000Z",
+                          "uid": "35240-e0fbccd4-0c2b-48f8-b661-c9562d57cb69"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-079ff23d-6555-48d8-baf6-c3fe5061c570"
+                    }
+                  ],
+                  "id": "ca877f7a-6ae4-43ad-b56e-15e5485603a3",
+                  "createdAt": "2026-10-22T01:58:17.000Z",
+                  "updatedAt": "2026-10-22T01:58:17.000Z",
+                  "uid": "35240-ca877f7a-6ae4-43ad-b56e-15e5485603a3"
+                }
+              ],
+              "id": "e92eccc2-a973-478f-abf8-0fa6b381ddb9",
+              "createdAt": "2026-10-22T01:58:17.000Z",
+              "updatedAt": "2026-10-22T01:58:17.000Z",
+              "uid": "35240-e92eccc2-a973-478f-abf8-0fa6b381ddb9"
+            },
+            {
+              "name": "statusByClientID",
+              "item": [
+                {
+                  "name": "{clientUniqueId}",
+                  "item": [
+                    {
+                      "name": "Get Account Status By ClientUniqueId",
+                      "id": "9605350d-43f6-4b7e-9564-6f52050e621f",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/statusByClientID/:clientUniqueId?bsb=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "statusByClientID",
+                            ":clientUniqueId"
+                          ],
+                          "query": [
+                            {
+                              "description": "Optional BSB parameter specifying the branch identifier for Australian banks. Accepts either 6 digits or with a hyphen as \"XXX-XXX\". If not specified, the service will use the MAccount\u2019s configured \u2018Default BSB\u2019. If a \u2018Default BSB\u2019 has not been configured, then the Monoova \u2018Default BSB\u2019 will be used.",
+                              "key": "bsb",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "f66d0bf0-8307-4a17-ad84-9d65cdcd625b",
+                              "key": "clientUniqueId",
+                              "value": "<string>",
+                              "description": "(Required) An identifier assigned to the account."
+                            }
+                          ]
+                        },
+                        "description": "Returns the status of a bank account number. Without changing the status, this API is used for checking the status of a bank account.\nStatus can be called using either bankAccount number or clientUniqueId."
+                      },
+                      "response": [
+                        {
+                          "id": "f8bda3b6-0c98-42c1-9504-82f91be75543",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/statusByClientID/:clientUniqueId?bsb=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "statusByClientID",
+                                ":clientUniqueId"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Optional BSB parameter specifying the branch identifier for Australian banks. Accepts either 6 digits or with a hyphen as \"XXX-XXX\". If not specified, the service will use the MAccount\u2019s configured \u2018Default BSB\u2019. If a \u2018Default BSB\u2019 has not been configured, then the Monoova \u2018Default BSB\u2019 will be used.",
+                                  "key": "bsb",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "clientUniqueId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"bankAccountNumber\": \"<string>\",\n  \"bankAccountName\": \"<string>\",\n  \"clientUniqueId\": \"<string>\",\n  \"isActive\": \"<boolean>\"\n}",
+                          "createdAt": "2026-10-22T01:58:17.000Z",
+                          "updatedAt": "2026-10-22T01:58:17.000Z",
+                          "uid": "35240-f8bda3b6-0c98-42c1-9504-82f91be75543"
+                        },
+                        {
+                          "id": "4a676344-7896-47de-98cd-8e13a2c62711",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/statusByClientID/:clientUniqueId?bsb=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "statusByClientID",
+                                ":clientUniqueId"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Optional BSB parameter specifying the branch identifier for Australian banks. Accepts either 6 digits or with a hyphen as \"XXX-XXX\". If not specified, the service will use the MAccount\u2019s configured \u2018Default BSB\u2019. If a \u2018Default BSB\u2019 has not been configured, then the Monoova \u2018Default BSB\u2019 will be used.",
+                                  "key": "bsb",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "clientUniqueId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:17.000Z",
+                          "updatedAt": "2026-10-22T01:58:17.000Z",
+                          "uid": "35240-4a676344-7896-47de-98cd-8e13a2c62711"
+                        },
+                        {
+                          "id": "db609392-d501-4123-9ac8-c9ec948da45a",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/statusByClientID/:clientUniqueId?bsb=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "statusByClientID",
+                                ":clientUniqueId"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Optional BSB parameter specifying the branch identifier for Australian banks. Accepts either 6 digits or with a hyphen as \"XXX-XXX\". If not specified, the service will use the MAccount\u2019s configured \u2018Default BSB\u2019. If a \u2018Default BSB\u2019 has not been configured, then the Monoova \u2018Default BSB\u2019 will be used.",
+                                  "key": "bsb",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "clientUniqueId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:17.000Z",
+                          "updatedAt": "2026-10-22T01:58:17.000Z",
+                          "uid": "35240-db609392-d501-4123-9ac8-c9ec948da45a"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-9605350d-43f6-4b7e-9564-6f52050e621f"
+                    }
+                  ],
+                  "id": "793efc53-155a-486a-87f7-c6145c82bace",
+                  "createdAt": "2026-10-22T01:58:17.000Z",
+                  "updatedAt": "2026-10-22T01:58:17.000Z",
+                  "uid": "35240-793efc53-155a-486a-87f7-c6145c82bace"
+                }
+              ],
+              "id": "96227601-842c-4fe8-ba71-af6bbadc2aa6",
+              "createdAt": "2026-10-22T01:58:17.000Z",
+              "updatedAt": "2026-10-22T01:58:17.000Z",
+              "uid": "35240-96227601-842c-4fe8-ba71-af6bbadc2aa6"
+            },
+            {
+              "name": "reportLastSettlement",
+              "item": [
+                {
+                  "name": "Last Settlement",
+                  "id": "b4e71fb5-2d3b-4e81-973d-7313ead97f61",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/receivables/v1/reportLastSettlement",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "receivables",
+                        "v1",
+                        "reportLastSettlement"
+                      ]
+                    },
+                    "description": "Returns the latest settlement for received funds. We suggest using this as a lightweight polling endpoint to establish when new transactions have been received. Transactions arrive in batches."
+                  },
+                  "response": [
+                    {
+                      "id": "e03ec73b-f66a-439d-9604-08c702ee8a66",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/reportLastSettlement",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "reportLastSettlement"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"dateTime\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-e03ec73b-f66a-439d-9604-08c702ee8a66"
+                    },
+                    {
+                      "id": "6d339889-b0b0-441d-87d7-de148364674d",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/reportLastSettlement",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "reportLastSettlement"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-6d339889-b0b0-441d-87d7-de148364674d"
+                    },
+                    {
+                      "id": "393aa429-43f4-4068-9a6e-e3767a598a88",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/reportLastSettlement",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "reportLastSettlement"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-393aa429-43f4-4068-9a6e-e3767a598a88"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:58:17.000Z",
+                  "updatedAt": "2026-10-22T01:58:17.000Z",
+                  "uid": "35240-b4e71fb5-2d3b-4e81-973d-7313ead97f61"
+                }
+              ],
+              "id": "5de68369-5ff8-45f2-9e13-26581ec38168",
+              "createdAt": "2026-10-22T01:58:17.000Z",
+              "updatedAt": "2026-10-22T01:58:17.000Z",
+              "uid": "35240-5de68369-5ff8-45f2-9e13-26581ec38168"
+            },
+            {
+              "name": "listAccounts",
+              "item": [
+                {
+                  "name": "List Accounts",
+                  "id": "3d1a83a5-0448-47d8-94b8-01504cc17d15",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/receivables/v1/listAccounts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "receivables",
+                        "v1",
+                        "listAccounts"
+                      ]
+                    },
+                    "description": "List Accounts will return a list of all account numbers you have linked to your Sign in."
+                  },
+                  "response": [
+                    {
+                      "id": "f99bb45e-a655-4b6a-a0e5-1055d30e2575",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/listAccounts",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "listAccounts"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"NumberOfRecords\": \"<number>\",\n  \"batchUrl\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-f99bb45e-a655-4b6a-a0e5-1055d30e2575"
+                    },
+                    {
+                      "id": "6e397df5-f554-4974-9f89-c66d2a4251ac",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/listAccounts",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "listAccounts"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-6e397df5-f554-4974-9f89-c66d2a4251ac"
+                    },
+                    {
+                      "id": "f203dea7-9763-4688-9676-adc2861aa1be",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/listAccounts",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "listAccounts"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-f203dea7-9763-4688-9676-adc2861aa1be"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:58:17.000Z",
+                  "updatedAt": "2026-10-22T01:58:17.000Z",
+                  "uid": "35240-3d1a83a5-0448-47d8-94b8-01504cc17d15"
+                }
+              ],
+              "id": "e22a6355-3931-4510-856c-aabfda42a10a",
+              "createdAt": "2026-10-22T01:58:17.000Z",
+              "updatedAt": "2026-10-22T01:58:17.000Z",
+              "uid": "35240-e22a6355-3931-4510-856c-aabfda42a10a"
+            },
+            {
+              "name": "batchCreate",
+              "item": [
+                {
+                  "name": "Batch Create",
+                  "id": "bbd345ed-62b7-4796-8f9f-72cc38b25b61",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/octet-stream"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "<string>"
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/receivables/v1/batchCreate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "receivables",
+                        "v1",
+                        "batchCreate"
+                      ]
+                    },
+                    "description": "The batch create API has the same functionality as the /receivables/v1/create endpoint however it allows you to create up to 50,000 accounts in a single call by submitting a file. We recommend this for circumstances where > 100 accounts need to be created within a short time period.\nCreation of accounts with isActive=true is restricted to 1000. Multiple batches cannot be requested at the same time, you have to wait for the completion of a batch before requesting a new one.\nThe Batch Create API also supports a lightweight option whereby many accounts can be created by submitting a single line. This option automatically sets isActive = true, hence you can only request the creation of 1000 accounts in one request. For this method, all accounts will be created with the same specified name, and clientuniqueid\u2019s cannot be specified will be automatically generated."
+                  },
+                  "response": [
+                    {
+                      "id": "a1e69abf-3e28-4564-b84f-7834618d5349",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/octet-stream"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "<string>"
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/batchCreate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "batchCreate"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"DurationMs\": \"<long>\",\n  \"Status\": \"<string>\",\n  \"StatusDescription\": \"<string>\",\n  \"NumberOfRecords\": \"<number>\",\n  \"BatchUrl\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-a1e69abf-3e28-4564-b84f-7834618d5349"
+                    },
+                    {
+                      "id": "5a3da63a-2b9c-4253-bc1f-5825ea4be2fd",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/octet-stream"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "<string>"
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/batchCreate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "batchCreate"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-5a3da63a-2b9c-4253-bc1f-5825ea4be2fd"
+                    },
+                    {
+                      "id": "d2c5c4e6-76ab-4ffb-9d2c-7dc5dc4d39cd",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/octet-stream"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "<string>"
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/batchCreate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "batchCreate"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-d2c5c4e6-76ab-4ffb-9d2c-7dc5dc4d39cd"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:58:17.000Z",
+                  "updatedAt": "2026-10-22T01:58:17.000Z",
+                  "uid": "35240-bbd345ed-62b7-4796-8f9f-72cc38b25b61"
+                }
+              ],
+              "id": "77a6c50b-a344-4892-b023-6c584cbeff70",
+              "createdAt": "2026-10-22T01:58:17.000Z",
+              "updatedAt": "2026-10-22T01:58:17.000Z",
+              "uid": "35240-77a6c50b-a344-4892-b023-6c584cbeff70"
+            },
+            {
+              "name": "batchStatus",
+              "item": [
+                {
+                  "name": "Batch Status",
+                  "id": "ea86adb7-cdbb-4276-b1d8-20b1ba9a0e85",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/octet-stream"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "<string>"
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/receivables/v1/batchStatus",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "receivables",
+                        "v1",
+                        "batchStatus"
+                      ]
+                    },
+                    "description": "The batch Status API functions similarly to the /receivables/v1/Status API,\nhowever it allows you to update accounts in batch.\nYou can only update 1000 records per request. Multiple batches cannot be requested at the same time,\nyou have to wait for the completion of a batch before requesting a new one."
+                  },
+                  "response": [
+                    {
+                      "id": "98a44745-563a-4781-bd62-60fca8504693",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/octet-stream"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "<string>"
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/batchStatus",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "batchStatus"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"DurationMs\": \"<long>\",\n  \"Status\": \"<string>\",\n  \"StatusDescription\": \"<string>\",\n  \"NumberOfRecords\": \"<number>\",\n  \"BatchUrl\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-98a44745-563a-4781-bd62-60fca8504693"
+                    },
+                    {
+                      "id": "bee8c5df-b419-4b36-9403-399691f40396",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/octet-stream"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "<string>"
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/batchStatus",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "batchStatus"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-bee8c5df-b419-4b36-9403-399691f40396"
+                    },
+                    {
+                      "id": "90234ed0-0766-469a-8005-cb86dd65726a",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/octet-stream"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "<string>"
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/batchStatus",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "batchStatus"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-90234ed0-0766-469a-8005-cb86dd65726a"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:58:17.000Z",
+                  "updatedAt": "2026-10-22T01:58:17.000Z",
+                  "uid": "35240-ea86adb7-cdbb-4276-b1d8-20b1ba9a0e85"
+                }
+              ],
+              "id": "a45cf842-60fa-4c8f-b1e3-fd024f9ab835",
+              "createdAt": "2026-10-22T01:58:17.000Z",
+              "updatedAt": "2026-10-22T01:58:17.000Z",
+              "uid": "35240-a45cf842-60fa-4c8f-b1e3-fd024f9ab835"
+            },
+            {
+              "name": "processdirectdebit",
+              "item": [
+                {
+                  "name": "Process Direct Debit",
+                  "id": "42c1c43c-5449-4d53-aadd-62781a0bd4eb",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"transactionId\": \"<string>\",\n  \"response\": \"Reject\",\n  \"rejectionReason\": \"<string>\",\n  \"returnCode\": \"ReferToCustomer\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/receivables/v1/processdirectdebit",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "receivables",
+                        "v1",
+                        "processdirectdebit"
+                      ]
+                    },
+                    "description": "Automatcher accounts can also process direct debits from external organisations against them. By default this behaviour is disabled. If configured to allow direct debits, a notification will be sent when an external party attempts to debit one of your accounts, and if accepted, the funds will be deducted from your sign in mAccount.\n\nNotification of a pending direct debit are sent via a callback or a report API can be called to list all pending debits.\n\nAfter receiving a notification, you have until 4:00pm next business day (from the time the initial debit is received) to instruct us on what action to take; either approve or reject. If no action is taken the transaction will be placed into a pending status until expiry next business day at 4pm.\n\nFor expiring transactions, the direct debit request will automatically be actioned based on your account default configuration.\n\nConfiguration options are:\n\na) Accept direct debit request for all requests\nb) Reject direct debit for all requests\n\nNote if you do not have sufficient balance in your sign in mAccount you cannot accept direct debits and expiring direct debits will be automatically returned regardless of configuration."
+                  },
+                  "response": [
+                    {
+                      "id": "5b11bb08-1e80-44be-8ab8-cb4d79185638",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"transactionId\": \"<string>\",\n  \"response\": \"Reject\",\n  \"rejectionReason\": \"<string>\",\n  \"returnCode\": \"ReferToCustomer\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/processdirectdebit",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "processdirectdebit"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"uniqueReferenced\": \"<string>\",\n  \"transactionId\": \"<integer>\",\n  \"feeAmountExcludingGst\": \"<number>\",\n  \"feeAmountGstComponent\": \"<number>\",\n  \"feeAmountIncludingGst\": \"<number>\"\n}",
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-5b11bb08-1e80-44be-8ab8-cb4d79185638"
+                    },
+                    {
+                      "id": "4a6d6f03-416d-4fb8-8edf-755b7f0d560b",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"transactionId\": \"<string>\",\n  \"response\": \"Reject\",\n  \"rejectionReason\": \"<string>\",\n  \"returnCode\": \"ReferToCustomer\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/processdirectdebit",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "processdirectdebit"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-4a6d6f03-416d-4fb8-8edf-755b7f0d560b"
+                    },
+                    {
+                      "id": "3212f335-a9a8-4923-b777-8de518f506b2",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"transactionId\": \"<string>\",\n  \"response\": \"Reject\",\n  \"rejectionReason\": \"<string>\",\n  \"returnCode\": \"ReferToCustomer\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/processdirectdebit",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "processdirectdebit"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-3212f335-a9a8-4923-b777-8de518f506b2"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:58:17.000Z",
+                  "updatedAt": "2026-10-22T01:58:17.000Z",
+                  "uid": "35240-42c1c43c-5449-4d53-aadd-62781a0bd4eb"
+                }
+              ],
+              "id": "5cf48bf4-64dc-48ec-a3ee-25f5261fb70f",
+              "createdAt": "2026-10-22T01:58:17.000Z",
+              "updatedAt": "2026-10-22T01:58:17.000Z",
+              "uid": "35240-5cf48bf4-64dc-48ec-a3ee-25f5261fb70f"
+            },
+            {
+              "name": "processRtgsImt",
+              "item": [
+                {
+                  "name": "Receive Swift Transfers (RTGS/IMT transactions)",
+                  "id": "365cc711-fc14-4657-944b-d8bc4454cf5e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"transactionId\": \"<string>\",\n  \"response\": \"Confirm\",\n  \"rejectionReasonCode\": \"BE04\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/receivables/v1/processRtgsImt",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "receivables",
+                        "v1",
+                        "processRtgsImt"
+                      ]
+                    },
+                    "description": "Automatcher accounts can be configurated to receive Swift Transfers. This includes both RTGS (Real Time Gross Settlement) and IMT (International Money Transfers).\n\nIf the account is not configured to receive Swift Transfers, the transaction will be automatically rejected on our end. If configured to allow RTGS/IMT transactions, a notification will be sent when an external party attempts to credit to one of your accounts, and if accepted, the funds will be credited to your sign in mAccount or nominated mAccount. Please contact Monoova for configuration of account.\n\nNotification of a RTGS/IMT are sent via a callback or a report API can be called to list all pending transactions.\n\nAfter receiving a notification, you have 2 business days to either confirm or reject. If no action is taken the transaction will be placed into a pending status until expiry.\n\nFor expiring transactions, the RTGS/IMT transactions will automatically be actioned based on your account default configuration.\n\nConfiguration options are:\n\na) Confirm - Accept all incoming RTGS/IMT Transactions\nb) Reject - Reject all incoming RTGS/IMT Transactions"
+                  },
+                  "response": [
+                    {
+                      "id": "83e06141-3792-474e-b66b-8b25fcacc5eb",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"transactionId\": \"<string>\",\n  \"response\": \"Confirm\",\n  \"rejectionReasonCode\": \"BE04\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/processRtgsImt",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "processRtgsImt"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"uniqueReferenced\": \"<string>\",\n  \"transactionId\": \"<integer>\",\n  \"feeAmountExcludingGst\": \"<number>\",\n  \"feeAmountGstComponent\": \"<number>\",\n  \"feeAmountIncludingGst\": \"<number>\"\n}",
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-83e06141-3792-474e-b66b-8b25fcacc5eb"
+                    },
+                    {
+                      "id": "03e393d8-efaf-40cb-97d8-14ab99ae54a0",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"transactionId\": \"<string>\",\n  \"response\": \"Confirm\",\n  \"rejectionReasonCode\": \"BE04\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/processRtgsImt",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "processRtgsImt"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-03e393d8-efaf-40cb-97d8-14ab99ae54a0"
+                    },
+                    {
+                      "id": "111ddd7d-6829-4395-8504-301dead6ffe9",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"transactionId\": \"<string>\",\n  \"response\": \"Confirm\",\n  \"rejectionReasonCode\": \"BE04\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/processRtgsImt",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "processRtgsImt"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-111ddd7d-6829-4395-8504-301dead6ffe9"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:58:17.000Z",
+                  "updatedAt": "2026-10-22T01:58:17.000Z",
+                  "uid": "35240-365cc711-fc14-4657-944b-d8bc4454cf5e"
+                }
+              ],
+              "id": "ce156fe1-bafb-45b0-8129-5550dfa4702a",
+              "createdAt": "2026-10-22T01:58:17.000Z",
+              "updatedAt": "2026-10-22T01:58:17.000Z",
+              "uid": "35240-ce156fe1-bafb-45b0-8129-5550dfa4702a"
+            }
+          ],
+          "id": "eede88be-ac5c-4298-9eae-275ea891d407",
+          "createdAt": "2026-10-22T01:58:17.000Z",
+          "updatedAt": "2026-10-22T01:58:17.000Z",
+          "uid": "35240-eede88be-ac5c-4298-9eae-275ea891d407"
+        },
+        {
+          "name": "v6",
+          "item": [
+            {
+              "name": "report",
+              "item": [
+                {
+                  "name": "{date}",
+                  "item": [
+                    {
+                      "name": "Report",
+                      "id": "6327ea90-3192-434c-b250-6c6a6d2f673b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v6/report/:date?endDate=<string>&skip=<integer>&take=<integer>&accountNumber=<string>&clientUniqueId=<string>&transactionType=NPP&transactionCode=13&payId=<string>&payIdName=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v6",
+                            "report",
+                            ":date"
+                          ],
+                          "query": [
+                            {
+                              "description": "Format:&nbsp; yyyyMMddHHmmss. Use this to fetch the report for a date range.",
+                              "key": "endDate",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Number of records to skip. 0 is the first record.",
+                              "key": "skip",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Number of records to take. If endDate is provided maximum take is 10000.",
+                              "key": "take",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Payee bank account number.",
+                              "key": "accountNumber",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The unique identifier for the account.",
+                              "key": "clientUniqueId",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Possible Values:&nbsp; 'DE' or 'NPP'.",
+                              "key": "transactionType",
+                              "value": "NPP"
+                            },
+                            {
+                              "description": "Industry standard transaction code. only applicable for DE. Possible values:&nbsp; \u201c13\u201d for Debit, \u201c50\u201d for credit.Refer to Direct entry standard for definitions 51-57.",
+                              "key": "transactionCode",
+                              "value": "13"
+                            },
+                            {
+                              "description": "Email address for the PayID.",
+                              "key": "payId",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Name displayed to the payers.",
+                              "key": "payIdName",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "df0e6ed4-9daa-48a1-a9cb-6a2dddfa4140",
+                              "key": "date",
+                              "value": "<string>",
+                              "description": "(Required) Format:&nbsp; 'yyyyMMddHHmmss'. This becomes the start date of the report if report is being fetched for a date range."
+                            }
+                          ]
+                        },
+                        "description": "Returns a report of all received transactions for the day with associated details, this includes Direct Entry and NPP Receivables."
+                      },
+                      "response": [
+                        {
+                          "id": "3b3cc7f4-7995-4cee-bdfa-30765da74d09",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "text/plain"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v6/report/:date?endDate=<string>&skip=<integer>&take=<integer>&accountNumber=<string>&clientUniqueId=<string>&transactionType=NPP&transactionCode=13&payId=<string>&payIdName=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v6",
+                                "report",
+                                ":date"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Format:&nbsp; yyyyMMddHHmmss. Use this to fetch the report for a date range.",
+                                  "key": "endDate",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Number of records to skip. 0 is the first record.",
+                                  "key": "skip",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records to take. If endDate is provided maximum take is 10000.",
+                                  "key": "take",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Payee bank account number.",
+                                  "key": "accountNumber",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The unique identifier for the account.",
+                                  "key": "clientUniqueId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Possible Values:&nbsp; 'DE' or 'NPP'.",
+                                  "key": "transactionType",
+                                  "value": "NPP"
+                                },
+                                {
+                                  "description": "Industry standard transaction code. only applicable for DE. Possible values:&nbsp; \u201c13\u201d for Debit, \u201c50\u201d for credit.Refer to Direct entry standard for definitions 51-57.",
+                                  "key": "transactionCode",
+                                  "value": "13"
+                                },
+                                {
+                                  "description": "Email address for the PayID.",
+                                  "key": "payId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Name displayed to the payers.",
+                                  "key": "payIdName",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/plain"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"examples\": {\n    \"response\": {\n      \"value\": \"Transaction ID, Batch Id, DateTime, BSB, AccountNumber, AccountName, PayId, PayId Name, TransactionCode, TransactionType, Amount, LodgementRef, RemitterName, Indicator, WithholdingTaxAmount, EndToEndId, RespondBeforeDateTime, NameOfUserSupplyingFile, NumberOfUserSupplyingFile, DescriptionOfEntriesOnFile, SourceBsb, SourceAccountNumber, SourceAccountName, CategoryPurposeCode, CreditorReferenceInformation, USINumber, USIScheme, UltimateCreditorName, ReconciliationRuleReference\\nD00100544414,000000214309,2020-04-20T13:58:48,802-985,744019924,CRMT,,,50,DE,5.00,Ref1,MONOOVA,,0.00,,,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,012-366,123456789,,,,,,RR22348\\nN00400000507,,2020-04-20T13:55:50,802-985,123456789,Ashwini Radcliffe,4op1q4@monoova.me,Test01,,NPP,201.00,This description,Twhite Pharma,,0.00,NOTPROVIDED,,,,,123-123,12026204,Twhite Pharma,,,,,,RR22349\\nN00400000494,,2020-04-20T13:55:17,802-985,123456789,Ashwini Radcliffe,4op1q4@monoova.me,Test01,,NPP,201.00,This description,Omega,,0.00,NOTPROVIDED,,,,,123-123,12026204,Omega Group,,,,,,RR22350\\nN00400000481,,2020-04-20T13:53:37,802-985,123456789,Ashwini Radcliffe,4op1q4@monoova.me,Test01,,NPP,201.00,This description,S Group,,0.00,NOTPROVIDED,,,,,123-123,12026204,S Group,,,,,,RR22351\\n\"\n    }\n  }\n}",
+                          "createdAt": "2026-10-22T01:58:17.000Z",
+                          "updatedAt": "2026-10-22T01:58:17.000Z",
+                          "uid": "35240-3b3cc7f4-7995-4cee-bdfa-30765da74d09"
+                        },
+                        {
+                          "id": "3bade39e-3bd7-4d49-8c2e-470dcf86bb6d",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v6/report/:date?endDate=<string>&skip=<integer>&take=<integer>&accountNumber=<string>&clientUniqueId=<string>&transactionType=NPP&transactionCode=13&payId=<string>&payIdName=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v6",
+                                "report",
+                                ":date"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Format:&nbsp; yyyyMMddHHmmss. Use this to fetch the report for a date range.",
+                                  "key": "endDate",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Number of records to skip. 0 is the first record.",
+                                  "key": "skip",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records to take. If endDate is provided maximum take is 10000.",
+                                  "key": "take",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Payee bank account number.",
+                                  "key": "accountNumber",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The unique identifier for the account.",
+                                  "key": "clientUniqueId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Possible Values:&nbsp; 'DE' or 'NPP'.",
+                                  "key": "transactionType",
+                                  "value": "NPP"
+                                },
+                                {
+                                  "description": "Industry standard transaction code. only applicable for DE. Possible values:&nbsp; \u201c13\u201d for Debit, \u201c50\u201d for credit.Refer to Direct entry standard for definitions 51-57.",
+                                  "key": "transactionCode",
+                                  "value": "13"
+                                },
+                                {
+                                  "description": "Email address for the PayID.",
+                                  "key": "payId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Name displayed to the payers.",
+                                  "key": "payIdName",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:17.000Z",
+                          "updatedAt": "2026-10-22T01:58:17.000Z",
+                          "uid": "35240-3bade39e-3bd7-4d49-8c2e-470dcf86bb6d"
+                        },
+                        {
+                          "id": "e176943c-2253-42c3-bc53-154d8331628b",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v6/report/:date?endDate=<string>&skip=<integer>&take=<integer>&accountNumber=<string>&clientUniqueId=<string>&transactionType=NPP&transactionCode=13&payId=<string>&payIdName=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v6",
+                                "report",
+                                ":date"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Format:&nbsp; yyyyMMddHHmmss. Use this to fetch the report for a date range.",
+                                  "key": "endDate",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Number of records to skip. 0 is the first record.",
+                                  "key": "skip",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records to take. If endDate is provided maximum take is 10000.",
+                                  "key": "take",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Payee bank account number.",
+                                  "key": "accountNumber",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The unique identifier for the account.",
+                                  "key": "clientUniqueId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Possible Values:&nbsp; 'DE' or 'NPP'.",
+                                  "key": "transactionType",
+                                  "value": "NPP"
+                                },
+                                {
+                                  "description": "Industry standard transaction code. only applicable for DE. Possible values:&nbsp; \u201c13\u201d for Debit, \u201c50\u201d for credit.Refer to Direct entry standard for definitions 51-57.",
+                                  "key": "transactionCode",
+                                  "value": "13"
+                                },
+                                {
+                                  "description": "Email address for the PayID.",
+                                  "key": "payId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Name displayed to the payers.",
+                                  "key": "payIdName",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:17.000Z",
+                          "updatedAt": "2026-10-22T01:58:17.000Z",
+                          "uid": "35240-e176943c-2253-42c3-bc53-154d8331628b"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-6327ea90-3192-434c-b250-6c6a6d2f673b"
+                    }
+                  ],
+                  "id": "3728fcd3-3b3b-435e-a9e1-93023c250e58",
+                  "createdAt": "2026-10-22T01:58:17.000Z",
+                  "updatedAt": "2026-10-22T01:58:17.000Z",
+                  "uid": "35240-3728fcd3-3b3b-435e-a9e1-93023c250e58"
+                }
+              ],
+              "id": "0e0598c0-6f83-479e-ad12-fadbff96b332",
+              "createdAt": "2026-10-22T01:58:17.000Z",
+              "updatedAt": "2026-10-22T01:58:17.000Z",
+              "uid": "35240-0e0598c0-6f83-479e-ad12-fadbff96b332"
+            }
+          ],
+          "id": "5708ea97-d82e-421b-85e5-d1b712b9bc82",
+          "createdAt": "2026-10-22T01:58:17.000Z",
+          "updatedAt": "2026-10-22T01:58:17.000Z",
+          "uid": "35240-5708ea97-d82e-421b-85e5-d1b712b9bc82"
+        },
+        {
+          "name": "v2",
+          "item": [
+            {
+              "name": "refund",
+              "item": [
+                {
+                  "name": "Receivables Refund",
+                  "id": "e2784be7-053c-45c2-98a7-5d3692e34eb6",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"uniqueReference\": \"<string>\",\n  \"originalTransactionId\": \"<string>\",\n  \"refundAmount\": \"<number>\",\n  \"description\": \"<string>\",\n  \"refundReference\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/receivables/v2/refund",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "receivables",
+                        "v2",
+                        "refund"
+                      ]
+                    },
+                    "description": "The refund API allows the transfer funds back to the payer for transactions received via EFT. The funds are sent to details as supplied by the payer institution. Please note that not all institutions provide valid payer details, in some cases the refund will not be successful. NPP payments can only be refunded 5 minutes after receiving the original payment."
+                  },
+                  "response": [
+                    {
+                      "id": "11d13abb-ee69-4979-bace-e3f60953fb68",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"uniqueReference\": \"<string>\",\n  \"originalTransactionId\": \"<string>\",\n  \"refundAmount\": \"<number>\",\n  \"description\": \"<string>\",\n  \"refundReference\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v2/refund",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v2",
+                            "refund"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"callerUniqueReference\": \"<string>\",\n  \"feeAmountExcludingGst\": \"<number>\",\n  \"feeAmountGstComponent\": \"<number>\",\n  \"feeAmountIncludingGst\": \"<number>\",\n  \"transactionId\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-11d13abb-ee69-4979-bace-e3f60953fb68"
+                    },
+                    {
+                      "id": "4fd37deb-7895-46e0-8324-add1dac97ce7",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"uniqueReference\": \"<string>\",\n  \"originalTransactionId\": \"<string>\",\n  \"refundAmount\": \"<number>\",\n  \"description\": \"<string>\",\n  \"refundReference\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v2/refund",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v2",
+                            "refund"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-4fd37deb-7895-46e0-8324-add1dac97ce7"
+                    },
+                    {
+                      "id": "e73be883-aebd-4ae3-ba62-30c15a699544",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"uniqueReference\": \"<string>\",\n  \"originalTransactionId\": \"<string>\",\n  \"refundAmount\": \"<number>\",\n  \"description\": \"<string>\",\n  \"refundReference\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v2/refund",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v2",
+                            "refund"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-e73be883-aebd-4ae3-ba62-30c15a699544"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:58:17.000Z",
+                  "updatedAt": "2026-10-22T01:58:17.000Z",
+                  "uid": "35240-e2784be7-053c-45c2-98a7-5d3692e34eb6"
+                }
+              ],
+              "id": "786d9929-2882-4ddc-89ff-21cda4c15f7f",
+              "createdAt": "2026-10-22T01:58:17.000Z",
+              "updatedAt": "2026-10-22T01:58:17.000Z",
+              "uid": "35240-786d9929-2882-4ddc-89ff-21cda4c15f7f"
+            },
+            {
+              "name": "inbounddirectdebitreport",
+              "item": [
+                {
+                  "name": "{date}",
+                  "item": [
+                    {
+                      "name": "Inbound Direct Debit Report",
+                      "id": "77655089-dc9f-48a5-bfa5-a733e06b3e2e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v2/inbounddirectdebitreport/:date",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v2",
+                            "inbounddirectdebitreport",
+                            ":date"
+                          ],
+                          "variable": [
+                            {
+                              "id": "60419703-b90d-4563-bf75-ac0356dc86c7",
+                              "key": "date",
+                              "value": "<string>",
+                              "description": "(Required) date format should be 'yyyy-MM-dd' format."
+                            }
+                          ]
+                        },
+                        "description": "The report is an application/octet-stream, columns are comma separated. Where a comma(,) or double quote(\") is present in any of the below fields, the field will be encased in double quotes and/or escaped as per RFC4180\n.\n\nTransaction ID Batch ID DateTime Status RejectionReason BSB AccountNumber AccountName Amount LodgementRef RemitterName RespondBeforeDateTime NameOfUserSupplyingFile NumberOfUserSupplyingFile DescriptionOfEntriesOnFile Indicator WithholdingTaxAmount (if applicable) SourceBsb (if applicable) SourceAccountNumber (if applicable)\n\nMonoova generated\nUnique ID.\nMax 12 chars.\n\nPayment Batch ID.\nPayments come in batches\nthroughout the day.\nMax 12 chars. Blank if NPP. AEDT, Sydney.\nMax 27 chars. Transaction status,\npossible values:\nPending, Accept, Reject Text supplied when rejecting\na direct debit.\nMax 250 Chars Payee BSB.\nMax 7 Chars. Payee Bank Account\nNumber. Max 34 chars. Payer submitted Account\nName. Max 32 chars. Payment amount,\n2 decimal places\nfor cents. Max 11 chars. Payer submitted reference.\nMax 280 chars. Remitting Entity.\nMax 140 chars. Time by when you have to\nrespond to the Inbound\nDirect Debit request. Preferred name of the\nUser supplying\nthe Direct Entry file. This is the User Identification\nNumber which is assigned by\nAPCA and User Financial Institutions. Direct Entry file description.\nBlank; OR 'W' dividend paid to a\nresident of a country where a double\ntax agreement is in force. 'X' dividend\npaid to a resident of any other country.\n'Y' interest paid to all non-resident.\nMax 1 chars. Blank OR Payment amount,\n2 decimal places for cents.\nMax 9 chars. Payee BSB.\nMax 7 Chars. Payee Bank Account\nNumber. Max 34 chars.\n\nNote: Source account details do not appear by default, please contact Monoova for further information"
+                      },
+                      "response": [
+                        {
+                          "id": "d224de56-6bba-4ed8-bd8b-49ef57b61a57",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "text/plain"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v2/inbounddirectdebitreport/:date",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v2",
+                                "inbounddirectdebitreport",
+                                ":date"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/plain"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"examples\": {\n    \"response\": {\n      \"value\": \"Transaction ID, Batch Id, DateTime, Status, RejectionReason, BSB, AccountNumber, AccountName, Amount, LodgementRef, RemitterName, RespondBeforeDateTime, NameOfUserSupplyingFile, NumberOfUserSupplyingFile, DescriptionOfEntriesOnFile, Indicator, WithholdingTaxAmount, SourceBsb, SourceAccountNumber\\nD00100541320,000000213529,2020-03-03T09:31:08,Pending,,802-985,987654321,DRMT,5.00,Ref1,MONOOVA,2020-03-04T16:30:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204\\nD00100541268,000000213516,2020-03-03T09:29:34,Pending,,802-985,987654321,DRMT,5.00,Ref1,MONOOVA,2020-03-04T16:30:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204\\nD00100541203,000000213503,2020-03-03T08:53:49,Reject,,802-985,123456789,DR,4.00,Ref1,MONOOVA,2020-02-26T16:00:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204\\nD00100541216,000000213503,2020-03-03T08:53:49,Reject,,802-985,987654321,DRMT,5.00,Ref1,MONOOVA,2020-02-26T16:00:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204\\nD00100541138,000000213490,2020-03-03T08:27:55,Accept,,802-985,123456789,DR,4.00,Ref1,MONOOVA,2020-03-04T16:30:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204\\nD00100541151,000000213490,2020-03-03T08:27:55,Reject,Out of money,802-985,987654321,DRMT,5.00,Ref1,MONOOVA,2020-03-04T16:30:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204\\nD00100541073,000000213477,2020-03-03T08:16:22,Reject,,802-985,123456789,DR,4.00,Ref1,MONOOVA,2020-02-26T16:00:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204\\nD00100541086,000000213477,2020-03-03T08:16:22,Reject,,802-985,987654321,DRMT,5.00,Ref1,MONOOVA,2020-02-26T16:00:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204\\nD00100541008,000000213464,2020-03-03T08:09:18,Accept,,802-985,123456789,DR,4.00,Ref1,MONOOVA,2020-02-26T16:00:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204\\nD00100541021,000000213464,2020-03-03T08:09:18,Accept,,802-985,987654321,DRMT,5.00,Ref1,MONOOVA,2020-02-26T16:00:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204\\nD00100540943,000000213451,2020-03-03T07:20:55,Accept,,802-985,123456789,DR,4.00,Ref1,MONOOVA,2020-02-26T16:00:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204\\nD00100540956,000000213451,2020-03-03T07:20:55,Accept,,802-985,987654321,DRMT,5.00,Ref1,MONOOVA,2020-02-26T16:00:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204\\nD00100540878,000000213438,2020-03-03T07:20:48,Accept,,802-985,123456789,DR,4.00,Ref1,MONOOVA,2020-02-26T16:00:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204\\nD00100540891,000000213438,2020-03-03T07:20:48,Accept,,802-985,987654321,DRMT,5.00,Ref1,MONOOVA,2020-02-26T16:00:00,M PAYMENTS PTY LIMIT,483449,PAYMNT TRSFR,,0.00,123-123,12026204\\n\"\n    }\n  }\n}",
+                          "createdAt": "2026-10-22T01:58:17.000Z",
+                          "updatedAt": "2026-10-22T01:58:17.000Z",
+                          "uid": "35240-d224de56-6bba-4ed8-bd8b-49ef57b61a57"
+                        },
+                        {
+                          "id": "141d4b7e-0f10-4d95-abb1-652cc74653db",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v2/inbounddirectdebitreport/:date",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v2",
+                                "inbounddirectdebitreport",
+                                ":date"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:17.000Z",
+                          "updatedAt": "2026-10-22T01:58:17.000Z",
+                          "uid": "35240-141d4b7e-0f10-4d95-abb1-652cc74653db"
+                        },
+                        {
+                          "id": "820b8feb-c8c3-49d9-96aa-5fb6c168036d",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v2/inbounddirectdebitreport/:date",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v2",
+                                "inbounddirectdebitreport",
+                                ":date"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:17.000Z",
+                          "updatedAt": "2026-10-22T01:58:17.000Z",
+                          "uid": "35240-820b8feb-c8c3-49d9-96aa-5fb6c168036d"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-77655089-dc9f-48a5-bfa5-a733e06b3e2e"
+                    }
+                  ],
+                  "id": "d92c7358-34bd-4bd3-b59e-4295591d7e3d",
+                  "createdAt": "2026-10-22T01:58:17.000Z",
+                  "updatedAt": "2026-10-22T01:58:17.000Z",
+                  "uid": "35240-d92c7358-34bd-4bd3-b59e-4295591d7e3d"
+                }
+              ],
+              "id": "713df716-4600-4e49-ae05-bba48df0d804",
+              "createdAt": "2026-10-22T01:58:17.000Z",
+              "updatedAt": "2026-10-22T01:58:17.000Z",
+              "uid": "35240-713df716-4600-4e49-ae05-bba48df0d804"
+            },
+            {
+              "name": "rtgsimtReport",
+              "item": [
+                {
+                  "name": "{date}",
+                  "item": [
+                    {
+                      "name": "RTGS/IMT Report",
+                      "id": "68a93420-5ba4-447c-ab50-42779521c563",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v2/rtgsimtReport/:date?endDate=<string>&skip=<integer>&take=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v2",
+                            "rtgsimtReport",
+                            ":date"
+                          ],
+                          "query": [
+                            {
+                              "description": "Use this to fetch the report for a date range. Date format should be 'yyyy-MM-dd' format",
+                              "key": "endDate",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Number of records to skip. 1 is the first record.Value should be greater than 0",
+                              "key": "skip",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Number of records to take. If endDate is provided maximum take is 10000.",
+                              "key": "take",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "0e962fc4-e2d1-4d7f-b786-a0fad71d3526",
+                              "key": "date",
+                              "value": "<string>",
+                              "description": "(Required) This becomes the start date of the report if report is being fetched for a date range. Date format should be 'yyyy-MM-dd' format."
+                            }
+                          ]
+                        },
+                        "description": "Returns a report of all received transactions for the day with associated details, this includes RTGS (real-time gross settlement) and International Money Transfer. If requested multiple times on the current date (calendar day, AEDT), the report is cumulative. E.g. if, on the same day, a report is requested at 10am and another one at 1pm, the report at 1pm will contain all the transactions already contained in the 10am report, in addition to any new transactions.\n\nThe report is an application/octet-stream, columns are comma separated. Where a comma(,) or double quote(\") is present in any of the below fields, the field will be encased in double quotes and/or escaped as per RFC4180\nColumns are as follows:\n\nTransaction ID AccountNumber BSB AccountName TransactionReferenceNumber Amount Status LodgementRef Date SourceAccountDetails RespondBeforeDateTime RejectReasonDescription ProcessedDate SendingOrganisation ReceivingOrganisation OrderingInstitution OriginatingAddress\n\nMonoova generated\nUnique ID.\nMax 12 chars.\n\nPayee Bank Account\nNumber. Max 34 chars. Payee BSB.\nMax 7 Chars. Payer submitted Account\nName. Max 32 chars. TransactionReferenceNumber.\nMax 21 chars. Payment amount,\n2 decimal places\nfor cents. Max 11 chars. Transaction status,\npossible values:\nPending, Confirmed and Rejected. Payer submitted reference.\nMax 280 chars. AEDT, Sydney.\nMax 27 chars. Source Account Name address and account number The time user has to Confirm/Reject a transaction. AEDT, Sydney.\nMax 27 chars. Reason why transaction was rejected.\nMax 500 chars. The time when transaction was Confirmed/Rejected. AEDT, Sydney.\nMax 27 chars. Sending Organisation.\nMax 100 chars. Receiving Organisation.\nMax 100 chars. Ordering Institution.\nMax 100 chars. Originating Address.\nMax 100 chars."
+                      },
+                      "response": [
+                        {
+                          "id": "945bd867-a36e-472d-819e-d8de3171e346",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "text/plain"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v2/rtgsimtReport/:date?endDate=<string>&skip=<integer>&take=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v2",
+                                "rtgsimtReport",
+                                ":date"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Use this to fetch the report for a date range. Date format should be 'yyyy-MM-dd' format",
+                                  "key": "endDate",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Number of records to skip. 1 is the first record.Value should be greater than 0",
+                                  "key": "skip",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records to take. If endDate is provided maximum take is 10000.",
+                                  "key": "take",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/plain"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"examples\": {\n    \"response\": {\n      \"value\": \"Transaction Id,Account Number,BSB,AccountName,Transaction Reference Number,Amount,Status,Lodgement Reference,Date,Source Account Details,Respond Before Date Time,Reject Reason Description,Processed Date,Sending Organisation,Receiving Organisation,Ordering Institution,Originating Address,ledgerAccountNumber,ledgerUniqueReference\\nR10000001,317578496,802-985,Monoova,AU1201026014379,122.94,Confirmed,/INS/TESTAU2SXXX,2020-10-26T00:00:00,\\\"0123456789 Building 1, 2 SAMPLE ST SYDNEY 2000 AU\\\",,,2022-01-13T11:00:01,,MONOOVA PAYMENTS P/L,,METWAU4BAXXX,,\\nR10000002,416467294,802-985,Monoova,AU12010260400584,130000,Confirmed,,2020-10-26T00:00:00,\\\"0123456789 Building 1, 1 SAMPLE ST SYDNEY 2000 AU\\\",,,2022-01-13T11:00:06,,AU,,NATAAU33A03M,,\\n\"\n    }\n  }\n}",
+                          "createdAt": "2026-10-22T01:58:17.000Z",
+                          "updatedAt": "2026-10-22T01:58:17.000Z",
+                          "uid": "35240-945bd867-a36e-472d-819e-d8de3171e346"
+                        },
+                        {
+                          "id": "628e0fb8-7de1-41fd-a9a7-339b582fc00e",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v2/rtgsimtReport/:date?endDate=<string>&skip=<integer>&take=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v2",
+                                "rtgsimtReport",
+                                ":date"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Use this to fetch the report for a date range. Date format should be 'yyyy-MM-dd' format",
+                                  "key": "endDate",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Number of records to skip. 1 is the first record.Value should be greater than 0",
+                                  "key": "skip",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records to take. If endDate is provided maximum take is 10000.",
+                                  "key": "take",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:17.000Z",
+                          "updatedAt": "2026-10-22T01:58:17.000Z",
+                          "uid": "35240-628e0fb8-7de1-41fd-a9a7-339b582fc00e"
+                        },
+                        {
+                          "id": "c5eb33ce-fc17-4f6c-8569-15d18a4b3fed",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v2/rtgsimtReport/:date?endDate=<string>&skip=<integer>&take=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v2",
+                                "rtgsimtReport",
+                                ":date"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Use this to fetch the report for a date range. Date format should be 'yyyy-MM-dd' format",
+                                  "key": "endDate",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Number of records to skip. 1 is the first record.Value should be greater than 0",
+                                  "key": "skip",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records to take. If endDate is provided maximum take is 10000.",
+                                  "key": "take",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:17.000Z",
+                          "updatedAt": "2026-10-22T01:58:17.000Z",
+                          "uid": "35240-c5eb33ce-fc17-4f6c-8569-15d18a4b3fed"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-68a93420-5ba4-447c-ab50-42779521c563"
+                    }
+                  ],
+                  "id": "4d9887a1-81c3-4a89-b062-01cc20121dda",
+                  "createdAt": "2026-10-22T01:58:17.000Z",
+                  "updatedAt": "2026-10-22T01:58:17.000Z",
+                  "uid": "35240-4d9887a1-81c3-4a89-b062-01cc20121dda"
+                }
+              ],
+              "id": "d42d1902-22ad-48c3-baa6-2b7d3fc0b531",
+              "createdAt": "2026-10-22T01:58:17.000Z",
+              "updatedAt": "2026-10-22T01:58:17.000Z",
+              "uid": "35240-d42d1902-22ad-48c3-baa6-2b7d3fc0b531"
+            }
+          ],
+          "id": "5851bedb-b0c0-455c-a556-49eeecac29f8",
+          "createdAt": "2026-10-22T01:58:17.000Z",
+          "updatedAt": "2026-10-22T01:58:17.000Z",
+          "uid": "35240-5851bedb-b0c0-455c-a556-49eeecac29f8"
+        }
+      ],
+      "id": "76016a3a-e195-43ec-a468-b1cf2a682017",
+      "createdAt": "2026-10-22T01:58:17.000Z",
+      "updatedAt": "2026-10-22T01:58:17.000Z",
+      "uid": "35240-76016a3a-e195-43ec-a468-b1cf2a682017"
+    },
+    {
+      "name": "paytoreceivables",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "report",
+              "item": [
+                {
+                  "name": "{date}",
+                  "item": [
+                    {
+                      "name": "PayTo Receivables Report",
+                      "id": "5f82cec1-3507-434a-93f4-95d48f7aaab9",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/paytoreceivables/v1/report/:date?endDate=<string>&skip=<integer>&take=<integer>&accountNumber=<string>&clientUniqueId=<string>&transactionType=NPP&transactionCode=13&payId=<string>&payIdName=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "paytoreceivables",
+                            "v1",
+                            "report",
+                            ":date"
+                          ],
+                          "query": [
+                            {
+                              "description": "Format:&nbsp; yyyyMMddHHmmss. Use this to fetch the report for a date range.",
+                              "key": "endDate",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Number of records to skip. 0 is the first record.",
+                              "key": "skip",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Number of records to take. If endDate is provided maximum take is 10000.",
+                              "key": "take",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Payee bank account number.",
+                              "key": "accountNumber",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The unique identifier for the account.",
+                              "key": "clientUniqueId",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Possible Values:&nbsp; 'DE' or 'NPP'.",
+                              "key": "transactionType",
+                              "value": "NPP"
+                            },
+                            {
+                              "description": "Industry standard transaction code. only applicable for DE. Possible values:&nbsp; \u201c13\u201d for Debit, \u201c50\u201d for credit.Refer to Direct entry standard for definitions 51-57.",
+                              "key": "transactionCode",
+                              "value": "13"
+                            },
+                            {
+                              "description": "Email address for the PayID.",
+                              "key": "payId",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Name displayed to the payers.",
+                              "key": "payIdName",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "b4833ec8-a07e-4d73-b7df-c017247340a0",
+                              "key": "date",
+                              "value": "<string>",
+                              "description": "(Required) Format:&nbsp; 'yyyyMMddHHmmss'. This becomes the start date of the report if report is being fetched for a date range."
+                            }
+                          ]
+                        },
+                        "description": "Returns a report of PayTo transactions for the day with associated details. If requested multiple times on the current date (calendar day, AEDT), the report is cumulative. E.g. if, on the same day, a report is requested at 10am and another one at 1pm, the report at 1pm will contain all the transactions already contained in the 10am report, in addition to any new transactions. PayTo Transactions may arrive at anytime, we recommend subscribing to a webhook to receive new transaction notifications.\n\nThe report is an application/octet-stream, columns are comma separated. Where a comma(,) or double quote(\") is present in any of the below fields, the field will be encased in double quotes and/or escaped as per RFC4180\nColumns are as follows: .tb { table-layout:auto; width:100px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis; !important}\n\nTransaction ID Batch ID Datetime BSB AccountNumber AccountName PayId PayId Name TransactionCode TransactionType Amount LodgementRef RemitterName Indicator WithholdingTaxAmount (if applicable) EndToEndId RespondBeforeDateTime NameOfUserSupplyingFile NumberOfUserSupplyingFile DescriptionOfEntriesOnFile SourceBsb SourceAccountNumber SourceAccountName CategoryPurposeCode CreditorReferenceInformation USINumber USIScheme UltimateCreditorName MMSId InitiatingPartyName NPPInstructionId ReceiptNumber\n\nMonoova generated\nUnique ID.\nMax 12 chars.\n\nPayment Batch ID.\nPayments come in batches\nthroughout the day.\nMax 12 chars. Blank if NPP. AEDT, Sydney.\nMax 27 chars. Payee BSB.\nMax 7 Chars. Payee Bank Account\nNumber. Max 34 chars. Payer submitted Account\nName. Max 32 chars. Email address for the PayID.\nMax 256 chars. Name displayed to the payers\nMax 140 chars. Industry standard transaction\ncode. \u201c50\u201d for credit.\nRefer to Direct entry standard\nfor definitions 51-57.\nMax 5 chars. Possible Values:\n'DE' or 'NPP'\nPayment amount,\n2 decimal places\nfor cents. Max 11 chars. Payer submitted reference.\nMax 500 chars. Remitting Entity.\nMax 140 chars. Blank; OR 'W' dividend paid to a\nresident of a country where a double\ntax agreement is in force. 'X' dividend\npaid to a resident of any other country.\n'Y' interest paid to all non-resident.\nMax 1 chars. Blank OR Payment amount,\n2 decimal places for cents.\nMax 9 chars. Osko End to End identifier\nsubmitted by Payer. Time by when you have to\nrespond to the Inbound\nDirect Debit request. Preferred name of the\nUser supplying\nthe Direct Entry file. This is the User Identification\nNumber which is assigned by\nAPCA and User Financial Institutions. Direct Entry file description.\nPayer BSB.\nMax 7 Chars.\n\nPayer Bank Account Number.\nMax 34 chars.\nThis field appears for NPP transactions\nonly and is the payers bank account name.\nFor DE transactions please refer to the\nRemitterName Field. Max 140 Chars.\nNPP payment purpose code, max 4 chars.\nPossible values:\nBlank,\nSALA = Salary,\nPENS = SuperAnnuation,\nSUPP = E-Invoice,\nTAXS = Tax Used for SALA, PENS, SUPP and TAXS\ntransactions only.\nReference related to payment type.\nMax 35 chars. Used for PENS code payments only.\nUnique Superannuation ID (USI)\nMax 35 chars. Used for PENS code payments only.\nUSI scheme.\nMax 35 chars. Used for PENS code payments only.\nName of the Ultimate Creditor.\nMax 140 chars. Id assigned by NPPA for payment agreement Iniation Party name.\nUnique identifier for the NPP instruction.\nMax 35 chars. Unique identifier for the transaction log.\nMax 12 chars.\n\nNote: Source account details do not appear by default, please contact Monoova for further information. Also note, we will only retrieve 1 month transaction at a time\n\nPossible transaction codes\n\nCode Transaction Description\n\n13 Externally initiated debit items\n\n50 Externally initiated credit items with the exception of those bearing Transaction Codes\n\n51 Australian Government Security Interest\n\n52 Family Allowance\n\n53 Pay\n\n54 Pension\n\n55 Allotment\n\n56 Dividend\n\n57 Debenture/Note Interest"
+                      },
+                      "response": [
+                        {
+                          "id": "fbc539f7-688e-46f9-ad3a-cf78a386d6ef",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "text/plain"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/paytoreceivables/v1/report/:date?endDate=<string>&skip=<integer>&take=<integer>&accountNumber=<string>&clientUniqueId=<string>&transactionType=NPP&transactionCode=13&payId=<string>&payIdName=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "paytoreceivables",
+                                "v1",
+                                "report",
+                                ":date"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Format:&nbsp; yyyyMMddHHmmss. Use this to fetch the report for a date range.",
+                                  "key": "endDate",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Number of records to skip. 0 is the first record.",
+                                  "key": "skip",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records to take. If endDate is provided maximum take is 10000.",
+                                  "key": "take",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Payee bank account number.",
+                                  "key": "accountNumber",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The unique identifier for the account.",
+                                  "key": "clientUniqueId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Possible Values:&nbsp; 'DE' or 'NPP'.",
+                                  "key": "transactionType",
+                                  "value": "NPP"
+                                },
+                                {
+                                  "description": "Industry standard transaction code. only applicable for DE. Possible values:&nbsp; \u201c13\u201d for Debit, \u201c50\u201d for credit.Refer to Direct entry standard for definitions 51-57.",
+                                  "key": "transactionCode",
+                                  "value": "13"
+                                },
+                                {
+                                  "description": "Email address for the PayID.",
+                                  "key": "payId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Name displayed to the payers.",
+                                  "key": "payIdName",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/plain"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"examples\": {\n    \"response\": {\n      \"value\": \"Transaction ID,Batch Id,DateTime,BSB,AccountNumber,AccountName,PayId,PayId Name,TransactionCode,TransactionType,Amount,LodgementRef,RemitterName,Indicator,WithholdingTaxAmount,EndToEndId,RespondBeforeDateTime,NameOfUserSupplyingFile,NumberOfUserSupplyingFile,DescriptionOfEntriesOnFile,SourceBsb,SourceAccountNumber,SourceAccountName,CategoryPurposeCode,CreditorReferenceInformation,USINumber,USIScheme,UltimateCreditorName,MMSId,InitiatingPartyName,NPPInstructionId,ReceiptNumber\\nN00400000507,,2020-04-20T13:55:50,802-985,123456789,Ashwini Radcliffe,4op1q4@monoova.me,Test01,,NPP,201.00,This description,Twhite Pharma,,0.00,NOTPROVIDED,,,,,123-123,12026204,Twhite Pharma,,,,,,,PI123456789,5678120\\nN00400000494,,2020-04-20T13:55:17,802-985,123456789,Ashwini Radcliffe,4op1q4@monoova.me,Test01,,NPP,201.00,This description,Omega,,0.00,NOTPROVIDED,,,,,123-123,12026204,Omega Group,,,,,,,PI123456790,5678121\\nN00400000481,,2020-04-20T13:53:37,802-985,123456789,Ashwini Radcliffe,4op1q4@monoova.me,Test01,,NPP,201.00,This description,S Group,,0.00,NOTPROVIDED,,,,,123-123,12026204,S Group,,,,,,,PI123456791,5678122\\n\"\n    }\n  }\n}",
+                          "createdAt": "2026-10-22T01:58:17.000Z",
+                          "updatedAt": "2026-10-22T01:58:17.000Z",
+                          "uid": "35240-fbc539f7-688e-46f9-ad3a-cf78a386d6ef"
+                        },
+                        {
+                          "id": "05c6d277-c4ba-446f-809e-a77be681b665",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/paytoreceivables/v1/report/:date?endDate=<string>&skip=<integer>&take=<integer>&accountNumber=<string>&clientUniqueId=<string>&transactionType=NPP&transactionCode=13&payId=<string>&payIdName=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "paytoreceivables",
+                                "v1",
+                                "report",
+                                ":date"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Format:&nbsp; yyyyMMddHHmmss. Use this to fetch the report for a date range.",
+                                  "key": "endDate",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Number of records to skip. 0 is the first record.",
+                                  "key": "skip",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records to take. If endDate is provided maximum take is 10000.",
+                                  "key": "take",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Payee bank account number.",
+                                  "key": "accountNumber",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The unique identifier for the account.",
+                                  "key": "clientUniqueId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Possible Values:&nbsp; 'DE' or 'NPP'.",
+                                  "key": "transactionType",
+                                  "value": "NPP"
+                                },
+                                {
+                                  "description": "Industry standard transaction code. only applicable for DE. Possible values:&nbsp; \u201c13\u201d for Debit, \u201c50\u201d for credit.Refer to Direct entry standard for definitions 51-57.",
+                                  "key": "transactionCode",
+                                  "value": "13"
+                                },
+                                {
+                                  "description": "Email address for the PayID.",
+                                  "key": "payId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Name displayed to the payers.",
+                                  "key": "payIdName",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:17.000Z",
+                          "updatedAt": "2026-10-22T01:58:17.000Z",
+                          "uid": "35240-05c6d277-c4ba-446f-809e-a77be681b665"
+                        },
+                        {
+                          "id": "8d66d6b6-0124-4713-9867-28eb0acea038",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/paytoreceivables/v1/report/:date?endDate=<string>&skip=<integer>&take=<integer>&accountNumber=<string>&clientUniqueId=<string>&transactionType=NPP&transactionCode=13&payId=<string>&payIdName=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "paytoreceivables",
+                                "v1",
+                                "report",
+                                ":date"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Format:&nbsp; yyyyMMddHHmmss. Use this to fetch the report for a date range.",
+                                  "key": "endDate",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Number of records to skip. 0 is the first record.",
+                                  "key": "skip",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records to take. If endDate is provided maximum take is 10000.",
+                                  "key": "take",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Payee bank account number.",
+                                  "key": "accountNumber",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The unique identifier for the account.",
+                                  "key": "clientUniqueId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Possible Values:&nbsp; 'DE' or 'NPP'.",
+                                  "key": "transactionType",
+                                  "value": "NPP"
+                                },
+                                {
+                                  "description": "Industry standard transaction code. only applicable for DE. Possible values:&nbsp; \u201c13\u201d for Debit, \u201c50\u201d for credit.Refer to Direct entry standard for definitions 51-57.",
+                                  "key": "transactionCode",
+                                  "value": "13"
+                                },
+                                {
+                                  "description": "Email address for the PayID.",
+                                  "key": "payId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Name displayed to the payers.",
+                                  "key": "payIdName",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:17.000Z",
+                          "updatedAt": "2026-10-22T01:58:17.000Z",
+                          "uid": "35240-8d66d6b6-0124-4713-9867-28eb0acea038"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:58:17.000Z",
+                      "updatedAt": "2026-10-22T01:58:17.000Z",
+                      "uid": "35240-5f82cec1-3507-434a-93f4-95d48f7aaab9"
+                    }
+                  ],
+                  "id": "9f6eca69-099b-40f0-a86a-50f6fcc6038a",
+                  "createdAt": "2026-10-22T01:58:17.000Z",
+                  "updatedAt": "2026-10-22T01:58:17.000Z",
+                  "uid": "35240-9f6eca69-099b-40f0-a86a-50f6fcc6038a"
+                }
+              ],
+              "id": "6c14e0b6-7a1a-437d-81a1-381c61c01909",
+              "createdAt": "2026-10-22T01:58:17.000Z",
+              "updatedAt": "2026-10-22T01:58:17.000Z",
+              "uid": "35240-6c14e0b6-7a1a-437d-81a1-381c61c01909"
+            }
+          ],
+          "id": "3de1fecd-f666-4e97-bf44-6b6203e134d5",
+          "createdAt": "2026-10-22T01:58:17.000Z",
+          "updatedAt": "2026-10-22T01:58:17.000Z",
+          "uid": "35240-3de1fecd-f666-4e97-bf44-6b6203e134d5"
+        }
+      ],
+      "id": "7c829586-07c8-4ae6-ae4f-d24953e6d4a2",
+      "createdAt": "2026-10-22T01:58:17.000Z",
+      "updatedAt": "2026-10-22T01:58:17.000Z",
+      "uid": "35240-7c829586-07c8-4ae6-ae4f-d24953e6d4a2"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.mpay.com.au"
+    }
+  ]
+}

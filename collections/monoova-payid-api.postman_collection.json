@@ -1,0 +1,926 @@
+{
+  "info": {
+    "_postman_id": "d6f691af-44ac-4c41-8246-63d982b9baff",
+    "name": "Monoova Payments Pay ID API",
+    "description": "# Introduction\n\nMonoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:00:01.000Z",
+    "updatedAt": "2026-10-22T02:00:02.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d6f691af-44ac-4c41-8246-63d982b9baff"
+  },
+  "item": [
+    {
+      "name": "receivables",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "payid",
+              "item": [
+                {
+                  "name": "registerpayid",
+                  "item": [
+                    {
+                      "name": "Register PayID",
+                      "id": "c0c23233-d3e3-47a9-954c-56963434619d",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"bankAccountNumber\": \"<string>\",\n  \"payIdName\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"payId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/payid/registerpayid",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "payid",
+                            "registerpayid"
+                          ]
+                        },
+                        "description": "This endpoint allows the registration of a PayID against an account number. We recommend leaving 10 seconds before registering a PayID to ensure an account number has been enabled for NPP. The domains that can be used to register a PayID are restricted. Custom domains are supported but must first be approved, please contact us for configuration. The default domain is monoova.me, if the PayID field is left blank we will generate a check-digited PayID on the Monoova domain."
+                      },
+                      "response": [
+                        {
+                          "id": "23223865-e8e4-4910-8185-5b49d7536895",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"bankAccountNumber\": \"<string>\",\n  \"payIdName\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"payId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/payid/registerpayid",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "payid",
+                                "registerpayid"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"PayIdDetails\": {\n    \"BankAccountNumber\": \"<string>\",\n    \"PayId\": \"<string>\",\n    \"PayIdName\": \"<string>\",\n    \"PayIdStatus\": \"Disable\"\n  }\n}",
+                          "createdAt": "2026-10-22T02:00:02.000Z",
+                          "updatedAt": "2026-10-22T02:00:02.000Z",
+                          "uid": "35240-23223865-e8e4-4910-8185-5b49d7536895"
+                        },
+                        {
+                          "id": "3ce7d3da-3742-4a63-9cd4-acd9b3b7eb03",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"bankAccountNumber\": \"<string>\",\n  \"payIdName\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"payId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/payid/registerpayid",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "payid",
+                                "registerpayid"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:00:02.000Z",
+                          "updatedAt": "2026-10-22T02:00:02.000Z",
+                          "uid": "35240-3ce7d3da-3742-4a63-9cd4-acd9b3b7eb03"
+                        },
+                        {
+                          "id": "a14cd2b0-1ee8-42a5-85ed-31df50edcffd",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"bankAccountNumber\": \"<string>\",\n  \"payIdName\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"payId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/payid/registerpayid",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "payid",
+                                "registerpayid"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:00:02.000Z",
+                          "updatedAt": "2026-10-22T02:00:02.000Z",
+                          "uid": "35240-a14cd2b0-1ee8-42a5-85ed-31df50edcffd"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:00:02.000Z",
+                      "updatedAt": "2026-10-22T02:00:02.000Z",
+                      "uid": "35240-c0c23233-d3e3-47a9-954c-56963434619d"
+                    }
+                  ],
+                  "id": "95c6af84-edbe-453e-86dd-e62fff374494",
+                  "createdAt": "2026-10-22T02:00:02.000Z",
+                  "updatedAt": "2026-10-22T02:00:02.000Z",
+                  "uid": "35240-95c6af84-edbe-453e-86dd-e62fff374494"
+                },
+                {
+                  "name": "updatePayIdStatus",
+                  "item": [
+                    {
+                      "name": "Update a PayID's status",
+                      "id": "33d029e3-9131-479e-a97a-883eb48aba08",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"bankAccountNumber\": \"<string>\",\n  \"payId\": \"<string>\",\n  \"status\": \"Enable\",\n  \"bsb\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/payid/updatePayIdStatus",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "payid",
+                            "updatePayIdStatus"
+                          ]
+                        },
+                        "description": "A PayID in the port status can be moved to another automatcher. To do this, change the status to port then submit a new Register PayID request for the preferred automatcher. The PayID will be relocated and automatically enabled."
+                      },
+                      "response": [
+                        {
+                          "id": "f27fd5ff-9ff4-4d94-bcee-11cf37c1796c",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"bankAccountNumber\": \"<string>\",\n  \"payId\": \"<string>\",\n  \"status\": \"Enable\",\n  \"bsb\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/payid/updatePayIdStatus",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "payid",
+                                "updatePayIdStatus"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:00:02.000Z",
+                          "updatedAt": "2026-10-22T02:00:02.000Z",
+                          "uid": "35240-f27fd5ff-9ff4-4d94-bcee-11cf37c1796c"
+                        },
+                        {
+                          "id": "a42bfa60-cdc0-4d1a-ade8-b4f9193650f9",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"bankAccountNumber\": \"<string>\",\n  \"payId\": \"<string>\",\n  \"status\": \"Enable\",\n  \"bsb\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/payid/updatePayIdStatus",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "payid",
+                                "updatePayIdStatus"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:00:02.000Z",
+                          "updatedAt": "2026-10-22T02:00:02.000Z",
+                          "uid": "35240-a42bfa60-cdc0-4d1a-ade8-b4f9193650f9"
+                        },
+                        {
+                          "id": "0a14494d-98e5-4d4e-b35a-c887a3ebc209",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"bankAccountNumber\": \"<string>\",\n  \"payId\": \"<string>\",\n  \"status\": \"Enable\",\n  \"bsb\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/payid/updatePayIdStatus",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "payid",
+                                "updatePayIdStatus"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:00:02.000Z",
+                          "updatedAt": "2026-10-22T02:00:02.000Z",
+                          "uid": "35240-0a14494d-98e5-4d4e-b35a-c887a3ebc209"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:00:02.000Z",
+                      "updatedAt": "2026-10-22T02:00:02.000Z",
+                      "uid": "35240-33d029e3-9131-479e-a97a-883eb48aba08"
+                    }
+                  ],
+                  "id": "289c06f2-09e1-48f7-aefd-bdcc66777cfe",
+                  "createdAt": "2026-10-22T02:00:02.000Z",
+                  "updatedAt": "2026-10-22T02:00:02.000Z",
+                  "uid": "35240-289c06f2-09e1-48f7-aefd-bdcc66777cfe"
+                },
+                {
+                  "name": "updatePayIdName",
+                  "item": [
+                    {
+                      "name": "Update a PayID's name",
+                      "id": "e993f782-ef60-4fbe-8f7a-51a5466ab337",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"bankAccountNumber\": \"<string>\",\n  \"payId\": \"<string>\",\n  \"payIdName\": \"<string>\",\n  \"bsb\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/payid/updatePayIdName",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "payid",
+                            "updatePayIdName"
+                          ]
+                        },
+                        "description": "Use this endpoint to change the name of a PayID."
+                      },
+                      "response": [
+                        {
+                          "id": "76bb04ea-7211-47d5-a664-21d0b6ff59d5",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"bankAccountNumber\": \"<string>\",\n  \"payId\": \"<string>\",\n  \"payIdName\": \"<string>\",\n  \"bsb\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/payid/updatePayIdName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "payid",
+                                "updatePayIdName"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:00:02.000Z",
+                          "updatedAt": "2026-10-22T02:00:02.000Z",
+                          "uid": "35240-76bb04ea-7211-47d5-a664-21d0b6ff59d5"
+                        },
+                        {
+                          "id": "595a0e41-254d-4c80-ad07-c67fe6313d7d",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"bankAccountNumber\": \"<string>\",\n  \"payId\": \"<string>\",\n  \"payIdName\": \"<string>\",\n  \"bsb\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/payid/updatePayIdName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "payid",
+                                "updatePayIdName"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:00:02.000Z",
+                          "updatedAt": "2026-10-22T02:00:02.000Z",
+                          "uid": "35240-595a0e41-254d-4c80-ad07-c67fe6313d7d"
+                        },
+                        {
+                          "id": "e8b4258e-de02-4074-beaa-e6e1f687e5a3",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"bankAccountNumber\": \"<string>\",\n  \"payId\": \"<string>\",\n  \"payIdName\": \"<string>\",\n  \"bsb\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/payid/updatePayIdName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "payid",
+                                "updatePayIdName"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:00:02.000Z",
+                          "updatedAt": "2026-10-22T02:00:02.000Z",
+                          "uid": "35240-e8b4258e-de02-4074-beaa-e6e1f687e5a3"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:00:02.000Z",
+                      "updatedAt": "2026-10-22T02:00:02.000Z",
+                      "uid": "35240-e993f782-ef60-4fbe-8f7a-51a5466ab337"
+                    }
+                  ],
+                  "id": "cdc18eda-d77c-4a8a-9398-e54289e28f61",
+                  "createdAt": "2026-10-22T02:00:02.000Z",
+                  "updatedAt": "2026-10-22T02:00:02.000Z",
+                  "uid": "35240-cdc18eda-d77c-4a8a-9398-e54289e28f61"
+                },
+                {
+                  "name": "payIdEnquiry",
+                  "item": [
+                    {
+                      "name": "PayID Enquiry",
+                      "id": "1c26f442-f21e-4291-86d9-a9b16e272674",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"payId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/payid/payIdEnquiry",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "payid",
+                            "payIdEnquiry"
+                          ]
+                        },
+                        "description": "Returns the details of a of a PayID. You must own the PayID to view its information."
+                      },
+                      "response": [
+                        {
+                          "id": "5b6d93b7-465e-4cb4-b497-6d2626265c1c",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"payId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/payid/payIdEnquiry",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "payid",
+                                "payIdEnquiry"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"BankAccountNumber\": \"<string>\",\n  \"LastResolutionDateTime\": \"<string>\",\n  \"LastUpdatedDateTime\": \"<string>\",\n  \"PayIdName\": \"<string>\",\n  \"RegistrationDateTime\": \"<string>\",\n  \"Status\": \"Disable\"\n}",
+                          "createdAt": "2026-10-22T02:00:02.000Z",
+                          "updatedAt": "2026-10-22T02:00:02.000Z",
+                          "uid": "35240-5b6d93b7-465e-4cb4-b497-6d2626265c1c"
+                        },
+                        {
+                          "id": "942e96f8-7409-4347-b9fc-2ff1f8132319",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"payId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/payid/payIdEnquiry",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "payid",
+                                "payIdEnquiry"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:00:02.000Z",
+                          "updatedAt": "2026-10-22T02:00:02.000Z",
+                          "uid": "35240-942e96f8-7409-4347-b9fc-2ff1f8132319"
+                        },
+                        {
+                          "id": "db301c15-8e63-4225-81ed-360d2da0eb53",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"payId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/payid/payIdEnquiry",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "payid",
+                                "payIdEnquiry"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:00:02.000Z",
+                          "updatedAt": "2026-10-22T02:00:02.000Z",
+                          "uid": "35240-db301c15-8e63-4225-81ed-360d2da0eb53"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:00:02.000Z",
+                      "updatedAt": "2026-10-22T02:00:02.000Z",
+                      "uid": "35240-1c26f442-f21e-4291-86d9-a9b16e272674"
+                    }
+                  ],
+                  "id": "e86ca44a-da47-4c1c-8ddb-748bc4ba0e83",
+                  "createdAt": "2026-10-22T02:00:02.000Z",
+                  "updatedAt": "2026-10-22T02:00:02.000Z",
+                  "uid": "35240-e86ca44a-da47-4c1c-8ddb-748bc4ba0e83"
+                }
+              ],
+              "id": "e61edd07-8605-462b-93bd-0b31a69cfcfc",
+              "createdAt": "2026-10-22T02:00:02.000Z",
+              "updatedAt": "2026-10-22T02:00:02.000Z",
+              "uid": "35240-e61edd07-8605-462b-93bd-0b31a69cfcfc"
+            }
+          ],
+          "id": "1da45587-d739-4573-b564-f3c23a269f59",
+          "createdAt": "2026-10-22T02:00:02.000Z",
+          "updatedAt": "2026-10-22T02:00:02.000Z",
+          "uid": "35240-1da45587-d739-4573-b564-f3c23a269f59"
+        }
+      ],
+      "id": "f225cdbb-fc17-4320-9c5c-cffd48bdfe24",
+      "createdAt": "2026-10-22T02:00:02.000Z",
+      "updatedAt": "2026-10-22T02:00:02.000Z",
+      "uid": "35240-f225cdbb-fc17-4320-9c5c-cffd48bdfe24"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.mpay.com.au"
+    }
+  ]
+}

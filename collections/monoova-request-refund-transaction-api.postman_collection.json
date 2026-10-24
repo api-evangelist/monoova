@@ -1,0 +1,244 @@
+{
+  "info": {
+    "_postman_id": "876aeb3c-cfa6-4588-be47-5cdd3b186231",
+    "name": "Monoova Card Payments Request Refund Transaction API",
+    "description": "# Introduction\nMonoova's Online Card Payment Service incorporates a next-gen Card Payment Checkout integrated with our expansive Payments API to allow merchants to capture card and mobile wallet payments from your customers online and receive funds into your Monoova account for automated reconciliation and disbursement.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:00:46.000Z",
+    "updatedAt": "2026-10-22T02:00:46.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-876aeb3c-cfa6-4588-be47-5cdd3b186231"
+  },
+  "item": [
+    {
+      "name": "au",
+      "item": [
+        {
+          "name": "card",
+          "item": [
+            {
+              "name": "ccm",
+              "item": [
+                {
+                  "name": "CreditCardTransactionAsync",
+                  "item": [
+                    {
+                      "name": "refund",
+                      "item": [
+                        {
+                          "name": "Request Refund Transaction (Async)",
+                          "id": "c2b4b18a-7eae-4267-bdd0-50aa3ce1d604",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"clientParentTransactionUniqueReference\": \"NpbOD6_lKWfI1\",\n  \"clientTransactionUniqueReference\": \"PH81U-b1B-dJGi6wYqm\",\n  \"refundAmount\": \"<float>\",\n  \"refundReason\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/card/ccm/CreditCardTransactionAsync/refund",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "card",
+                                "ccm",
+                                "CreditCardTransactionAsync",
+                                "refund"
+                              ]
+                            },
+                            "description": "This endpoint can be used to request a refund of the payment. This is an asynchronous process and can take up to 3 business days. This request can be raised for both settled and unsettled payments.\nA webhook will be initiated to notify customers about the status change.\nFor settled payments, a separate refund transaction will be created. Original payment status will not be affected. Partial refunds are supported. Multiple partial refund requests can be initiated for payment as long as the total of the refund amount does not exceed the original payment value and another refund request is not in progress for the same payment.\n\nThe status of the refund can be checked using the Credit Card - Get Transaction By Id endpoint or Credit Card - Get Async Request Status.\nWe also initiate a webhook when the refund status is finalized(Settlement Complete/Failed/Declined)."
+                          },
+                          "response": [
+                            {
+                              "id": "fde61e8e-3301-4dcf-9572-0bfca10a58db",
+                              "name": "Success",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"clientParentTransactionUniqueReference\": \"NpbOD6_lKWfI1\",\n  \"clientTransactionUniqueReference\": \"PH81U-b1B-dJGi6wYqm\",\n  \"refundAmount\": \"<float>\",\n  \"refundReason\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/card/ccm/CreditCardTransactionAsync/refund",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "card",
+                                    "ccm",
+                                    "CreditCardTransactionAsync",
+                                    "refund"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"traceId\": \"<string>\",\n  \"uniqueRequestId\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T02:00:46.000Z",
+                              "updatedAt": "2026-10-22T02:00:46.000Z",
+                              "uid": "35240-fde61e8e-3301-4dcf-9572-0bfca10a58db"
+                            },
+                            {
+                              "id": "c2897b52-cbce-4332-ac2a-d60cf35808f5",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"clientParentTransactionUniqueReference\": \"NpbOD6_lKWfI1\",\n  \"clientTransactionUniqueReference\": \"PH81U-b1B-dJGi6wYqm\",\n  \"refundAmount\": \"<float>\",\n  \"refundReason\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/card/ccm/CreditCardTransactionAsync/refund",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "card",
+                                    "ccm",
+                                    "CreditCardTransactionAsync",
+                                    "refund"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"9a74c22b-f9ab-46a5-b171-cecc86f4f307\",\n    \"errors\": [\n      {\n        \"errorCode\": \"CCM_PARENTUID_REQUIRED\",\n        \"errorMessage\": \"clientParentTransactionUniqueReference required\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T02:00:46.000Z",
+                              "updatedAt": "2026-10-22T02:00:46.000Z",
+                              "uid": "35240-c2897b52-cbce-4332-ac2a-d60cf35808f5"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T02:00:46.000Z",
+                          "updatedAt": "2026-10-22T02:00:46.000Z",
+                          "uid": "35240-c2b4b18a-7eae-4267-bdd0-50aa3ce1d604"
+                        }
+                      ],
+                      "id": "6a22ed93-315d-4380-a86b-f8b5c6844a7e",
+                      "createdAt": "2026-10-22T02:00:46.000Z",
+                      "updatedAt": "2026-10-22T02:00:46.000Z",
+                      "uid": "35240-6a22ed93-315d-4380-a86b-f8b5c6844a7e"
+                    }
+                  ],
+                  "id": "48d115cf-e6a9-4905-aca8-ca14b401364e",
+                  "createdAt": "2026-10-22T02:00:46.000Z",
+                  "updatedAt": "2026-10-22T02:00:46.000Z",
+                  "uid": "35240-48d115cf-e6a9-4905-aca8-ca14b401364e"
+                }
+              ],
+              "id": "52fadfb6-03cd-4262-bcf7-6a728bee865d",
+              "createdAt": "2026-10-22T02:00:46.000Z",
+              "updatedAt": "2026-10-22T02:00:46.000Z",
+              "uid": "35240-52fadfb6-03cd-4262-bcf7-6a728bee865d"
+            }
+          ],
+          "id": "35a43183-a16a-4b0e-8b35-850072ad04a2",
+          "createdAt": "2026-10-22T02:00:46.000Z",
+          "updatedAt": "2026-10-22T02:00:46.000Z",
+          "uid": "35240-35a43183-a16a-4b0e-8b35-850072ad04a2"
+        }
+      ],
+      "id": "cacca0bc-2b00-4984-8665-85c8a1794d4e",
+      "createdAt": "2026-10-22T02:00:46.000Z",
+      "updatedAt": "2026-10-22T02:00:46.000Z",
+      "uid": "35240-cacca0bc-2b00-4984-8665-85c8a1794d4e"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.monoova.com"
+    }
+  ]
+}

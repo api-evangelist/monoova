@@ -1,0 +1,1322 @@
+{
+  "info": {
+    "_postman_id": "12cd9134-5095-4019-8ff2-71b7c166456d",
+    "name": "Monoova Payments Ledger Account API",
+    "description": "# Introduction\n\nMonoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:59:29.000Z",
+    "updatedAt": "2026-10-22T01:59:30.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-12cd9134-5095-4019-8ff2-71b7c166456d"
+  },
+  "item": [
+    {
+      "name": "ledger",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "create",
+              "item": [
+                {
+                  "name": "Create a new ledger account",
+                  "id": "5a97c5f2-bfe1-46f9-8007-7d1635e0a337",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"ledgerUniqueReference\": \"<string>\",\n  \"abn\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"automatcherDetails\": {\n    \"bankAccountNumber\": \"<string>\",\n    \"bankAccountName\": \"<string>\",\n    \"clientUniqueId\": \"<string>\",\n    \"bsb\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/ledger/v1/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ledger",
+                        "v1",
+                        "create"
+                      ]
+                    },
+                    "description": "Create a new, active ledger with a linked automatcher. This endpoint also allows you to link an existing automatcher to the ledger by passing an existing bankAccountNumber. Optionally, you can also specify a BSB. If no existing automatcher is linked, a new one will be created.\n\nIf you wish to link a PayID to the automatcher you will need to use the PayID endpoints.\n\nThe API response will vary based on whether a new automatcher is being created, or an existing automatcher is being linked to the ledger account. Automatcher activation is an asynchronous process that can take a few minutes to complete. If a new or inactive automatcher is linked, the API will respond with isActive: false, and the statusDescription: \"Account is being setup for Npp. Please allow a few minutes for the account to become active\"."
+                  },
+                  "response": [
+                    {
+                      "id": "01f2514d-93f6-473e-8f48-4ad5cf1a14fc",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"ledgerUniqueReference\": \"<string>\",\n  \"abn\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"automatcherDetails\": {\n    \"bankAccountNumber\": \"<string>\",\n    \"bankAccountName\": \"<string>\",\n    \"clientUniqueId\": \"<string>\",\n    \"bsb\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/ledger/v1/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ledger",
+                            "v1",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"automatcherDetails\": {\n    \"bankAccountName\": \"<string>\",\n    \"bankAccountNumber\": \"<string>\",\n    \"bsb\": \"<string>\",\n    \"clientUniqueId\": \"<string>\",\n    \"isActive\": \"<boolean>\"\n  },\n  \"ledgerAccountNumber\": \"<string>\",\n  \"ledgerDetails\": {\n    \"ABN\": \"<string>\",\n    \"closedDateTime\": \"<string>\",\n    \"createdDateTime\": \"<string>\",\n    \"description\": \"<string>\",\n    \"financials\": {\n      \"actualBalance\": \"<number>\",\n      \"availableLoad\": \"<number>\",\n      \"availableSpend\": \"<number>\",\n      \"maximumBalance\": \"<number>\"\n    },\n    \"isClosed\": \"<boolean>\",\n    \"lastTransactionDate\": \"<string>\",\n    \"ledgerAccountNumber\": \"<string>\",\n    \"ledgerUniqueReference\": \"<string>\",\n    \"name\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-22T01:59:30.000Z",
+                      "updatedAt": "2026-10-22T01:59:30.000Z",
+                      "uid": "35240-01f2514d-93f6-473e-8f48-4ad5cf1a14fc"
+                    },
+                    {
+                      "id": "056d677a-5d0d-47bb-b190-8df3832e1796",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"ledgerUniqueReference\": \"<string>\",\n  \"abn\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"automatcherDetails\": {\n    \"bankAccountNumber\": \"<string>\",\n    \"bankAccountName\": \"<string>\",\n    \"clientUniqueId\": \"<string>\",\n    \"bsb\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/ledger/v1/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ledger",
+                            "v1",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:30.000Z",
+                      "updatedAt": "2026-10-22T01:59:30.000Z",
+                      "uid": "35240-056d677a-5d0d-47bb-b190-8df3832e1796"
+                    },
+                    {
+                      "id": "12c1a647-8b82-41a2-a0a5-1fd7ff7f678c",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"ledgerUniqueReference\": \"<string>\",\n  \"abn\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"automatcherDetails\": {\n    \"bankAccountNumber\": \"<string>\",\n    \"bankAccountName\": \"<string>\",\n    \"clientUniqueId\": \"<string>\",\n    \"bsb\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/ledger/v1/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ledger",
+                            "v1",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:30.000Z",
+                      "updatedAt": "2026-10-22T01:59:30.000Z",
+                      "uid": "35240-12c1a647-8b82-41a2-a0a5-1fd7ff7f678c"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:59:30.000Z",
+                  "updatedAt": "2026-10-22T01:59:30.000Z",
+                  "uid": "35240-5a97c5f2-bfe1-46f9-8007-7d1635e0a337"
+                }
+              ],
+              "id": "1004f86c-e13f-4e54-b9a2-8c8764509d5c",
+              "createdAt": "2026-10-22T01:59:30.000Z",
+              "updatedAt": "2026-10-22T01:59:30.000Z",
+              "uid": "35240-1004f86c-e13f-4e54-b9a2-8c8764509d5c"
+            },
+            {
+              "name": "close",
+              "item": [
+                {
+                  "name": "Close a ledger account",
+                  "id": "f329b364-c47d-4f22-855f-7ba47c6532d5",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"ledgerAccountNumber\": \"<string>\",\n  \"forcedClose\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/ledger/v1/close",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ledger",
+                        "v1",
+                        "close"
+                      ]
+                    },
+                    "description": "Close a ledger when it\u2019s no longer required. For this endpoint to be used the ledger account balance must be $0, otherwise an error will be returned."
+                  },
+                  "response": [
+                    {
+                      "id": "580b699d-ceaa-43ee-9b08-a9a8183c0421",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"ledgerAccountNumber\": \"<string>\",\n  \"forcedClose\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/ledger/v1/close",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ledger",
+                            "v1",
+                            "close"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:59:30.000Z",
+                      "updatedAt": "2026-10-22T01:59:30.000Z",
+                      "uid": "35240-580b699d-ceaa-43ee-9b08-a9a8183c0421"
+                    },
+                    {
+                      "id": "c4b71190-0f4c-4963-a008-7cc782e3e044",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"ledgerAccountNumber\": \"<string>\",\n  \"forcedClose\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/ledger/v1/close",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ledger",
+                            "v1",
+                            "close"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:30.000Z",
+                      "updatedAt": "2026-10-22T01:59:30.000Z",
+                      "uid": "35240-c4b71190-0f4c-4963-a008-7cc782e3e044"
+                    },
+                    {
+                      "id": "a48fd45e-2ec7-45e5-a5ff-51df87f58fc4",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"ledgerAccountNumber\": \"<string>\",\n  \"forcedClose\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/ledger/v1/close",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ledger",
+                            "v1",
+                            "close"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:30.000Z",
+                      "updatedAt": "2026-10-22T01:59:30.000Z",
+                      "uid": "35240-a48fd45e-2ec7-45e5-a5ff-51df87f58fc4"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:59:30.000Z",
+                  "updatedAt": "2026-10-22T01:59:30.000Z",
+                  "uid": "35240-f329b364-c47d-4f22-855f-7ba47c6532d5"
+                }
+              ],
+              "id": "a5010851-4e66-461d-a7c0-6042bd184b79",
+              "createdAt": "2026-10-22T01:59:30.000Z",
+              "updatedAt": "2026-10-22T01:59:30.000Z",
+              "uid": "35240-a5010851-4e66-461d-a7c0-6042bd184b79"
+            },
+            {
+              "name": "balance",
+              "item": [
+                {
+                  "name": "{ledgerAccountNumber}",
+                  "item": [
+                    {
+                      "name": "Retrieve the current balance of a ledger",
+                      "id": "06fa4917-ef7b-4fe2-86b1-a83e12a12bf8",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/ledger/v1/balance/:ledgerAccountNumber",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ledger",
+                            "v1",
+                            "balance",
+                            ":ledgerAccountNumber"
+                          ],
+                          "variable": [
+                            {
+                              "id": "f0b0d1e6-66a9-4985-8c85-af2be3d81b97",
+                              "key": "ledgerAccountNumber",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Query the current balance of a single ledger. This endpoint also returns a lightweight set of fields related to the ledger account, such as the status and creation date."
+                      },
+                      "response": [
+                        {
+                          "id": "a1d5745a-b22b-43ac-9ba7-8ba3aaf1f236",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/ledger/v1/balance/:ledgerAccountNumber",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "ledger",
+                                "v1",
+                                "balance",
+                                ":ledgerAccountNumber"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ledgerAccountNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"balance\": \"<number>\",\n  \"ledgerAccountNumber\": \"<string>\",\n  \"ledgerUniqueReference\": \"<string>\",\n  \"automatcherBankAccountNumber\": \"<string>\",\n  \"name\": \"<string>\",\n  \"createdDateTime\": \"<string>\",\n  \"closedDateTime\": \"<string>\",\n  \"description\": \"<string>\",\n  \"isClosed\": \"<boolean>\"\n}",
+                          "createdAt": "2026-10-22T01:59:30.000Z",
+                          "updatedAt": "2026-10-22T01:59:30.000Z",
+                          "uid": "35240-a1d5745a-b22b-43ac-9ba7-8ba3aaf1f236"
+                        },
+                        {
+                          "id": "42885fca-8bee-4844-852f-4df1583a4012",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/ledger/v1/balance/:ledgerAccountNumber",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "ledger",
+                                "v1",
+                                "balance",
+                                ":ledgerAccountNumber"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ledgerAccountNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:59:30.000Z",
+                          "updatedAt": "2026-10-22T01:59:30.000Z",
+                          "uid": "35240-42885fca-8bee-4844-852f-4df1583a4012"
+                        },
+                        {
+                          "id": "a192bebf-f430-470c-9330-c6d00161a878",
+                          "name": "Ledger not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/ledger/v1/balance/:ledgerAccountNumber",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "ledger",
+                                "v1",
+                                "balance",
+                                ":ledgerAccountNumber"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ledgerAccountNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:59:30.000Z",
+                          "updatedAt": "2026-10-22T01:59:30.000Z",
+                          "uid": "35240-a192bebf-f430-470c-9330-c6d00161a878"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:59:30.000Z",
+                      "updatedAt": "2026-10-22T01:59:30.000Z",
+                      "uid": "35240-06fa4917-ef7b-4fe2-86b1-a83e12a12bf8"
+                    }
+                  ],
+                  "id": "53ab6666-fe08-4ec5-8e2e-7a0586d98a87",
+                  "createdAt": "2026-10-22T01:59:30.000Z",
+                  "updatedAt": "2026-10-22T01:59:30.000Z",
+                  "uid": "35240-53ab6666-fe08-4ec5-8e2e-7a0586d98a87"
+                }
+              ],
+              "id": "9d2c1382-5311-4007-802b-e56f80a40234",
+              "createdAt": "2026-10-22T01:59:30.000Z",
+              "updatedAt": "2026-10-22T01:59:30.000Z",
+              "uid": "35240-9d2c1382-5311-4007-802b-e56f80a40234"
+            },
+            {
+              "name": "transactions",
+              "item": [
+                {
+                  "name": "Retrieve transactions for a ledger",
+                  "id": "33174478-afc0-4c78-b913-c554f9fc7529",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"ledgerAccountNumber\": \"<string>\",\n  \"skip\": \"<number>\",\n  \"take\": \"<number>\",\n  \"descending\": \"<boolean>\",\n  \"useTime\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/ledger/v1/transactions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ledger",
+                        "v1",
+                        "transactions"
+                      ]
+                    },
+                    "description": "Return the transactions for a ledger account between two dates. This endpoint returns an array of transaction line items along with a running balance.\n\nThe query can be customised to order, skip and fetch as many records as required. Paging is controlled using the skip and take attributes. By default, the query will return the last months records in descending order."
+                  },
+                  "response": [
+                    {
+                      "id": "7c19f1d5-766c-49b6-beb4-aa20318666bf",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"ledgerAccountNumber\": \"<string>\",\n  \"skip\": \"<number>\",\n  \"take\": \"<number>\",\n  \"descending\": \"<boolean>\",\n  \"useTime\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/ledger/v1/transactions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ledger",
+                            "v1",
+                            "transactions"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"ledgerAccounts\": [\n    {\n      \"ledgerAccountNumber\": \"<string>\",\n      \"ledgerUniqueReference\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"createdDateTime\": \"<dateTime>\",\n      \"closedDateTime\": \"<dateTime>\",\n      \"isClosed\": \"<boolean>\",\n      \"transactionLineItems\": [\n        {\n          \"rowOrder\": \"<integer>\",\n          \"mPaymentsId\": \"<string>\",\n          \"transactionId\": \"<string>\",\n          \"dateTime\": \"<dateTime>\",\n          \"mAccountName\": \"<string>\",\n          \"transactionType\": \"<string>\",\n          \"subTransactionType\": \"<string>\",\n          \"credit\": \"<number>\",\n          \"debit\": \"<number>\",\n          \"runningBalance\": \"<number>\",\n          \"description\": \"<string>\"\n        },\n        {\n          \"rowOrder\": \"<integer>\",\n          \"mPaymentsId\": \"<string>\",\n          \"transactionId\": \"<string>\",\n          \"dateTime\": \"<dateTime>\",\n          \"mAccountName\": \"<string>\",\n          \"transactionType\": \"<string>\",\n          \"subTransactionType\": \"<string>\",\n          \"credit\": \"<number>\",\n          \"debit\": \"<number>\",\n          \"runningBalance\": \"<number>\",\n          \"description\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"ledgerAccountNumber\": \"<string>\",\n      \"ledgerUniqueReference\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"createdDateTime\": \"<dateTime>\",\n      \"closedDateTime\": \"<dateTime>\",\n      \"isClosed\": \"<boolean>\",\n      \"transactionLineItems\": [\n        {\n          \"rowOrder\": \"<integer>\",\n          \"mPaymentsId\": \"<string>\",\n          \"transactionId\": \"<string>\",\n          \"dateTime\": \"<dateTime>\",\n          \"mAccountName\": \"<string>\",\n          \"transactionType\": \"<string>\",\n          \"subTransactionType\": \"<string>\",\n          \"credit\": \"<number>\",\n          \"debit\": \"<number>\",\n          \"runningBalance\": \"<number>\",\n          \"description\": \"<string>\"\n        },\n        {\n          \"rowOrder\": \"<integer>\",\n          \"mPaymentsId\": \"<string>\",\n          \"transactionId\": \"<string>\",\n          \"dateTime\": \"<dateTime>\",\n          \"mAccountName\": \"<string>\",\n          \"transactionType\": \"<string>\",\n          \"subTransactionType\": \"<string>\",\n          \"credit\": \"<number>\",\n          \"debit\": \"<number>\",\n          \"runningBalance\": \"<number>\",\n          \"description\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T01:59:30.000Z",
+                      "updatedAt": "2026-10-22T01:59:30.000Z",
+                      "uid": "35240-7c19f1d5-766c-49b6-beb4-aa20318666bf"
+                    },
+                    {
+                      "id": "d72b2a3b-5d5d-43ec-91bc-b45f207b5cc9",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"ledgerAccountNumber\": \"<string>\",\n  \"skip\": \"<number>\",\n  \"take\": \"<number>\",\n  \"descending\": \"<boolean>\",\n  \"useTime\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/ledger/v1/transactions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ledger",
+                            "v1",
+                            "transactions"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:30.000Z",
+                      "updatedAt": "2026-10-22T01:59:30.000Z",
+                      "uid": "35240-d72b2a3b-5d5d-43ec-91bc-b45f207b5cc9"
+                    },
+                    {
+                      "id": "78a58628-4f22-4733-b1ee-0fea5da103e2",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"ledgerAccountNumber\": \"<string>\",\n  \"skip\": \"<number>\",\n  \"take\": \"<number>\",\n  \"descending\": \"<boolean>\",\n  \"useTime\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/ledger/v1/transactions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ledger",
+                            "v1",
+                            "transactions"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:30.000Z",
+                      "updatedAt": "2026-10-22T01:59:30.000Z",
+                      "uid": "35240-78a58628-4f22-4733-b1ee-0fea5da103e2"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:59:30.000Z",
+                  "updatedAt": "2026-10-22T01:59:30.000Z",
+                  "uid": "35240-33174478-afc0-4c78-b913-c554f9fc7529"
+                }
+              ],
+              "id": "bfb8b031-9fbc-40ff-b477-b86d5973300c",
+              "createdAt": "2026-10-22T01:59:30.000Z",
+              "updatedAt": "2026-10-22T01:59:30.000Z",
+              "uid": "35240-bfb8b031-9fbc-40ff-b477-b86d5973300c"
+            },
+            {
+              "name": "financials",
+              "item": [
+                {
+                  "name": "Retrieve financial details of a ledger",
+                  "id": "39abb250-0960-4164-bcac-2f2bcffe1afd",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"ledgerAccountNumber\": \"<string>\",\n  \"includeClosed\": false\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/ledger/v1/financials",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ledger",
+                        "v1",
+                        "financials"
+                      ]
+                    },
+                    "description": "This endpoint returns the automatcher details and financials for a ledger. The financials include the available balance, allowed spend & and allowed load, and the maximum balance that can be held within the ledger account."
+                  },
+                  "response": [
+                    {
+                      "id": "83b46465-b947-4b4a-9d69-c0f8fda919df",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"ledgerAccountNumber\": \"<string>\",\n  \"includeClosed\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/ledger/v1/financials",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ledger",
+                            "v1",
+                            "financials"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"durationMs\": \"<integer>\",\n  \"ledgerAccountFinancials\": [\n    {\n      \"automatcherDetails\": {\n        \"bankAccountName\": \"<string>\",\n        \"bankAccountNumber\": \"<string>\",\n        \"bsb\": \"<string>\",\n        \"clientUniqueId\": \"<string>\",\n        \"isActive\": \"<boolean>\"\n      },\n      \"ledgerAccountNumber\": \"<string>\",\n      \"ledgerDetails\": {\n        \"ABN\": \"<string>\",\n        \"closedDateTime\": \"<dateTime>\",\n        \"createdDateTime\": \"<dateTime>\",\n        \"description\": \"<string>\",\n        \"financials\": {\n          \"actualBalance\": \"<number>\",\n          \"availableLoad\": \"<number>\",\n          \"availableSpend\": \"<number>\",\n          \"maximumBalance\": \"<number>\"\n        },\n        \"isClosed\": \"<boolean>\",\n        \"lastTransactionDate\": \"<dateTime>\",\n        \"ledgerAccountNumber\": \"<string>\",\n        \"ledgerUniqueReference\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    {\n      \"automatcherDetails\": {\n        \"bankAccountName\": \"<string>\",\n        \"bankAccountNumber\": \"<string>\",\n        \"bsb\": \"<string>\",\n        \"clientUniqueId\": \"<string>\",\n        \"isActive\": \"<boolean>\"\n      },\n      \"ledgerAccountNumber\": \"<string>\",\n      \"ledgerDetails\": {\n        \"ABN\": \"<string>\",\n        \"closedDateTime\": \"<dateTime>\",\n        \"createdDateTime\": \"<dateTime>\",\n        \"description\": \"<string>\",\n        \"financials\": {\n          \"actualBalance\": \"<number>\",\n          \"availableLoad\": \"<number>\",\n          \"availableSpend\": \"<number>\",\n          \"maximumBalance\": \"<number>\"\n        },\n        \"isClosed\": \"<boolean>\",\n        \"lastTransactionDate\": \"<dateTime>\",\n        \"ledgerAccountNumber\": \"<string>\",\n        \"ledgerUniqueReference\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T01:59:30.000Z",
+                      "updatedAt": "2026-10-22T01:59:30.000Z",
+                      "uid": "35240-83b46465-b947-4b4a-9d69-c0f8fda919df"
+                    },
+                    {
+                      "id": "89a005c6-84fe-4468-9132-0657ee1bb1d5",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"ledgerAccountNumber\": \"<string>\",\n  \"includeClosed\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/ledger/v1/financials",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ledger",
+                            "v1",
+                            "financials"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:30.000Z",
+                      "updatedAt": "2026-10-22T01:59:30.000Z",
+                      "uid": "35240-89a005c6-84fe-4468-9132-0657ee1bb1d5"
+                    },
+                    {
+                      "id": "f7934543-f4a4-4886-935f-062050e3a6fc",
+                      "name": "Ledger not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"ledgerAccountNumber\": \"<string>\",\n  \"includeClosed\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/ledger/v1/financials",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ledger",
+                            "v1",
+                            "financials"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:30.000Z",
+                      "updatedAt": "2026-10-22T01:59:30.000Z",
+                      "uid": "35240-f7934543-f4a4-4886-935f-062050e3a6fc"
+                    },
+                    {
+                      "id": "bc486520-523f-4746-bbef-58cb46cceab3",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"ledgerAccountNumber\": \"<string>\",\n  \"includeClosed\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/ledger/v1/financials",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ledger",
+                            "v1",
+                            "financials"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:30.000Z",
+                      "updatedAt": "2026-10-22T01:59:30.000Z",
+                      "uid": "35240-bc486520-523f-4746-bbef-58cb46cceab3"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:59:30.000Z",
+                  "updatedAt": "2026-10-22T01:59:30.000Z",
+                  "uid": "35240-39abb250-0960-4164-bcac-2f2bcffe1afd"
+                }
+              ],
+              "id": "45f3a97d-f8b5-4ae5-81f4-8ab57af4ba22",
+              "createdAt": "2026-10-22T01:59:30.000Z",
+              "updatedAt": "2026-10-22T01:59:30.000Z",
+              "uid": "35240-45f3a97d-f8b5-4ae5-81f4-8ab57af4ba22"
+            },
+            {
+              "name": "allAccounts",
+              "item": [
+                {
+                  "name": "Retrieve all ledger accounts",
+                  "id": "fa8b67d1-5cea-4d0d-bb25-8cb0c748c8df",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/ledger/v1/allAccounts?includeClosed=false",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ledger",
+                        "v1",
+                        "allAccounts"
+                      ],
+                      "query": [
+                        {
+                          "key": "includeClosed",
+                          "value": "false"
+                        }
+                      ]
+                    },
+                    "description": "Returns a list of all ledgers attached to the requestors mAccount, with options to include closed accounts in the query. If no ledger accounts exist, an empty array will be returned."
+                  },
+                  "response": [
+                    {
+                      "id": "55b1bfe5-6548-4689-86a8-1f0f90a6645c",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/ledger/v1/allAccounts?includeClosed=false",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ledger",
+                            "v1",
+                            "allAccounts"
+                          ],
+                          "query": [
+                            {
+                              "key": "includeClosed",
+                              "value": "false"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"ledgerAccounts\": [\n    {\n      \"ledgerAccountNumber\": \"<string>\",\n      \"ledgerUniqueReference\": \"<string>\",\n      \"name\": \"<string>\",\n      \"createdDateTime\": \"<dateTime>\",\n      \"closedDateTime\": \"<dateTime>\",\n      \"isClosed\": \"<boolean>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"ledgerAccountNumber\": \"<string>\",\n      \"ledgerUniqueReference\": \"<string>\",\n      \"name\": \"<string>\",\n      \"createdDateTime\": \"<dateTime>\",\n      \"closedDateTime\": \"<dateTime>\",\n      \"isClosed\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T01:59:30.000Z",
+                      "updatedAt": "2026-10-22T01:59:30.000Z",
+                      "uid": "35240-55b1bfe5-6548-4689-86a8-1f0f90a6645c"
+                    },
+                    {
+                      "id": "08f2af2c-1657-454b-b3d0-837eb69aa7c9",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/ledger/v1/allAccounts?includeClosed=false",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ledger",
+                            "v1",
+                            "allAccounts"
+                          ],
+                          "query": [
+                            {
+                              "key": "includeClosed",
+                              "value": "false"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:30.000Z",
+                      "updatedAt": "2026-10-22T01:59:30.000Z",
+                      "uid": "35240-08f2af2c-1657-454b-b3d0-837eb69aa7c9"
+                    },
+                    {
+                      "id": "beac77db-733d-4af0-a3d8-09b370520ec1",
+                      "name": "No ledgers found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/ledger/v1/allAccounts?includeClosed=false",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ledger",
+                            "v1",
+                            "allAccounts"
+                          ],
+                          "query": [
+                            {
+                              "key": "includeClosed",
+                              "value": "false"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:30.000Z",
+                      "updatedAt": "2026-10-22T01:59:30.000Z",
+                      "uid": "35240-beac77db-733d-4af0-a3d8-09b370520ec1"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:59:30.000Z",
+                  "updatedAt": "2026-10-22T01:59:30.000Z",
+                  "uid": "35240-fa8b67d1-5cea-4d0d-bb25-8cb0c748c8df"
+                }
+              ],
+              "id": "deae695e-4992-4e34-83f9-e8a4f19bfaef",
+              "createdAt": "2026-10-22T01:59:30.000Z",
+              "updatedAt": "2026-10-22T01:59:30.000Z",
+              "uid": "35240-deae695e-4992-4e34-83f9-e8a4f19bfaef"
+            }
+          ],
+          "id": "3a407509-7cd2-426d-a0e3-f81ad3c14248",
+          "createdAt": "2026-10-22T01:59:30.000Z",
+          "updatedAt": "2026-10-22T01:59:30.000Z",
+          "uid": "35240-3a407509-7cd2-426d-a0e3-f81ad3c14248"
+        }
+      ],
+      "id": "631cf2e4-3963-453d-aab1-57d369ee3f13",
+      "createdAt": "2026-10-22T01:59:30.000Z",
+      "updatedAt": "2026-10-22T01:59:30.000Z",
+      "uid": "35240-631cf2e4-3963-453d-aab1-57d369ee3f13"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.mpay.com.au"
+    }
+  ]
+}

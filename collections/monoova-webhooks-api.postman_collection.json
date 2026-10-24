@@ -1,0 +1,1772 @@
+{
+  "info": {
+    "_postman_id": "8ca85637-4110-476b-a0c6-b0f77d44edd9",
+    "name": "Monoova Webhooks API",
+    "description": "Operations tagged Webhooks across 3 of this provider's published API definitions: monoova-cc.yml, monoova-payments.yml, monoova-payto.yml. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:01:28.000Z",
+    "updatedAt": "2026-10-22T02:01:29.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8ca85637-4110-476b-a0c6-b0f77d44edd9"
+  },
+  "item": [
+    {
+      "name": "WEBHOOK_TARGET_URL",
+      "item": [
+        {
+          "name": "Payment Status Notification",
+          "id": "332aa842-f512-4626-ac86-2ba3c30be946",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "This is a base64 encoded cryptographic signature that should be used<br/>\nto verify both the integrity of the message as well as the source (Monoova).<br/>\nThe signature's hashing method is SHA256 and the public key can be retrieved from\n<a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key</a>.\n",
+                "key": "Verification-Signature",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"eventId\": \"<string>\",\n  \"sourceEventName\": \"CreditCardTransactionUpdated\",\n  \"eventTimestamp\": \"<dateTime>\",\n  \"paymentDetails\": {\n    \"transactionId\": \"<string>\",\n    \"settlementDateTime\": \"<dateTime>\",\n    \"transactionInitiationDateTime\": \"<dateTime>\",\n    \"clientTransactionUniqueReference\": \"<string>\",\n    \"amount\": \"<string>\",\n    \"currencyCode\": \"<string>\",\n    \"authenticationChallengeIssued\": \"<boolean>\",\n    \"authenticationResponseCode\": \"<string>\",\n    \"preAuthorizationFraudResult\": \"<string>\",\n    \"postAuthorizationFraudResult\": \"<string>\",\n    \"sessionCreationDateTime\": \"<dateTime>\",\n    \"status\": \"<string>\",\n    \"statusReasonCode\": \"<string>\",\n    \"statusReasonDescription\": \"<string>\",\n    \"settlementBatchId\": \"<string>\",\n    \"saveOnSuccess\": \"<boolean>\",\n    \"clientPaymentTokenUniqueReference\": \"<string>\",\n    \"customerId\": \"<string>\"\n  },\n  \"authenticationDetails\": {\n    \"responseCode\": \"<string>\",\n    \"challengeIssued\": \"<boolean>\"\n  },\n  \"riskDetails\": {\n    \"preAuthorizationResult\": \"<string>\",\n    \"postAuthorizationResult\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/WEBHOOK_TARGET_URL",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "WEBHOOK_TARGET_URL"
+              ]
+            },
+            "description": "When the status of the payment changes, Monoova will send a webhook to notify the customer. Webhook will be triggered for the below statuses:\n\nFailed\n\nDeclined\n\nSettlement Complete\n\nCancelled\n\nAdditionally, \u201cinterim\u201d webhooks will be triggered when surcharging is in effect for the client, once the payment is authorised for a new client session. This is the point at which the surcharging information becomes available and can be communicated. In this scenario, the payment status could also be one of the following non-final status values:\n\nPending\n\nAuthorized\n\nSettling\n\nNote that if the payment is made using a previously vaulted payment method, the surcharge is already known at new payment creation, so there is no additional interim webhook generated.\n\nThis webhook can be subscribed using APIs provided in Notification Management.\n\nEvent name - CreditCardPaymentNotification"
+          },
+          "response": [
+            {
+              "id": "3d427b3b-0ccd-4ea2-9a90-faf00ff62d85",
+              "name": "Any Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "This is a base64 encoded cryptographic signature that should be used<br/>\nto verify both the integrity of the message as well as the source (Monoova).<br/>\nThe signature's hashing method is SHA256 and the public key can be retrieved from\n<a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key</a>.\n",
+                    "key": "Verification-Signature",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"eventId\": \"<string>\",\n  \"sourceEventName\": \"CreditCardTransactionUpdated\",\n  \"eventTimestamp\": \"<dateTime>\",\n  \"paymentDetails\": {\n    \"transactionId\": \"<string>\",\n    \"settlementDateTime\": \"<dateTime>\",\n    \"transactionInitiationDateTime\": \"<dateTime>\",\n    \"clientTransactionUniqueReference\": \"<string>\",\n    \"amount\": \"<string>\",\n    \"currencyCode\": \"<string>\",\n    \"authenticationChallengeIssued\": \"<boolean>\",\n    \"authenticationResponseCode\": \"<string>\",\n    \"preAuthorizationFraudResult\": \"<string>\",\n    \"postAuthorizationFraudResult\": \"<string>\",\n    \"sessionCreationDateTime\": \"<dateTime>\",\n    \"status\": \"<string>\",\n    \"statusReasonCode\": \"<string>\",\n    \"statusReasonDescription\": \"<string>\",\n    \"settlementBatchId\": \"<string>\",\n    \"saveOnSuccess\": \"<boolean>\",\n    \"clientPaymentTokenUniqueReference\": \"<string>\",\n    \"customerId\": \"<string>\"\n  },\n  \"authenticationDetails\": {\n    \"responseCode\": \"<string>\",\n    \"challengeIssued\": \"<boolean>\"\n  },\n  \"riskDetails\": {\n    \"preAuthorizationResult\": \"<string>\",\n    \"postAuthorizationResult\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/WEBHOOK_TARGET_URL",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "WEBHOOK_TARGET_URL"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T02:01:29.000Z",
+              "updatedAt": "2026-10-22T02:01:29.000Z",
+              "uid": "35240-3d427b3b-0ccd-4ea2-9a90-faf00ff62d85"
+            }
+          ],
+          "createdAt": "2026-10-22T02:01:29.000Z",
+          "updatedAt": "2026-10-22T02:01:29.000Z",
+          "uid": "35240-332aa842-f512-4626-ac86-2ba3c30be946"
+        }
+      ],
+      "id": "e9ea6886-0368-4968-bfa5-c3c9dcf04eb8",
+      "createdAt": "2026-10-22T02:01:29.000Z",
+      "updatedAt": "2026-10-22T02:01:29.000Z",
+      "uid": "35240-e9ea6886-0368-4968-bfa5-c3c9dcf04eb8"
+    },
+    {
+      "name": "WEBHOOK_REFUND_STATUS_URL",
+      "item": [
+        {
+          "name": "Refund Status Notification",
+          "id": "a15b9792-52f8-4867-b6e1-4840d55e80f8",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                "key": "Verification-Signature",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"eventId\": \"<string>\",\n  \"sourceEventName\": \"CreditCardRefundUpdated\",\n  \"eventTimestamp\": \"<dateTime>\",\n  \"refundDetails\": {\n    \"transactionId\": \"<string>\",\n    \"settlementDateTime\": \"<dateTime>\",\n    \"transactionInitiationDateTime\": \"<dateTime>\",\n    \"clientTransactionUniqueReference\": \"<string>\",\n    \"amount\": \"<string>\",\n    \"surchargeAmount\": \"<string>\",\n    \"currencyCode\": \"<string>\",\n    \"sessionCreationDateTime\": \"<dateTime>\",\n    \"status\": \"<string>\",\n    \"statusReasonCode\": \"<string>\",\n    \"statusReasonDescription\": \"<string>\",\n    \"settlementBatchId\": \"<string>\",\n    \"saveOnSuccess\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/WEBHOOK_REFUND_STATUS_URL",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "WEBHOOK_REFUND_STATUS_URL"
+              ]
+            },
+            "description": "When the status of the refund changes, Monoova will send a webhook to notify the customer. Webhook will be triggered for the below status\n\nFailed\n\nDeclined\n\nSettlement Complete\n\nThese webhook can be subscribed using API's provided in Notification Management.\nEvent name - CreditCardRefundNotification"
+          },
+          "response": [
+            {
+              "id": "0e36b1e6-4092-4f97-9625-f101090b101b",
+              "name": "Any Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                    "key": "Verification-Signature",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"eventId\": \"<string>\",\n  \"sourceEventName\": \"CreditCardRefundUpdated\",\n  \"eventTimestamp\": \"<dateTime>\",\n  \"refundDetails\": {\n    \"transactionId\": \"<string>\",\n    \"settlementDateTime\": \"<dateTime>\",\n    \"transactionInitiationDateTime\": \"<dateTime>\",\n    \"clientTransactionUniqueReference\": \"<string>\",\n    \"amount\": \"<string>\",\n    \"surchargeAmount\": \"<string>\",\n    \"currencyCode\": \"<string>\",\n    \"sessionCreationDateTime\": \"<dateTime>\",\n    \"status\": \"<string>\",\n    \"statusReasonCode\": \"<string>\",\n    \"statusReasonDescription\": \"<string>\",\n    \"settlementBatchId\": \"<string>\",\n    \"saveOnSuccess\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/WEBHOOK_REFUND_STATUS_URL",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "WEBHOOK_REFUND_STATUS_URL"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T02:01:29.000Z",
+              "updatedAt": "2026-10-22T02:01:29.000Z",
+              "uid": "35240-0e36b1e6-4092-4f97-9625-f101090b101b"
+            }
+          ],
+          "createdAt": "2026-10-22T02:01:29.000Z",
+          "updatedAt": "2026-10-22T02:01:29.000Z",
+          "uid": "35240-a15b9792-52f8-4867-b6e1-4840d55e80f8"
+        }
+      ],
+      "id": "98102a06-11e5-4533-a01a-0ad9aae496ba",
+      "createdAt": "2026-10-22T02:01:29.000Z",
+      "updatedAt": "2026-10-22T02:01:29.000Z",
+      "uid": "35240-98102a06-11e5-4533-a01a-0ad9aae496ba"
+    },
+    {
+      "name": "WEBHOOK_ASYNC_REQUEST_URL",
+      "item": [
+        {
+          "name": "Asynchronous Request Notification",
+          "id": "3a78f633-c91c-49c9-acab-2de1c0fcfd4e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                "key": "Verification-Signature",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"uniqueRequestId\": \"x3c5s5y3jgwfilcve01vfz0ji4sql-mrwiap\",\n  \"eventId\": \"<string>\",\n  \"sourceEventName\": \"CreditCardRefundUpdated\",\n  \"eventTimestamp\": \"<dateTime>\",\n  \"status\": \"<string>\",\n  \"location\": \"<uri>\",\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\",\n  \"entityType\": \"PaymentInstruction\",\n  \"actionType\": \"Cancel\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/WEBHOOK_ASYNC_REQUEST_URL",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "WEBHOOK_ASYNC_REQUEST_URL"
+              ]
+            },
+            "description": "This webhook can be subscribed using API's provided in Notification Management.\nEvent name - AsyncJobResultNotification"
+          },
+          "response": [
+            {
+              "id": "233985a8-9cc9-4118-9e7c-8f23d9a76036",
+              "name": "Any Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                    "key": "Verification-Signature",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"uniqueRequestId\": \"x3c5s5y3jgwfilcve01vfz0ji4sql-mrwiap\",\n  \"eventId\": \"<string>\",\n  \"sourceEventName\": \"CreditCardRefundUpdated\",\n  \"eventTimestamp\": \"<dateTime>\",\n  \"status\": \"<string>\",\n  \"location\": \"<uri>\",\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\",\n  \"entityType\": \"PaymentInstruction\",\n  \"actionType\": \"Cancel\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/WEBHOOK_ASYNC_REQUEST_URL",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "WEBHOOK_ASYNC_REQUEST_URL"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T02:01:29.000Z",
+              "updatedAt": "2026-10-22T02:01:29.000Z",
+              "uid": "35240-233985a8-9cc9-4118-9e7c-8f23d9a76036"
+            }
+          ],
+          "createdAt": "2026-10-22T02:01:29.000Z",
+          "updatedAt": "2026-10-22T02:01:29.000Z",
+          "uid": "35240-3a78f633-c91c-49c9-acab-2de1c0fcfd4e"
+        }
+      ],
+      "id": "4c5f064a-e9d4-4625-a1d8-f0ee399d5834",
+      "createdAt": "2026-10-22T02:01:29.000Z",
+      "updatedAt": "2026-10-22T02:01:29.000Z",
+      "uid": "35240-4c5f064a-e9d4-4625-a1d8-f0ee399d5834"
+    },
+    {
+      "name": "RECEIVEPAYMENTWEBHOOK_TARGET_URL",
+      "item": [
+        {
+          "name": "Receive Payment Webhook",
+          "id": "27c145a8-764b-4dc1-86af-089329604a82",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                "key": "Verification-Signature",
+                "value": "<string>"
+              },
+              {
+                "description": "Unique Id to identify this webhook notification.",
+                "key": "Webhookid",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TransactionId\": \"<string>\",\n  \"DateTime\": \"<string>\",\n  \"RemitterName\": \"<string>\",\n  \"Amount\": \"<string>\",\n  \"AccountName\": \"<string>\",\n  \"AccountNumber\": \"<string>\",\n  \"Bsb\": \"<string>\",\n  \"PaymentDescription\": \"<string>\",\n  \"PayId\": \"<string>\",\n  \"PayIdName\": \"<string>\",\n  \"SourceBsb\": \"<string>\",\n  \"SourceAccountNumber\": \"<string>\",\n  \"SourceAccountName\": \"<string>\",\n  \"EndToEndId\": \"<string>\",\n  \"CategoryPurposeCode\": \"<string>\",\n  \"CreditorReferenceInformation\": \"<string>\",\n  \"USINumber\": \"<string>\",\n  \"USIScheme\": \"<string>\",\n  \"UltimateCreditorName\": \"<string>\",\n  \"ReconciliationRuleReference\": \"-aW3tSIppxRbqxcUUewery\",\n  \"ReceiptNumber\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/RECEIVEPAYMENTWEBHOOK_TARGET_URL",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "RECEIVEPAYMENTWEBHOOK_TARGET_URL"
+              ]
+            },
+            "description": "When an NPP payment is received, Monoova will send a callback with the below format. To subscribe to a webhook use the Subscriptions APIs. Event name: NPPReceivePayment"
+          },
+          "response": [
+            {
+              "id": "77c3fdd7-9eee-46bd-858c-df7268a0cfcd",
+              "name": "Is the expected response upon successful receipt. If any other status code response is received, we will retry one more time only, after a 30 second pause.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                    "key": "Verification-Signature",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "Unique Id to identify this webhook notification.",
+                    "key": "Webhookid",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TransactionId\": \"<string>\",\n  \"DateTime\": \"<string>\",\n  \"RemitterName\": \"<string>\",\n  \"Amount\": \"<string>\",\n  \"AccountName\": \"<string>\",\n  \"AccountNumber\": \"<string>\",\n  \"Bsb\": \"<string>\",\n  \"PaymentDescription\": \"<string>\",\n  \"PayId\": \"<string>\",\n  \"PayIdName\": \"<string>\",\n  \"SourceBsb\": \"<string>\",\n  \"SourceAccountNumber\": \"<string>\",\n  \"SourceAccountName\": \"<string>\",\n  \"EndToEndId\": \"<string>\",\n  \"CategoryPurposeCode\": \"<string>\",\n  \"CreditorReferenceInformation\": \"<string>\",\n  \"USINumber\": \"<string>\",\n  \"USIScheme\": \"<string>\",\n  \"UltimateCreditorName\": \"<string>\",\n  \"ReconciliationRuleReference\": \"-aW3tSIppxRbqxcUUewery\",\n  \"ReceiptNumber\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/RECEIVEPAYMENTWEBHOOK_TARGET_URL",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "RECEIVEPAYMENTWEBHOOK_TARGET_URL"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T02:01:29.000Z",
+              "updatedAt": "2026-10-22T02:01:29.000Z",
+              "uid": "35240-77c3fdd7-9eee-46bd-858c-df7268a0cfcd"
+            }
+          ],
+          "createdAt": "2026-10-22T02:01:29.000Z",
+          "updatedAt": "2026-10-22T02:01:29.000Z",
+          "uid": "35240-27c145a8-764b-4dc1-86af-089329604a82"
+        }
+      ],
+      "id": "9d4408a0-968d-4373-bad8-34079d099803",
+      "createdAt": "2026-10-22T02:01:29.000Z",
+      "updatedAt": "2026-10-22T02:01:29.000Z",
+      "uid": "35240-9d4408a0-968d-4373-bad8-34079d099803"
+    },
+    {
+      "name": "DIRECTDEBITCLEARANCEWEBHOOK_TARGET_URL",
+      "item": [
+        {
+          "name": "Direct Debit Clearance Webhook",
+          "id": "64f9570f-051f-4c91-9204-169a0519608b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message and its source (Monoova).<br/> The signature's hashing method is SHA256, and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\">/public/v1/certificate/public-key</a>.",
+                "key": "Verification-Signature",
+                "value": "<string>"
+              },
+              {
+                "description": "Unique Id to identify this webhook notification.",
+                "key": "Webhookid",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TotalCount\": \"<integer>\",\n  \"TransactionIds\": [\n    {\n      \"Id\": \"<integer>\"\n    },\n    {\n      \"Id\": \"<integer>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/DIRECTDEBITCLEARANCEWEBHOOK_TARGET_URL",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "DIRECTDEBITCLEARANCEWEBHOOK_TARGET_URL"
+              ]
+            },
+            "description": "Receive a daily notification with a list of all direct debit transactions cleared on that day. To subscribe to this webhook, use the Subscriptions APIs.\nEvent name: DirectDebitClearance."
+          },
+          "response": [
+            {
+              "id": "d56cf30e-ea95-4c71-9987-174464cc494a",
+              "name": "Is the expected response upon successful receipt. If any other status code response is received, we will retry one more time only, after a 30 second pause.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message and its source (Monoova).<br/> The signature's hashing method is SHA256, and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\">/public/v1/certificate/public-key</a>.",
+                    "key": "Verification-Signature",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "Unique Id to identify this webhook notification.",
+                    "key": "Webhookid",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TotalCount\": \"<integer>\",\n  \"TransactionIds\": [\n    {\n      \"Id\": \"<integer>\"\n    },\n    {\n      \"Id\": \"<integer>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/DIRECTDEBITCLEARANCEWEBHOOK_TARGET_URL",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "DIRECTDEBITCLEARANCEWEBHOOK_TARGET_URL"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T02:01:29.000Z",
+              "updatedAt": "2026-10-22T02:01:29.000Z",
+              "uid": "35240-d56cf30e-ea95-4c71-9987-174464cc494a"
+            }
+          ],
+          "createdAt": "2026-10-22T02:01:29.000Z",
+          "updatedAt": "2026-10-22T02:01:29.000Z",
+          "uid": "35240-64f9570f-051f-4c91-9204-169a0519608b"
+        }
+      ],
+      "id": "f59b30c4-02aa-4560-9760-95440cd9333f",
+      "createdAt": "2026-10-22T02:01:29.000Z",
+      "updatedAt": "2026-10-22T02:01:29.000Z",
+      "uid": "35240-f59b30c4-02aa-4560-9760-95440cd9333f"
+    },
+    {
+      "name": "PAYTORECEIVEPAYMENTWEBHOOK_TARGET_URL",
+      "item": [
+        {
+          "name": "Pay To Receive Payment Webhook",
+          "id": "35fd7134-2c40-4f33-9f04-fd740be0cd9e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                "key": "Verification-Signature",
+                "value": "<string>"
+              },
+              {
+                "description": "Unique Id to identify this webhook notification.",
+                "key": "Webhookid",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TransactionId\": \"<string>\",\n  \"DateTime\": \"<string>\",\n  \"RemitterName\": \"<string>\",\n  \"Amount\": \"<string>\",\n  \"AccountName\": \"<string>\",\n  \"AccountNumber\": \"<string>\",\n  \"Bsb\": \"<string>\",\n  \"PaymentDescription\": \"<string>\",\n  \"PayId\": \"<string>\",\n  \"PayIdName\": \"<string>\",\n  \"SourceBsb\": \"<string>\",\n  \"SourceAccountNumber\": \"<string>\",\n  \"SourceAccountName\": \"<string>\",\n  \"EndToEndId\": \"<string>\",\n  \"CategoryPurposeCode\": \"<string>\",\n  \"CreditorReferenceInformation\": \"<string>\",\n  \"USINumber\": \"<string>\",\n  \"USIScheme\": \"<string>\",\n  \"UltimateCreditorName\": \"<string>\",\n  \"MmsId\": \"<string>\",\n  \"InitiatingPartyName\": \"<string>\",\n  \"NPPInstructionId\": \"<string>\",\n  \"ReceiptNumber\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/PAYTORECEIVEPAYMENTWEBHOOK_TARGET_URL",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "PAYTORECEIVEPAYMENTWEBHOOK_TARGET_URL"
+              ]
+            },
+            "description": "When an NPP payment is received, Monoova will send a callback with the below format. To subscribe to a webhook use the Subscriptions APIs. Event name: PayToReceivePayment"
+          },
+          "response": [
+            {
+              "id": "1bfa08f8-6b59-44f2-b6ac-c95cde8769e2",
+              "name": "Is the expected response upon successful receipt. If any other status code response is received, we will retry one more time only, after a 30 second pause.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                    "key": "Verification-Signature",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "Unique Id to identify this webhook notification.",
+                    "key": "Webhookid",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TransactionId\": \"<string>\",\n  \"DateTime\": \"<string>\",\n  \"RemitterName\": \"<string>\",\n  \"Amount\": \"<string>\",\n  \"AccountName\": \"<string>\",\n  \"AccountNumber\": \"<string>\",\n  \"Bsb\": \"<string>\",\n  \"PaymentDescription\": \"<string>\",\n  \"PayId\": \"<string>\",\n  \"PayIdName\": \"<string>\",\n  \"SourceBsb\": \"<string>\",\n  \"SourceAccountNumber\": \"<string>\",\n  \"SourceAccountName\": \"<string>\",\n  \"EndToEndId\": \"<string>\",\n  \"CategoryPurposeCode\": \"<string>\",\n  \"CreditorReferenceInformation\": \"<string>\",\n  \"USINumber\": \"<string>\",\n  \"USIScheme\": \"<string>\",\n  \"UltimateCreditorName\": \"<string>\",\n  \"MmsId\": \"<string>\",\n  \"InitiatingPartyName\": \"<string>\",\n  \"NPPInstructionId\": \"<string>\",\n  \"ReceiptNumber\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/PAYTORECEIVEPAYMENTWEBHOOK_TARGET_URL",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "PAYTORECEIVEPAYMENTWEBHOOK_TARGET_URL"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T02:01:29.000Z",
+              "updatedAt": "2026-10-22T02:01:29.000Z",
+              "uid": "35240-1bfa08f8-6b59-44f2-b6ac-c95cde8769e2"
+            }
+          ],
+          "createdAt": "2026-10-22T02:01:29.000Z",
+          "updatedAt": "2026-10-22T02:01:29.000Z",
+          "uid": "35240-35fd7134-2c40-4f33-9f04-fd740be0cd9e"
+        }
+      ],
+      "id": "ac4dabbc-e82e-4d84-be3b-7f4174253f4d",
+      "createdAt": "2026-10-22T02:01:29.000Z",
+      "updatedAt": "2026-10-22T02:01:29.000Z",
+      "uid": "35240-ac4dabbc-e82e-4d84-be3b-7f4174253f4d"
+    },
+    {
+      "name": "INBOUNDDIRECTCREDITWEBHOOK_TARGET_URL",
+      "item": [
+        {
+          "name": "Receive Inbound Direct Credits Webhook",
+          "id": "75214cc9-36ec-46f3-b603-55981484251b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                "key": "Verification-Signature",
+                "value": "<string>"
+              },
+              {
+                "description": "Unique Id to identify this webhook notification.",
+                "key": "Webhookid",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TotalCount\": \"<integer>\",\n  \"TotalAmount\": \"<number>\",\n  \"DirectCreditDetails\": [\n    {\n      \"TransactionId\": \"<string>\",\n      \"BatchId\": \"<string>\",\n      \"DateTime\": \"<string>\",\n      \"Bsb\": \"<string>\",\n      \"AccountNumber\": \"<string>\",\n      \"AccountName\": \"<string>\",\n      \"TransactionCode\": \"<string>\",\n      \"Amount\": \"<number>\",\n      \"LodgementRef\": \"<string>\",\n      \"RemitterName\": \"<string>\",\n      \"NameOfUserSupplyingFile\": \"<string>\",\n      \"NumberOfUserSupplyingFile\": \"<string>\",\n      \"DescriptionOfEntriesOnFile\": \"<string>\",\n      \"Indicator\": \"<string>\",\n      \"WithholdingTaxAmount\": \"<number>\",\n      \"SourceBsb\": \"<string>\",\n      \"SourceAccountNumber\": \"<string>\",\n      \"ReceiptNumber\": \"<string>\"\n    },\n    {\n      \"TransactionId\": \"<string>\",\n      \"BatchId\": \"<string>\",\n      \"DateTime\": \"<string>\",\n      \"Bsb\": \"<string>\",\n      \"AccountNumber\": \"<string>\",\n      \"AccountName\": \"<string>\",\n      \"TransactionCode\": \"<string>\",\n      \"Amount\": \"<number>\",\n      \"LodgementRef\": \"<string>\",\n      \"RemitterName\": \"<string>\",\n      \"NameOfUserSupplyingFile\": \"<string>\",\n      \"NumberOfUserSupplyingFile\": \"<string>\",\n      \"DescriptionOfEntriesOnFile\": \"<string>\",\n      \"Indicator\": \"<string>\",\n      \"WithholdingTaxAmount\": \"<number>\",\n      \"SourceBsb\": \"<string>\",\n      \"SourceAccountNumber\": \"<string>\",\n      \"ReceiptNumber\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/INBOUNDDIRECTCREDITWEBHOOK_TARGET_URL",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "INBOUNDDIRECTCREDITWEBHOOK_TARGET_URL"
+              ]
+            },
+            "description": "Subscribing to the direct credit event webhook will allow us to notify you when an inbound direct credit is received on one of your accounts. As direct credits arrive in batches, you will receive the data in an JSON array with multiple transactions multiple times per day. Event name: InboundDirectCredit"
+          },
+          "response": [
+            {
+              "id": "39c1cde0-e698-45eb-9cd6-8b53d314baf6",
+              "name": "Is the expected response upon successful receipt. If any other status code response is received, we will retry one more time only, after a 30 second pause.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                    "key": "Verification-Signature",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "Unique Id to identify this webhook notification.",
+                    "key": "Webhookid",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TotalCount\": \"<integer>\",\n  \"TotalAmount\": \"<number>\",\n  \"DirectCreditDetails\": [\n    {\n      \"TransactionId\": \"<string>\",\n      \"BatchId\": \"<string>\",\n      \"DateTime\": \"<string>\",\n      \"Bsb\": \"<string>\",\n      \"AccountNumber\": \"<string>\",\n      \"AccountName\": \"<string>\",\n      \"TransactionCode\": \"<string>\",\n      \"Amount\": \"<number>\",\n      \"LodgementRef\": \"<string>\",\n      \"RemitterName\": \"<string>\",\n      \"NameOfUserSupplyingFile\": \"<string>\",\n      \"NumberOfUserSupplyingFile\": \"<string>\",\n      \"DescriptionOfEntriesOnFile\": \"<string>\",\n      \"Indicator\": \"<string>\",\n      \"WithholdingTaxAmount\": \"<number>\",\n      \"SourceBsb\": \"<string>\",\n      \"SourceAccountNumber\": \"<string>\",\n      \"ReceiptNumber\": \"<string>\"\n    },\n    {\n      \"TransactionId\": \"<string>\",\n      \"BatchId\": \"<string>\",\n      \"DateTime\": \"<string>\",\n      \"Bsb\": \"<string>\",\n      \"AccountNumber\": \"<string>\",\n      \"AccountName\": \"<string>\",\n      \"TransactionCode\": \"<string>\",\n      \"Amount\": \"<number>\",\n      \"LodgementRef\": \"<string>\",\n      \"RemitterName\": \"<string>\",\n      \"NameOfUserSupplyingFile\": \"<string>\",\n      \"NumberOfUserSupplyingFile\": \"<string>\",\n      \"DescriptionOfEntriesOnFile\": \"<string>\",\n      \"Indicator\": \"<string>\",\n      \"WithholdingTaxAmount\": \"<number>\",\n      \"SourceBsb\": \"<string>\",\n      \"SourceAccountNumber\": \"<string>\",\n      \"ReceiptNumber\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/INBOUNDDIRECTCREDITWEBHOOK_TARGET_URL",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "INBOUNDDIRECTCREDITWEBHOOK_TARGET_URL"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T02:01:29.000Z",
+              "updatedAt": "2026-10-22T02:01:29.000Z",
+              "uid": "35240-39c1cde0-e698-45eb-9cd6-8b53d314baf6"
+            }
+          ],
+          "createdAt": "2026-10-22T02:01:29.000Z",
+          "updatedAt": "2026-10-22T02:01:29.000Z",
+          "uid": "35240-75214cc9-36ec-46f3-b603-55981484251b"
+        }
+      ],
+      "id": "381e45a1-59a3-4ae7-953e-6860420e58d9",
+      "createdAt": "2026-10-22T02:01:29.000Z",
+      "updatedAt": "2026-10-22T02:01:29.000Z",
+      "uid": "35240-381e45a1-59a3-4ae7-953e-6860420e58d9"
+    },
+    {
+      "name": "INBOUNDDIRECTDEBITWEBHOOK_TARGET_URL",
+      "item": [
+        {
+          "name": "Receive Inbound Direct Debits Webhook",
+          "id": "e2c5a313-79d9-45e0-b23c-e5bd647fbd86",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                "key": "Verification-Signature",
+                "value": "<string>"
+              },
+              {
+                "description": "Unique Id to identify this webhook notification.",
+                "key": "Webhookid",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TotalCount\": \"<integer>\",\n  \"TotalAmount\": \"<number>\",\n  \"DirectDebitDetails\": [\n    {\n      \"TransactionId\": \"<string>\",\n      \"BatchId\": \"<string>\",\n      \"DateTime\": \"<string>\",\n      \"Status\": \"<string>\",\n      \"RespondBeforeDateTime\": \"<string>\",\n      \"Bsb\": \"<string>\",\n      \"AccountNumber\": \"<string>\",\n      \"AccountName\": \"<string>\",\n      \"Amount\": \"<number>\",\n      \"LodgementRef\": \"<string>\",\n      \"RemitterName\": \"<string>\",\n      \"NameOfUserSupplyingFile\": \"<string>\",\n      \"NumberOfUserSupplyingFile\": \"<string>\",\n      \"DescriptionOfEntriesOnFile\": \"<string>\",\n      \"Indicator\": \"<string>\",\n      \"WithholdingTaxAmount\": \"<number>\",\n      \"SourceBsb\": \"<string>\",\n      \"SourceAccountNumber\": \"<string>\"\n    },\n    {\n      \"TransactionId\": \"<string>\",\n      \"BatchId\": \"<string>\",\n      \"DateTime\": \"<string>\",\n      \"Status\": \"<string>\",\n      \"RespondBeforeDateTime\": \"<string>\",\n      \"Bsb\": \"<string>\",\n      \"AccountNumber\": \"<string>\",\n      \"AccountName\": \"<string>\",\n      \"Amount\": \"<number>\",\n      \"LodgementRef\": \"<string>\",\n      \"RemitterName\": \"<string>\",\n      \"NameOfUserSupplyingFile\": \"<string>\",\n      \"NumberOfUserSupplyingFile\": \"<string>\",\n      \"DescriptionOfEntriesOnFile\": \"<string>\",\n      \"Indicator\": \"<string>\",\n      \"WithholdingTaxAmount\": \"<number>\",\n      \"SourceBsb\": \"<string>\",\n      \"SourceAccountNumber\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/INBOUNDDIRECTDEBITWEBHOOK_TARGET_URL",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "INBOUNDDIRECTDEBITWEBHOOK_TARGET_URL"
+              ]
+            },
+            "description": "Subscribing to the direct debit event webhook will allow us to notify you when an inbound direct debit is received on one of your accounts. As direct debits arrive in batches, you will receive the data in an JSON array with multiple transactions multiple times per day. Event name: InboundDirectDebit\n\nNote: Source account details do not appear by default, please contact Monoova for further information"
+          },
+          "response": [
+            {
+              "id": "13a469bd-37d7-411d-9d87-beaa6128712a",
+              "name": "Is the expected response upon successful receipt. If any other status code response is received, we will retry one more time only, after a 30 second pause.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                    "key": "Verification-Signature",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "Unique Id to identify this webhook notification.",
+                    "key": "Webhookid",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TotalCount\": \"<integer>\",\n  \"TotalAmount\": \"<number>\",\n  \"DirectDebitDetails\": [\n    {\n      \"TransactionId\": \"<string>\",\n      \"BatchId\": \"<string>\",\n      \"DateTime\": \"<string>\",\n      \"Status\": \"<string>\",\n      \"RespondBeforeDateTime\": \"<string>\",\n      \"Bsb\": \"<string>\",\n      \"AccountNumber\": \"<string>\",\n      \"AccountName\": \"<string>\",\n      \"Amount\": \"<number>\",\n      \"LodgementRef\": \"<string>\",\n      \"RemitterName\": \"<string>\",\n      \"NameOfUserSupplyingFile\": \"<string>\",\n      \"NumberOfUserSupplyingFile\": \"<string>\",\n      \"DescriptionOfEntriesOnFile\": \"<string>\",\n      \"Indicator\": \"<string>\",\n      \"WithholdingTaxAmount\": \"<number>\",\n      \"SourceBsb\": \"<string>\",\n      \"SourceAccountNumber\": \"<string>\"\n    },\n    {\n      \"TransactionId\": \"<string>\",\n      \"BatchId\": \"<string>\",\n      \"DateTime\": \"<string>\",\n      \"Status\": \"<string>\",\n      \"RespondBeforeDateTime\": \"<string>\",\n      \"Bsb\": \"<string>\",\n      \"AccountNumber\": \"<string>\",\n      \"AccountName\": \"<string>\",\n      \"Amount\": \"<number>\",\n      \"LodgementRef\": \"<string>\",\n      \"RemitterName\": \"<string>\",\n      \"NameOfUserSupplyingFile\": \"<string>\",\n      \"NumberOfUserSupplyingFile\": \"<string>\",\n      \"DescriptionOfEntriesOnFile\": \"<string>\",\n      \"Indicator\": \"<string>\",\n      \"WithholdingTaxAmount\": \"<number>\",\n      \"SourceBsb\": \"<string>\",\n      \"SourceAccountNumber\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/INBOUNDDIRECTDEBITWEBHOOK_TARGET_URL",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "INBOUNDDIRECTDEBITWEBHOOK_TARGET_URL"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T02:01:29.000Z",
+              "updatedAt": "2026-10-22T02:01:29.000Z",
+              "uid": "35240-13a469bd-37d7-411d-9d87-beaa6128712a"
+            }
+          ],
+          "createdAt": "2026-10-22T02:01:29.000Z",
+          "updatedAt": "2026-10-22T02:01:29.000Z",
+          "uid": "35240-e2c5a313-79d9-45e0-b23c-e5bd647fbd86"
+        }
+      ],
+      "id": "637a326a-2aa3-4209-9f37-1247aa1c07a2",
+      "createdAt": "2026-10-22T02:01:29.000Z",
+      "updatedAt": "2026-10-22T02:01:29.000Z",
+      "uid": "35240-637a326a-2aa3-4209-9f37-1247aa1c07a2"
+    },
+    {
+      "name": "DIRECTENTRYDISHONOURSWEBHOOK_TARGET_URL",
+      "item": [
+        {
+          "name": "Receive Direct Entry Dishonours Webhook",
+          "id": "f2082ca1-5895-44d0-8f16-664b42df51e3",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                "key": "Verification-Signature",
+                "value": "<string>"
+              },
+              {
+                "description": "Unique Id to identify this webhook notification.",
+                "key": "Webhookid",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ReturnDate\": \"<string>\",\n  \"Amount\": \"<number>\",\n  \"BankDetails\": {\n    \"Bsb\": \"<string>\",\n    \"AccountNumber\": \"<string>\",\n    \"AccountName\": \"<string>\",\n    \"Token\": \"<string>\"\n  },\n  \"Type\": \"<string>\",\n  \"ReturnReason\": \"<string>\",\n  \"TransactionDate\": \"<string>\",\n  \"OriginalTransactionId\": \"<integer>\",\n  \"TransactionReference\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/DIRECTENTRYDISHONOURSWEBHOOK_TARGET_URL",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "DIRECTENTRYDISHONOURSWEBHOOK_TARGET_URL"
+              ]
+            },
+            "description": "Subscribing to the direct entry dishonours event webhook will allow us to notify you when an dishonour transaction is made. Event name: DirectEntryDishonour"
+          },
+          "response": [
+            {
+              "id": "eda944da-ab8e-419c-9361-3f7dc9e3d8f6",
+              "name": "Is the expected response upon successful receipt. If any other status code response is received, we will retry one more time only, after a 30 second pause.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                    "key": "Verification-Signature",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "Unique Id to identify this webhook notification.",
+                    "key": "Webhookid",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ReturnDate\": \"<string>\",\n  \"Amount\": \"<number>\",\n  \"BankDetails\": {\n    \"Bsb\": \"<string>\",\n    \"AccountNumber\": \"<string>\",\n    \"AccountName\": \"<string>\",\n    \"Token\": \"<string>\"\n  },\n  \"Type\": \"<string>\",\n  \"ReturnReason\": \"<string>\",\n  \"TransactionDate\": \"<string>\",\n  \"OriginalTransactionId\": \"<integer>\",\n  \"TransactionReference\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/DIRECTENTRYDISHONOURSWEBHOOK_TARGET_URL",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "DIRECTENTRYDISHONOURSWEBHOOK_TARGET_URL"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T02:01:29.000Z",
+              "updatedAt": "2026-10-22T02:01:29.000Z",
+              "uid": "35240-eda944da-ab8e-419c-9361-3f7dc9e3d8f6"
+            }
+          ],
+          "createdAt": "2026-10-22T02:01:29.000Z",
+          "updatedAt": "2026-10-22T02:01:29.000Z",
+          "uid": "35240-f2082ca1-5895-44d0-8f16-664b42df51e3"
+        }
+      ],
+      "id": "e5521aa0-914c-419e-b95c-9f6be78c1f1c",
+      "createdAt": "2026-10-22T02:01:29.000Z",
+      "updatedAt": "2026-10-22T02:01:29.000Z",
+      "uid": "35240-e5521aa0-914c-419e-b95c-9f6be78c1f1c"
+    },
+    {
+      "name": "PENDINGRTGSIMTWEBHOOK_TARGET_URL",
+      "item": [
+        {
+          "name": "Receive Pending Rtgs/Imt Webhook",
+          "id": "df1cbddb-f3a5-428d-b4b8-f28986f73493",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                "key": "Verification-Signature",
+                "value": "<string>"
+              },
+              {
+                "description": "Unique Id to identify this webhook notification.",
+                "key": "Webhookid",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TotalCount\": \"<integer>\",\n  \"TotalAmount\": \"<number>\",\n  \"RtgsImtDetails\": [\n    {\n      \"TransactionId\": \"<string>\",\n      \"AccountNumber\": \"<string>\",\n      \"BSB\": \"<string>\",\n      \"AccountName\": \"<string>\",\n      \"TransactionReferenceNumber\": \"<string>\",\n      \"Amount\": \"<number>\",\n      \"Status\": \"<string>\",\n      \"LodgementRef\": \"<string>\",\n      \"Date\": \"<string>\",\n      \"SourceDetails\": \"<string>\",\n      \"RespondBeforeDateTime\": \"<string>\",\n      \"SendingOrganisation\": \"<string>\",\n      \"ReceivingOrganisation\": \"<string>\",\n      \"OrderingInstitution\": \"<string>\",\n      \"OriginatingAddress\": \"<string>\",\n      \"ledgerAccountNumber\": \"<string>\",\n      \"ledgerUniqueReference\": \"<string>\"\n    },\n    {\n      \"TransactionId\": \"<string>\",\n      \"AccountNumber\": \"<string>\",\n      \"BSB\": \"<string>\",\n      \"AccountName\": \"<string>\",\n      \"TransactionReferenceNumber\": \"<string>\",\n      \"Amount\": \"<number>\",\n      \"Status\": \"<string>\",\n      \"LodgementRef\": \"<string>\",\n      \"Date\": \"<string>\",\n      \"SourceDetails\": \"<string>\",\n      \"RespondBeforeDateTime\": \"<string>\",\n      \"SendingOrganisation\": \"<string>\",\n      \"ReceivingOrganisation\": \"<string>\",\n      \"OrderingInstitution\": \"<string>\",\n      \"OriginatingAddress\": \"<string>\",\n      \"ledgerAccountNumber\": \"<string>\",\n      \"ledgerUniqueReference\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/PENDINGRTGSIMTWEBHOOK_TARGET_URL",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "PENDINGRTGSIMTWEBHOOK_TARGET_URL"
+              ]
+            },
+            "description": "Subscribing to the Pending RTGS/IMT event webhook will allow us to notify you when a RTGS/IMT transaction is received on one of your accounts. As RTGS/IMT transaction arrive in batches, you will receive the data in an JSON array with multiple transactions multiple times per day. Event name: PendingInboundRtgsImt"
+          },
+          "response": [
+            {
+              "id": "2dceaedf-801f-4513-82d8-7d34953892d1",
+              "name": "Is the expected response upon successful receipt. If any other status code response is received, we will retry one more time only, after a 30 second pause.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                    "key": "Verification-Signature",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "Unique Id to identify this webhook notification.",
+                    "key": "Webhookid",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TotalCount\": \"<integer>\",\n  \"TotalAmount\": \"<number>\",\n  \"RtgsImtDetails\": [\n    {\n      \"TransactionId\": \"<string>\",\n      \"AccountNumber\": \"<string>\",\n      \"BSB\": \"<string>\",\n      \"AccountName\": \"<string>\",\n      \"TransactionReferenceNumber\": \"<string>\",\n      \"Amount\": \"<number>\",\n      \"Status\": \"<string>\",\n      \"LodgementRef\": \"<string>\",\n      \"Date\": \"<string>\",\n      \"SourceDetails\": \"<string>\",\n      \"RespondBeforeDateTime\": \"<string>\",\n      \"SendingOrganisation\": \"<string>\",\n      \"ReceivingOrganisation\": \"<string>\",\n      \"OrderingInstitution\": \"<string>\",\n      \"OriginatingAddress\": \"<string>\",\n      \"ledgerAccountNumber\": \"<string>\",\n      \"ledgerUniqueReference\": \"<string>\"\n    },\n    {\n      \"TransactionId\": \"<string>\",\n      \"AccountNumber\": \"<string>\",\n      \"BSB\": \"<string>\",\n      \"AccountName\": \"<string>\",\n      \"TransactionReferenceNumber\": \"<string>\",\n      \"Amount\": \"<number>\",\n      \"Status\": \"<string>\",\n      \"LodgementRef\": \"<string>\",\n      \"Date\": \"<string>\",\n      \"SourceDetails\": \"<string>\",\n      \"RespondBeforeDateTime\": \"<string>\",\n      \"SendingOrganisation\": \"<string>\",\n      \"ReceivingOrganisation\": \"<string>\",\n      \"OrderingInstitution\": \"<string>\",\n      \"OriginatingAddress\": \"<string>\",\n      \"ledgerAccountNumber\": \"<string>\",\n      \"ledgerUniqueReference\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/PENDINGRTGSIMTWEBHOOK_TARGET_URL",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "PENDINGRTGSIMTWEBHOOK_TARGET_URL"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T02:01:29.000Z",
+              "updatedAt": "2026-10-22T02:01:29.000Z",
+              "uid": "35240-2dceaedf-801f-4513-82d8-7d34953892d1"
+            }
+          ],
+          "createdAt": "2026-10-22T02:01:29.000Z",
+          "updatedAt": "2026-10-22T02:01:29.000Z",
+          "uid": "35240-df1cbddb-f3a5-428d-b4b8-f28986f73493"
+        }
+      ],
+      "id": "d90338af-95ce-4a75-9e5f-cde627000766",
+      "createdAt": "2026-10-22T02:01:29.000Z",
+      "updatedAt": "2026-10-22T02:01:29.000Z",
+      "uid": "35240-d90338af-95ce-4a75-9e5f-cde627000766"
+    },
+    {
+      "name": "RTGSIMTWEBHOOKSTATUSWEBHOOK_TARGET_URL",
+      "item": [
+        {
+          "name": "Receive Rtgs/Imt status Webhook",
+          "id": "812ddb50-798e-4273-bc7d-8f1d7014ad10",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                "key": "Verification-Signature",
+                "value": "<string>"
+              },
+              {
+                "description": "Unique Id to identify this webhook notification.",
+                "key": "Webhookid",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TransactionId\": \"<string>\",\n  \"AccountNumber\": \"<string>\",\n  \"Bsb\": \"<string>\",\n  \"AccountName\": \"<string>\",\n  \"TransactionReferenceNumber\": \"<string>\",\n  \"Amount\": \"<number>\",\n  \"Status\": \"<string>\",\n  \"LodgementRef\": \"<string>\",\n  \"Date\": \"<string>\",\n  \"SourceDetails\": \"<string>\",\n  \"ProcessedDateTime\": \"<string>\",\n  \"RejectReasonDescription\": \"<string>\",\n  \"SendingOrganisation\": \"<string>\",\n  \"ReceivingOrganisation\": \"<string>\",\n  \"OrderingInstitution\": \"<string>\",\n  \"OrderingAddress\": \"<string>\",\n  \"ledgerAccountNumber\": \"<string>\",\n  \"ledgerUniqueReference\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/RTGSIMTWEBHOOKSTATUSWEBHOOK_TARGET_URL",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "RTGSIMTWEBHOOKSTATUSWEBHOOK_TARGET_URL"
+              ]
+            },
+            "description": "Subscribing to the RTGS/IMT status event webhook will allow us to notify you when status of an RTGS/IMT transaction changes. Event name: InboundRtgsImtStatus"
+          },
+          "response": [
+            {
+              "id": "0b67f5d2-dc9f-4b93-aaef-2bdd2747bee5",
+              "name": "Is the expected response upon successful receipt. If any other status code response is received, we will retry one more time only, after a 30 second pause.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                    "key": "Verification-Signature",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "Unique Id to identify this webhook notification.",
+                    "key": "Webhookid",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TransactionId\": \"<string>\",\n  \"AccountNumber\": \"<string>\",\n  \"Bsb\": \"<string>\",\n  \"AccountName\": \"<string>\",\n  \"TransactionReferenceNumber\": \"<string>\",\n  \"Amount\": \"<number>\",\n  \"Status\": \"<string>\",\n  \"LodgementRef\": \"<string>\",\n  \"Date\": \"<string>\",\n  \"SourceDetails\": \"<string>\",\n  \"ProcessedDateTime\": \"<string>\",\n  \"RejectReasonDescription\": \"<string>\",\n  \"SendingOrganisation\": \"<string>\",\n  \"ReceivingOrganisation\": \"<string>\",\n  \"OrderingInstitution\": \"<string>\",\n  \"OrderingAddress\": \"<string>\",\n  \"ledgerAccountNumber\": \"<string>\",\n  \"ledgerUniqueReference\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/RTGSIMTWEBHOOKSTATUSWEBHOOK_TARGET_URL",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "RTGSIMTWEBHOOKSTATUSWEBHOOK_TARGET_URL"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T02:01:29.000Z",
+              "updatedAt": "2026-10-22T02:01:29.000Z",
+              "uid": "35240-0b67f5d2-dc9f-4b93-aaef-2bdd2747bee5"
+            }
+          ],
+          "createdAt": "2026-10-22T02:01:29.000Z",
+          "updatedAt": "2026-10-22T02:01:29.000Z",
+          "uid": "35240-812ddb50-798e-4273-bc7d-8f1d7014ad10"
+        }
+      ],
+      "id": "d8cf396c-7954-4614-a45e-883630d3b10c",
+      "createdAt": "2026-10-22T02:01:29.000Z",
+      "updatedAt": "2026-10-22T02:01:29.000Z",
+      "uid": "35240-d8cf396c-7954-4614-a45e-883630d3b10c"
+    },
+    {
+      "name": "RECEIVENPPPAYMENTRETURNWEBHOOK_TARGET_URL",
+      "item": [
+        {
+          "name": "Receive Npp Payment Return Webhook",
+          "id": "d559af33-1c9d-490b-ad3c-62a8ef41e11e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                "key": "Verification-Signature",
+                "value": "<string>"
+              },
+              {
+                "description": "Unique Id to identify this webhook notification.",
+                "key": "Webhookid",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ReturnDate\": \"<string>\",\n  \"Amount\": \"<number>\",\n  \"Bsb\": \"<string>\",\n  \"AccountNumber\": \"<string>\",\n  \"AccountName\": \"<string>\",\n  \"PayId\": \"<string>\",\n  \"PayIdType\": \"PhoneNumber\",\n  \"EndToEndId\": \"<string>\",\n  \"ReturnReason\": \"<string>\",\n  \"TransactionDate\": \"<string>\",\n  \"TransactionId\": \"<integer>\",\n  \"UniqueReference\": \"<string>\",\n  \"RemitterName\": \"<string>\",\n  \"LodgementRef\": \"<string>\",\n  \"ReturnTransactionId\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/RECEIVENPPPAYMENTRETURNWEBHOOK_TARGET_URL",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "RECEIVENPPPAYMENTRETURNWEBHOOK_TARGET_URL"
+              ]
+            },
+            "description": "Subscribing to the npp return event webhook will allow us to notify you when an npp payment gets returned is made. Event name: NppReturn"
+          },
+          "response": [
+            {
+              "id": "d60fe8ae-2cc0-4830-9886-960dc40171ea",
+              "name": "Is the expected response upon successful receipt. If any other status code response is received, we will retry one more time only, after a 30 second pause.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                    "key": "Verification-Signature",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "Unique Id to identify this webhook notification.",
+                    "key": "Webhookid",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ReturnDate\": \"<string>\",\n  \"Amount\": \"<number>\",\n  \"Bsb\": \"<string>\",\n  \"AccountNumber\": \"<string>\",\n  \"AccountName\": \"<string>\",\n  \"PayId\": \"<string>\",\n  \"PayIdType\": \"PhoneNumber\",\n  \"EndToEndId\": \"<string>\",\n  \"ReturnReason\": \"<string>\",\n  \"TransactionDate\": \"<string>\",\n  \"TransactionId\": \"<integer>\",\n  \"UniqueReference\": \"<string>\",\n  \"RemitterName\": \"<string>\",\n  \"LodgementRef\": \"<string>\",\n  \"ReturnTransactionId\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/RECEIVENPPPAYMENTRETURNWEBHOOK_TARGET_URL",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "RECEIVENPPPAYMENTRETURNWEBHOOK_TARGET_URL"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T02:01:29.000Z",
+              "updatedAt": "2026-10-22T02:01:29.000Z",
+              "uid": "35240-d60fe8ae-2cc0-4830-9886-960dc40171ea"
+            }
+          ],
+          "createdAt": "2026-10-22T02:01:29.000Z",
+          "updatedAt": "2026-10-22T02:01:29.000Z",
+          "uid": "35240-d559af33-1c9d-490b-ad3c-62a8ef41e11e"
+        }
+      ],
+      "id": "5bfc5271-2200-40e0-af32-600b5290b18d",
+      "createdAt": "2026-10-22T02:01:29.000Z",
+      "updatedAt": "2026-10-22T02:01:29.000Z",
+      "uid": "35240-5bfc5271-2200-40e0-af32-600b5290b18d"
+    },
+    {
+      "name": "NPPPAYMENTSTATUSWEBHOOK_TARGET_URL",
+      "item": [
+        {
+          "name": "Receive Npp Payment Status Webhook",
+          "id": "c7f1a588-9b31-401b-a27d-c1ddcf82715e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                "key": "Verification-Signature",
+                "value": "<string>"
+              },
+              {
+                "description": "Unique Id to identify this webhook notification.",
+                "key": "Webhookid",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TransactionDate\": \"<dateTime>\",\n  \"UniqueReference\": \"<string>\",\n  \"TransactionId\": \"<integer>\",\n  \"Status\": \"<string>\",\n  \"Amount\": \"<number>\",\n  \"Bsb\": \"<string>\",\n  \"AccountNumber\": \"<string>\",\n  \"AccountName\": \"<string>\",\n  \"PayId\": \"<string>\",\n  \"PayIdType\": \"ACN\",\n  \"EndToEndId\": \"<string>\",\n  \"RemitterName\": \"<string>\",\n  \"LodgementRef\": \"<string>\",\n  \"RejectionDateTime\": \"<dateTime>\",\n  \"RejectionReasonDescription\": \"<string>\",\n  \"RejectionTransactionId\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/NPPPAYMENTSTATUSWEBHOOK_TARGET_URL",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "NPPPAYMENTSTATUSWEBHOOK_TARGET_URL"
+              ]
+            },
+            "description": "Subscribing to the npp payment status event webhook will allow us to notify you when the status of a pending NPP Payment gets updated. Event name: NppPaymentStatus\nNote: Receive an NPP Payment Status Webhook notification when the status of an NPP payment changes so you don\u2019t need to poll for updates. The \"Pending\" status is not reported by this webhook."
+          },
+          "response": [
+            {
+              "id": "d9753a4d-983c-4323-b9fc-6e2e480fec7f",
+              "name": "Is the expected response upon successful receipt. If any other status code response is received, we will retry one more time only, after a 30 second pause.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                    "key": "Verification-Signature",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "Unique Id to identify this webhook notification.",
+                    "key": "Webhookid",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TransactionDate\": \"<dateTime>\",\n  \"UniqueReference\": \"<string>\",\n  \"TransactionId\": \"<integer>\",\n  \"Status\": \"<string>\",\n  \"Amount\": \"<number>\",\n  \"Bsb\": \"<string>\",\n  \"AccountNumber\": \"<string>\",\n  \"AccountName\": \"<string>\",\n  \"PayId\": \"<string>\",\n  \"PayIdType\": \"ACN\",\n  \"EndToEndId\": \"<string>\",\n  \"RemitterName\": \"<string>\",\n  \"LodgementRef\": \"<string>\",\n  \"RejectionDateTime\": \"<dateTime>\",\n  \"RejectionReasonDescription\": \"<string>\",\n  \"RejectionTransactionId\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/NPPPAYMENTSTATUSWEBHOOK_TARGET_URL",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "NPPPAYMENTSTATUSWEBHOOK_TARGET_URL"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T02:01:29.000Z",
+              "updatedAt": "2026-10-22T02:01:29.000Z",
+              "uid": "35240-d9753a4d-983c-4323-b9fc-6e2e480fec7f"
+            }
+          ],
+          "createdAt": "2026-10-22T02:01:29.000Z",
+          "updatedAt": "2026-10-22T02:01:29.000Z",
+          "uid": "35240-c7f1a588-9b31-401b-a27d-c1ddcf82715e"
+        }
+      ],
+      "id": "f9efee4c-9d5f-4a1a-a6a8-53bd89026ef8",
+      "createdAt": "2026-10-22T02:01:29.000Z",
+      "updatedAt": "2026-10-22T02:01:29.000Z",
+      "uid": "35240-f9efee4c-9d5f-4a1a-a6a8-53bd89026ef8"
+    },
+    {
+      "name": "INBOUNDDIRECTCREDITREJECTIONSWEBHOOK_TARGET_URL",
+      "item": [
+        {
+          "name": "Inbound Direct Credit Rejections Webhook",
+          "id": "d6f54b61-e183-4d9b-a8d9-9ecebfe54a5e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                "key": "Verification-Signature",
+                "value": "<string>"
+              },
+              {
+                "description": "Unique Id to identify this webhook notification.",
+                "key": "Webhookid",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"id\": \"<integer>\",\n    \"batchId\": \"<integer>\",\n    \"dateTime\": \"<dateTime>\",\n    \"bsb\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"accountName\": \"<string>\",\n    \"payId\": \"<string>\",\n    \"payIdName\": \"<string>\",\n    \"transactionCode\": \"<string>\",\n    \"transactionType\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"lodgementRef\": \"<string>\",\n    \"remitterName\": \"<string>\",\n    \"indicator\": \"<string>\",\n    \"withholdingTaxAmount\": \"<number>\",\n    \"endToEndId\": \"<string>\",\n    \"nameOfUserSupplyingFile\": \"<string>\",\n    \"numberOfUserSupplyingFile\": \"<string>\",\n    \"descriptionOfEntriesOnFile\": \"<string>\",\n    \"reason\": \"<string>\",\n    \"status\": \"<string>\",\n    \"sourceBsb\": \"<string>\",\n    \"sourceAccountNumber\": \"<string>\",\n    \"sourceAccountName\": \"<string>\"\n  },\n  {\n    \"id\": \"<integer>\",\n    \"batchId\": \"<integer>\",\n    \"dateTime\": \"<dateTime>\",\n    \"bsb\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"accountName\": \"<string>\",\n    \"payId\": \"<string>\",\n    \"payIdName\": \"<string>\",\n    \"transactionCode\": \"<string>\",\n    \"transactionType\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"lodgementRef\": \"<string>\",\n    \"remitterName\": \"<string>\",\n    \"indicator\": \"<string>\",\n    \"withholdingTaxAmount\": \"<number>\",\n    \"endToEndId\": \"<string>\",\n    \"nameOfUserSupplyingFile\": \"<string>\",\n    \"numberOfUserSupplyingFile\": \"<string>\",\n    \"descriptionOfEntriesOnFile\": \"<string>\",\n    \"reason\": \"<string>\",\n    \"status\": \"<string>\",\n    \"sourceBsb\": \"<string>\",\n    \"sourceAccountNumber\": \"<string>\",\n    \"sourceAccountName\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/INBOUNDDIRECTCREDITREJECTIONSWEBHOOK_TARGET_URL",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "INBOUNDDIRECTCREDITREJECTIONSWEBHOOK_TARGET_URL"
+              ]
+            },
+            "description": "Subscribing to the inbound direct credit rejection event webhook will allow us to notify you when an inbound direct credit intended for an ABA/PayId belonging to you is rejected because they didn't match any active reconciliation rule or the payer account was not included in your whitelist. As direct credits arrive in batches, you will receive the data in an JSON array with multiple transactions multiple times during the day. To subscribe to a webhook use the Subscriptions APIs. Event name: InboundDirectCreditRejections"
+          },
+          "response": [
+            {
+              "id": "e959017f-55f8-4cc7-983f-c0e6ef3055b6",
+              "name": "Is the expected response upon successful receipt. If any other status code response is received, we will retry one more time only, after a 30 second pause.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                    "key": "Verification-Signature",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "Unique Id to identify this webhook notification.",
+                    "key": "Webhookid",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"id\": \"<integer>\",\n    \"batchId\": \"<integer>\",\n    \"dateTime\": \"<dateTime>\",\n    \"bsb\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"accountName\": \"<string>\",\n    \"payId\": \"<string>\",\n    \"payIdName\": \"<string>\",\n    \"transactionCode\": \"<string>\",\n    \"transactionType\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"lodgementRef\": \"<string>\",\n    \"remitterName\": \"<string>\",\n    \"indicator\": \"<string>\",\n    \"withholdingTaxAmount\": \"<number>\",\n    \"endToEndId\": \"<string>\",\n    \"nameOfUserSupplyingFile\": \"<string>\",\n    \"numberOfUserSupplyingFile\": \"<string>\",\n    \"descriptionOfEntriesOnFile\": \"<string>\",\n    \"reason\": \"<string>\",\n    \"status\": \"<string>\",\n    \"sourceBsb\": \"<string>\",\n    \"sourceAccountNumber\": \"<string>\",\n    \"sourceAccountName\": \"<string>\"\n  },\n  {\n    \"id\": \"<integer>\",\n    \"batchId\": \"<integer>\",\n    \"dateTime\": \"<dateTime>\",\n    \"bsb\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"accountName\": \"<string>\",\n    \"payId\": \"<string>\",\n    \"payIdName\": \"<string>\",\n    \"transactionCode\": \"<string>\",\n    \"transactionType\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"lodgementRef\": \"<string>\",\n    \"remitterName\": \"<string>\",\n    \"indicator\": \"<string>\",\n    \"withholdingTaxAmount\": \"<number>\",\n    \"endToEndId\": \"<string>\",\n    \"nameOfUserSupplyingFile\": \"<string>\",\n    \"numberOfUserSupplyingFile\": \"<string>\",\n    \"descriptionOfEntriesOnFile\": \"<string>\",\n    \"reason\": \"<string>\",\n    \"status\": \"<string>\",\n    \"sourceBsb\": \"<string>\",\n    \"sourceAccountNumber\": \"<string>\",\n    \"sourceAccountName\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/INBOUNDDIRECTCREDITREJECTIONSWEBHOOK_TARGET_URL",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "INBOUNDDIRECTCREDITREJECTIONSWEBHOOK_TARGET_URL"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T02:01:29.000Z",
+              "updatedAt": "2026-10-22T02:01:29.000Z",
+              "uid": "35240-e959017f-55f8-4cc7-983f-c0e6ef3055b6"
+            }
+          ],
+          "createdAt": "2026-10-22T02:01:29.000Z",
+          "updatedAt": "2026-10-22T02:01:29.000Z",
+          "uid": "35240-d6f54b61-e183-4d9b-a8d9-9ecebfe54a5e"
+        }
+      ],
+      "id": "48ff7b08-5781-4c20-92ce-f77031292f47",
+      "createdAt": "2026-10-22T02:01:29.000Z",
+      "updatedAt": "2026-10-22T02:01:29.000Z",
+      "uid": "35240-48ff7b08-5781-4c20-92ce-f77031292f47"
+    },
+    {
+      "name": "NPPCREDITCREDITREJECTIONSWEBHOOK_TARGET_URL",
+      "item": [
+        {
+          "name": "NPP Credit Rejections Webhook",
+          "id": "e2fcc653-05a6-4c4a-b843-a308d2f28ac5",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                "key": "Verification-Signature",
+                "value": "<string>"
+              },
+              {
+                "description": "Unique Id to identify this webhook notification.",
+                "key": "Webhookid",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<integer>\",\n  \"batchId\": \"<integer>\",\n  \"dateTime\": \"<dateTime>\",\n  \"bsb\": \"<string>\",\n  \"accountNumber\": \"<string>\",\n  \"accountName\": \"<string>\",\n  \"payId\": \"<string>\",\n  \"payIdName\": \"<string>\",\n  \"transactionCode\": \"<string>\",\n  \"transactionType\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"lodgementRef\": \"<string>\",\n  \"remitterName\": \"<string>\",\n  \"indicator\": \"<string>\",\n  \"withholdingTaxAmount\": \"<number>\",\n  \"endToEndId\": \"<string>\",\n  \"nameOfUserSupplyingFile\": \"<string>\",\n  \"numberOfUserSupplyingFile\": \"<string>\",\n  \"descriptionOfEntriesOnFile\": \"<string>\",\n  \"reason\": \"<string>\",\n  \"status\": \"<string>\",\n  \"sourceBsb\": \"<string>\",\n  \"sourceAccountNumber\": \"<string>\",\n  \"sourceAccountName\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/NPPCREDITCREDITREJECTIONSWEBHOOK_TARGET_URL",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "NPPCREDITCREDITREJECTIONSWEBHOOK_TARGET_URL"
+              ]
+            },
+            "description": "When an NPP payment intended for an ABA/PayId belonging to you is rejected because they didnt match any active reconciliation rule, Monoova will send a callback with the below format. To subscribe to a webhook use the Subscriptions APIs. Event name: NPPCreditRejections"
+          },
+          "response": [
+            {
+              "id": "f361c810-e421-4638-bdb1-4ac577402bf4",
+              "name": "Is the expected response upon successful receipt. If any other status code response is received, we will retry one more time only, after a 30 second pause.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                    "key": "Verification-Signature",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "Unique Id to identify this webhook notification.",
+                    "key": "Webhookid",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<integer>\",\n  \"batchId\": \"<integer>\",\n  \"dateTime\": \"<dateTime>\",\n  \"bsb\": \"<string>\",\n  \"accountNumber\": \"<string>\",\n  \"accountName\": \"<string>\",\n  \"payId\": \"<string>\",\n  \"payIdName\": \"<string>\",\n  \"transactionCode\": \"<string>\",\n  \"transactionType\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"lodgementRef\": \"<string>\",\n  \"remitterName\": \"<string>\",\n  \"indicator\": \"<string>\",\n  \"withholdingTaxAmount\": \"<number>\",\n  \"endToEndId\": \"<string>\",\n  \"nameOfUserSupplyingFile\": \"<string>\",\n  \"numberOfUserSupplyingFile\": \"<string>\",\n  \"descriptionOfEntriesOnFile\": \"<string>\",\n  \"reason\": \"<string>\",\n  \"status\": \"<string>\",\n  \"sourceBsb\": \"<string>\",\n  \"sourceAccountNumber\": \"<string>\",\n  \"sourceAccountName\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/NPPCREDITCREDITREJECTIONSWEBHOOK_TARGET_URL",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "NPPCREDITCREDITREJECTIONSWEBHOOK_TARGET_URL"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T02:01:29.000Z",
+              "updatedAt": "2026-10-22T02:01:29.000Z",
+              "uid": "35240-f361c810-e421-4638-bdb1-4ac577402bf4"
+            }
+          ],
+          "createdAt": "2026-10-22T02:01:29.000Z",
+          "updatedAt": "2026-10-22T02:01:29.000Z",
+          "uid": "35240-e2fcc653-05a6-4c4a-b843-a308d2f28ac5"
+        }
+      ],
+      "id": "7bc8bba4-ec4b-479f-9937-11e38525d8f7",
+      "createdAt": "2026-10-22T02:01:29.000Z",
+      "updatedAt": "2026-10-22T02:01:29.000Z",
+      "uid": "35240-7bc8bba4-ec4b-479f-9937-11e38525d8f7"
+    },
+    {
+      "name": "Webhook_Payment_Instruction_Status_URL",
+      "item": [
+        {
+          "name": "Payment Instruction Status Notification",
+          "id": "24bcbecd-c2a7-4fdd-a747-081f8ba6fd91",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                "key": "Verification-Signature",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"eventId\": \"HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH\",\n  \"sourceEventName\": \"<string>\",\n  \"eventTimestamp\": \"<dateTime>\",\n  \"paymentInitiationDetails\": {\n    \"paymentAgreementUID\": \"G\",\n    \"paymentInitiationUID\": \"<string,null>\",\n    \"paymentInitiationStatus\": \"<string,null>\",\n    \"paymentInitiationStatusDescription\": \"<string,null>\",\n    \"mmsId\": \"<string,null>\",\n    \"statusReasonCode\": \"<string>\",\n    \"statusReasonDescription\": \"<string>\"\n  },\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": \"in elit\",\n    \"payeeLinkedAccount\": 374812\n  },\n  \"paymentDetails\": {\n    \"amount\": \"<string>\",\n    \"isLastPayment\": \"<boolean,null>\",\n    \"lodgementReference\": \"<string,null>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/Webhook_Payment_Instruction_Status_URL",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Webhook_Payment_Instruction_Status_URL"
+              ]
+            },
+            "description": "Clients need to implement an API endpoint on their system to receive PaymentInstructionStatus notifications from Monoova.\nEvent name: PaymentInstructionNotification\n\nThese webhook can be subscribed using API's provided in Notification Management."
+          },
+          "response": [
+            {
+              "id": "43277444-48aa-476b-9d67-7786180f2bb4",
+              "name": "OK - Notification successfully received.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "This is a base64 encoded cryptographic signature that should be used<br/> to verify both the integrity of the message as well as the source (Monoova). <br/> The signature's hashing method is SHA256 and the public key can be retrieved from <a href=\"/payments#operation/PublicCertificatePublicKey\"> /public/v1/certificate/public-key </a>.",
+                    "key": "Verification-Signature",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"eventId\": \"HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH\",\n  \"sourceEventName\": \"<string>\",\n  \"eventTimestamp\": \"<dateTime>\",\n  \"paymentInitiationDetails\": {\n    \"paymentAgreementUID\": \"G\",\n    \"paymentInitiationUID\": \"<string,null>\",\n    \"paymentInitiationStatus\": \"<string,null>\",\n    \"paymentInitiationStatusDescription\": \"<string,null>\",\n    \"mmsId\": \"<string,null>\",\n    \"statusReasonCode\": \"<string>\",\n    \"statusReasonDescription\": \"<string>\"\n  },\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": \"in elit\",\n    \"payeeLinkedAccount\": 374812\n  },\n  \"paymentDetails\": {\n    \"amount\": \"<string>\",\n    \"isLastPayment\": \"<boolean,null>\",\n    \"lodgementReference\": \"<string,null>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/Webhook_Payment_Instruction_Status_URL",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "Webhook_Payment_Instruction_Status_URL"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T02:01:29.000Z",
+              "updatedAt": "2026-10-22T02:01:29.000Z",
+              "uid": "35240-43277444-48aa-476b-9d67-7786180f2bb4"
+            }
+          ],
+          "createdAt": "2026-10-22T02:01:29.000Z",
+          "updatedAt": "2026-10-22T02:01:29.000Z",
+          "uid": "35240-24bcbecd-c2a7-4fdd-a747-081f8ba6fd91"
+        }
+      ],
+      "id": "9e6f4b17-d527-402a-b661-730f71c456d1",
+      "createdAt": "2026-10-22T02:01:29.000Z",
+      "updatedAt": "2026-10-22T02:01:29.000Z",
+      "uid": "35240-9e6f4b17-d527-402a-b661-730f71c456d1"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.monoova.com"
+    }
+  ]
+}

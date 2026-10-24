@@ -1,0 +1,645 @@
+{
+  "info": {
+    "_postman_id": "dd586276-5819-4adb-a02c-68e17d49edc9",
+    "name": "Monoova PayTo Initiate a Payment API",
+    "description": "# Introduction\n\nThe Monoova PayTo API is designed to efficiently handle real time financial transactions, providing a reliable platform for creating payment agreements and initiating payments.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:59:26.000Z",
+    "updatedAt": "2026-10-22T01:59:27.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-dd586276-5819-4adb-a02c-68e17d49edc9"
+  },
+  "item": [
+    {
+      "name": "au",
+      "item": [
+        {
+          "name": "payto",
+          "item": [
+            {
+              "name": "pas-v1",
+              "item": [
+                {
+                  "name": "paymentInstruction",
+                  "item": [
+                    {
+                      "name": "Payment Instruction",
+                      "id": "e07e87d4-2a97-46a1-ae35-4ffcf2e988d7",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"paymentAgreementUID\": \"<string,null>\",\n  \"paymentInitiationUID\": \"<string,null>\",\n  \"paymentDetails\": {\n    \"amount\": \"<string>\",\n    \"isLastPayment\": \"<boolean,null>\",\n    \"lodgementReference\": \"<string,null>\"\n  },\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": -61744070,\n    \"payeeLinkedAccount\": 26538344\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/au/payto/pas-v1/paymentInstruction",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "au",
+                            "payto",
+                            "pas-v1",
+                            "paymentInstruction"
+                          ]
+                        },
+                        "description": "Once a valid payment agreement has approved by the payer this endpoint is used to create a payment initiation, which creates real time pull payments.\nYou are allowed a maximum of 5 failed initiations in a 24 hour period, if you reach this limit you will need to wait until the next day to retry."
+                      },
+                      "response": [
+                        {
+                          "id": "dd97c5c5-bff5-422e-85b0-0efe0ddfc702",
+                          "name": "Created",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"paymentAgreementUID\": \"<string,null>\",\n  \"paymentInitiationUID\": \"<string,null>\",\n  \"paymentDetails\": {\n    \"amount\": \"<string>\",\n    \"isLastPayment\": \"<boolean,null>\",\n    \"lodgementReference\": \"<string,null>\"\n  },\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": -61744070,\n    \"payeeLinkedAccount\": 26538344\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pas-v1/paymentInstruction",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pas-v1",
+                                "paymentInstruction"
+                              ]
+                            }
+                          },
+                          "status": "Created",
+                          "code": 201,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"traceId\": \"<string>\",\n  \"paymentAgreementUID\": \"Y\",\n  \"paymentInitiationUID\": \"G\",\n  \"nppInstructionId\": \"<string>\",\n  \"paymentInitiationStatus\": \"<string>\",\n  \"paymentInitiationStatusDescription\": \"<string>\",\n  \"mmsId\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T01:59:27.000Z",
+                          "updatedAt": "2026-10-22T01:59:27.000Z",
+                          "uid": "35240-dd97c5c5-bff5-422e-85b0-0efe0ddfc702"
+                        },
+                        {
+                          "id": "646d5c72-cf65-4bda-8b69-7d438f88b662",
+                          "name": "pending",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"paymentAgreementUID\": \"<string,null>\",\n  \"paymentInitiationUID\": \"<string,null>\",\n  \"paymentDetails\": {\n    \"amount\": \"<string>\",\n    \"isLastPayment\": \"<boolean,null>\",\n    \"lodgementReference\": \"<string,null>\"\n  },\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": -61744070,\n    \"payeeLinkedAccount\": 26538344\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pas-v1/paymentInstruction",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pas-v1",
+                                "paymentInstruction"
+                              ]
+                            }
+                          },
+                          "status": "Accepted",
+                          "code": 202,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"paymentAgreementUID\": \"1111222333\",\n    \"paymentInitiationUID\": \"C150D6FAE2044CA9A3ADB470874E8F86\",\n    \"mmsId\": \"ed8569b4fd8614259d13bcb9a2da2bc0\",\n    \"nppInstructionId\": \"MOPYAUS1XXXI20241119004756058205270\",\n    \"paymentInitiationStatus\": \"INPR\",\n    \"paymentInitiationStatusDescription\": \"In progress\",\n    \"traceId\": \"f3ae20c5-e400-4eab-8fb0-16e03c8481be\"\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:27.000Z",
+                          "updatedAt": "2026-10-22T01:59:27.000Z",
+                          "uid": "35240-646d5c72-cf65-4bda-8b69-7d438f88b662"
+                        },
+                        {
+                          "id": "d8bc312c-00d4-4e28-98a5-1eb24010d50f",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"paymentAgreementUID\": \"<string,null>\",\n  \"paymentInitiationUID\": \"<string,null>\",\n  \"paymentDetails\": {\n    \"amount\": \"<string>\",\n    \"isLastPayment\": \"<boolean,null>\",\n    \"lodgementReference\": \"<string,null>\"\n  },\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": -61744070,\n    \"payeeLinkedAccount\": 26538344\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pas-v1/paymentInstruction",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pas-v1",
+                                "paymentInstruction"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:27.000Z",
+                          "updatedAt": "2026-10-22T01:59:27.000Z",
+                          "uid": "35240-d8bc312c-00d4-4e28-98a5-1eb24010d50f"
+                        },
+                        {
+                          "id": "7b3828ff-497e-4f37-a320-358095b72016",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"paymentAgreementUID\": \"<string,null>\",\n  \"paymentInitiationUID\": \"<string,null>\",\n  \"paymentDetails\": {\n    \"amount\": \"<string>\",\n    \"isLastPayment\": \"<boolean,null>\",\n    \"lodgementReference\": \"<string,null>\"\n  },\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": -61744070,\n    \"payeeLinkedAccount\": 26538344\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pas-v1/paymentInstruction",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pas-v1",
+                                "paymentInstruction"
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:27.000Z",
+                          "updatedAt": "2026-10-22T01:59:27.000Z",
+                          "uid": "35240-7b3828ff-497e-4f37-a320-358095b72016"
+                        },
+                        {
+                          "id": "8bcfc205-ee60-4900-ab43-0602bb7faec2",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"paymentAgreementUID\": \"<string,null>\",\n  \"paymentInitiationUID\": \"<string,null>\",\n  \"paymentDetails\": {\n    \"amount\": \"<string>\",\n    \"isLastPayment\": \"<boolean,null>\",\n    \"lodgementReference\": \"<string,null>\"\n  },\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": -61744070,\n    \"payeeLinkedAccount\": 26538344\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pas-v1/paymentInstruction",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pas-v1",
+                                "paymentInstruction"
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:27.000Z",
+                          "updatedAt": "2026-10-22T01:59:27.000Z",
+                          "uid": "35240-8bcfc205-ee60-4900-ab43-0602bb7faec2"
+                        },
+                        {
+                          "id": "1334891b-3485-419f-853a-df8ac40e5fe5",
+                          "name": "Rejected",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"paymentAgreementUID\": \"<string,null>\",\n  \"paymentInitiationUID\": \"<string,null>\",\n  \"paymentDetails\": {\n    \"amount\": \"<string>\",\n    \"isLastPayment\": \"<boolean,null>\",\n    \"lodgementReference\": \"<string,null>\"\n  },\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": -61744070,\n    \"payeeLinkedAccount\": 26538344\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pas-v1/paymentInstruction",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pas-v1",
+                                "paymentInstruction"
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"paymentAgreementUID\": \"1111222333\",\n    \"paymentInitiationUID\": \"C150D6FAE2044CA9A3ADB470874E8F86\",\n    \"mmsId\": \"ed8469b4fd8616259d15b4b9a2da2bc0\",\n    \"paymentInitiationStatus\": \"RJCT\",\n    \"paymentInitiationStatusDescription\": \"Rejected\",\n    \"statusReasonCode\": \"R999\",\n    \"statusReasonDescription\": \"Payment initiation rejected by banking institution. Please contact Monoova\",\n    \"traceId\": \"f3ae20c5-e400-4eab-8fb0-16e03c8481be\"\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:27.000Z",
+                          "updatedAt": "2026-10-22T01:59:27.000Z",
+                          "uid": "35240-1334891b-3485-419f-853a-df8ac40e5fe5"
+                        },
+                        {
+                          "id": "d6726243-61c1-4ed6-942d-59a418346d96",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"paymentAgreementUID\": \"<string,null>\",\n  \"paymentInitiationUID\": \"<string,null>\",\n  \"paymentDetails\": {\n    \"amount\": \"<string>\",\n    \"isLastPayment\": \"<boolean,null>\",\n    \"lodgementReference\": \"<string,null>\"\n  },\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": -61744070,\n    \"payeeLinkedAccount\": 26538344\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pas-v1/paymentInstruction",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pas-v1",
+                                "paymentInstruction"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:27.000Z",
+                          "updatedAt": "2026-10-22T01:59:27.000Z",
+                          "uid": "35240-d6726243-61c1-4ed6-942d-59a418346d96"
+                        },
+                        {
+                          "id": "e1133c0d-bab1-43db-b63c-ba0409282a55",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"paymentAgreementUID\": \"<string,null>\",\n  \"paymentInitiationUID\": \"<string,null>\",\n  \"paymentDetails\": {\n    \"amount\": \"<string>\",\n    \"isLastPayment\": \"<boolean,null>\",\n    \"lodgementReference\": \"<string,null>\"\n  },\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": -61744070,\n    \"payeeLinkedAccount\": 26538344\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pas-v1/paymentInstruction",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pas-v1",
+                                "paymentInstruction"
+                              ]
+                            }
+                          },
+                          "status": "Bad Gateway",
+                          "code": 502,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:27.000Z",
+                          "updatedAt": "2026-10-22T01:59:27.000Z",
+                          "uid": "35240-e1133c0d-bab1-43db-b63c-ba0409282a55"
+                        },
+                        {
+                          "id": "b77b9f25-e406-491f-a535-f80bbef4d9e5",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"paymentAgreementUID\": \"<string,null>\",\n  \"paymentInitiationUID\": \"<string,null>\",\n  \"paymentDetails\": {\n    \"amount\": \"<string>\",\n    \"isLastPayment\": \"<boolean,null>\",\n    \"lodgementReference\": \"<string,null>\"\n  },\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": -61744070,\n    \"payeeLinkedAccount\": 26538344\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pas-v1/paymentInstruction",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pas-v1",
+                                "paymentInstruction"
+                              ]
+                            }
+                          },
+                          "status": "Gateway Timeout",
+                          "code": 504,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:27.000Z",
+                          "updatedAt": "2026-10-22T01:59:27.000Z",
+                          "uid": "35240-b77b9f25-e406-491f-a535-f80bbef4d9e5"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:59:27.000Z",
+                      "updatedAt": "2026-10-22T01:59:27.000Z",
+                      "uid": "35240-e07e87d4-2a97-46a1-ae35-4ffcf2e988d7"
+                    }
+                  ],
+                  "id": "05bc511e-89bd-4ea8-a937-54aa061d2c6b",
+                  "createdAt": "2026-10-22T01:59:27.000Z",
+                  "updatedAt": "2026-10-22T01:59:27.000Z",
+                  "uid": "35240-05bc511e-89bd-4ea8-a937-54aa061d2c6b"
+                }
+              ],
+              "id": "0e8f71f0-9ce7-4bf6-9914-2540274539c5",
+              "createdAt": "2026-10-22T01:59:27.000Z",
+              "updatedAt": "2026-10-22T01:59:27.000Z",
+              "uid": "35240-0e8f71f0-9ce7-4bf6-9914-2540274539c5"
+            }
+          ],
+          "id": "d14550c3-4c7d-48e5-b59e-f8a7e8eede69",
+          "createdAt": "2026-10-22T01:59:27.000Z",
+          "updatedAt": "2026-10-22T01:59:27.000Z",
+          "uid": "35240-d14550c3-4c7d-48e5-b59e-f8a7e8eede69"
+        }
+      ],
+      "id": "eb504c57-2647-413b-8d95-f54cf73773d8",
+      "createdAt": "2026-10-22T01:59:27.000Z",
+      "updatedAt": "2026-10-22T01:59:27.000Z",
+      "uid": "35240-eb504c57-2647-413b-8d95-f54cf73773d8"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.monoova.com"
+    }
+  ]
+}

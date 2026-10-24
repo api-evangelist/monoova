@@ -12,24 +12,117 @@ artifacts:
   authentication/monoova-authentication.yml:
     method: derived
     evidence: declared in the artifact
+  collections/monoova-automatcher-bank-account-receivables-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-automatcher-bank-account-receivables-api
+  collections/monoova-bpay-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-bpay-api
   collections/monoova-cc.opencollection.json:
     method: unknown
     evidence: no authorship recorded
   collections/monoova-cc.postman_collection.json:
     method: unknown
     evidence: no authorship recorded
+  collections/monoova-create-payment-using-token-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-create-payment-using-token-api
+  collections/monoova-financial-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-financial-api
+  collections/monoova-generate-a-bearer-token-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-generate-a-bearer-token-api
+  collections/monoova-generate-a-client-session-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-generate-a-client-session-api
+  collections/monoova-get-async-request-status-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-get-async-request-status-api
+  collections/monoova-get-payment-method-token-details-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-get-payment-method-token-details-api
+  collections/monoova-get-transaction-by-date-range-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-get-transaction-by-date-range-api
+  collections/monoova-get-transaction-by-id-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-get-transaction-by-id-api
+  collections/monoova-initiate-a-payment-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-initiate-a-payment-api
+  collections/monoova-ledger-account-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-ledger-account-api
+  collections/monoova-maccount-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-maccount-api
+  collections/monoova-manage-payment-agreements-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-manage-payment-agreements-api
+  collections/monoova-mwallet-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-mwallet-api
+  collections/monoova-notification-management-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-notification-management-api
+  collections/monoova-payid-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-payid-api
   collections/monoova-payments.opencollection.json:
     method: unknown
     evidence: no authorship recorded
   collections/monoova-payments.postman_collection.json:
     method: unknown
     evidence: no authorship recorded
+  collections/monoova-payto-async-api-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-payto-async-api-api
   collections/monoova-payto.opencollection.json:
     method: derived
     evidence: openapi/monoova-payto
   collections/monoova-payto.postman_collection.json:
     method: derived
     evidence: openapi/monoova-payto
+  collections/monoova-public-endpoints-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-public-endpoints-api
+  collections/monoova-reconciliation-rules-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-reconciliation-rules-api
+  collections/monoova-reporting-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-reporting-api
+  collections/monoova-reports-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-reports-api
+  collections/monoova-request-refund-transaction-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-request-refund-transaction-api
+  collections/monoova-security-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-security-api
+  collections/monoova-subscriptions-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-subscriptions-api
+  collections/monoova-token-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-token-api
+  collections/monoova-tools-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-tools-api
+  collections/monoova-update-payment-method-token-status-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-update-payment-method-token-status-api
+  collections/monoova-verify-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-verify-api
+  collections/monoova-webhooks-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-webhooks-api
+  collections/monoova-whitelisting-for-automatcher-bank-account-receivables-api.postman_collection.json:
+    method: derived
+    evidence: openapi/monoova-whitelisting-for-automatcher-bank-account-receivables-api
   components/monoova-components.yml:
     method: searched
     evidence: declared in the artifact
@@ -51,127 +144,7 @@ artifacts:
   front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-24T161608.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T125852.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T133943.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T143147.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T154045.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-26T215308.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T094438.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T103455.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T123021.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T132314.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T140727.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-28T221322.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T213958.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T230545.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T203505.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T220315.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-31T223420.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T063623.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T210448.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T222808.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T224043.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T161828.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T174231.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T062714.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T212454.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T224856.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T055819.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T072335.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T144739.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T195450.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T211839.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T011047.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T224210.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T200636.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T213054.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T214843.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T232836.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T204815.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T222408.yml:
+  kin/checks-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-12T062655.yml:
@@ -253,6 +226,21 @@ artifacts:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-24T161608.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T210408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T232841.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T000835.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T024842.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   lifecycle/monoova-lifecycle.yml:
@@ -373,14 +361,14 @@ artifacts:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   overlays/monoova-cc-overlay.yaml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/monoova-payments-overlay.yaml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/monoova-payto-overlay.yaml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   packages/monoova-packages.yml:
     method: searched
     evidence: declared in the artifact

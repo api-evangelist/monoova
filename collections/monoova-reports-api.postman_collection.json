@@ -1,0 +1,437 @@
+{
+  "info": {
+    "_postman_id": "89cb561e-62e1-49b9-919c-bcbf729f59f9",
+    "name": "Monoova Payments Reports API",
+    "description": "# Introduction\n\nMonoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:00:35.000Z",
+    "updatedAt": "2026-10-22T02:00:35.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-89cb561e-62e1-49b9-919c-bcbf729f59f9"
+  },
+  "item": [
+    {
+      "name": "reports",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "settlement",
+              "item": [
+                {
+                  "name": "{date}",
+                  "item": [
+                    {
+                      "name": "Get all transactions in a daily settlement",
+                      "id": "e0763a87-356c-478d-a500-b1ec7f2e7895",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/v1/settlement/:date",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "v1",
+                            "settlement",
+                            ":date"
+                          ],
+                          "variable": [
+                            {
+                              "id": "d8fcabea-d225-42bf-b76b-ee8d77aec4d4",
+                              "key": "date",
+                              "value": "<string>",
+                              "description": "(Required) Date is represented by ISO8601 \u2013 \u20182016-03-01\u2019 for 1st March 2016."
+                            }
+                          ]
+                        },
+                        "description": "You may choose to set your mAccounts to settle automatically every day. If so, the mAccount balance will be brought to zero at 4pm (Sydney time) each business day. Any positive balance will be disbursed to the bank account you have linked; any negative balance will be direct debited from the bank account you have linked. Transactions on weekends, public holidays and after 4pm won\u2019t appear in the settlement report until after 4pm the next business day.\nThis report returns an array of actual disbursements for each transaction that was settled on the given date. Date is represented by ISO8601 \u2013 \u20182016-03-01\u2019 for 1st March 2016."
+                      },
+                      "response": [
+                        {
+                          "id": "948bbeee-f2be-4cf6-85f7-62654f10ce08",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/v1/settlement/:date",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "v1",
+                                "settlement",
+                                ":date"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"settlements\": [\n    {\n      \"uniqueReferenced\": \"<string>\",\n      \"transactionId\": \"<integer>\",\n      \"disbursementAmount\": \"<number>\",\n      \"disbursementMethod\": \"<string>\",\n      \"feeAmountExclGst\": \"<number>\",\n      \"feeAmountGstComponent\": \"<number>\",\n      \"feeAmountInclGst\": \"<number>\"\n    },\n    {\n      \"uniqueReferenced\": \"<string>\",\n      \"transactionId\": \"<integer>\",\n      \"disbursementAmount\": \"<number>\",\n      \"disbursementMethod\": \"<string>\",\n      \"feeAmountExclGst\": \"<number>\",\n      \"feeAmountGstComponent\": \"<number>\",\n      \"feeAmountInclGst\": \"<number>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-10-22T02:00:35.000Z",
+                          "updatedAt": "2026-10-22T02:00:35.000Z",
+                          "uid": "35240-948bbeee-f2be-4cf6-85f7-62654f10ce08"
+                        },
+                        {
+                          "id": "346daf18-94b8-450a-8203-34772a2c1532",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/v1/settlement/:date",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "v1",
+                                "settlement",
+                                ":date"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:00:35.000Z",
+                          "updatedAt": "2026-10-22T02:00:35.000Z",
+                          "uid": "35240-346daf18-94b8-450a-8203-34772a2c1532"
+                        },
+                        {
+                          "id": "d2456855-861a-4e16-aa14-197a9a4c3531",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/v1/settlement/:date",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "v1",
+                                "settlement",
+                                ":date"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:00:35.000Z",
+                          "updatedAt": "2026-10-22T02:00:35.000Z",
+                          "uid": "35240-d2456855-861a-4e16-aa14-197a9a4c3531"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:00:35.000Z",
+                      "updatedAt": "2026-10-22T02:00:35.000Z",
+                      "uid": "35240-e0763a87-356c-478d-a500-b1ec7f2e7895"
+                    }
+                  ],
+                  "id": "02824733-e667-4dc8-8e02-0170f86179c5",
+                  "createdAt": "2026-10-22T02:00:35.000Z",
+                  "updatedAt": "2026-10-22T02:00:35.000Z",
+                  "uid": "35240-02824733-e667-4dc8-8e02-0170f86179c5"
+                }
+              ],
+              "id": "1605b791-d869-418a-bb83-972a7e9cbe91",
+              "createdAt": "2026-10-22T02:00:35.000Z",
+              "updatedAt": "2026-10-22T02:00:35.000Z",
+              "uid": "35240-1605b791-d869-418a-bb83-972a7e9cbe91"
+            },
+            {
+              "name": "statement",
+              "item": [
+                {
+                  "name": "{date}",
+                  "item": [
+                    {
+                      "name": "Get all successful transactions for a date",
+                      "id": "abebc934-f998-4f0e-b7ab-f4f3d9226858",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/v1/statement/:date",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "v1",
+                            "statement",
+                            ":date"
+                          ],
+                          "variable": [
+                            {
+                              "id": "93f31bed-ecb4-4eba-bbfd-5e8de1808597",
+                              "key": "date",
+                              "value": "<string>",
+                              "description": "(Required) Date is represented by ISO8601 \u2013 \u20182016-03-01\u2019 for 1st March 2016."
+                            }
+                          ]
+                        },
+                        "description": "This API returns all successful transactions on the given date. Date is represented by ISO8601 \u2013 \u20182016-03-01\u2019 for 1st March 2016."
+                      },
+                      "response": [
+                        {
+                          "id": "4ae1249d-df83-402d-aa2f-a4c842db8cc4",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/v1/statement/:date",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "v1",
+                                "statement",
+                                ":date"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"transactions\": [\n    {\n      \"uniqueReferenced\": \"<string>\",\n      \"transactionId\": \"<integer>\",\n      \"dateTime\": \"<string>\",\n      \"status\": \"<string>\",\n      \"totalAmount\": \"<number>\",\n      \"feeAmountExcludingGst\": \"<number>\",\n      \"feeAmountGstComponent\": \"<number>\",\n      \"feeAmountIncludingGst\": \"<number>\"\n    },\n    {\n      \"uniqueReferenced\": \"<string>\",\n      \"transactionId\": \"<integer>\",\n      \"dateTime\": \"<string>\",\n      \"status\": \"<string>\",\n      \"totalAmount\": \"<number>\",\n      \"feeAmountExcludingGst\": \"<number>\",\n      \"feeAmountGstComponent\": \"<number>\",\n      \"feeAmountIncludingGst\": \"<number>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-10-22T02:00:35.000Z",
+                          "updatedAt": "2026-10-22T02:00:35.000Z",
+                          "uid": "35240-4ae1249d-df83-402d-aa2f-a4c842db8cc4"
+                        },
+                        {
+                          "id": "420d5854-9634-4df6-b4af-b5e47993bde4",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/v1/statement/:date",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "v1",
+                                "statement",
+                                ":date"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:00:35.000Z",
+                          "updatedAt": "2026-10-22T02:00:35.000Z",
+                          "uid": "35240-420d5854-9634-4df6-b4af-b5e47993bde4"
+                        },
+                        {
+                          "id": "fe1e9370-0854-454a-85fe-16a78e19b8c8",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/v1/statement/:date",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "v1",
+                                "statement",
+                                ":date"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:00:35.000Z",
+                          "updatedAt": "2026-10-22T02:00:35.000Z",
+                          "uid": "35240-fe1e9370-0854-454a-85fe-16a78e19b8c8"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:00:35.000Z",
+                      "updatedAt": "2026-10-22T02:00:35.000Z",
+                      "uid": "35240-abebc934-f998-4f0e-b7ab-f4f3d9226858"
+                    }
+                  ],
+                  "id": "0e47c1dd-595a-4c10-b174-b40cf4f819e6",
+                  "createdAt": "2026-10-22T02:00:35.000Z",
+                  "updatedAt": "2026-10-22T02:00:35.000Z",
+                  "uid": "35240-0e47c1dd-595a-4c10-b174-b40cf4f819e6"
+                }
+              ],
+              "id": "1569e7b1-26bf-482a-a529-fb56e6204c5a",
+              "createdAt": "2026-10-22T02:00:35.000Z",
+              "updatedAt": "2026-10-22T02:00:35.000Z",
+              "uid": "35240-1569e7b1-26bf-482a-a529-fb56e6204c5a"
+            }
+          ],
+          "id": "b482881f-a89c-4028-82bc-ddc661be0975",
+          "createdAt": "2026-10-22T02:00:35.000Z",
+          "updatedAt": "2026-10-22T02:00:35.000Z",
+          "uid": "35240-b482881f-a89c-4028-82bc-ddc661be0975"
+        }
+      ],
+      "id": "b02b49ed-74bd-4614-902b-83d5f14b9109",
+      "createdAt": "2026-10-22T02:00:35.000Z",
+      "updatedAt": "2026-10-22T02:00:35.000Z",
+      "uid": "35240-b02b49ed-74bd-4614-902b-83d5f14b9109"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.mpay.com.au"
+    }
+  ]
+}

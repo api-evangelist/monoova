@@ -1,0 +1,1007 @@
+{
+  "info": {
+    "_postman_id": "94bd0183-e9c9-410a-8cb1-1f62d232d26d",
+    "name": "Monoova Payments Whitelisting for Automatcher (Bank Account\u2026",
+    "description": "# Introduction\n\nMonoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:01:34.000Z",
+    "updatedAt": "2026-10-22T02:01:34.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-94bd0183-e9c9-410a-8cb1-1f62d232d26d"
+  },
+  "item": [
+    {
+      "name": "receivables",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "whitelisting",
+              "item": [
+                {
+                  "name": "create",
+                  "item": [
+                    {
+                      "name": "Create Whitelist Source Account",
+                      "id": "c2a6d38f-2bac-487b-9e4c-aa969c3c7edd",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"automatcherBankAccountNumber\": \"<string>\",\n  \"automatcherBsb\": \"<string>\",\n  \"sourceAccount\": {\n    \"bsbNumber\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"accountName\": \"<string>\",\n    \"accountStatus\": \"enabled\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/whitelisting/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "whitelisting",
+                            "create"
+                          ]
+                        },
+                        "description": "Use this API to create a new whitelist entry for an automatcher account. Multiple source bank account numbers or bank account names can be whitelisted against each Automatcher number. The system will automatically return payments if the payment details do not match one of the entries.\n\nMake sure to set the account status to \u201cEnabled\u201d to accept payments for the set of rules defined, the status can always be updated if the rule no longer applies using the update endpoint."
+                      },
+                      "response": [
+                        {
+                          "id": "8d39cd44-b92f-45c1-8e39-81b037daa8d4",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"automatcherBankAccountNumber\": \"<string>\",\n  \"automatcherBsb\": \"<string>\",\n  \"sourceAccount\": {\n    \"bsbNumber\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"accountName\": \"<string>\",\n    \"accountStatus\": \"enabled\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/whitelisting/create",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "whitelisting",
+                                "create"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"automatcherBankAccountNumber\": \"<string>\",\n  \"sourceAccount\": {\n    \"accountName\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"accountStatus\": \"<string>\",\n    \"bsbNumber\": \"<string>\",\n    \"id\": \"<integer>\"\n  }\n}",
+                          "createdAt": "2026-10-22T02:01:34.000Z",
+                          "updatedAt": "2026-10-22T02:01:34.000Z",
+                          "uid": "35240-8d39cd44-b92f-45c1-8e39-81b037daa8d4"
+                        },
+                        {
+                          "id": "45e62bce-7136-4b10-9105-9cafcd112dec",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"automatcherBankAccountNumber\": \"<string>\",\n  \"automatcherBsb\": \"<string>\",\n  \"sourceAccount\": {\n    \"bsbNumber\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"accountName\": \"<string>\",\n    \"accountStatus\": \"enabled\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/whitelisting/create",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "whitelisting",
+                                "create"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:34.000Z",
+                          "updatedAt": "2026-10-22T02:01:34.000Z",
+                          "uid": "35240-45e62bce-7136-4b10-9105-9cafcd112dec"
+                        },
+                        {
+                          "id": "ca6a726c-9a3e-4a17-9f6b-25ef42fab22e",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"automatcherBankAccountNumber\": \"<string>\",\n  \"automatcherBsb\": \"<string>\",\n  \"sourceAccount\": {\n    \"bsbNumber\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"accountName\": \"<string>\",\n    \"accountStatus\": \"enabled\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/whitelisting/create",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "whitelisting",
+                                "create"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:34.000Z",
+                          "updatedAt": "2026-10-22T02:01:34.000Z",
+                          "uid": "35240-ca6a726c-9a3e-4a17-9f6b-25ef42fab22e"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:01:34.000Z",
+                      "updatedAt": "2026-10-22T02:01:34.000Z",
+                      "uid": "35240-c2a6d38f-2bac-487b-9e4c-aa969c3c7edd"
+                    }
+                  ],
+                  "id": "feda3ddf-d6e4-4f3e-b9ef-aace5140dedf",
+                  "createdAt": "2026-10-22T02:01:34.000Z",
+                  "updatedAt": "2026-10-22T02:01:34.000Z",
+                  "uid": "35240-feda3ddf-d6e4-4f3e-b9ef-aace5140dedf"
+                },
+                {
+                  "name": "update",
+                  "item": [
+                    {
+                      "name": "Update Whitelist Source Account",
+                      "id": "5cfe5325-a0bb-44dc-9dde-ceee3d999a02",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"automatcherBankAccountNumber\": \"<string>\",\n  \"automatcherBsb\": \"<string>\",\n  \"sourceAccount\": {\n    \"id\": \"<integer>\",\n    \"accountStatus\": \"disabled\",\n    \"accountName\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"bsbNumber\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/whitelisting/update",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "whitelisting",
+                            "update"
+                          ]
+                        },
+                        "description": "Use this endpoint to change the status of a whitelisted source account."
+                      },
+                      "response": [
+                        {
+                          "id": "a954eb02-2b9e-407f-9df3-3399e0aac5fb",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"automatcherBankAccountNumber\": \"<string>\",\n  \"automatcherBsb\": \"<string>\",\n  \"sourceAccount\": {\n    \"id\": \"<integer>\",\n    \"accountStatus\": \"disabled\",\n    \"accountName\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"bsbNumber\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/whitelisting/update",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "whitelisting",
+                                "update"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"automatcherBankAccountNumber\": \"<string>\",\n  \"sourceAccount\": {\n    \"accountName\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"accountStatus\": \"<string>\",\n    \"bsbNumber\": \"<string>\",\n    \"id\": \"<integer>\"\n  }\n}",
+                          "createdAt": "2026-10-22T02:01:34.000Z",
+                          "updatedAt": "2026-10-22T02:01:34.000Z",
+                          "uid": "35240-a954eb02-2b9e-407f-9df3-3399e0aac5fb"
+                        },
+                        {
+                          "id": "f175cc4d-fb19-444c-a86c-7d9b3cfe9e20",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"automatcherBankAccountNumber\": \"<string>\",\n  \"automatcherBsb\": \"<string>\",\n  \"sourceAccount\": {\n    \"id\": \"<integer>\",\n    \"accountStatus\": \"disabled\",\n    \"accountName\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"bsbNumber\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/whitelisting/update",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "whitelisting",
+                                "update"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:34.000Z",
+                          "updatedAt": "2026-10-22T02:01:34.000Z",
+                          "uid": "35240-f175cc4d-fb19-444c-a86c-7d9b3cfe9e20"
+                        },
+                        {
+                          "id": "ce986aae-7bbb-423d-b647-b26e5a4c77de",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"automatcherBankAccountNumber\": \"<string>\",\n  \"automatcherBsb\": \"<string>\",\n  \"sourceAccount\": {\n    \"id\": \"<integer>\",\n    \"accountStatus\": \"disabled\",\n    \"accountName\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"bsbNumber\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/whitelisting/update",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "whitelisting",
+                                "update"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:34.000Z",
+                          "updatedAt": "2026-10-22T02:01:34.000Z",
+                          "uid": "35240-ce986aae-7bbb-423d-b647-b26e5a4c77de"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:01:34.000Z",
+                      "updatedAt": "2026-10-22T02:01:34.000Z",
+                      "uid": "35240-5cfe5325-a0bb-44dc-9dde-ceee3d999a02"
+                    }
+                  ],
+                  "id": "1c5086d9-b6d5-4555-895c-417d9d1c53cd",
+                  "createdAt": "2026-10-22T02:01:34.000Z",
+                  "updatedAt": "2026-10-22T02:01:34.000Z",
+                  "uid": "35240-1c5086d9-b6d5-4555-895c-417d9d1c53cd"
+                },
+                {
+                  "name": "list",
+                  "item": [
+                    {
+                      "name": "{automatcherBankAccountNumber}",
+                      "item": [
+                        {
+                          "name": "List Whitelist Source Accounts",
+                          "id": "270bf0f9-8433-4688-9f3d-2f3412e72b87",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/whitelisting/list/:automatcherBankAccountNumber?bsb=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "whitelisting",
+                                "list",
+                                ":automatcherBankAccountNumber"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Optional BSB parameter specifying the branch identifier for Australian banks. Accepts either 6 digits or with a hyphen as \"XXX-XXX\". If not specified, the service will use the MAccount\u2019s configured \u2018Default BSB\u2019. If a \u2018Default BSB\u2019 has not been configured, then the Monoova \u2018Default BSB\u2019 will be used.",
+                                  "key": "bsb",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "60a40027-05c7-4022-ac2e-8de53e59a48d",
+                                  "key": "automatcherBankAccountNumber",
+                                  "value": "<string>",
+                                  "description": "(Required) Valid receivables bank account number belonging to the Sign-in mAccount."
+                                }
+                              ]
+                            },
+                            "description": "This endpoint will list all whitelisted source account details linked to the queried Automatcher account number."
+                          },
+                          "response": [
+                            {
+                              "id": "906df68c-aeac-4529-8883-d8689a88bb01",
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/receivables/v1/whitelisting/list/:automatcherBankAccountNumber?bsb=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "receivables",
+                                    "v1",
+                                    "whitelisting",
+                                    "list",
+                                    ":automatcherBankAccountNumber"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Optional BSB parameter specifying the branch identifier for Australian banks. Accepts either 6 digits or with a hyphen as \"XXX-XXX\". If not specified, the service will use the MAccount\u2019s configured \u2018Default BSB\u2019. If a \u2018Default BSB\u2019 has not been configured, then the Monoova \u2018Default BSB\u2019 will be used.",
+                                      "key": "bsb",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "automatcherBankAccountNumber"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"automatcherBankAccountNumber\": \"<string>\",\n  \"sourceAccount\": [\n    {\n      \"accountName\": \"<string>\",\n      \"accountNumber\": \"<integer>\",\n      \"accountStatus\": \"<string>\",\n      \"bsbNumber\": \"<string>\",\n      \"id\": \"<integer>\"\n    },\n    {\n      \"accountName\": \"<string>\",\n      \"accountNumber\": \"<integer>\",\n      \"accountStatus\": \"<string>\",\n      \"bsbNumber\": \"<string>\",\n      \"id\": \"<integer>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-10-22T02:01:34.000Z",
+                              "updatedAt": "2026-10-22T02:01:34.000Z",
+                              "uid": "35240-906df68c-aeac-4529-8883-d8689a88bb01"
+                            },
+                            {
+                              "id": "387ec106-e6eb-4275-bfa6-f81b48dbb222",
+                              "name": "Bad request",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/receivables/v1/whitelisting/list/:automatcherBankAccountNumber?bsb=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "receivables",
+                                    "v1",
+                                    "whitelisting",
+                                    "list",
+                                    ":automatcherBankAccountNumber"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Optional BSB parameter specifying the branch identifier for Australian banks. Accepts either 6 digits or with a hyphen as \"XXX-XXX\". If not specified, the service will use the MAccount\u2019s configured \u2018Default BSB\u2019. If a \u2018Default BSB\u2019 has not been configured, then the Monoova \u2018Default BSB\u2019 will be used.",
+                                      "key": "bsb",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "automatcherBankAccountNumber"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-22T02:01:34.000Z",
+                              "updatedAt": "2026-10-22T02:01:34.000Z",
+                              "uid": "35240-387ec106-e6eb-4275-bfa6-f81b48dbb222"
+                            },
+                            {
+                              "id": "ba956f9d-f58b-41ff-83cd-846de56bf1cc",
+                              "name": "Internal Server Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/receivables/v1/whitelisting/list/:automatcherBankAccountNumber?bsb=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "receivables",
+                                    "v1",
+                                    "whitelisting",
+                                    "list",
+                                    ":automatcherBankAccountNumber"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Optional BSB parameter specifying the branch identifier for Australian banks. Accepts either 6 digits or with a hyphen as \"XXX-XXX\". If not specified, the service will use the MAccount\u2019s configured \u2018Default BSB\u2019. If a \u2018Default BSB\u2019 has not been configured, then the Monoova \u2018Default BSB\u2019 will be used.",
+                                      "key": "bsb",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "automatcherBankAccountNumber"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-22T02:01:34.000Z",
+                              "updatedAt": "2026-10-22T02:01:34.000Z",
+                              "uid": "35240-ba956f9d-f58b-41ff-83cd-846de56bf1cc"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T02:01:34.000Z",
+                          "updatedAt": "2026-10-22T02:01:34.000Z",
+                          "uid": "35240-270bf0f9-8433-4688-9f3d-2f3412e72b87"
+                        }
+                      ],
+                      "id": "0fcdec5a-df21-40bb-aea2-03f2bb6b6971",
+                      "createdAt": "2026-10-22T02:01:34.000Z",
+                      "updatedAt": "2026-10-22T02:01:34.000Z",
+                      "uid": "35240-0fcdec5a-df21-40bb-aea2-03f2bb6b6971"
+                    }
+                  ],
+                  "id": "25781b80-5266-4d66-85ca-e894d91dd8c1",
+                  "createdAt": "2026-10-22T02:01:34.000Z",
+                  "updatedAt": "2026-10-22T02:01:34.000Z",
+                  "uid": "35240-25781b80-5266-4d66-85ca-e894d91dd8c1"
+                }
+              ],
+              "id": "b791c861-071e-44b4-9278-95ad1fb9bc61",
+              "createdAt": "2026-10-22T02:01:34.000Z",
+              "updatedAt": "2026-10-22T02:01:34.000Z",
+              "uid": "35240-b791c861-071e-44b4-9278-95ad1fb9bc61"
+            }
+          ],
+          "id": "ab8306a7-9e8e-43a9-93ec-131590ac8e9a",
+          "createdAt": "2026-10-22T02:01:34.000Z",
+          "updatedAt": "2026-10-22T02:01:34.000Z",
+          "uid": "35240-ab8306a7-9e8e-43a9-93ec-131590ac8e9a"
+        },
+        {
+          "name": "v2",
+          "item": [
+            {
+              "name": "rejectedTransactions",
+              "item": [
+                {
+                  "name": "{startDate}",
+                  "item": [
+                    {
+                      "name": "Rejected Transactions Report",
+                      "id": "b2098c21-e80f-487e-b57e-d90d3a4cb4bd",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v2/rejectedTransactions/:startDate?endDate=<string>&transactionType=<string>&pageNumber=<integer>&pageSize=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v2",
+                            "rejectedTransactions",
+                            ":startDate"
+                          ],
+                          "query": [
+                            {
+                              "description": "End date of the range for the report, format 'yyyy-MM-dd'. If not provided, data for the day specified in Start Date will be returned.",
+                              "key": "endDate",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter for the transaction type. Possible values are 'DE' or 'NPP'.",
+                              "key": "transactionType",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Page number for pagination. Defaults to 1 if not provided.",
+                              "key": "pageNumber",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "The number of items to return per page. Defaults to 50 if not provided. Maximum allowed is 200.",
+                              "key": "pageSize",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "8f5ff97b-9ac3-4110-8660-057d14de11f0",
+                              "key": "startDate",
+                              "value": "<string>",
+                              "description": "(Required) date format should be 'yyyy-MM-dd' format."
+                            }
+                          ]
+                        },
+                        "description": "Returns a report of all rejected transactions for the day with associated details, this includes Direct Entry and NPP Receivables. If requested multiple times on the current date (calendar day, AEDT), the report is cumulative.\n\nID Batch ID Datetime BSB AccountNumber AccountName PayId PayId Name TransactionCode TransactionType Amount LodgementRef RemitterName Indicator WithholdingTaxAmount (if applicable) EndToEndId NameOfUserSupplyingFile NumberOfUserSupplyingFile DescriptionOfEntriesOnFile Reason Status SourceBsb SourceAccountNumber SourceAccountName ReconciliationRuleReference\n\nMonoova generated\nUnique ID.\nMax 12 chars.\n\nPayment Batch ID.\nPayments come in batches\nthroughout the day.\nMax 12 chars. Blank if NPP. AEDT, Sydney.\nMax 27 chars. Payee BSB.\nMax 7 Chars. Payee Bank Account\nNumber. Max 34 chars. Payer submitted Account\nName. Max 32 chars. Email address for the PayID.\nMax 256 chars. Name displayed to the payers\nMax 140 chars. Industry standard transaction\ncode. \u201c50\u201d for credit.\nRefer to Direct entry standard\nfor definitions 51-57.\nMax 5 chars. Possible Values:\n'DE' or 'NPP'\nPayment amount,\n2 decimal places\nfor cents. Max 11 chars. Payer submitted reference.\nMax 280 chars. Remitting Entity.\nMax 140 chars. Blank; OR 'W' dividend paid to a\nresident of a country where a double\ntax agreement is in force. 'X' dividend\npaid to a resident of any other country.\n'Y' interest paid to all non-resident.\nMax 1 chars. Blank OR Payment amount,\n2 decimal places for cents.\nMax 9 chars. Osko End to End identifier\nsubmitted by Payer. Preferred name of the\nUser supplying\nthe Direct Entry file. This is the User Identification\nNumber which is assigned by\nAPCA and User Financial Institutions. Direct Entry file description.\nReason for the rejection.\nTransaction Status.\nPayer BSB.\nMax 7 Chars.\n\nPayer Bank Account Number.\nMax 34 chars.\nThis field appears for NPP transactions\nonly and is the payers bank account name.\nFor DE transactions please refer to the\nRemitterName Field. Max 140 Chars.\nA unique reference used to identify the reconciliation rule.\nUnique to your mAccount.\nstring\n\nNote: Source account details do not appear by default, please contact Monoova for further information\n\nPossible transaction codes\n\nCode Transaction Description\n\n13 Externally initiated debit items\n\n50 Externally initiated credit items with the exception of those bearing Transaction Codes\n\n51 Australian Government Security Interest\n\n52 Family Allowance\n\n53 Pay\n\n54 Pension\n\n55 Allotment\n\n56 Dividend\n\n57 Debenture/Note Interest"
+                      },
+                      "response": [
+                        {
+                          "id": "0a611ce1-af02-4be2-9002-49cb175a4772",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "text/plain"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v2/rejectedTransactions/:startDate?endDate=<string>&transactionType=<string>&pageNumber=<integer>&pageSize=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v2",
+                                "rejectedTransactions",
+                                ":startDate"
+                              ],
+                              "query": [
+                                {
+                                  "description": "End date of the range for the report, format 'yyyy-MM-dd'. If not provided, data for the day specified in Start Date will be returned.",
+                                  "key": "endDate",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Filter for the transaction type. Possible values are 'DE' or 'NPP'.",
+                                  "key": "transactionType",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Page number for pagination. Defaults to 1 if not provided.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "The number of items to return per page. Defaults to 50 if not provided. Maximum allowed is 200.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "startDate"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/plain"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"examples\": {\n    \"response\": {\n      \"value\": \"Id, Batch Id, DateTime, BSB, AccountNumber, AccountName, PayId, PayId Name, TransactionCode, TransactionType, Amount, LodgementRef, RemitterName, Indicator, WithholdingTaxAmount, EndToEndId, NameOfUserSupplyingFile, NumberOfUserSupplyingFile, DescriptionOfEntriesOnFile, Reason, Status, SourceBsb, SourceAccountNumber, SourceAccountName,ReconciliationRuleReference\\n1,448715,2020-09-18T14:28:07,802-985,212409870,test,,,50,NPP,9.9900,test,test,,0,TEST_NPP_RAP_MTP,,,,Non Whitelisted Source Account,Pending Return,802-985,817371467,test,RR22348\\n\"\n    }\n  }\n}",
+                          "createdAt": "2026-10-22T02:01:34.000Z",
+                          "updatedAt": "2026-10-22T02:01:34.000Z",
+                          "uid": "35240-0a611ce1-af02-4be2-9002-49cb175a4772"
+                        },
+                        {
+                          "id": "1384e475-767c-4263-8917-b9c011a1b7c1",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v2/rejectedTransactions/:startDate?endDate=<string>&transactionType=<string>&pageNumber=<integer>&pageSize=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v2",
+                                "rejectedTransactions",
+                                ":startDate"
+                              ],
+                              "query": [
+                                {
+                                  "description": "End date of the range for the report, format 'yyyy-MM-dd'. If not provided, data for the day specified in Start Date will be returned.",
+                                  "key": "endDate",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Filter for the transaction type. Possible values are 'DE' or 'NPP'.",
+                                  "key": "transactionType",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Page number for pagination. Defaults to 1 if not provided.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "The number of items to return per page. Defaults to 50 if not provided. Maximum allowed is 200.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "startDate"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:34.000Z",
+                          "updatedAt": "2026-10-22T02:01:34.000Z",
+                          "uid": "35240-1384e475-767c-4263-8917-b9c011a1b7c1"
+                        },
+                        {
+                          "id": "e05a38c4-609c-4f67-af46-db8f4c1f8970",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v2/rejectedTransactions/:startDate?endDate=<string>&transactionType=<string>&pageNumber=<integer>&pageSize=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v2",
+                                "rejectedTransactions",
+                                ":startDate"
+                              ],
+                              "query": [
+                                {
+                                  "description": "End date of the range for the report, format 'yyyy-MM-dd'. If not provided, data for the day specified in Start Date will be returned.",
+                                  "key": "endDate",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Filter for the transaction type. Possible values are 'DE' or 'NPP'.",
+                                  "key": "transactionType",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Page number for pagination. Defaults to 1 if not provided.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "The number of items to return per page. Defaults to 50 if not provided. Maximum allowed is 200.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "startDate"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:34.000Z",
+                          "updatedAt": "2026-10-22T02:01:34.000Z",
+                          "uid": "35240-e05a38c4-609c-4f67-af46-db8f4c1f8970"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:01:34.000Z",
+                      "updatedAt": "2026-10-22T02:01:34.000Z",
+                      "uid": "35240-b2098c21-e80f-487e-b57e-d90d3a4cb4bd"
+                    }
+                  ],
+                  "id": "000bc81c-2d3f-475b-a7bf-91b3452656e0",
+                  "createdAt": "2026-10-22T02:01:34.000Z",
+                  "updatedAt": "2026-10-22T02:01:34.000Z",
+                  "uid": "35240-000bc81c-2d3f-475b-a7bf-91b3452656e0"
+                }
+              ],
+              "id": "c404d840-c62d-48d6-8268-cdc600b94d0b",
+              "createdAt": "2026-10-22T02:01:34.000Z",
+              "updatedAt": "2026-10-22T02:01:34.000Z",
+              "uid": "35240-c404d840-c62d-48d6-8268-cdc600b94d0b"
+            }
+          ],
+          "id": "d117307e-b7c6-4b2c-9d2a-43ab63f4274e",
+          "createdAt": "2026-10-22T02:01:34.000Z",
+          "updatedAt": "2026-10-22T02:01:34.000Z",
+          "uid": "35240-d117307e-b7c6-4b2c-9d2a-43ab63f4274e"
+        }
+      ],
+      "id": "8a0b6de3-9400-44f2-8fc8-c944bd429e86",
+      "createdAt": "2026-10-22T02:01:34.000Z",
+      "updatedAt": "2026-10-22T02:01:34.000Z",
+      "uid": "35240-8a0b6de3-9400-44f2-8fc8-c944bd429e86"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.mpay.com.au"
+    }
+  ]
+}

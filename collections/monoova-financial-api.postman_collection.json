@@ -1,0 +1,1175 @@
+{
+  "info": {
+    "_postman_id": "9715ac58-0224-4146-911a-364b06f2aa60",
+    "name": "Monoova Payments Financial API",
+    "description": "# Introduction\n\nMonoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:58:35.000Z",
+    "updatedAt": "2026-10-22T01:58:35.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9715ac58-0224-4146-911a-364b06f2aa60"
+  },
+  "item": [
+    {
+      "name": "financial",
+      "item": [
+        {
+          "name": "v2",
+          "item": [
+            {
+              "name": "transaction",
+              "item": [
+                {
+                  "name": "execute",
+                  "item": [
+                    {
+                      "name": "Process a transaction",
+                      "id": "a9fc1dba-a93f-4309-a9bd-d2cb6c26384c",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"paymentSource\": \"bulkDirectDebit\",\n  \"uniqueReference\": \"<string>\",\n  \"printUniqueReferenceOnStatement\": false,\n  \"totalAmount\": \"<double>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/financial/v2/transaction/execute",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "financial",
+                            "v2",
+                            "transaction",
+                            "execute"
+                          ]
+                        },
+                        "description": "The purpose of the execute API is to debit a source for funds then distribute those funds to one or more supplied disbursement accounts. You can use the /financial/v2/transaction/validate endpoint to determine if the parameters are correct.\n\nNPP Payment Pending Status\nIf you are returned a status of \u2018Pending\u2019 for an NPP payout, this means that we are waiting for confirmation that the payment has been processed by the processor."
+                      },
+                      "response": [
+                        {
+                          "id": "bbe2eb44-8594-46ec-b2d6-c86a48e4995e",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"paymentSource\": \"bulkDirectDebit\",\n  \"uniqueReference\": \"<string>\",\n  \"printUniqueReferenceOnStatement\": false,\n  \"totalAmount\": \"<double>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/financial/v2/transaction/execute",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "financial",
+                                "v2",
+                                "transaction",
+                                "execute"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"transactionId\": \"<integer>\",\n  \"feeAmountExcludingGst\": \"<number>\",\n  \"feeAmountGstComponent\": \"<number>\",\n  \"feeAmountIncludingGst\": \"<number>\",\n  \"callerUniqueReference\": \"<string>\",\n  \"feeBreakdown\": {\n    \"debitFee\": {\n      \"feeAmountExcludingGst\": \"<number>\",\n      \"feeAmountGstComponent\": \"<number>\",\n      \"feeAmountIncludingGst\": \"<number>\"\n    },\n    \"disbursementFees\": [\n      {\n        \"disbursementArrayIndex\": \"<integer>\",\n        \"disbursementFee\": {\n          \"feeAmountExcludingGst\": \"<number>\",\n          \"feeAmountGstComponent\": \"<number>\",\n          \"feeAmountIncludingGst\": \"<number>\"\n        }\n      },\n      {\n        \"disbursementArrayIndex\": \"<integer>\",\n        \"disbursementFee\": {\n          \"feeAmountExcludingGst\": \"<number>\",\n          \"feeAmountGstComponent\": \"<number>\",\n          \"feeAmountIncludingGst\": \"<number>\"\n        }\n      }\n    ],\n    \"bulkDirectDebitFees\": [\n      {\n        \"directDebitArrayIndex\": \"<integer>\",\n        \"directDebitFee\": {\n          \"feeAmountExcludingGst\": \"<number>\",\n          \"feeAmountGstComponent\": \"<number>\",\n          \"feeAmountIncludingGst\": \"<number>\"\n        }\n      },\n      {\n        \"directDebitArrayIndex\": \"<integer>\",\n        \"directDebitFee\": {\n          \"feeAmountExcludingGst\": \"<number>\",\n          \"feeAmountGstComponent\": \"<number>\",\n          \"feeAmountIncludingGst\": \"<number>\"\n        }\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:58:35.000Z",
+                          "updatedAt": "2026-10-22T01:58:35.000Z",
+                          "uid": "35240-bbe2eb44-8594-46ec-b2d6-c86a48e4995e"
+                        },
+                        {
+                          "id": "e6c0d82e-3d69-46a2-b099-3a4bfa56dcc7",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"paymentSource\": \"bulkDirectDebit\",\n  \"uniqueReference\": \"<string>\",\n  \"printUniqueReferenceOnStatement\": false,\n  \"totalAmount\": \"<double>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/financial/v2/transaction/execute",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "financial",
+                                "v2",
+                                "transaction",
+                                "execute"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:35.000Z",
+                          "updatedAt": "2026-10-22T01:58:35.000Z",
+                          "uid": "35240-e6c0d82e-3d69-46a2-b099-3a4bfa56dcc7"
+                        },
+                        {
+                          "id": "b35f2a66-c924-4820-8136-ed0adb570926",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"paymentSource\": \"bulkDirectDebit\",\n  \"uniqueReference\": \"<string>\",\n  \"printUniqueReferenceOnStatement\": false,\n  \"totalAmount\": \"<double>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/financial/v2/transaction/execute",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "financial",
+                                "v2",
+                                "transaction",
+                                "execute"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:35.000Z",
+                          "updatedAt": "2026-10-22T01:58:35.000Z",
+                          "uid": "35240-b35f2a66-c924-4820-8136-ed0adb570926"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:58:35.000Z",
+                      "updatedAt": "2026-10-22T01:58:35.000Z",
+                      "uid": "35240-a9fc1dba-a93f-4309-a9bd-d2cb6c26384c"
+                    }
+                  ],
+                  "id": "8b1c3f60-1b28-4a8a-a535-6b47fe47d775",
+                  "createdAt": "2026-10-22T01:58:35.000Z",
+                  "updatedAt": "2026-10-22T01:58:35.000Z",
+                  "uid": "35240-8b1c3f60-1b28-4a8a-a535-6b47fe47d775"
+                },
+                {
+                  "name": "validate",
+                  "item": [
+                    {
+                      "name": "Validate a transaction",
+                      "id": "23fd0936-6736-46a9-be11-d48a87401f33",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"paymentSource\": \"bulkDirectDebit\",\n  \"uniqueReference\": \"<string>\",\n  \"printUniqueReferenceOnStatement\": false,\n  \"totalAmount\": \"<double>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/financial/v2/transaction/validate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "financial",
+                            "v2",
+                            "transaction",
+                            "validate"
+                          ]
+                        },
+                        "description": "You can use this API to determine if the parameters are correct. The body is the same as /financial/v2/transaction/execute endpoint. The callerUniqueReference will be reusable after the validate call is complete.\nNote: You don't need to call this endpoint before an execute as all transactions will be validated before they execute. This is useful if you are using a new rail and want to check your parameters."
+                      },
+                      "response": [
+                        {
+                          "id": "61b845ea-bac1-4afa-892e-b1c8e191fc3b",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"paymentSource\": \"bulkDirectDebit\",\n  \"uniqueReference\": \"<string>\",\n  \"printUniqueReferenceOnStatement\": false,\n  \"totalAmount\": \"<double>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/financial/v2/transaction/validate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "financial",
+                                "v2",
+                                "transaction",
+                                "validate"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"transactionId\": \"<integer>\",\n  \"feeAmountExcludingGst\": \"<number>\",\n  \"feeAmountGstComponent\": \"<number>\",\n  \"feeAmountIncludingGst\": \"<number>\",\n  \"callerUniqueReference\": \"<string>\",\n  \"feeBreakdown\": {\n    \"debitFee\": {\n      \"feeAmountExcludingGst\": \"<number>\",\n      \"feeAmountGstComponent\": \"<number>\",\n      \"feeAmountIncludingGst\": \"<number>\"\n    },\n    \"disbursementFees\": [\n      {\n        \"disbursementArrayIndex\": \"<integer>\",\n        \"disbursementFee\": {\n          \"feeAmountExcludingGst\": \"<number>\",\n          \"feeAmountGstComponent\": \"<number>\",\n          \"feeAmountIncludingGst\": \"<number>\"\n        }\n      },\n      {\n        \"disbursementArrayIndex\": \"<integer>\",\n        \"disbursementFee\": {\n          \"feeAmountExcludingGst\": \"<number>\",\n          \"feeAmountGstComponent\": \"<number>\",\n          \"feeAmountIncludingGst\": \"<number>\"\n        }\n      }\n    ],\n    \"bulkDirectDebitFees\": [\n      {\n        \"directDebitArrayIndex\": \"<integer>\",\n        \"directDebitFee\": {\n          \"feeAmountExcludingGst\": \"<number>\",\n          \"feeAmountGstComponent\": \"<number>\",\n          \"feeAmountIncludingGst\": \"<number>\"\n        }\n      },\n      {\n        \"directDebitArrayIndex\": \"<integer>\",\n        \"directDebitFee\": {\n          \"feeAmountExcludingGst\": \"<number>\",\n          \"feeAmountGstComponent\": \"<number>\",\n          \"feeAmountIncludingGst\": \"<number>\"\n        }\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:58:35.000Z",
+                          "updatedAt": "2026-10-22T01:58:35.000Z",
+                          "uid": "35240-61b845ea-bac1-4afa-892e-b1c8e191fc3b"
+                        },
+                        {
+                          "id": "99a0f174-4e38-4723-87d6-6ab5aa10f911",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"paymentSource\": \"bulkDirectDebit\",\n  \"uniqueReference\": \"<string>\",\n  \"printUniqueReferenceOnStatement\": false,\n  \"totalAmount\": \"<double>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/financial/v2/transaction/validate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "financial",
+                                "v2",
+                                "transaction",
+                                "validate"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:35.000Z",
+                          "updatedAt": "2026-10-22T01:58:35.000Z",
+                          "uid": "35240-99a0f174-4e38-4723-87d6-6ab5aa10f911"
+                        },
+                        {
+                          "id": "bf299b70-2d6d-4ce6-83d5-dda3071bdfcc",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"paymentSource\": \"bulkDirectDebit\",\n  \"uniqueReference\": \"<string>\",\n  \"printUniqueReferenceOnStatement\": false,\n  \"totalAmount\": \"<double>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/financial/v2/transaction/validate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "financial",
+                                "v2",
+                                "transaction",
+                                "validate"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:35.000Z",
+                          "updatedAt": "2026-10-22T01:58:35.000Z",
+                          "uid": "35240-bf299b70-2d6d-4ce6-83d5-dda3071bdfcc"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:58:35.000Z",
+                      "updatedAt": "2026-10-22T01:58:35.000Z",
+                      "uid": "35240-23fd0936-6736-46a9-be11-d48a87401f33"
+                    }
+                  ],
+                  "id": "795f3c58-00e2-4858-97a8-f43e6e6acff4",
+                  "createdAt": "2026-10-22T01:58:35.000Z",
+                  "updatedAt": "2026-10-22T01:58:35.000Z",
+                  "uid": "35240-795f3c58-00e2-4858-97a8-f43e6e6acff4"
+                }
+              ],
+              "id": "ccd55fed-ca3d-49f5-bd24-78f4a5d7d79f",
+              "createdAt": "2026-10-22T01:58:35.000Z",
+              "updatedAt": "2026-10-22T01:58:35.000Z",
+              "uid": "35240-ccd55fed-ca3d-49f5-bd24-78f4a5d7d79f"
+            },
+            {
+              "name": "status",
+              "item": [
+                {
+                  "name": "{uniqueReference}",
+                  "item": [
+                    {
+                      "name": "Get transaction status by UID",
+                      "id": "e8608b7a-0812-4e44-be28-457fc7ae5538",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/financial/v2/status/:uniqueReference",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "financial",
+                            "v2",
+                            "status",
+                            ":uniqueReference"
+                          ],
+                          "variable": [
+                            {
+                              "id": "8e523582-e513-44c3-988b-5926ef434eb5",
+                              "key": "uniqueReference",
+                              "value": "<string>",
+                              "description": "(Required) This is your uniqueReference that was passed in when the transaction was executed"
+                            }
+                          ]
+                        },
+                        "description": "This API returns the status of a previous transaction. This is important because a directDebit transaction could be dishonoured up to 3 days after the transaction was executed. We recommend subscribing to a webhook to notify you when an dishonour transaction is made."
+                      },
+                      "response": [
+                        {
+                          "id": "aeb79bce-22ca-4845-be2c-bf92b57ee5ba",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/financial/v2/status/:uniqueReference",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "financial",
+                                "v2",
+                                "status",
+                                ":uniqueReference"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "uniqueReference"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"completedDate\": \"<string>\",\n  \"creditCardPaymentStatus\": \"<string>\",\n  \"dishonouredDate\": \"<string>\",\n  \"expectedClearanceDateForFunds\": \"<string>\",\n  \"fundsClearedDate\": \"<string>\",\n  \"transactionStatus\": \"Pending\",\n  \"uniqueReference\": \"<string>\",\n  \"bulkDirectDebits\": [\n    {\n      \"index\": \"<integer>\",\n      \"bsb\": \"<string>\",\n      \"accountNumber\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"lodgementReference\": \"<string>\",\n      \"dishonouredDate\": \"<dateTime>\",\n      \"dishonouredReason\": \"<string>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"index\": \"<integer>\",\n      \"bsb\": \"<string>\",\n      \"accountNumber\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"lodgementReference\": \"<string>\",\n      \"dishonouredDate\": \"<dateTime>\",\n      \"dishonouredReason\": \"<string>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-10-22T01:58:35.000Z",
+                          "updatedAt": "2026-10-22T01:58:35.000Z",
+                          "uid": "35240-aeb79bce-22ca-4845-be2c-bf92b57ee5ba"
+                        },
+                        {
+                          "id": "d4ebadb5-8532-4ba8-91cf-11695cfb6357",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/financial/v2/status/:uniqueReference",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "financial",
+                                "v2",
+                                "status",
+                                ":uniqueReference"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "uniqueReference"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:35.000Z",
+                          "updatedAt": "2026-10-22T01:58:35.000Z",
+                          "uid": "35240-d4ebadb5-8532-4ba8-91cf-11695cfb6357"
+                        },
+                        {
+                          "id": "7552ad1a-41ad-47b7-84de-153cdf888a54",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/financial/v2/status/:uniqueReference",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "financial",
+                                "v2",
+                                "status",
+                                ":uniqueReference"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "uniqueReference"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:35.000Z",
+                          "updatedAt": "2026-10-22T01:58:35.000Z",
+                          "uid": "35240-7552ad1a-41ad-47b7-84de-153cdf888a54"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:58:35.000Z",
+                      "updatedAt": "2026-10-22T01:58:35.000Z",
+                      "uid": "35240-e8608b7a-0812-4e44-be28-457fc7ae5538"
+                    }
+                  ],
+                  "id": "ad121b0d-c551-4b4e-b93d-ac14915ea19a",
+                  "createdAt": "2026-10-22T01:58:35.000Z",
+                  "updatedAt": "2026-10-22T01:58:35.000Z",
+                  "uid": "35240-ad121b0d-c551-4b4e-b93d-ac14915ea19a"
+                },
+                {
+                  "name": "{startDate}",
+                  "item": [
+                    {
+                      "name": "{endDate}",
+                      "item": [
+                        {
+                          "name": "Get transaction status by Date",
+                          "id": "7b52cd68-ffac-48bc-a0c0-6551ec692ece",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/financial/v2/status/:startDate/:endDate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "financial",
+                                "v2",
+                                "status",
+                                ":startDate",
+                                ":endDate"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "942e16b3-f01c-4cb2-b025-899ac4f3fa66",
+                                  "key": "startDate",
+                                  "value": "<dateTime>",
+                                  "description": "(Required) This is the startDate. date format should be 'yyyy-MM-dd'"
+                                },
+                                {
+                                  "id": "326d6c08-41c1-4985-b266-c6e7cb7ee631",
+                                  "key": "endDate",
+                                  "value": "<dateTime>",
+                                  "description": "(Required) This is the endDate. date format should be 'yyyy-MM-dd'"
+                                }
+                              ]
+                            },
+                            "description": "This API returns the status of the specific date of the transactions. This is important because a directDebit transaction could be dishonoured up to 3 days after the transaction was executed."
+                          },
+                          "response": [
+                            {
+                              "id": "7a1d556c-d8e0-4911-92a5-128d8c63f3e5",
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/financial/v2/status/:startDate/:endDate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "financial",
+                                    "v2",
+                                    "status",
+                                    ":startDate",
+                                    ":endDate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "startDate"
+                                    },
+                                    {
+                                      "key": "endDate"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"statuses\": [\n    {\n      \"completedDate\": \"<string>\",\n      \"uniqueReference\": \"<string>\",\n      \"statusDescription\": \"<string>\",\n      \"transactionStatus\": \"<string>\",\n      \"dishonouredDate\": \"<string>\",\n      \"creditCardPaymentStatus\": {},\n      \"waitingOnClearedFundsDate\": \"<string>\",\n      \"bulkDirectDebits\": [\n        {\n          \"index\": \"<integer>\",\n          \"bsb\": \"<string>\",\n          \"accountNumber\": \"<string>\",\n          \"amount\": \"<double>\",\n          \"lodgementReference\": \"<string>\",\n          \"dishonouredDate\": \"<dateTime>\",\n          \"dishonouredReason\": \"<string>\",\n          \"status\": \"<string>\"\n        },\n        {\n          \"index\": \"<integer>\",\n          \"bsb\": \"<string>\",\n          \"accountNumber\": \"<string>\",\n          \"amount\": \"<double>\",\n          \"lodgementReference\": \"<string>\",\n          \"dishonouredDate\": \"<dateTime>\",\n          \"dishonouredReason\": \"<string>\",\n          \"status\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"completedDate\": \"<string>\",\n      \"uniqueReference\": \"<string>\",\n      \"statusDescription\": \"<string>\",\n      \"transactionStatus\": \"<string>\",\n      \"dishonouredDate\": \"<string>\",\n      \"creditCardPaymentStatus\": {},\n      \"waitingOnClearedFundsDate\": \"<string>\",\n      \"bulkDirectDebits\": [\n        {\n          \"index\": \"<integer>\",\n          \"bsb\": \"<string>\",\n          \"accountNumber\": \"<string>\",\n          \"amount\": \"<double>\",\n          \"lodgementReference\": \"<string>\",\n          \"dishonouredDate\": \"<dateTime>\",\n          \"dishonouredReason\": \"<string>\",\n          \"status\": \"<string>\"\n        },\n        {\n          \"index\": \"<integer>\",\n          \"bsb\": \"<string>\",\n          \"accountNumber\": \"<string>\",\n          \"amount\": \"<double>\",\n          \"lodgementReference\": \"<string>\",\n          \"dishonouredDate\": \"<dateTime>\",\n          \"dishonouredReason\": \"<string>\",\n          \"status\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                              "createdAt": "2026-10-22T01:58:35.000Z",
+                              "updatedAt": "2026-10-22T01:58:35.000Z",
+                              "uid": "35240-7a1d556c-d8e0-4911-92a5-128d8c63f3e5"
+                            },
+                            {
+                              "id": "444dd2c8-6b0d-4853-8ee5-87d72168cf38",
+                              "name": "Bad request",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/financial/v2/status/:startDate/:endDate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "financial",
+                                    "v2",
+                                    "status",
+                                    ":startDate",
+                                    ":endDate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "startDate"
+                                    },
+                                    {
+                                      "key": "endDate"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-22T01:58:35.000Z",
+                              "updatedAt": "2026-10-22T01:58:35.000Z",
+                              "uid": "35240-444dd2c8-6b0d-4853-8ee5-87d72168cf38"
+                            },
+                            {
+                              "id": "80753fdf-7988-4792-9f26-20ea1f3b3278",
+                              "name": "Internal Server Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/financial/v2/status/:startDate/:endDate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "financial",
+                                    "v2",
+                                    "status",
+                                    ":startDate",
+                                    ":endDate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "startDate"
+                                    },
+                                    {
+                                      "key": "endDate"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-22T01:58:35.000Z",
+                              "updatedAt": "2026-10-22T01:58:35.000Z",
+                              "uid": "35240-80753fdf-7988-4792-9f26-20ea1f3b3278"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T01:58:35.000Z",
+                          "updatedAt": "2026-10-22T01:58:35.000Z",
+                          "uid": "35240-7b52cd68-ffac-48bc-a0c0-6551ec692ece"
+                        }
+                      ],
+                      "id": "fdd2b68f-73f5-402b-8ea9-7e1aebd9c80e",
+                      "createdAt": "2026-10-22T01:58:35.000Z",
+                      "updatedAt": "2026-10-22T01:58:35.000Z",
+                      "uid": "35240-fdd2b68f-73f5-402b-8ea9-7e1aebd9c80e"
+                    }
+                  ],
+                  "id": "1fe7af2d-5add-49dd-b247-40061db85796",
+                  "createdAt": "2026-10-22T01:58:35.000Z",
+                  "updatedAt": "2026-10-22T01:58:35.000Z",
+                  "uid": "35240-1fe7af2d-5add-49dd-b247-40061db85796"
+                }
+              ],
+              "id": "a795c478-0120-47f4-847a-1ad23898a42b",
+              "createdAt": "2026-10-22T01:58:35.000Z",
+              "updatedAt": "2026-10-22T01:58:35.000Z",
+              "uid": "35240-a795c478-0120-47f4-847a-1ad23898a42b"
+            }
+          ],
+          "id": "31ea1106-d30c-4f10-9dd1-c63616fd57ab",
+          "createdAt": "2026-10-22T01:58:35.000Z",
+          "updatedAt": "2026-10-22T01:58:35.000Z",
+          "uid": "35240-31ea1106-d30c-4f10-9dd1-c63616fd57ab"
+        }
+      ],
+      "id": "03de4187-9034-42ec-9481-73abf493664f",
+      "createdAt": "2026-10-22T01:58:35.000Z",
+      "updatedAt": "2026-10-22T01:58:35.000Z",
+      "uid": "35240-03de4187-9034-42ec-9481-73abf493664f"
+    },
+    {
+      "name": "reports",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "unclearedFunds",
+              "item": [
+                {
+                  "name": "{startDate}",
+                  "item": [
+                    {
+                      "name": "Get Uncleared Transactions by Date",
+                      "id": "26514318-7ef3-4310-8d51-a20ada5bb0b1",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/v1/unclearedFunds/:startDate?endDate=<dateTime>&pageNumber=<integer>&pageSize=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "v1",
+                            "unclearedFunds",
+                            ":startDate"
+                          ],
+                          "query": [
+                            {
+                              "description": "End Date in ISO8601 date-time format. Defaults to startDate + 24 hours if not provided.",
+                              "key": "endDate",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "Page number to be returned. Defaults to 1 if not provided.",
+                              "key": "pageNumber",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Number of records per page. Defaults to 50, maximum allowed value is 200.",
+                              "key": "pageSize",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "8f4e49ff-7a00-41b6-a350-9d43e9fea1ec",
+                              "key": "startDate",
+                              "value": "<dateTime>",
+                              "description": "(Required) Start Date in ISO8601 date-time format."
+                            }
+                          ]
+                        },
+                        "description": "This API endpoint can be used to get details of uncleared direct debit transactions."
+                      },
+                      "response": [
+                        {
+                          "id": "4db7c750-34ab-4191-a118-0359c82ce607",
+                          "name": "A list of uncleared transactions.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/v1/unclearedFunds/:startDate?endDate=<dateTime>&pageNumber=<integer>&pageSize=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "v1",
+                                "unclearedFunds",
+                                ":startDate"
+                              ],
+                              "query": [
+                                {
+                                  "description": "End Date in ISO8601 date-time format. Defaults to startDate + 24 hours if not provided.",
+                                  "key": "endDate",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Page number to be returned. Defaults to 1 if not provided.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records per page. Defaults to 50, maximum allowed value is 200.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "startDate"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"transactions\": [\n    {\n      \"amount\": \"<double>\",\n      \"transactionId\": \"<integer>\",\n      \"createdDate\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"expectedClearanceDate\": \"<dateTime>\",\n      \"feeAmountGstComponent\": \"<number>\",\n      \"feeAmountIncludingGst\": \"<number>\",\n      \"feeamountExcludingGst\": \"<number>\",\n      \"uniqueReference\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"transactionId\": \"<integer>\",\n      \"createdDate\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"expectedClearanceDate\": \"<dateTime>\",\n      \"feeAmountGstComponent\": \"<number>\",\n      \"feeAmountIncludingGst\": \"<number>\",\n      \"feeamountExcludingGst\": \"<number>\",\n      \"uniqueReference\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-10-22T01:58:35.000Z",
+                          "updatedAt": "2026-10-22T01:58:35.000Z",
+                          "uid": "35240-4db7c750-34ab-4191-a118-0359c82ce607"
+                        },
+                        {
+                          "id": "46f2a81b-3a9f-4cce-b477-4749cd31332e",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/v1/unclearedFunds/:startDate?endDate=<dateTime>&pageNumber=<integer>&pageSize=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "v1",
+                                "unclearedFunds",
+                                ":startDate"
+                              ],
+                              "query": [
+                                {
+                                  "description": "End Date in ISO8601 date-time format. Defaults to startDate + 24 hours if not provided.",
+                                  "key": "endDate",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Page number to be returned. Defaults to 1 if not provided.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records per page. Defaults to 50, maximum allowed value is 200.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "startDate"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:35.000Z",
+                          "updatedAt": "2026-10-22T01:58:35.000Z",
+                          "uid": "35240-46f2a81b-3a9f-4cce-b477-4749cd31332e"
+                        },
+                        {
+                          "id": "f7f65853-32c8-425e-94ad-f8335b000c03",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/v1/unclearedFunds/:startDate?endDate=<dateTime>&pageNumber=<integer>&pageSize=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "v1",
+                                "unclearedFunds",
+                                ":startDate"
+                              ],
+                              "query": [
+                                {
+                                  "description": "End Date in ISO8601 date-time format. Defaults to startDate + 24 hours if not provided.",
+                                  "key": "endDate",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Page number to be returned. Defaults to 1 if not provided.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records per page. Defaults to 50, maximum allowed value is 200.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "startDate"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:35.000Z",
+                          "updatedAt": "2026-10-22T01:58:35.000Z",
+                          "uid": "35240-f7f65853-32c8-425e-94ad-f8335b000c03"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:58:35.000Z",
+                      "updatedAt": "2026-10-22T01:58:35.000Z",
+                      "uid": "35240-26514318-7ef3-4310-8d51-a20ada5bb0b1"
+                    }
+                  ],
+                  "id": "5b2dc151-f938-4f77-ac83-8e0ab3187c3c",
+                  "createdAt": "2026-10-22T01:58:35.000Z",
+                  "updatedAt": "2026-10-22T01:58:35.000Z",
+                  "uid": "35240-5b2dc151-f938-4f77-ac83-8e0ab3187c3c"
+                }
+              ],
+              "id": "c869c371-f411-4d36-8870-6c1a3c7b17aa",
+              "createdAt": "2026-10-22T01:58:35.000Z",
+              "updatedAt": "2026-10-22T01:58:35.000Z",
+              "uid": "35240-c869c371-f411-4d36-8870-6c1a3c7b17aa"
+            }
+          ],
+          "id": "8fb3cd38-61d3-4965-93ef-c0988246f7fe",
+          "createdAt": "2026-10-22T01:58:35.000Z",
+          "updatedAt": "2026-10-22T01:58:35.000Z",
+          "uid": "35240-8fb3cd38-61d3-4965-93ef-c0988246f7fe"
+        }
+      ],
+      "id": "69e073ff-179b-4f9a-9a01-1c4bd1aeed53",
+      "createdAt": "2026-10-22T01:58:35.000Z",
+      "updatedAt": "2026-10-22T01:58:35.000Z",
+      "uid": "35240-69e073ff-179b-4f9a-9a01-1c4bd1aeed53"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.mpay.com.au"
+    }
+  ]
+}

@@ -1,0 +1,1970 @@
+{
+  "info": {
+    "_postman_id": "03a8ef90-7ed8-46e7-9b0b-2d6d04166eee",
+    "name": "Monoova PayTo Reporting API",
+    "description": "# Introduction\n\nThe Monoova PayTo API is designed to efficiently handle real time financial transactions, providing a reliable platform for creating payment agreements and initiating payments.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:00:30.000Z",
+    "updatedAt": "2026-10-22T02:00:30.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-03a8ef90-7ed8-46e7-9b0b-2d6d04166eee"
+  },
+  "item": [
+    {
+      "name": "au",
+      "item": [
+        {
+          "name": "payto",
+          "item": [
+            {
+              "name": "pam-v1",
+              "item": [
+                {
+                  "name": "PaymentAgreement",
+                  "item": [
+                    {
+                      "name": "Get Payment Agreements by Date Range",
+                      "id": "0a4af76e-b059-48de-8e3c-8201db8d5cef",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/au/payto/pam-v1/PaymentAgreement?createdStartDate=<dateTime>&pageNumber=<integer>&pageSize=<integer>&createdEndDate=<dateTime>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "au",
+                            "payto",
+                            "pam-v1",
+                            "PaymentAgreement"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Start Date. </br>Required. ISO8601 date-time",
+                              "key": "createdStartDate",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "Page to be returned after records are split as per pageSize. <br/> Optional, If not provided, it is defaulted to 1.",
+                              "key": "pageNumber",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Number of records per page. </br> Optional, If not provided page size will be defaulted to 50. Maximum allowed value is 200.",
+                              "key": "pageSize",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "End Date. Optional, if not provided it will be defaulted to createdStartDate +24 hours. ISO8601 date-time",
+                              "key": "createdEndDate",
+                              "value": "<dateTime>"
+                            }
+                          ]
+                        },
+                        "description": "Previously created Payment Agreements can be retrieved individually date range."
+                      },
+                      "response": [
+                        {
+                          "id": "d7db4c24-0f17-41c2-96fd-0671fdda882d",
+                          "name": "Success",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pam-v1/PaymentAgreement?createdStartDate=<dateTime>&pageNumber=<integer>&pageSize=<integer>&createdEndDate=<dateTime>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pam-v1",
+                                "PaymentAgreement"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Start Date. </br>Required. ISO8601 date-time",
+                                  "key": "createdStartDate",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Page to be returned after records are split as per pageSize. <br/> Optional, If not provided, it is defaulted to 1.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records per page. </br> Optional, If not provided page size will be defaulted to 50. Maximum allowed value is 200.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "End Date. Optional, if not provided it will be defaulted to createdStartDate +24 hours. ISO8601 date-time",
+                                  "key": "createdEndDate",
+                                  "value": "<dateTime>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"paymentAgreementDetails\": [\n    {\n      \"paymentAgreementUID\": \"<string,null>\",\n      \"paymentAgreementStatus\": \"<string,null>\",\n      \"statusReasonCode\": \"<string,null>\",\n      \"statusReasonDescription\": \"<string,null>\",\n      \"mmsId\": \"<string,null>\",\n      \"payeeDetails\": {\n        \"payeeType\": \"<string>\",\n        \"payeeLinkedBsb\": \"<string,null>\",\n        \"payeeLinkedAccount\": \"<string,null>\",\n        \"payeeLinkedPayId\": \"<string,null>\",\n        \"payeeLinkedPayIdType\": \"<string,null>\",\n        \"payeeAccountName\": \"<string,null>\",\n        \"ultimatePayee\": \"<string>\"\n      },\n      \"payerDetails\": {\n        \"payerType\": \"<string>\",\n        \"linkedBsb\": \"<string,null>\",\n        \"linkedAccount\": \"<string,null>\",\n        \"linkedPayId\": \"<string,null>\",\n        \"linkedPayIdType\": \"<string,null>\",\n        \"payer\": \"<string>\",\n        \"ultimatePayer\": \"<string>\",\n        \"payerPartyReference\": \"<string>\"\n      },\n      \"paymentTerms\": {\n        \"numberOfTransactionsPermitted\": \"<integer>\",\n        \"frequency\": \"<string>\",\n        \"amount\": \"<number,null-double>\",\n        \"maximumAmount\": \"<number,null-double>\",\n        \"agreementType\": \"<string>\"\n      },\n      \"paymentDetails\": {\n        \"automaticRenewal\": \"<boolean>\",\n        \"description\": \"<string>\",\n        \"shortDescription\": \"<string>\",\n        \"purpose\": \"<string>\",\n        \"respondByTime\": \"<string>\",\n        \"startDate\": \"<string>\",\n        \"endDate\": \"<string>\"\n      },\n      \"pendingActions\": [\n        {\n          \"actionId\": \"<string>\",\n          \"actionType\": \"Create\",\n          \"bilateral\": \"<boolean>\",\n          \"status\": \"PendingApproval\"\n        },\n        {\n          \"actionId\": \"<string>\",\n          \"actionType\": \"Amend\",\n          \"bilateral\": \"<boolean>\",\n          \"status\": \"Cancelled\"\n        }\n      ]\n    },\n    {\n      \"paymentAgreementUID\": \"<string,null>\",\n      \"paymentAgreementStatus\": \"<string,null>\",\n      \"statusReasonCode\": \"<string,null>\",\n      \"statusReasonDescription\": \"<string,null>\",\n      \"mmsId\": \"<string,null>\",\n      \"payeeDetails\": {\n        \"payeeType\": \"<string>\",\n        \"payeeLinkedBsb\": \"<string,null>\",\n        \"payeeLinkedAccount\": \"<string,null>\",\n        \"payeeLinkedPayId\": \"<string,null>\",\n        \"payeeLinkedPayIdType\": \"<string,null>\",\n        \"payeeAccountName\": \"<string,null>\",\n        \"ultimatePayee\": \"<string>\"\n      },\n      \"payerDetails\": {\n        \"payerType\": \"<string>\",\n        \"linkedBsb\": \"<string,null>\",\n        \"linkedAccount\": \"<string,null>\",\n        \"linkedPayId\": \"<string,null>\",\n        \"linkedPayIdType\": \"<string,null>\",\n        \"payer\": \"<string>\",\n        \"ultimatePayer\": \"<string>\",\n        \"payerPartyReference\": \"<string>\"\n      },\n      \"paymentTerms\": {\n        \"numberOfTransactionsPermitted\": \"<integer>\",\n        \"frequency\": \"<string>\",\n        \"amount\": \"<number,null-double>\",\n        \"maximumAmount\": \"<number,null-double>\",\n        \"agreementType\": \"<string>\"\n      },\n      \"paymentDetails\": {\n        \"automaticRenewal\": \"<boolean>\",\n        \"description\": \"<string>\",\n        \"shortDescription\": \"<string>\",\n        \"purpose\": \"<string>\",\n        \"respondByTime\": \"<string>\",\n        \"startDate\": \"<string>\",\n        \"endDate\": \"<string>\"\n      },\n      \"pendingActions\": [\n        {\n          \"actionId\": \"<string>\",\n          \"actionType\": \"Amend\",\n          \"bilateral\": \"<boolean>\",\n          \"status\": \"Declined\"\n        },\n        {\n          \"actionId\": \"<string>\",\n          \"actionType\": \"Amend\",\n          \"bilateral\": \"<boolean>\",\n          \"status\": \"Cancelled\"\n        }\n      ]\n    }\n  ],\n  \"traceId\": \"<string,null>\"\n}",
+                          "createdAt": "2026-10-22T02:00:30.000Z",
+                          "updatedAt": "2026-10-22T02:00:30.000Z",
+                          "uid": "35240-d7db4c24-0f17-41c2-96fd-0671fdda882d"
+                        },
+                        {
+                          "id": "ea429e4d-a8ef-4167-a9cb-88fc3ad07cfa",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pam-v1/PaymentAgreement?createdStartDate=<dateTime>&pageNumber=<integer>&pageSize=<integer>&createdEndDate=<dateTime>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pam-v1",
+                                "PaymentAgreement"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Start Date. </br>Required. ISO8601 date-time",
+                                  "key": "createdStartDate",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Page to be returned after records are split as per pageSize. <br/> Optional, If not provided, it is defaulted to 1.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records per page. </br> Optional, If not provided page size will be defaulted to 50. Maximum allowed value is 200.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "End Date. Optional, if not provided it will be defaulted to createdStartDate +24 hours. ISO8601 date-time",
+                                  "key": "createdEndDate",
+                                  "value": "<dateTime>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T02:00:30.000Z",
+                          "updatedAt": "2026-10-22T02:00:30.000Z",
+                          "uid": "35240-ea429e4d-a8ef-4167-a9cb-88fc3ad07cfa"
+                        },
+                        {
+                          "id": "08fb0735-09cb-4c5e-929a-3948bcde8f94",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pam-v1/PaymentAgreement?createdStartDate=<dateTime>&pageNumber=<integer>&pageSize=<integer>&createdEndDate=<dateTime>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pam-v1",
+                                "PaymentAgreement"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Start Date. </br>Required. ISO8601 date-time",
+                                  "key": "createdStartDate",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Page to be returned after records are split as per pageSize. <br/> Optional, If not provided, it is defaulted to 1.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records per page. </br> Optional, If not provided page size will be defaulted to 50. Maximum allowed value is 200.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "End Date. Optional, if not provided it will be defaulted to createdStartDate +24 hours. ISO8601 date-time",
+                                  "key": "createdEndDate",
+                                  "value": "<dateTime>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T02:00:30.000Z",
+                          "updatedAt": "2026-10-22T02:00:30.000Z",
+                          "uid": "35240-08fb0735-09cb-4c5e-929a-3948bcde8f94"
+                        },
+                        {
+                          "id": "d82a31c4-7e8d-429e-9d72-8a87cb6942c8",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pam-v1/PaymentAgreement?createdStartDate=<dateTime>&pageNumber=<integer>&pageSize=<integer>&createdEndDate=<dateTime>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pam-v1",
+                                "PaymentAgreement"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Start Date. </br>Required. ISO8601 date-time",
+                                  "key": "createdStartDate",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Page to be returned after records are split as per pageSize. <br/> Optional, If not provided, it is defaulted to 1.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records per page. </br> Optional, If not provided page size will be defaulted to 50. Maximum allowed value is 200.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "End Date. Optional, if not provided it will be defaulted to createdStartDate +24 hours. ISO8601 date-time",
+                                  "key": "createdEndDate",
+                                  "value": "<dateTime>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T02:00:30.000Z",
+                          "updatedAt": "2026-10-22T02:00:30.000Z",
+                          "uid": "35240-d82a31c4-7e8d-429e-9d72-8a87cb6942c8"
+                        },
+                        {
+                          "id": "ff89b3ed-2fbb-4560-b8e8-94b9a333a128",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pam-v1/PaymentAgreement?createdStartDate=<dateTime>&pageNumber=<integer>&pageSize=<integer>&createdEndDate=<dateTime>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pam-v1",
+                                "PaymentAgreement"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Start Date. </br>Required. ISO8601 date-time",
+                                  "key": "createdStartDate",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Page to be returned after records are split as per pageSize. <br/> Optional, If not provided, it is defaulted to 1.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records per page. </br> Optional, If not provided page size will be defaulted to 50. Maximum allowed value is 200.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "End Date. Optional, if not provided it will be defaulted to createdStartDate +24 hours. ISO8601 date-time",
+                                  "key": "createdEndDate",
+                                  "value": "<dateTime>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T02:00:30.000Z",
+                          "updatedAt": "2026-10-22T02:00:30.000Z",
+                          "uid": "35240-ff89b3ed-2fbb-4560-b8e8-94b9a333a128"
+                        },
+                        {
+                          "id": "27f2f39e-c552-4dc9-948d-7f672bb02660",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pam-v1/PaymentAgreement?createdStartDate=<dateTime>&pageNumber=<integer>&pageSize=<integer>&createdEndDate=<dateTime>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pam-v1",
+                                "PaymentAgreement"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Start Date. </br>Required. ISO8601 date-time",
+                                  "key": "createdStartDate",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Page to be returned after records are split as per pageSize. <br/> Optional, If not provided, it is defaulted to 1.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records per page. </br> Optional, If not provided page size will be defaulted to 50. Maximum allowed value is 200.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "End Date. Optional, if not provided it will be defaulted to createdStartDate +24 hours. ISO8601 date-time",
+                                  "key": "createdEndDate",
+                                  "value": "<dateTime>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Gateway",
+                          "code": 502,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T02:00:30.000Z",
+                          "updatedAt": "2026-10-22T02:00:30.000Z",
+                          "uid": "35240-27f2f39e-c552-4dc9-948d-7f672bb02660"
+                        },
+                        {
+                          "id": "9f28084d-90d1-4042-bbb8-5e95bbe4eaa5",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pam-v1/PaymentAgreement?createdStartDate=<dateTime>&pageNumber=<integer>&pageSize=<integer>&createdEndDate=<dateTime>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pam-v1",
+                                "PaymentAgreement"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Start Date. </br>Required. ISO8601 date-time",
+                                  "key": "createdStartDate",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Page to be returned after records are split as per pageSize. <br/> Optional, If not provided, it is defaulted to 1.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records per page. </br> Optional, If not provided page size will be defaulted to 50. Maximum allowed value is 200.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "End Date. Optional, if not provided it will be defaulted to createdStartDate +24 hours. ISO8601 date-time",
+                                  "key": "createdEndDate",
+                                  "value": "<dateTime>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Gateway Timeout",
+                          "code": 504,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T02:00:30.000Z",
+                          "updatedAt": "2026-10-22T02:00:30.000Z",
+                          "uid": "35240-9f28084d-90d1-4042-bbb8-5e95bbe4eaa5"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:00:30.000Z",
+                      "updatedAt": "2026-10-22T02:00:30.000Z",
+                      "uid": "35240-0a4af76e-b059-48de-8e3c-8201db8d5cef"
+                    }
+                  ],
+                  "id": "32013abc-7970-4a75-8a06-a58c20c95dcf",
+                  "createdAt": "2026-10-22T02:00:30.000Z",
+                  "updatedAt": "2026-10-22T02:00:30.000Z",
+                  "uid": "35240-32013abc-7970-4a75-8a06-a58c20c95dcf"
+                },
+                {
+                  "name": "paymentAgreement",
+                  "item": [
+                    {
+                      "name": "{paymentAgreementUID}",
+                      "item": [
+                        {
+                          "name": "Get Payment Agreement by UniqueId",
+                          "id": "cc621762-1843-4261-9a55-d1c2171328da",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pam-v1/paymentAgreement/:paymentAgreementUID",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pam-v1",
+                                "paymentAgreement",
+                                ":paymentAgreementUID"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "d6704fee-2c1a-4587-9b11-ff8a6ab0d1c5",
+                                  "key": "paymentAgreementUID",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Previously created Payment Agreements can be retrieved individually via uniqueId"
+                          },
+                          "response": [
+                            {
+                              "id": "98bff52e-5d07-4389-b33b-7b6e355488b7",
+                              "name": "Success",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/payto/pam-v1/paymentAgreement/:paymentAgreementUID",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "payto",
+                                    "pam-v1",
+                                    "paymentAgreement",
+                                    ":paymentAgreementUID"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "paymentAgreementUID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"traceId\": \"<string>\",\n  \"paymentAgreementDetails\": {\n    \"paymentAgreementUID\": \"<string,null>\",\n    \"paymentAgreementStatus\": \"<string,null>\",\n    \"statusReasonCode\": \"<string,null>\",\n    \"statusReasonDescription\": \"<string,null>\",\n    \"mmsId\": \"<string,null>\",\n    \"payeeDetails\": {\n      \"payeeType\": \"<string>\",\n      \"payeeLinkedBsb\": \"<string,null>\",\n      \"payeeLinkedAccount\": \"<string,null>\",\n      \"payeeLinkedPayId\": \"<string,null>\",\n      \"payeeLinkedPayIdType\": \"<string,null>\",\n      \"payeeAccountName\": \"<string,null>\",\n      \"ultimatePayee\": \"<string>\"\n    },\n    \"payerDetails\": {\n      \"payerType\": \"<string>\",\n      \"linkedBsb\": \"<string,null>\",\n      \"linkedAccount\": \"<string,null>\",\n      \"linkedPayId\": \"<string,null>\",\n      \"linkedPayIdType\": \"<string,null>\",\n      \"payer\": \"<string>\",\n      \"ultimatePayer\": \"<string>\",\n      \"payerPartyReference\": \"<string>\"\n    },\n    \"paymentTerms\": {\n      \"numberOfTransactionsPermitted\": \"<integer>\",\n      \"frequency\": \"<string>\",\n      \"amount\": \"<number,null-double>\",\n      \"maximumAmount\": \"<number,null-double>\",\n      \"agreementType\": \"<string>\"\n    },\n    \"paymentDetails\": {\n      \"automaticRenewal\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"shortDescription\": \"<string>\",\n      \"purpose\": \"<string>\",\n      \"respondByTime\": \"<string>\",\n      \"startDate\": \"<string>\",\n      \"endDate\": \"<string>\"\n    },\n    \"pendingActions\": [\n      {\n        \"actionId\": \"<string>\",\n        \"actionType\": \"Create\",\n        \"bilateral\": \"<boolean>\",\n        \"status\": \"Completed\"\n      },\n      {\n        \"actionId\": \"<string>\",\n        \"actionType\": \"Create\",\n        \"bilateral\": \"<boolean>\",\n        \"status\": \"Declined\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T02:00:30.000Z",
+                              "updatedAt": "2026-10-22T02:00:30.000Z",
+                              "uid": "35240-98bff52e-5d07-4389-b33b-7b6e355488b7"
+                            },
+                            {
+                              "id": "edb838b4-db9d-4635-b946-4b78cd7877ec",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/payto/pam-v1/paymentAgreement/:paymentAgreementUID",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "payto",
+                                    "pam-v1",
+                                    "paymentAgreement",
+                                    ":paymentAgreementUID"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "paymentAgreementUID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T02:00:30.000Z",
+                              "updatedAt": "2026-10-22T02:00:30.000Z",
+                              "uid": "35240-edb838b4-db9d-4635-b946-4b78cd7877ec"
+                            },
+                            {
+                              "id": "7c5c8c07-f4e0-4521-9efe-19cd2e01e6a6",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/payto/pam-v1/paymentAgreement/:paymentAgreementUID",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "payto",
+                                    "pam-v1",
+                                    "paymentAgreement",
+                                    ":paymentAgreementUID"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "paymentAgreementUID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T02:00:30.000Z",
+                              "updatedAt": "2026-10-22T02:00:30.000Z",
+                              "uid": "35240-7c5c8c07-f4e0-4521-9efe-19cd2e01e6a6"
+                            },
+                            {
+                              "id": "0ea5227a-70ca-492e-89fe-b20b9756f4ff",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/payto/pam-v1/paymentAgreement/:paymentAgreementUID",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "payto",
+                                    "pam-v1",
+                                    "paymentAgreement",
+                                    ":paymentAgreementUID"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "paymentAgreementUID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"PAM_PAG_NOT_FOUND_ERROR\",\n        \"errorMessage\": \"PaymentAgreement not found for PaymentAgreementUID 12345\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T02:00:30.000Z",
+                              "updatedAt": "2026-10-22T02:00:30.000Z",
+                              "uid": "35240-0ea5227a-70ca-492e-89fe-b20b9756f4ff"
+                            },
+                            {
+                              "id": "6ae791c4-9c55-4e02-a031-c1f68c619230",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/payto/pam-v1/paymentAgreement/:paymentAgreementUID",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "payto",
+                                    "pam-v1",
+                                    "paymentAgreement",
+                                    ":paymentAgreementUID"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "paymentAgreementUID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T02:00:30.000Z",
+                              "updatedAt": "2026-10-22T02:00:30.000Z",
+                              "uid": "35240-6ae791c4-9c55-4e02-a031-c1f68c619230"
+                            },
+                            {
+                              "id": "ae5801dd-fa37-4922-9627-a1849fd53189",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/payto/pam-v1/paymentAgreement/:paymentAgreementUID",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "payto",
+                                    "pam-v1",
+                                    "paymentAgreement",
+                                    ":paymentAgreementUID"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "paymentAgreementUID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Gateway",
+                              "code": 502,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T02:00:30.000Z",
+                              "updatedAt": "2026-10-22T02:00:30.000Z",
+                              "uid": "35240-ae5801dd-fa37-4922-9627-a1849fd53189"
+                            },
+                            {
+                              "id": "265be7ac-0292-45a1-b0bd-cb24ac0029d6",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/payto/pam-v1/paymentAgreement/:paymentAgreementUID",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "payto",
+                                    "pam-v1",
+                                    "paymentAgreement",
+                                    ":paymentAgreementUID"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "paymentAgreementUID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Gateway Timeout",
+                              "code": 504,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T02:00:30.000Z",
+                              "updatedAt": "2026-10-22T02:00:30.000Z",
+                              "uid": "35240-265be7ac-0292-45a1-b0bd-cb24ac0029d6"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T02:00:30.000Z",
+                          "updatedAt": "2026-10-22T02:00:30.000Z",
+                          "uid": "35240-cc621762-1843-4261-9a55-d1c2171328da"
+                        }
+                      ],
+                      "id": "ccfdd60f-91de-4ffe-8bfe-ca2a9b50ca9e",
+                      "createdAt": "2026-10-22T02:00:30.000Z",
+                      "updatedAt": "2026-10-22T02:00:30.000Z",
+                      "uid": "35240-ccfdd60f-91de-4ffe-8bfe-ca2a9b50ca9e"
+                    }
+                  ],
+                  "id": "5f40c2c9-983e-4713-84ed-f4c4ba73ed6d",
+                  "createdAt": "2026-10-22T02:00:30.000Z",
+                  "updatedAt": "2026-10-22T02:00:30.000Z",
+                  "uid": "35240-5f40c2c9-983e-4713-84ed-f4c4ba73ed6d"
+                }
+              ],
+              "id": "d3227fec-ccf3-4d57-81d9-8798abcfcf58",
+              "createdAt": "2026-10-22T02:00:30.000Z",
+              "updatedAt": "2026-10-22T02:00:30.000Z",
+              "uid": "35240-d3227fec-ccf3-4d57-81d9-8798abcfcf58"
+            },
+            {
+              "name": "pas-v1",
+              "item": [
+                {
+                  "name": "paymentInstruction",
+                  "item": [
+                    {
+                      "name": "Get Payment Instructions By Date Range",
+                      "id": "5404f84b-0b70-4213-a484-ad9e2a673b3b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/au/payto/pas-v1/paymentInstruction?createdStartDate=<dateTime>&pageNumber=<integer>&pageSize=<integer>&createdEndDate=<dateTime>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "au",
+                            "payto",
+                            "pas-v1",
+                            "paymentInstruction"
+                          ],
+                          "query": [
+                            {
+                              "description": "Required. Format - ISO8601 date-time.",
+                              "key": "createdStartDate",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "Number of records per page </br> Optional, If not provided, value will be defaulted to 1.",
+                              "key": "pageNumber",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Number of records per page. </br> Optional, If not provided page size will be defaulted to 50. Maximum allowed value is 200.",
+                              "key": "pageSize",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Start Date. </br>Optional, if not provided it will be defaulted to createdStartDate.  ISO8601 date-time",
+                              "key": "createdEndDate",
+                              "value": "<dateTime>"
+                            }
+                          ]
+                        },
+                        "description": "Previously created Payment initiations can be retrieved individually via date range."
+                      },
+                      "response": [
+                        {
+                          "id": "b9573c06-e3c6-48b7-a119-0e8093c0fe9f",
+                          "name": "Success",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pas-v1/paymentInstruction?createdStartDate=<dateTime>&pageNumber=<integer>&pageSize=<integer>&createdEndDate=<dateTime>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pas-v1",
+                                "paymentInstruction"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Required. Format - ISO8601 date-time.",
+                                  "key": "createdStartDate",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Number of records per page </br> Optional, If not provided, value will be defaulted to 1.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records per page. </br> Optional, If not provided page size will be defaulted to 50. Maximum allowed value is 200.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Start Date. </br>Optional, if not provided it will be defaulted to createdStartDate.  ISO8601 date-time",
+                                  "key": "createdEndDate",
+                                  "value": "<dateTime>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"paymentInitiationDetails\": \"<array,null>\",\n  \"traceId\": \"<string,null>\"\n}",
+                          "createdAt": "2026-10-22T02:00:30.000Z",
+                          "updatedAt": "2026-10-22T02:00:30.000Z",
+                          "uid": "35240-b9573c06-e3c6-48b7-a119-0e8093c0fe9f"
+                        },
+                        {
+                          "id": "19d2e0b4-04de-42d1-af3c-ed2c892991a3",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pas-v1/paymentInstruction?createdStartDate=<dateTime>&pageNumber=<integer>&pageSize=<integer>&createdEndDate=<dateTime>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pas-v1",
+                                "paymentInstruction"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Required. Format - ISO8601 date-time.",
+                                  "key": "createdStartDate",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Number of records per page </br> Optional, If not provided, value will be defaulted to 1.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records per page. </br> Optional, If not provided page size will be defaulted to 50. Maximum allowed value is 200.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Start Date. </br>Optional, if not provided it will be defaulted to createdStartDate.  ISO8601 date-time",
+                                  "key": "createdEndDate",
+                                  "value": "<dateTime>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T02:00:30.000Z",
+                          "updatedAt": "2026-10-22T02:00:30.000Z",
+                          "uid": "35240-19d2e0b4-04de-42d1-af3c-ed2c892991a3"
+                        },
+                        {
+                          "id": "2b704430-60a0-4267-a041-335e1239e2b2",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pas-v1/paymentInstruction?createdStartDate=<dateTime>&pageNumber=<integer>&pageSize=<integer>&createdEndDate=<dateTime>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pas-v1",
+                                "paymentInstruction"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Required. Format - ISO8601 date-time.",
+                                  "key": "createdStartDate",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Number of records per page </br> Optional, If not provided, value will be defaulted to 1.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records per page. </br> Optional, If not provided page size will be defaulted to 50. Maximum allowed value is 200.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Start Date. </br>Optional, if not provided it will be defaulted to createdStartDate.  ISO8601 date-time",
+                                  "key": "createdEndDate",
+                                  "value": "<dateTime>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T02:00:30.000Z",
+                          "updatedAt": "2026-10-22T02:00:30.000Z",
+                          "uid": "35240-2b704430-60a0-4267-a041-335e1239e2b2"
+                        },
+                        {
+                          "id": "52018d7d-527e-4cec-b700-c2939c3e76b2",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pas-v1/paymentInstruction?createdStartDate=<dateTime>&pageNumber=<integer>&pageSize=<integer>&createdEndDate=<dateTime>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pas-v1",
+                                "paymentInstruction"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Required. Format - ISO8601 date-time.",
+                                  "key": "createdStartDate",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Number of records per page </br> Optional, If not provided, value will be defaulted to 1.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records per page. </br> Optional, If not provided page size will be defaulted to 50. Maximum allowed value is 200.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Start Date. </br>Optional, if not provided it will be defaulted to createdStartDate.  ISO8601 date-time",
+                                  "key": "createdEndDate",
+                                  "value": "<dateTime>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"PaymentInstruction 12345 is not found\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T02:00:30.000Z",
+                          "updatedAt": "2026-10-22T02:00:30.000Z",
+                          "uid": "35240-52018d7d-527e-4cec-b700-c2939c3e76b2"
+                        },
+                        {
+                          "id": "8f314b00-3876-41c0-96b5-a930edc50990",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pas-v1/paymentInstruction?createdStartDate=<dateTime>&pageNumber=<integer>&pageSize=<integer>&createdEndDate=<dateTime>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pas-v1",
+                                "paymentInstruction"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Required. Format - ISO8601 date-time.",
+                                  "key": "createdStartDate",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Number of records per page </br> Optional, If not provided, value will be defaulted to 1.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records per page. </br> Optional, If not provided page size will be defaulted to 50. Maximum allowed value is 200.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Start Date. </br>Optional, if not provided it will be defaulted to createdStartDate.  ISO8601 date-time",
+                                  "key": "createdEndDate",
+                                  "value": "<dateTime>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T02:00:30.000Z",
+                          "updatedAt": "2026-10-22T02:00:30.000Z",
+                          "uid": "35240-8f314b00-3876-41c0-96b5-a930edc50990"
+                        },
+                        {
+                          "id": "73d9432f-354c-41ef-9687-627a334faf06",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pas-v1/paymentInstruction?createdStartDate=<dateTime>&pageNumber=<integer>&pageSize=<integer>&createdEndDate=<dateTime>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pas-v1",
+                                "paymentInstruction"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Required. Format - ISO8601 date-time.",
+                                  "key": "createdStartDate",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Number of records per page </br> Optional, If not provided, value will be defaulted to 1.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records per page. </br> Optional, If not provided page size will be defaulted to 50. Maximum allowed value is 200.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Start Date. </br>Optional, if not provided it will be defaulted to createdStartDate.  ISO8601 date-time",
+                                  "key": "createdEndDate",
+                                  "value": "<dateTime>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Gateway",
+                          "code": 502,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T02:00:30.000Z",
+                          "updatedAt": "2026-10-22T02:00:30.000Z",
+                          "uid": "35240-73d9432f-354c-41ef-9687-627a334faf06"
+                        },
+                        {
+                          "id": "74ec33eb-7f88-4f37-8110-eaeb14f35ba2",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pas-v1/paymentInstruction?createdStartDate=<dateTime>&pageNumber=<integer>&pageSize=<integer>&createdEndDate=<dateTime>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pas-v1",
+                                "paymentInstruction"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Required. Format - ISO8601 date-time.",
+                                  "key": "createdStartDate",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Number of records per page </br> Optional, If not provided, value will be defaulted to 1.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records per page. </br> Optional, If not provided page size will be defaulted to 50. Maximum allowed value is 200.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Start Date. </br>Optional, if not provided it will be defaulted to createdStartDate.  ISO8601 date-time",
+                                  "key": "createdEndDate",
+                                  "value": "<dateTime>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Gateway Timeout",
+                          "code": 504,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T02:00:30.000Z",
+                          "updatedAt": "2026-10-22T02:00:30.000Z",
+                          "uid": "35240-74ec33eb-7f88-4f37-8110-eaeb14f35ba2"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:00:30.000Z",
+                      "updatedAt": "2026-10-22T02:00:30.000Z",
+                      "uid": "35240-5404f84b-0b70-4213-a484-ad9e2a673b3b"
+                    }
+                  ],
+                  "id": "d4c9ceba-0f67-4b67-a825-e0827193ef9b",
+                  "createdAt": "2026-10-22T02:00:30.000Z",
+                  "updatedAt": "2026-10-22T02:00:30.000Z",
+                  "uid": "35240-d4c9ceba-0f67-4b67-a825-e0827193ef9b"
+                },
+                {
+                  "name": "paymentinstruction",
+                  "item": [
+                    {
+                      "name": "{paymentInitiationUID}",
+                      "item": [
+                        {
+                          "name": "Get Payment Instruction By UniqueId",
+                          "id": "cdbf33b6-14c2-45a7-a7ef-a9cdbd6627e8",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pas-v1/paymentinstruction/:paymentInitiationUID",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pas-v1",
+                                "paymentinstruction",
+                                ":paymentInitiationUID"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "4f05c912-f3d5-4453-9070-0a363e39ccbb",
+                                  "key": "paymentInitiationUID",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Previously created Payment initiations can be retrieved individually via uniqueId."
+                          },
+                          "response": [
+                            {
+                              "id": "e34041d1-94fb-41c7-a66f-a0e56a1add70",
+                              "name": "Success",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/payto/pas-v1/paymentinstruction/:paymentInitiationUID",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "payto",
+                                    "pas-v1",
+                                    "paymentinstruction",
+                                    ":paymentInitiationUID"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "paymentInitiationUID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"paymentInitiationDetail\": {\n    \"paymentAgreementUID\": \"5\",\n    \"paymentInitiationUID\": \"B\",\n    \"paymentInitiationStatus\": \"<string>\",\n    \"paymentInitiationStatusDescription\": \"<string>\",\n    \"mmsId\": \"<string>\",\n    \"statusReasonCode\": \"<string,null>\",\n    \"statusReasonDescription\": \"<string,null>\"\n  },\n  \"traceId\": \"<string,null>\"\n}",
+                              "createdAt": "2026-10-22T02:00:30.000Z",
+                              "updatedAt": "2026-10-22T02:00:30.000Z",
+                              "uid": "35240-e34041d1-94fb-41c7-a66f-a0e56a1add70"
+                            },
+                            {
+                              "id": "e3314be1-9bf7-4c94-bff3-ff4a0b4734b7",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/payto/pas-v1/paymentinstruction/:paymentInitiationUID",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "payto",
+                                    "pas-v1",
+                                    "paymentinstruction",
+                                    ":paymentInitiationUID"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "paymentInitiationUID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T02:00:30.000Z",
+                              "updatedAt": "2026-10-22T02:00:30.000Z",
+                              "uid": "35240-e3314be1-9bf7-4c94-bff3-ff4a0b4734b7"
+                            },
+                            {
+                              "id": "7c4ddcb9-7b8d-4ca1-bbae-926393f13748",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/payto/pas-v1/paymentinstruction/:paymentInitiationUID",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "payto",
+                                    "pas-v1",
+                                    "paymentinstruction",
+                                    ":paymentInitiationUID"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "paymentInitiationUID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T02:00:30.000Z",
+                              "updatedAt": "2026-10-22T02:00:30.000Z",
+                              "uid": "35240-7c4ddcb9-7b8d-4ca1-bbae-926393f13748"
+                            },
+                            {
+                              "id": "cb84bdbe-17c0-4b1f-ba35-534ed6ec35c5",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/payto/pas-v1/paymentinstruction/:paymentInitiationUID",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "payto",
+                                    "pas-v1",
+                                    "paymentinstruction",
+                                    ":paymentInitiationUID"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "paymentInitiationUID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"PAS_INSTRUCTION_NOT_FOUND\",\n        \"errorMessage\": \"PaymentInstruction 12345 is not found\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T02:00:30.000Z",
+                              "updatedAt": "2026-10-22T02:00:30.000Z",
+                              "uid": "35240-cb84bdbe-17c0-4b1f-ba35-534ed6ec35c5"
+                            },
+                            {
+                              "id": "29ee2907-92e1-4a5e-ae28-7153a91cf1a5",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/payto/pas-v1/paymentinstruction/:paymentInitiationUID",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "payto",
+                                    "pas-v1",
+                                    "paymentinstruction",
+                                    ":paymentInitiationUID"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "paymentInitiationUID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T02:00:30.000Z",
+                              "updatedAt": "2026-10-22T02:00:30.000Z",
+                              "uid": "35240-29ee2907-92e1-4a5e-ae28-7153a91cf1a5"
+                            },
+                            {
+                              "id": "3e20aa63-77aa-4e15-981a-16f4a1790f9e",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/payto/pas-v1/paymentinstruction/:paymentInitiationUID",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "payto",
+                                    "pas-v1",
+                                    "paymentinstruction",
+                                    ":paymentInitiationUID"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "paymentInitiationUID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Gateway",
+                              "code": 502,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T02:00:30.000Z",
+                              "updatedAt": "2026-10-22T02:00:30.000Z",
+                              "uid": "35240-3e20aa63-77aa-4e15-981a-16f4a1790f9e"
+                            },
+                            {
+                              "id": "95c804b1-846f-444f-bb36-d01bd7361fa4",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/payto/pas-v1/paymentinstruction/:paymentInitiationUID",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "payto",
+                                    "pas-v1",
+                                    "paymentinstruction",
+                                    ":paymentInitiationUID"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "paymentInitiationUID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Gateway Timeout",
+                              "code": 504,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T02:00:30.000Z",
+                              "updatedAt": "2026-10-22T02:00:30.000Z",
+                              "uid": "35240-95c804b1-846f-444f-bb36-d01bd7361fa4"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T02:00:30.000Z",
+                          "updatedAt": "2026-10-22T02:00:30.000Z",
+                          "uid": "35240-cdbf33b6-14c2-45a7-a7ef-a9cdbd6627e8"
+                        }
+                      ],
+                      "id": "b1ef5d55-aa43-4d89-a36b-6f7971f7bf43",
+                      "createdAt": "2026-10-22T02:00:30.000Z",
+                      "updatedAt": "2026-10-22T02:00:30.000Z",
+                      "uid": "35240-b1ef5d55-aa43-4d89-a36b-6f7971f7bf43"
+                    }
+                  ],
+                  "id": "f34524e3-59d2-4374-9e33-c4cc5ce8d971",
+                  "createdAt": "2026-10-22T02:00:30.000Z",
+                  "updatedAt": "2026-10-22T02:00:30.000Z",
+                  "uid": "35240-f34524e3-59d2-4374-9e33-c4cc5ce8d971"
+                }
+              ],
+              "id": "710c3325-271d-4cce-be1a-78a292671988",
+              "createdAt": "2026-10-22T02:00:30.000Z",
+              "updatedAt": "2026-10-22T02:00:30.000Z",
+              "uid": "35240-710c3325-271d-4cce-be1a-78a292671988"
+            }
+          ],
+          "id": "d8faa92d-3ab7-41ca-972b-240a23a42f16",
+          "createdAt": "2026-10-22T02:00:30.000Z",
+          "updatedAt": "2026-10-22T02:00:30.000Z",
+          "uid": "35240-d8faa92d-3ab7-41ca-972b-240a23a42f16"
+        }
+      ],
+      "id": "af916af0-0b23-458d-a144-d9ac406f9cc2",
+      "createdAt": "2026-10-22T02:00:30.000Z",
+      "updatedAt": "2026-10-22T02:00:30.000Z",
+      "uid": "35240-af916af0-0b23-458d-a144-d9ac406f9cc2"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.monoova.com"
+    }
+  ]
+}

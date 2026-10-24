@@ -1,0 +1,1669 @@
+{
+  "info": {
+    "_postman_id": "130e0a93-e980-4487-b8e5-3bc26099ec18",
+    "name": "Monoova Payments Token API",
+    "description": "# Introduction\n\nMonoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:01:04.000Z",
+    "updatedAt": "2026-10-22T02:01:05.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-130e0a93-e980-4487-b8e5-3bc26099ec18"
+  },
+  "item": [
+    {
+      "name": "token",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "createAustralianBankAccount",
+              "item": [
+                {
+                  "name": "Create bank account token",
+                  "id": "e0b6b5dc-f29a-441e-beaa-b29ac2cc04cb",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"bankAccountName\": \"<string>\",\n  \"bankAccountNumber\": \"<integer>\",\n  \"bsb\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/token/v1/createAustralianBankAccount",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "token",
+                        "v1",
+                        "createAustralianBankAccount"
+                      ]
+                    },
+                    "description": "This API creates a token representing an Australian Bank Account by passing a TokenAustralianBankAccountPayload class in the body."
+                  },
+                  "response": [
+                    {
+                      "id": "eb6a4deb-7f31-4391-9d09-2759cce25716",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"bankAccountName\": \"<string>\",\n  \"bankAccountNumber\": \"<integer>\",\n  \"bsb\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/token/v1/createAustralianBankAccount",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "token",
+                            "v1",
+                            "createAustralianBankAccount"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"token\": \"<string>\",\n  \"hint\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T02:01:05.000Z",
+                      "updatedAt": "2026-10-22T02:01:05.000Z",
+                      "uid": "35240-eb6a4deb-7f31-4391-9d09-2759cce25716"
+                    },
+                    {
+                      "id": "2dba3248-88ac-4557-9bfd-77bfaf550e53",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"bankAccountName\": \"<string>\",\n  \"bankAccountNumber\": \"<integer>\",\n  \"bsb\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/token/v1/createAustralianBankAccount",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "token",
+                            "v1",
+                            "createAustralianBankAccount"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:01:05.000Z",
+                      "updatedAt": "2026-10-22T02:01:05.000Z",
+                      "uid": "35240-2dba3248-88ac-4557-9bfd-77bfaf550e53"
+                    },
+                    {
+                      "id": "ed2d0eed-c8aa-4a1e-9d7e-878e7c162611",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"bankAccountName\": \"<string>\",\n  \"bankAccountNumber\": \"<integer>\",\n  \"bsb\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/token/v1/createAustralianBankAccount",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "token",
+                            "v1",
+                            "createAustralianBankAccount"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:01:05.000Z",
+                      "updatedAt": "2026-10-22T02:01:05.000Z",
+                      "uid": "35240-ed2d0eed-c8aa-4a1e-9d7e-878e7c162611"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:01:05.000Z",
+                  "updatedAt": "2026-10-22T02:01:05.000Z",
+                  "uid": "35240-e0b6b5dc-f29a-441e-beaa-b29ac2cc04cb"
+                }
+              ],
+              "id": "7ee59b6d-795e-46bb-80ec-303e6e1aa9b1",
+              "createdAt": "2026-10-22T02:01:05.000Z",
+              "updatedAt": "2026-10-22T02:01:05.000Z",
+              "uid": "35240-7ee59b6d-795e-46bb-80ec-303e6e1aa9b1"
+            },
+            {
+              "name": "createBPAY",
+              "item": [
+                {
+                  "name": "Create BPAY token",
+                  "id": "d4b414f3-349a-4d7e-8a63-7e445a137798",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"billerCode\": \"<integer>\",\n  \"customerReferenceNumber\": \"<integer>\",\n  \"amount\": \"<number>\",\n  \"description\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/token/v1/createBPAY",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "token",
+                        "v1",
+                        "createBPAY"
+                      ]
+                    },
+                    "description": "This API creates a token representing BPAY details by passing a TokenBPAYPayload class in the body."
+                  },
+                  "response": [
+                    {
+                      "id": "c839a4a2-d053-4c2b-8e98-6bdf2f598d1d",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"billerCode\": \"<integer>\",\n  \"customerReferenceNumber\": \"<integer>\",\n  \"amount\": \"<number>\",\n  \"description\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/token/v1/createBPAY",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "token",
+                            "v1",
+                            "createBPAY"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"token\": \"<string>\",\n  \"hint\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T02:01:05.000Z",
+                      "updatedAt": "2026-10-22T02:01:05.000Z",
+                      "uid": "35240-c839a4a2-d053-4c2b-8e98-6bdf2f598d1d"
+                    },
+                    {
+                      "id": "166f71bc-2e86-4960-81e5-2aec2707931d",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"billerCode\": \"<integer>\",\n  \"customerReferenceNumber\": \"<integer>\",\n  \"amount\": \"<number>\",\n  \"description\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/token/v1/createBPAY",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "token",
+                            "v1",
+                            "createBPAY"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:01:05.000Z",
+                      "updatedAt": "2026-10-22T02:01:05.000Z",
+                      "uid": "35240-166f71bc-2e86-4960-81e5-2aec2707931d"
+                    },
+                    {
+                      "id": "f5bb5475-7e25-4f12-84a2-fe10d473c2aa",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"billerCode\": \"<integer>\",\n  \"customerReferenceNumber\": \"<integer>\",\n  \"amount\": \"<number>\",\n  \"description\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/token/v1/createBPAY",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "token",
+                            "v1",
+                            "createBPAY"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:01:05.000Z",
+                      "updatedAt": "2026-10-22T02:01:05.000Z",
+                      "uid": "35240-f5bb5475-7e25-4f12-84a2-fe10d473c2aa"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:01:05.000Z",
+                  "updatedAt": "2026-10-22T02:01:05.000Z",
+                  "uid": "35240-d4b414f3-349a-4d7e-8a63-7e445a137798"
+                }
+              ],
+              "id": "e2cda443-f14d-45d3-a028-da1112920167",
+              "createdAt": "2026-10-22T02:01:05.000Z",
+              "updatedAt": "2026-10-22T02:01:05.000Z",
+              "uid": "35240-e2cda443-f14d-45d3-a028-da1112920167"
+            },
+            {
+              "name": "delete",
+              "item": [
+                {
+                  "name": "{token}",
+                  "item": [
+                    {
+                      "name": "Delete token",
+                      "id": "eb1c3d76-0232-4ef7-9032-ec5e9dbdaf7b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/token/v1/delete/:token",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "token",
+                            "v1",
+                            "delete",
+                            ":token"
+                          ],
+                          "variable": [
+                            {
+                              "id": "1306ae35-b58c-40fb-bc76-9b0903b2ef16",
+                              "key": "token",
+                              "value": "<string>",
+                              "description": "(Required) The text (GUID) that identifies the token."
+                            }
+                          ]
+                        },
+                        "description": "This API will delete the payload attached to the specified token."
+                      },
+                      "response": [
+                        {
+                          "id": "76e274b0-fa33-4898-8336-1274637fc1b6",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/token/v1/delete/:token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "token",
+                                "v1",
+                                "delete",
+                                ":token"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:01:05.000Z",
+                          "updatedAt": "2026-10-22T02:01:05.000Z",
+                          "uid": "35240-76e274b0-fa33-4898-8336-1274637fc1b6"
+                        },
+                        {
+                          "id": "6dc796b0-e6de-4074-a029-40bd399549bf",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/token/v1/delete/:token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "token",
+                                "v1",
+                                "delete",
+                                ":token"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:05.000Z",
+                          "updatedAt": "2026-10-22T02:01:05.000Z",
+                          "uid": "35240-6dc796b0-e6de-4074-a029-40bd399549bf"
+                        },
+                        {
+                          "id": "6413a825-be92-4628-b197-9fd534dc9e6e",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/token/v1/delete/:token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "token",
+                                "v1",
+                                "delete",
+                                ":token"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:05.000Z",
+                          "updatedAt": "2026-10-22T02:01:05.000Z",
+                          "uid": "35240-6413a825-be92-4628-b197-9fd534dc9e6e"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:01:05.000Z",
+                      "updatedAt": "2026-10-22T02:01:05.000Z",
+                      "uid": "35240-eb1c3d76-0232-4ef7-9032-ec5e9dbdaf7b"
+                    }
+                  ],
+                  "id": "5afd50f2-8de1-486f-8753-7781e4a00885",
+                  "createdAt": "2026-10-22T02:01:05.000Z",
+                  "updatedAt": "2026-10-22T02:01:05.000Z",
+                  "uid": "35240-5afd50f2-8de1-486f-8753-7781e4a00885"
+                }
+              ],
+              "id": "084f106b-a52b-4782-aeb6-901d0f82c5ca",
+              "createdAt": "2026-10-22T02:01:05.000Z",
+              "updatedAt": "2026-10-22T02:01:05.000Z",
+              "uid": "35240-084f106b-a52b-4782-aeb6-901d0f82c5ca"
+            },
+            {
+              "name": "get",
+              "item": [
+                {
+                  "name": "{token}",
+                  "item": [
+                    {
+                      "name": "Get token details",
+                      "id": "4537d652-6af2-45f7-8871-a6e495af924e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/token/v1/get/:token",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "token",
+                            "v1",
+                            "get",
+                            ":token"
+                          ],
+                          "variable": [
+                            {
+                              "id": "48fcfcfe-caa8-4258-9e0f-5392189f749e",
+                              "key": "token",
+                              "value": "<string>",
+                              "description": "(Required) The text (GUID) that identifies the token."
+                            }
+                          ]
+                        },
+                        "description": "This API will return the payload attached to the specified token."
+                      },
+                      "response": [
+                        {
+                          "id": "11244fce-8624-4d33-bf34-1d9a80b7ecbc",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/token/v1/get/:token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "token",
+                                "v1",
+                                "get",
+                                ":token"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"token\": \"<string>\",\n  \"hint\": \"<string>\",\n  \"payloadType\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:01:05.000Z",
+                          "updatedAt": "2026-10-22T02:01:05.000Z",
+                          "uid": "35240-11244fce-8624-4d33-bf34-1d9a80b7ecbc"
+                        },
+                        {
+                          "id": "78a315f8-b858-4113-b5f6-f6bf2683662d",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/token/v1/get/:token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "token",
+                                "v1",
+                                "get",
+                                ":token"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:05.000Z",
+                          "updatedAt": "2026-10-22T02:01:05.000Z",
+                          "uid": "35240-78a315f8-b858-4113-b5f6-f6bf2683662d"
+                        },
+                        {
+                          "id": "411b6154-93cb-45b3-8061-ff6ffb82bab9",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/token/v1/get/:token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "token",
+                                "v1",
+                                "get",
+                                ":token"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:05.000Z",
+                          "updatedAt": "2026-10-22T02:01:05.000Z",
+                          "uid": "35240-411b6154-93cb-45b3-8061-ff6ffb82bab9"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:01:05.000Z",
+                      "updatedAt": "2026-10-22T02:01:05.000Z",
+                      "uid": "35240-4537d652-6af2-45f7-8871-a6e495af924e"
+                    }
+                  ],
+                  "id": "0e788344-e944-4ed0-a2ef-988a3b2f3949",
+                  "createdAt": "2026-10-22T02:01:05.000Z",
+                  "updatedAt": "2026-10-22T02:01:05.000Z",
+                  "uid": "35240-0e788344-e944-4ed0-a2ef-988a3b2f3949"
+                }
+              ],
+              "id": "d7ae65ae-1726-4307-8774-e3168b6906bd",
+              "createdAt": "2026-10-22T02:01:05.000Z",
+              "updatedAt": "2026-10-22T02:01:05.000Z",
+              "uid": "35240-d7ae65ae-1726-4307-8774-e3168b6906bd"
+            },
+            {
+              "name": "list",
+              "item": [
+                {
+                  "name": "{accountNumber}",
+                  "item": [
+                    {
+                      "name": "List tokens by mAccount",
+                      "id": "a6c5f26e-1f9a-4b57-89cf-7bf01839f058",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/token/v1/list/:accountNumber",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "token",
+                            "v1",
+                            "list",
+                            ":accountNumber"
+                          ],
+                          "variable": [
+                            {
+                              "id": "7e010b3f-2ab4-483f-a768-a91bc4a35852",
+                              "key": "accountNumber",
+                              "value": "<string>",
+                              "description": "(Required) 16-Digit account number that uniquely identifies the mAccount"
+                            }
+                          ]
+                        },
+                        "description": "This API will return a list of all tokens associated with the provided mWallet or mAccount."
+                      },
+                      "response": [
+                        {
+                          "id": "c6450070-60cc-41a9-ae8f-59c06a8471c8",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/token/v1/list/:accountNumber",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "token",
+                                "v1",
+                                "list",
+                                ":accountNumber"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "accountNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"tokens\": [\n    {\n      \"token\": \"<string>\",\n      \"hint\": \"<string>\",\n      \"payloadType\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"token\": \"<string>\",\n      \"hint\": \"<string>\",\n      \"payloadType\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-10-22T02:01:05.000Z",
+                          "updatedAt": "2026-10-22T02:01:05.000Z",
+                          "uid": "35240-c6450070-60cc-41a9-ae8f-59c06a8471c8"
+                        },
+                        {
+                          "id": "1fa1088f-c5f5-4f4d-9c96-a441edf81271",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/token/v1/list/:accountNumber",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "token",
+                                "v1",
+                                "list",
+                                ":accountNumber"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "accountNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:05.000Z",
+                          "updatedAt": "2026-10-22T02:01:05.000Z",
+                          "uid": "35240-1fa1088f-c5f5-4f4d-9c96-a441edf81271"
+                        },
+                        {
+                          "id": "6d947b5f-dc9a-473b-bf97-65e85d2ebeed",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/token/v1/list/:accountNumber",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "token",
+                                "v1",
+                                "list",
+                                ":accountNumber"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "accountNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:05.000Z",
+                          "updatedAt": "2026-10-22T02:01:05.000Z",
+                          "uid": "35240-6d947b5f-dc9a-473b-bf97-65e85d2ebeed"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:01:05.000Z",
+                      "updatedAt": "2026-10-22T02:01:05.000Z",
+                      "uid": "35240-a6c5f26e-1f9a-4b57-89cf-7bf01839f058"
+                    }
+                  ],
+                  "id": "136f4c2e-343b-46cb-95f1-d14ba1ab9216",
+                  "createdAt": "2026-10-22T02:01:05.000Z",
+                  "updatedAt": "2026-10-22T02:01:05.000Z",
+                  "uid": "35240-136f4c2e-343b-46cb-95f1-d14ba1ab9216"
+                }
+              ],
+              "id": "71956c87-a1a8-4249-93c9-5a66849d9dae",
+              "createdAt": "2026-10-22T02:01:05.000Z",
+              "updatedAt": "2026-10-22T02:01:05.000Z",
+              "uid": "35240-71956c87-a1a8-4249-93c9-5a66849d9dae"
+            },
+            {
+              "name": "updateAustralianBankAccount",
+              "item": [
+                {
+                  "name": "Update bank account token",
+                  "id": "269660e3-7aa3-4de8-817f-d031cb4d13f0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"tokenToUpdate\": \"<string>\",\n  \"bankAccountName\": \"<string>\",\n  \"bankAccountNumber\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/token/v1/updateAustralianBankAccount",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "token",
+                        "v1",
+                        "updateAustralianBankAccount"
+                      ]
+                    },
+                    "description": "This API provides the ability to update the payload associated with an existing token. For this API, the payload to update is a TokenAustralianBankAccount class."
+                  },
+                  "response": [
+                    {
+                      "id": "ed49d7e7-9652-4c26-b9d6-9a27c9bd64ee",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"tokenToUpdate\": \"<string>\",\n  \"bankAccountName\": \"<string>\",\n  \"bankAccountNumber\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/token/v1/updateAustralianBankAccount",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "token",
+                            "v1",
+                            "updateAustralianBankAccount"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"token\": \"<string>\",\n  \"hint\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T02:01:05.000Z",
+                      "updatedAt": "2026-10-22T02:01:05.000Z",
+                      "uid": "35240-ed49d7e7-9652-4c26-b9d6-9a27c9bd64ee"
+                    },
+                    {
+                      "id": "0f3e8fa7-632f-4cde-b615-cfd5fe55c7dd",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"tokenToUpdate\": \"<string>\",\n  \"bankAccountName\": \"<string>\",\n  \"bankAccountNumber\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/token/v1/updateAustralianBankAccount",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "token",
+                            "v1",
+                            "updateAustralianBankAccount"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:01:05.000Z",
+                      "updatedAt": "2026-10-22T02:01:05.000Z",
+                      "uid": "35240-0f3e8fa7-632f-4cde-b615-cfd5fe55c7dd"
+                    },
+                    {
+                      "id": "a1ecf060-5957-41ba-9ccc-0244136f421f",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"tokenToUpdate\": \"<string>\",\n  \"bankAccountName\": \"<string>\",\n  \"bankAccountNumber\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/token/v1/updateAustralianBankAccount",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "token",
+                            "v1",
+                            "updateAustralianBankAccount"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:01:05.000Z",
+                      "updatedAt": "2026-10-22T02:01:05.000Z",
+                      "uid": "35240-a1ecf060-5957-41ba-9ccc-0244136f421f"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:01:05.000Z",
+                  "updatedAt": "2026-10-22T02:01:05.000Z",
+                  "uid": "35240-269660e3-7aa3-4de8-817f-d031cb4d13f0"
+                }
+              ],
+              "id": "7698bc95-daa9-4241-88cb-cc2bd191eade",
+              "createdAt": "2026-10-22T02:01:05.000Z",
+              "updatedAt": "2026-10-22T02:01:05.000Z",
+              "uid": "35240-7698bc95-daa9-4241-88cb-cc2bd191eade"
+            },
+            {
+              "name": "updateBPAY",
+              "item": [
+                {
+                  "name": "Update BPAY token",
+                  "id": "076eb5ee-0be0-4cf6-8b8c-00fcc0846946",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"tokenToUpdate\": \"<string>\",\n  \"billerCode\": \"<integer>\",\n  \"customerReferenceNumber\": \"<integer>\",\n  \"amount\": \"<number>\",\n  \"description\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/token/v1/updateBPAY",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "token",
+                        "v1",
+                        "updateBPAY"
+                      ]
+                    },
+                    "description": "This API provides the ability to update the payload associated with an existing token. For this API, the payload to update is a TokenBPAY class."
+                  },
+                  "response": [
+                    {
+                      "id": "d041a5a0-509f-4137-80ac-f4ff0f133647",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"tokenToUpdate\": \"<string>\",\n  \"billerCode\": \"<integer>\",\n  \"customerReferenceNumber\": \"<integer>\",\n  \"amount\": \"<number>\",\n  \"description\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/token/v1/updateBPAY",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "token",
+                            "v1",
+                            "updateBPAY"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"token\": \"<string>\",\n  \"hint\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T02:01:05.000Z",
+                      "updatedAt": "2026-10-22T02:01:05.000Z",
+                      "uid": "35240-d041a5a0-509f-4137-80ac-f4ff0f133647"
+                    },
+                    {
+                      "id": "204c1396-a764-4b12-bad0-61f80c7739ce",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"tokenToUpdate\": \"<string>\",\n  \"billerCode\": \"<integer>\",\n  \"customerReferenceNumber\": \"<integer>\",\n  \"amount\": \"<number>\",\n  \"description\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/token/v1/updateBPAY",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "token",
+                            "v1",
+                            "updateBPAY"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:01:05.000Z",
+                      "updatedAt": "2026-10-22T02:01:05.000Z",
+                      "uid": "35240-204c1396-a764-4b12-bad0-61f80c7739ce"
+                    },
+                    {
+                      "id": "fab3cf58-1a98-44c7-a4be-0c42d84da940",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"tokenToUpdate\": \"<string>\",\n  \"billerCode\": \"<integer>\",\n  \"customerReferenceNumber\": \"<integer>\",\n  \"amount\": \"<number>\",\n  \"description\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/token/v1/updateBPAY",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "token",
+                            "v1",
+                            "updateBPAY"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:01:05.000Z",
+                      "updatedAt": "2026-10-22T02:01:05.000Z",
+                      "uid": "35240-fab3cf58-1a98-44c7-a4be-0c42d84da940"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:01:05.000Z",
+                  "updatedAt": "2026-10-22T02:01:05.000Z",
+                  "uid": "35240-076eb5ee-0be0-4cf6-8b8c-00fcc0846946"
+                }
+              ],
+              "id": "7e070345-7cce-4078-8f46-3507a651591b",
+              "createdAt": "2026-10-22T02:01:05.000Z",
+              "updatedAt": "2026-10-22T02:01:05.000Z",
+              "uid": "35240-7e070345-7cce-4078-8f46-3507a651591b"
+            },
+            {
+              "name": "validate",
+              "item": [
+                {
+                  "name": "{token}",
+                  "item": [
+                    {
+                      "name": "Validate token",
+                      "id": "d218bb16-7ebe-451a-a5bd-1b0981577d0e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/token/v1/validate/:token",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "token",
+                            "v1",
+                            "validate",
+                            ":token"
+                          ],
+                          "variable": [
+                            {
+                              "id": "ca364ab0-568e-4519-843c-dbca93ef878a",
+                              "key": "token",
+                              "value": "<string>",
+                              "description": "(Required) The text (GUID) that identifies the token."
+                            }
+                          ]
+                        },
+                        "description": "This API validates a token by passing a Token in the body."
+                      },
+                      "response": [
+                        {
+                          "id": "046ac6fb-8510-4961-a51f-2302910be3a2",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/token/v1/validate/:token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "token",
+                                "v1",
+                                "validate",
+                                ":token"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:01:05.000Z",
+                          "updatedAt": "2026-10-22T02:01:05.000Z",
+                          "uid": "35240-046ac6fb-8510-4961-a51f-2302910be3a2"
+                        },
+                        {
+                          "id": "141b550e-f691-4e84-9753-7bf4f65f98db",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/token/v1/validate/:token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "token",
+                                "v1",
+                                "validate",
+                                ":token"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:05.000Z",
+                          "updatedAt": "2026-10-22T02:01:05.000Z",
+                          "uid": "35240-141b550e-f691-4e84-9753-7bf4f65f98db"
+                        },
+                        {
+                          "id": "96f14e4a-5940-42b2-9e74-b95ecf924de9",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/token/v1/validate/:token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "token",
+                                "v1",
+                                "validate",
+                                ":token"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:01:05.000Z",
+                          "updatedAt": "2026-10-22T02:01:05.000Z",
+                          "uid": "35240-96f14e4a-5940-42b2-9e74-b95ecf924de9"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:01:05.000Z",
+                      "updatedAt": "2026-10-22T02:01:05.000Z",
+                      "uid": "35240-d218bb16-7ebe-451a-a5bd-1b0981577d0e"
+                    }
+                  ],
+                  "id": "483fef84-ea38-476d-88f0-0cf0f92b6b26",
+                  "createdAt": "2026-10-22T02:01:05.000Z",
+                  "updatedAt": "2026-10-22T02:01:05.000Z",
+                  "uid": "35240-483fef84-ea38-476d-88f0-0cf0f92b6b26"
+                }
+              ],
+              "id": "45a17a7a-38b9-4f59-af02-6789038be649",
+              "createdAt": "2026-10-22T02:01:05.000Z",
+              "updatedAt": "2026-10-22T02:01:05.000Z",
+              "uid": "35240-45a17a7a-38b9-4f59-af02-6789038be649"
+            }
+          ],
+          "id": "ff02bf6e-85f0-4b28-a2f1-440d5ac41f94",
+          "createdAt": "2026-10-22T02:01:05.000Z",
+          "updatedAt": "2026-10-22T02:01:05.000Z",
+          "uid": "35240-ff02bf6e-85f0-4b28-a2f1-440d5ac41f94"
+        }
+      ],
+      "id": "7e53bed0-06ce-49f4-a2da-64dd3760bedf",
+      "createdAt": "2026-10-22T02:01:05.000Z",
+      "updatedAt": "2026-10-22T02:01:05.000Z",
+      "uid": "35240-7e53bed0-06ce-49f4-a2da-64dd3760bedf"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.mpay.com.au"
+    }
+  ]
+}

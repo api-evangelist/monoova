@@ -1,0 +1,336 @@
+{
+  "info": {
+    "_postman_id": "26ed757d-22b3-403d-aae5-c7ec1eb43b6b",
+    "name": "Monoova Card Payments Get Async Request Status API",
+    "description": "# Introduction\nMonoova's Online Card Payment Service incorporates a next-gen Card Payment Checkout integrated with our expansive Payments API to allow merchants to capture card and mobile wallet payments from your customers online and receive funds into your Monoova account for automated reconciliation and disbursement.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:58:54.000Z",
+    "updatedAt": "2026-10-22T01:58:54.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-26ed757d-22b3-403d-aae5-c7ec1eb43b6b"
+  },
+  "item": [
+    {
+      "name": "au",
+      "item": [
+        {
+          "name": "card",
+          "item": [
+            {
+              "name": "ccm",
+              "item": [
+                {
+                  "name": "CreditCardTransactionAsync",
+                  "item": [
+                    {
+                      "name": "request",
+                      "item": [
+                        {
+                          "name": "{uniqueRequestId}",
+                          "item": [
+                            {
+                              "name": "Get Async Request Status",
+                              "id": "d0e8738c-244f-4099-9d48-b8f915a88f47",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/card/ccm/CreditCardTransactionAsync/request/:uniqueRequestId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "card",
+                                    "ccm",
+                                    "CreditCardTransactionAsync",
+                                    "request",
+                                    ":uniqueRequestId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "bb05ac34-47d1-444e-bbf0-fe9765dc7368",
+                                      "key": "uniqueRequestId",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "This endpoint can be used to get the status of the asynchronous refund request. The final status of the asynchronous request is marked as completed after we successfully initiate a refund request from our side. This does not indicate the status of the settlement process and money movement in case of a refund.\nInorder to get the detailed status of the refund request , please use the Credit Card - Get Transaction By Id or Credit Card - Get Transaction By Date Range."
+                              },
+                              "response": [
+                                {
+                                  "id": "944ea73e-d112-49dc-87a2-11a7f01f8899",
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/card/ccm/CreditCardTransactionAsync/request/:uniqueRequestId",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "card",
+                                        "ccm",
+                                        "CreditCardTransactionAsync",
+                                        "request",
+                                        ":uniqueRequestId"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "uniqueRequestId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"traceId\": \"<string>\",\n  \"uniqueRequestId\": \"<string>\",\n  \"clientTransactionUniqueReference\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                                  "createdAt": "2026-10-22T01:58:55.000Z",
+                                  "updatedAt": "2026-10-22T01:58:55.000Z",
+                                  "uid": "35240-944ea73e-d112-49dc-87a2-11a7f01f8899"
+                                },
+                                {
+                                  "id": "8e7b2181-5709-4b78-845b-06a370101b5d",
+                                  "name": "Success",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/card/ccm/CreditCardTransactionAsync/request/:uniqueRequestId",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "card",
+                                        "ccm",
+                                        "CreditCardTransactionAsync",
+                                        "request",
+                                        ":uniqueRequestId"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "uniqueRequestId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Created",
+                                  "code": 201,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"traceId\": \"<string>\",\n  \"uniqueRequestId\": \"<string>\",\n  \"clientTransactionUniqueReference\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                                  "createdAt": "2026-10-22T01:58:55.000Z",
+                                  "updatedAt": "2026-10-22T01:58:55.000Z",
+                                  "uid": "35240-8e7b2181-5709-4b78-845b-06a370101b5d"
+                                },
+                                {
+                                  "id": "6dbd6ce8-c240-453a-8cf8-c99a9661fd45",
+                                  "name": "Bad Request",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/card/ccm/CreditCardTransactionAsync/request/:uniqueRequestId",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "card",
+                                        "ccm",
+                                        "CreditCardTransactionAsync",
+                                        "request",
+                                        ":uniqueRequestId"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "uniqueRequestId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"46500c7a-5516-4040-9f33-4137bb496755\",\n    \"errors\": [\n      {\n        \"errorCode\": \"CCM_JOBID_INVALID\",\n        \"errorMessage\": \"Async Job Id is not valid Guid - must use the UniqueRequestId returned by the originating call\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:58:55.000Z",
+                                  "updatedAt": "2026-10-22T01:58:55.000Z",
+                                  "uid": "35240-6dbd6ce8-c240-453a-8cf8-c99a9661fd45"
+                                },
+                                {
+                                  "id": "782b6aeb-2fcd-4b66-a922-86c2ae07fcda",
+                                  "name": "Async Request Failed",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/card/ccm/CreditCardTransactionAsync/request/:uniqueRequestId",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "card",
+                                        "ccm",
+                                        "CreditCardTransactionAsync",
+                                        "request",
+                                        ":uniqueRequestId"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "uniqueRequestId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                  "code": 422,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"c0905f60-80b7-4a6a-abe3-0207b3e19b8e\",\n    \"uniqueRequestId\": \"595a3202-e9aa-406e-a2a3-5efb6ca8b72a\",\n    \"clientTransactionUniqueReference\": \"MONCC1673930138\",\n    \"status\": \"Failed\",\n    \"errorCode\": \"CCM_CC_GWM_ERROR\",\n    \"errorMessage\": \"Mandatory field is missing - payment_initiator_information.party_name.\"\n  }\n}",
+                                  "createdAt": "2026-10-22T01:58:55.000Z",
+                                  "updatedAt": "2026-10-22T01:58:55.000Z",
+                                  "uid": "35240-782b6aeb-2fcd-4b66-a922-86c2ae07fcda"
+                                }
+                              ],
+                              "createdAt": "2026-10-22T01:58:55.000Z",
+                              "updatedAt": "2026-10-22T01:58:55.000Z",
+                              "uid": "35240-d0e8738c-244f-4099-9d48-b8f915a88f47"
+                            }
+                          ],
+                          "id": "51a44630-90cf-429c-b1b7-3b4e01ae9e43",
+                          "createdAt": "2026-10-22T01:58:55.000Z",
+                          "updatedAt": "2026-10-22T01:58:55.000Z",
+                          "uid": "35240-51a44630-90cf-429c-b1b7-3b4e01ae9e43"
+                        }
+                      ],
+                      "id": "3b2b59fd-1abd-4625-a5b1-8e798581e796",
+                      "createdAt": "2026-10-22T01:58:55.000Z",
+                      "updatedAt": "2026-10-22T01:58:55.000Z",
+                      "uid": "35240-3b2b59fd-1abd-4625-a5b1-8e798581e796"
+                    }
+                  ],
+                  "id": "fdb07fc3-64f1-4ab3-9ec8-88775be34738",
+                  "createdAt": "2026-10-22T01:58:55.000Z",
+                  "updatedAt": "2026-10-22T01:58:55.000Z",
+                  "uid": "35240-fdb07fc3-64f1-4ab3-9ec8-88775be34738"
+                }
+              ],
+              "id": "d755cfef-a554-4221-bd57-454b30047ddd",
+              "createdAt": "2026-10-22T01:58:55.000Z",
+              "updatedAt": "2026-10-22T01:58:55.000Z",
+              "uid": "35240-d755cfef-a554-4221-bd57-454b30047ddd"
+            }
+          ],
+          "id": "6d41256e-0193-441e-9e45-8f0c221e532a",
+          "createdAt": "2026-10-22T01:58:55.000Z",
+          "updatedAt": "2026-10-22T01:58:55.000Z",
+          "uid": "35240-6d41256e-0193-441e-9e45-8f0c221e532a"
+        }
+      ],
+      "id": "c151d05e-55a5-4e9a-854e-e4ff0dcbf342",
+      "createdAt": "2026-10-22T01:58:55.000Z",
+      "updatedAt": "2026-10-22T01:58:55.000Z",
+      "uid": "35240-c151d05e-55a5-4e9a-854e-e4ff0dcbf342"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.monoova.com"
+    }
+  ]
+}

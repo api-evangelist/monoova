@@ -1,0 +1,2611 @@
+{
+  "info": {
+    "_postman_id": "752de1e9-6eaa-4a81-b632-26528e638302",
+    "name": "Monoova PayTo Manage Payment Agreements API",
+    "description": "# Introduction\n\nThe Monoova PayTo API is designed to efficiently handle real time financial transactions, providing a reliable platform for creating payment agreements and initiating payments.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:59:42.000Z",
+    "updatedAt": "2026-10-22T01:59:43.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-752de1e9-6eaa-4a81-b632-26528e638302"
+  },
+  "item": [
+    {
+      "name": "au",
+      "item": [
+        {
+          "name": "payto",
+          "item": [
+            {
+              "name": "pam-v1",
+              "item": [
+                {
+                  "name": "PaymentAgreement",
+                  "item": [
+                    {
+                      "name": "Create a Payment Agreement",
+                      "id": "882a21a5-7b07-4ad9-9a55-66f17d0c0e65",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"paymentAgreementUID\": \"2\",\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": 79205828.71210936,\n    \"payeeLinkedAccount\": 77626674.77158004\n  },\n  \"payerDetails\": {\n    \"linkedBsb\": \"fugiat pariatur\",\n    \"linkedAccount\": 35772004\n  },\n  \"paymentTerms\": {\n    \"numberOfTransactionsPermitted\": \"<integer,null>\",\n    \"frequency\": \"<string,null>\",\n    \"amount\": \"<number,null>\",\n    \"agreementType\": \"<string,null>\",\n    \"pointInTime\": \"<number,null>\",\n    \"maximumAmount\": \"<number,null>\"\n  },\n  \"paymentDetails\": {\n    \"automaticRenewal\": \"<boolean,null>\",\n    \"purpose\": \"<string,null>\",\n    \"startDate\": \"<string,null>\",\n    \"description\": \"<string,null>\",\n    \"shortDescription\": \"<string,null>\",\n    \"respondByTime\": \"<string,null>\",\n    \"endDate\": \"<string,null>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/au/payto/pam-v1/PaymentAgreement",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "au",
+                            "payto",
+                            "pam-v1",
+                            "PaymentAgreement"
+                          ]
+                        },
+                        "description": "The purpose of this endpoint is to create a payment agreement. An agreement can only initiate payments once the Payer approves it. Payers must respond by the respondByTime specified while creating the mandate. If respondByTime is not provided, it will be defaulted to 5 days for the Payer to approve or decline a payment agreement.\n\nRate Limit\nPayment Agreement and Initiation endpoints have rate limits applied at a service level. If you process at volumes that surpass the rate limits, you will get a 429 HTTP status code for 'too many requests'. If you see this error, you will need to retry. If you experience this issue frequently, space out the calls. Alternatively, the Async endpoints have a much higher rate limit applied.\n\nA webhook will notify customers about the approval/declination of a payment agreement. There is also get payment agreement endpoints to check the status of the payment agreement.\n\nTo receive payments in an account with Monoova, please create an automatcher account and use it under payee details when creating payment agreement. Automatcher accounts can also be created through the Sandbox Portal. Received payments through an automatcher account will be reported via webhook notification event name \u201cPayToReceivePayment\u201d.\n\nAdditionally, sample test accounts will need to be used for the payer-consumer side of the mandate on Sandbox. Please find below sample test payer accounts: .tb { table-layout:auto; width:100px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important}\n\nAccount Name Monoova Sample 1 Monoova Sample 2 Monoova Sample 3 Monoova Sample 4 Monoova Sample 5\n\nBSB 802950\n\nAccount Number 22090100\n\nPayID - Phone +61-422020901\n\nPayID - Email sample@monoova.com\n\nPayID - ABN 38126015228\n\nPayID - Organisation ID 987654321\n\nBelow are a series of reference tables for the create and initiate payment agreement schemas\n\nFrequency\n.tb { table-layout:auto; width:100px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important}\n\nCode Name Description\n\nADHO Adhoc Event takes place on request or as necessary.\n\nDAIL Daily Event takes place every day.\n\nFRTN Fortnightly Event takes place every two weeks.\n\nINDA IntraDay Event takes place several times a day.\n\nMIAN SemiAnnual Event takes place every six months or two times a year.\n\nMNTH Monthly Event takes place every month or once a month.\n\nQURT Quarterly Event takes place every three months or four times a year.\n\nWEEK Weekly Event takes place once a week.\n\nYEAR Annual Event takes place every year or once a year.\n\nAgreement Type\n.tb { table-layout:auto; width:200px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important}\n\nCode Name Description\n\nFIXE Fixed Payment amount is fixed.\n\nUSGB UsageBased Payment amount is based on usage.\n\nVARI Variable Payment amount is variable.\n\nAgreement Type + Amount\n.tb { table-layout:auto; width:100px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important}\n\nagreementType amount maximumAmount Rules\n\nFIXE Valid numeric value NA If Fixed, only amount should have values. Max amount should not be present\n\nUSGB Valid numeric value Valid numeric value If Usage based, max amount is recommended. However, amount and max amount are optional. If both amount and max amount are present, amount should be less than max amount\n\nVARI Valid numeric value Valid numeric value If Variable, max amount is recommended. However, amount and max amount are optional. If both amount and max amount are present, amount should be less than max amount"
+                      },
+                      "response": [
+                        {
+                          "id": "f509f257-3be2-4f03-a088-6964a02773e9",
+                          "name": "Success",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"paymentAgreementUID\": \"2\",\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": 79205828.71210936,\n    \"payeeLinkedAccount\": 77626674.77158004\n  },\n  \"payerDetails\": {\n    \"linkedBsb\": \"fugiat pariatur\",\n    \"linkedAccount\": 35772004\n  },\n  \"paymentTerms\": {\n    \"numberOfTransactionsPermitted\": \"<integer,null>\",\n    \"frequency\": \"<string,null>\",\n    \"amount\": \"<number,null>\",\n    \"agreementType\": \"<string,null>\",\n    \"pointInTime\": \"<number,null>\",\n    \"maximumAmount\": \"<number,null>\"\n  },\n  \"paymentDetails\": {\n    \"automaticRenewal\": \"<boolean,null>\",\n    \"purpose\": \"<string,null>\",\n    \"startDate\": \"<string,null>\",\n    \"description\": \"<string,null>\",\n    \"shortDescription\": \"<string,null>\",\n    \"respondByTime\": \"<string,null>\",\n    \"endDate\": \"<string,null>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pam-v1/PaymentAgreement",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pam-v1",
+                                "PaymentAgreement"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"traceId\": \"<string>\",\n  \"paymentAgreementUID\": \"b\",\n  \"PaymentAgreementStatus\": \"<string>\",\n  \"PaymentAgreementStatusDescription\": \"<string,null>\",\n  \"mmsId\": \"<string>\",\n  \"registrationDateTime\": \"<string>\",\n  \"actionIdentification\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T01:59:43.000Z",
+                          "updatedAt": "2026-10-22T01:59:43.000Z",
+                          "uid": "35240-f509f257-3be2-4f03-a088-6964a02773e9"
+                        },
+                        {
+                          "id": "d981b43f-8fc9-4c61-b9e7-3c7c0972926f",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"paymentAgreementUID\": \"2\",\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": 79205828.71210936,\n    \"payeeLinkedAccount\": 77626674.77158004\n  },\n  \"payerDetails\": {\n    \"linkedBsb\": \"fugiat pariatur\",\n    \"linkedAccount\": 35772004\n  },\n  \"paymentTerms\": {\n    \"numberOfTransactionsPermitted\": \"<integer,null>\",\n    \"frequency\": \"<string,null>\",\n    \"amount\": \"<number,null>\",\n    \"agreementType\": \"<string,null>\",\n    \"pointInTime\": \"<number,null>\",\n    \"maximumAmount\": \"<number,null>\"\n  },\n  \"paymentDetails\": {\n    \"automaticRenewal\": \"<boolean,null>\",\n    \"purpose\": \"<string,null>\",\n    \"startDate\": \"<string,null>\",\n    \"description\": \"<string,null>\",\n    \"shortDescription\": \"<string,null>\",\n    \"respondByTime\": \"<string,null>\",\n    \"endDate\": \"<string,null>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pam-v1/PaymentAgreement",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pam-v1",
+                                "PaymentAgreement"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:43.000Z",
+                          "updatedAt": "2026-10-22T01:59:43.000Z",
+                          "uid": "35240-d981b43f-8fc9-4c61-b9e7-3c7c0972926f"
+                        },
+                        {
+                          "id": "18f16572-49da-4cee-a5d2-cddc185c8170",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"paymentAgreementUID\": \"2\",\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": 79205828.71210936,\n    \"payeeLinkedAccount\": 77626674.77158004\n  },\n  \"payerDetails\": {\n    \"linkedBsb\": \"fugiat pariatur\",\n    \"linkedAccount\": 35772004\n  },\n  \"paymentTerms\": {\n    \"numberOfTransactionsPermitted\": \"<integer,null>\",\n    \"frequency\": \"<string,null>\",\n    \"amount\": \"<number,null>\",\n    \"agreementType\": \"<string,null>\",\n    \"pointInTime\": \"<number,null>\",\n    \"maximumAmount\": \"<number,null>\"\n  },\n  \"paymentDetails\": {\n    \"automaticRenewal\": \"<boolean,null>\",\n    \"purpose\": \"<string,null>\",\n    \"startDate\": \"<string,null>\",\n    \"description\": \"<string,null>\",\n    \"shortDescription\": \"<string,null>\",\n    \"respondByTime\": \"<string,null>\",\n    \"endDate\": \"<string,null>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pam-v1/PaymentAgreement",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pam-v1",
+                                "PaymentAgreement"
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:43.000Z",
+                          "updatedAt": "2026-10-22T01:59:43.000Z",
+                          "uid": "35240-18f16572-49da-4cee-a5d2-cddc185c8170"
+                        },
+                        {
+                          "id": "e1fc7944-5895-435f-b466-581ea83b3e83",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"paymentAgreementUID\": \"2\",\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": 79205828.71210936,\n    \"payeeLinkedAccount\": 77626674.77158004\n  },\n  \"payerDetails\": {\n    \"linkedBsb\": \"fugiat pariatur\",\n    \"linkedAccount\": 35772004\n  },\n  \"paymentTerms\": {\n    \"numberOfTransactionsPermitted\": \"<integer,null>\",\n    \"frequency\": \"<string,null>\",\n    \"amount\": \"<number,null>\",\n    \"agreementType\": \"<string,null>\",\n    \"pointInTime\": \"<number,null>\",\n    \"maximumAmount\": \"<number,null>\"\n  },\n  \"paymentDetails\": {\n    \"automaticRenewal\": \"<boolean,null>\",\n    \"purpose\": \"<string,null>\",\n    \"startDate\": \"<string,null>\",\n    \"description\": \"<string,null>\",\n    \"shortDescription\": \"<string,null>\",\n    \"respondByTime\": \"<string,null>\",\n    \"endDate\": \"<string,null>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pam-v1/PaymentAgreement",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pam-v1",
+                                "PaymentAgreement"
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:43.000Z",
+                          "updatedAt": "2026-10-22T01:59:43.000Z",
+                          "uid": "35240-e1fc7944-5895-435f-b466-581ea83b3e83"
+                        },
+                        {
+                          "id": "0b7c3ce9-79a5-409c-b403-70fb28ffb5bc",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"paymentAgreementUID\": \"2\",\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": 79205828.71210936,\n    \"payeeLinkedAccount\": 77626674.77158004\n  },\n  \"payerDetails\": {\n    \"linkedBsb\": \"fugiat pariatur\",\n    \"linkedAccount\": 35772004\n  },\n  \"paymentTerms\": {\n    \"numberOfTransactionsPermitted\": \"<integer,null>\",\n    \"frequency\": \"<string,null>\",\n    \"amount\": \"<number,null>\",\n    \"agreementType\": \"<string,null>\",\n    \"pointInTime\": \"<number,null>\",\n    \"maximumAmount\": \"<number,null>\"\n  },\n  \"paymentDetails\": {\n    \"automaticRenewal\": \"<boolean,null>\",\n    \"purpose\": \"<string,null>\",\n    \"startDate\": \"<string,null>\",\n    \"description\": \"<string,null>\",\n    \"shortDescription\": \"<string,null>\",\n    \"respondByTime\": \"<string,null>\",\n    \"endDate\": \"<string,null>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pam-v1/PaymentAgreement",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pam-v1",
+                                "PaymentAgreement"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:43.000Z",
+                          "updatedAt": "2026-10-22T01:59:43.000Z",
+                          "uid": "35240-0b7c3ce9-79a5-409c-b403-70fb28ffb5bc"
+                        },
+                        {
+                          "id": "fcbb94b5-29d7-47a8-8606-4ceb57b481af",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"paymentAgreementUID\": \"2\",\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": 79205828.71210936,\n    \"payeeLinkedAccount\": 77626674.77158004\n  },\n  \"payerDetails\": {\n    \"linkedBsb\": \"fugiat pariatur\",\n    \"linkedAccount\": 35772004\n  },\n  \"paymentTerms\": {\n    \"numberOfTransactionsPermitted\": \"<integer,null>\",\n    \"frequency\": \"<string,null>\",\n    \"amount\": \"<number,null>\",\n    \"agreementType\": \"<string,null>\",\n    \"pointInTime\": \"<number,null>\",\n    \"maximumAmount\": \"<number,null>\"\n  },\n  \"paymentDetails\": {\n    \"automaticRenewal\": \"<boolean,null>\",\n    \"purpose\": \"<string,null>\",\n    \"startDate\": \"<string,null>\",\n    \"description\": \"<string,null>\",\n    \"shortDescription\": \"<string,null>\",\n    \"respondByTime\": \"<string,null>\",\n    \"endDate\": \"<string,null>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pam-v1/PaymentAgreement",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pam-v1",
+                                "PaymentAgreement"
+                              ]
+                            }
+                          },
+                          "status": "Bad Gateway",
+                          "code": 502,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:43.000Z",
+                          "updatedAt": "2026-10-22T01:59:43.000Z",
+                          "uid": "35240-fcbb94b5-29d7-47a8-8606-4ceb57b481af"
+                        },
+                        {
+                          "id": "31ca4863-1607-40f1-ba1e-b73d2617bc07",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"paymentAgreementUID\": \"2\",\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": 79205828.71210936,\n    \"payeeLinkedAccount\": 77626674.77158004\n  },\n  \"payerDetails\": {\n    \"linkedBsb\": \"fugiat pariatur\",\n    \"linkedAccount\": 35772004\n  },\n  \"paymentTerms\": {\n    \"numberOfTransactionsPermitted\": \"<integer,null>\",\n    \"frequency\": \"<string,null>\",\n    \"amount\": \"<number,null>\",\n    \"agreementType\": \"<string,null>\",\n    \"pointInTime\": \"<number,null>\",\n    \"maximumAmount\": \"<number,null>\"\n  },\n  \"paymentDetails\": {\n    \"automaticRenewal\": \"<boolean,null>\",\n    \"purpose\": \"<string,null>\",\n    \"startDate\": \"<string,null>\",\n    \"description\": \"<string,null>\",\n    \"shortDescription\": \"<string,null>\",\n    \"respondByTime\": \"<string,null>\",\n    \"endDate\": \"<string,null>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/payto/pam-v1/PaymentAgreement",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "payto",
+                                "pam-v1",
+                                "PaymentAgreement"
+                              ]
+                            }
+                          },
+                          "status": "Gateway Timeout",
+                          "code": 504,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:43.000Z",
+                          "updatedAt": "2026-10-22T01:59:43.000Z",
+                          "uid": "35240-31ca4863-1607-40f1-ba1e-b73d2617bc07"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:59:43.000Z",
+                      "updatedAt": "2026-10-22T01:59:43.000Z",
+                      "uid": "35240-882a21a5-7b07-4ad9-9a55-66f17d0c0e65"
+                    }
+                  ],
+                  "id": "ec9f0612-a70c-4774-bd80-cff7ab55c964",
+                  "createdAt": "2026-10-22T01:59:43.000Z",
+                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                  "uid": "35240-ec9f0612-a70c-4774-bd80-cff7ab55c964"
+                },
+                {
+                  "name": "paymentagreement",
+                  "item": [
+                    {
+                      "name": "{paymentAgreementUID}",
+                      "item": [
+                        {
+                          "name": "unilateral",
+                          "item": [
+                            {
+                              "name": "Unilateral Amendment",
+                              "id": "21e16285-4d3d-41b0-bbbb-0572e335b8cd",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json-patch+json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"description\": \"<string,null>\",\n  \"shortDescription\": \"<string,null>\",\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": \"adipisicing Duis pariatur aliquip ad\",\n    \"payeeLinkedAccount\": 46134624.277297884\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/unilateral",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "payto",
+                                    "pam-v1",
+                                    "paymentagreement",
+                                    ":paymentAgreementUID",
+                                    "unilateral"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "5dca8076-aaf8-4778-abc5-37e454f66ec2",
+                                      "key": "paymentAgreementUID",
+                                      "value": "r",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Unilateral changes to a payment agreement can be done without the payer\u2019s approval. The only fields that can be changed unilaterally are the payee object and agreement descriptions."
+                              },
+                              "response": [
+                                {
+                                  "id": "346461cc-cbc6-4795-8fb9-9d2ac1a57fb6",
+                                  "name": "Success",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json-patch+json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"description\": \"<string,null>\",\n  \"shortDescription\": \"<string,null>\",\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": \"adipisicing Duis pariatur aliquip ad\",\n    \"payeeLinkedAccount\": 46134624.277297884\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/unilateral",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "payto",
+                                        "pam-v1",
+                                        "paymentagreement",
+                                        ":paymentAgreementUID",
+                                        "unilateral"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "paymentAgreementUID"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"paymentAgreementUID\": \"R\",\n  \"traceId\": \"<string>\",\n  \"mmsId\": \"<string>\",\n  \"actionIdentification\": \"<string>\"\n}",
+                                  "createdAt": "2026-10-22T01:59:43.000Z",
+                                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                                  "uid": "35240-346461cc-cbc6-4795-8fb9-9d2ac1a57fb6"
+                                },
+                                {
+                                  "id": "c262d629-122e-4bb3-a45b-2b05697f91fc",
+                                  "name": "Error",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json-patch+json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"description\": \"<string,null>\",\n  \"shortDescription\": \"<string,null>\",\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": \"adipisicing Duis pariatur aliquip ad\",\n    \"payeeLinkedAccount\": 46134624.277297884\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/unilateral",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "payto",
+                                        "pam-v1",
+                                        "paymentagreement",
+                                        ":paymentAgreementUID",
+                                        "unilateral"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "paymentAgreementUID"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"b008558d-b6df-4935-b2aa-39b2f8d467be\",\n    \"errors\": [\n      {\n        \"errorCode\": \"PAM_BR_AMEND_FORBIDDEN\",\n        \"errorMessage\": \"Can only amend payment agreement in active or paused status\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:59:43.000Z",
+                                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                                  "uid": "35240-c262d629-122e-4bb3-a45b-2b05697f91fc"
+                                },
+                                {
+                                  "id": "cccd4dc5-0ac4-483d-b290-4befb4ee577a",
+                                  "name": "Error",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json-patch+json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"description\": \"<string,null>\",\n  \"shortDescription\": \"<string,null>\",\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": \"adipisicing Duis pariatur aliquip ad\",\n    \"payeeLinkedAccount\": 46134624.277297884\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/unilateral",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "payto",
+                                        "pam-v1",
+                                        "paymentagreement",
+                                        ":paymentAgreementUID",
+                                        "unilateral"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "paymentAgreementUID"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:59:43.000Z",
+                                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                                  "uid": "35240-cccd4dc5-0ac4-483d-b290-4befb4ee577a"
+                                },
+                                {
+                                  "id": "3f11dc14-01b6-4b50-a4e2-0323765152cf",
+                                  "name": "Error",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json-patch+json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"description\": \"<string,null>\",\n  \"shortDescription\": \"<string,null>\",\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": \"adipisicing Duis pariatur aliquip ad\",\n    \"payeeLinkedAccount\": 46134624.277297884\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/unilateral",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "payto",
+                                        "pam-v1",
+                                        "paymentagreement",
+                                        ":paymentAgreementUID",
+                                        "unilateral"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "paymentAgreementUID"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:59:43.000Z",
+                                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                                  "uid": "35240-3f11dc14-01b6-4b50-a4e2-0323765152cf"
+                                },
+                                {
+                                  "id": "1d46de18-b916-47bd-8f0b-a6bf79d99a60",
+                                  "name": "Error",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json-patch+json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"description\": \"<string,null>\",\n  \"shortDescription\": \"<string,null>\",\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": \"adipisicing Duis pariatur aliquip ad\",\n    \"payeeLinkedAccount\": 46134624.277297884\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/unilateral",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "payto",
+                                        "pam-v1",
+                                        "paymentagreement",
+                                        ":paymentAgreementUID",
+                                        "unilateral"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "paymentAgreementUID"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:59:43.000Z",
+                                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                                  "uid": "35240-1d46de18-b916-47bd-8f0b-a6bf79d99a60"
+                                },
+                                {
+                                  "id": "a5ffc4d3-b1ac-46a6-8bd7-55a22b803f9b",
+                                  "name": "Error",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json-patch+json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"description\": \"<string,null>\",\n  \"shortDescription\": \"<string,null>\",\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": \"adipisicing Duis pariatur aliquip ad\",\n    \"payeeLinkedAccount\": 46134624.277297884\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/unilateral",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "payto",
+                                        "pam-v1",
+                                        "paymentagreement",
+                                        ":paymentAgreementUID",
+                                        "unilateral"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "paymentAgreementUID"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Gateway",
+                                  "code": 502,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:59:43.000Z",
+                                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                                  "uid": "35240-a5ffc4d3-b1ac-46a6-8bd7-55a22b803f9b"
+                                },
+                                {
+                                  "id": "3d3141b8-2176-46ad-8e9d-7cda1fe9d532",
+                                  "name": "Error",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json-patch+json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"description\": \"<string,null>\",\n  \"shortDescription\": \"<string,null>\",\n  \"payeeDetails\": {\n    \"payeeLinkedBsb\": \"adipisicing Duis pariatur aliquip ad\",\n    \"payeeLinkedAccount\": 46134624.277297884\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/unilateral",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "payto",
+                                        "pam-v1",
+                                        "paymentagreement",
+                                        ":paymentAgreementUID",
+                                        "unilateral"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "paymentAgreementUID"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Gateway Timeout",
+                                  "code": 504,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:59:43.000Z",
+                                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                                  "uid": "35240-3d3141b8-2176-46ad-8e9d-7cda1fe9d532"
+                                }
+                              ],
+                              "createdAt": "2026-10-22T01:59:43.000Z",
+                              "updatedAt": "2026-10-22T01:59:43.000Z",
+                              "uid": "35240-21e16285-4d3d-41b0-bbbb-0572e335b8cd"
+                            }
+                          ],
+                          "id": "b1325db7-883b-4e10-b5a7-4dc90676473c",
+                          "createdAt": "2026-10-22T01:59:43.000Z",
+                          "updatedAt": "2026-10-22T01:59:43.000Z",
+                          "uid": "35240-b1325db7-883b-4e10-b5a7-4dc90676473c"
+                        },
+                        {
+                          "name": "bilateral",
+                          "item": [
+                            {
+                              "name": "Bilateral Amendment",
+                              "id": "7c5be681-b535-4818-8e57-3c52f339a37c",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"automaticRenewal\": \"<boolean,null>\",\n  \"endDate\": \"<string,null>\",\n  \"respondByTime\": \"<string,null-date-time>\",\n  \"paymentTerms\": {\n    \"numberOfTransactionsPermitted\": \"<integer,null>\",\n    \"frequency\": \"<string,null>\",\n    \"amount\": \"<number,null>\",\n    \"agreementType\": \"<string,null>\",\n    \"pointInTime\": \"<number,null>\",\n    \"maximumAmount\": \"<number,null>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/bilateral",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "payto",
+                                    "pam-v1",
+                                    "paymentagreement",
+                                    ":paymentAgreementUID",
+                                    "bilateral"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "28dc3260-4317-4d1b-a0cc-3f298a71de6f",
+                                      "key": "paymentAgreementUID",
+                                      "value": "7",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Bilateral changes can't be done without the payer\u2019s approval. Changes can be made to payment terms. Changes made using this end point will only get reflected after payer approves the change. Until new terms are approved, payment agreement will be active with its last approved terms."
+                              },
+                              "response": [
+                                {
+                                  "id": "e1b68374-ce93-4ed1-b717-ab9cf5929b22",
+                                  "name": "Success",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"automaticRenewal\": \"<boolean,null>\",\n  \"endDate\": \"<string,null>\",\n  \"respondByTime\": \"<string,null-date-time>\",\n  \"paymentTerms\": {\n    \"numberOfTransactionsPermitted\": \"<integer,null>\",\n    \"frequency\": \"<string,null>\",\n    \"amount\": \"<number,null>\",\n    \"agreementType\": \"<string,null>\",\n    \"pointInTime\": \"<number,null>\",\n    \"maximumAmount\": \"<number,null>\"\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/bilateral",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "payto",
+                                        "pam-v1",
+                                        "paymentagreement",
+                                        ":paymentAgreementUID",
+                                        "bilateral"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "paymentAgreementUID"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"paymentAgreementUID\": \"N\",\n  \"mmsId\": \"<string>\",\n  \"actionIdentification\": \"<string>\"\n}",
+                                  "createdAt": "2026-10-22T01:59:43.000Z",
+                                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                                  "uid": "35240-e1b68374-ce93-4ed1-b717-ab9cf5929b22"
+                                },
+                                {
+                                  "id": "a01feb19-c2f2-4a77-a3c5-6cce8661f900",
+                                  "name": "Error",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"automaticRenewal\": \"<boolean,null>\",\n  \"endDate\": \"<string,null>\",\n  \"respondByTime\": \"<string,null-date-time>\",\n  \"paymentTerms\": {\n    \"numberOfTransactionsPermitted\": \"<integer,null>\",\n    \"frequency\": \"<string,null>\",\n    \"amount\": \"<number,null>\",\n    \"agreementType\": \"<string,null>\",\n    \"pointInTime\": \"<number,null>\",\n    \"maximumAmount\": \"<number,null>\"\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/bilateral",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "payto",
+                                        "pam-v1",
+                                        "paymentagreement",
+                                        ":paymentAgreementUID",
+                                        "bilateral"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "paymentAgreementUID"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:59:43.000Z",
+                                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                                  "uid": "35240-a01feb19-c2f2-4a77-a3c5-6cce8661f900"
+                                },
+                                {
+                                  "id": "0b61215d-6a7a-44b5-9715-a50cba6ff26a",
+                                  "name": "Error",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"automaticRenewal\": \"<boolean,null>\",\n  \"endDate\": \"<string,null>\",\n  \"respondByTime\": \"<string,null-date-time>\",\n  \"paymentTerms\": {\n    \"numberOfTransactionsPermitted\": \"<integer,null>\",\n    \"frequency\": \"<string,null>\",\n    \"amount\": \"<number,null>\",\n    \"agreementType\": \"<string,null>\",\n    \"pointInTime\": \"<number,null>\",\n    \"maximumAmount\": \"<number,null>\"\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/bilateral",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "payto",
+                                        "pam-v1",
+                                        "paymentagreement",
+                                        ":paymentAgreementUID",
+                                        "bilateral"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "paymentAgreementUID"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:59:43.000Z",
+                                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                                  "uid": "35240-0b61215d-6a7a-44b5-9715-a50cba6ff26a"
+                                },
+                                {
+                                  "id": "fc38aed8-fbe8-44e4-a476-0c36f3741003",
+                                  "name": "Error",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"automaticRenewal\": \"<boolean,null>\",\n  \"endDate\": \"<string,null>\",\n  \"respondByTime\": \"<string,null-date-time>\",\n  \"paymentTerms\": {\n    \"numberOfTransactionsPermitted\": \"<integer,null>\",\n    \"frequency\": \"<string,null>\",\n    \"amount\": \"<number,null>\",\n    \"agreementType\": \"<string,null>\",\n    \"pointInTime\": \"<number,null>\",\n    \"maximumAmount\": \"<number,null>\"\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/bilateral",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "payto",
+                                        "pam-v1",
+                                        "paymentagreement",
+                                        ":paymentAgreementUID",
+                                        "bilateral"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "paymentAgreementUID"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:59:43.000Z",
+                                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                                  "uid": "35240-fc38aed8-fbe8-44e4-a476-0c36f3741003"
+                                },
+                                {
+                                  "id": "12f1d2fd-1d23-49d8-af09-301009f3d911",
+                                  "name": "Error",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"automaticRenewal\": \"<boolean,null>\",\n  \"endDate\": \"<string,null>\",\n  \"respondByTime\": \"<string,null-date-time>\",\n  \"paymentTerms\": {\n    \"numberOfTransactionsPermitted\": \"<integer,null>\",\n    \"frequency\": \"<string,null>\",\n    \"amount\": \"<number,null>\",\n    \"agreementType\": \"<string,null>\",\n    \"pointInTime\": \"<number,null>\",\n    \"maximumAmount\": \"<number,null>\"\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/bilateral",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "payto",
+                                        "pam-v1",
+                                        "paymentagreement",
+                                        ":paymentAgreementUID",
+                                        "bilateral"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "paymentAgreementUID"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:59:43.000Z",
+                                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                                  "uid": "35240-12f1d2fd-1d23-49d8-af09-301009f3d911"
+                                },
+                                {
+                                  "id": "8ee55bbe-ee77-45aa-8ba7-6cd3b050280b",
+                                  "name": "Error",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"automaticRenewal\": \"<boolean,null>\",\n  \"endDate\": \"<string,null>\",\n  \"respondByTime\": \"<string,null-date-time>\",\n  \"paymentTerms\": {\n    \"numberOfTransactionsPermitted\": \"<integer,null>\",\n    \"frequency\": \"<string,null>\",\n    \"amount\": \"<number,null>\",\n    \"agreementType\": \"<string,null>\",\n    \"pointInTime\": \"<number,null>\",\n    \"maximumAmount\": \"<number,null>\"\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/bilateral",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "payto",
+                                        "pam-v1",
+                                        "paymentagreement",
+                                        ":paymentAgreementUID",
+                                        "bilateral"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "paymentAgreementUID"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Gateway",
+                                  "code": 502,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:59:43.000Z",
+                                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                                  "uid": "35240-8ee55bbe-ee77-45aa-8ba7-6cd3b050280b"
+                                },
+                                {
+                                  "id": "1e3495ff-a0e2-4672-ba77-768421914a66",
+                                  "name": "Error",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"automaticRenewal\": \"<boolean,null>\",\n  \"endDate\": \"<string,null>\",\n  \"respondByTime\": \"<string,null-date-time>\",\n  \"paymentTerms\": {\n    \"numberOfTransactionsPermitted\": \"<integer,null>\",\n    \"frequency\": \"<string,null>\",\n    \"amount\": \"<number,null>\",\n    \"agreementType\": \"<string,null>\",\n    \"pointInTime\": \"<number,null>\",\n    \"maximumAmount\": \"<number,null>\"\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/bilateral",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "payto",
+                                        "pam-v1",
+                                        "paymentagreement",
+                                        ":paymentAgreementUID",
+                                        "bilateral"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "paymentAgreementUID"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Gateway Timeout",
+                                  "code": 504,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:59:43.000Z",
+                                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                                  "uid": "35240-1e3495ff-a0e2-4672-ba77-768421914a66"
+                                }
+                              ],
+                              "createdAt": "2026-10-22T01:59:43.000Z",
+                              "updatedAt": "2026-10-22T01:59:43.000Z",
+                              "uid": "35240-7c5be681-b535-4818-8e57-3c52f339a37c"
+                            }
+                          ],
+                          "id": "20bf3360-cf2a-4d25-aa96-dcbcedba0042",
+                          "createdAt": "2026-10-22T01:59:43.000Z",
+                          "updatedAt": "2026-10-22T01:59:43.000Z",
+                          "uid": "35240-20bf3360-cf2a-4d25-aa96-dcbcedba0042"
+                        },
+                        {
+                          "name": "status",
+                          "item": [
+                            {
+                              "name": "Amend Payment Agreement Status",
+                              "id": "21dd7842-d28b-44b0-8a27-aa85bf5bc19e",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"paymentAgreementUID\": \"<string>\",\n  \"statusChange\": \"<string>\",\n  \"reasonCode\": \"<string>\",\n  \"reasonDescription\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/status",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "payto",
+                                    "pam-v1",
+                                    "paymentagreement",
+                                    ":paymentAgreementUID",
+                                    "status"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "a7919130-ebe2-4e87-9369-a855bf49f0bb",
+                                      "key": "paymentAgreementUID",
+                                      "value": "0lDVJEquMyowQ57X3",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "This endpoint allows the initiator to change the status of a payment agreement. Available statuses are `active`, `pause`, or `cancel`.\n\nStatus Reason Code\n\n.tb { table-layout:auto; width:200px;!important }\n.td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis!important}\n\nCode Reason\n\nAC02Invalid Debtor Account Number\n\nAC04Closed Account Number\n\nAC05Closed Debtor Account Number\n\nAC06Blocked Account\n\nAC13Invalid Debtor Account Type\n\nAG01Transaction Forbidden\n\nAG03Transaction Not Supported\n\nAM03Not Allowed Currency\n\nAM12Invalid Amount\n\nAM14Amount Exceeds Agreed Limit\n\nCTAMContract Amended\n\nCTCAContract Cancellation Initiated By Debtor\n\nCTEXContract Expired\n\nMCFCPayment Agreement Suspended Final Collection\n\nMCOCPayment Agreement Suspended Once Off Collection\n\nMD07End Customer Deceased\n\nMD08No Payment Agreement Service By Agent\n\nMD09No Payment Agreement Service On Customer\n\nMD16Requested By Customer\n\nMD17Requested By Initiating Party\n\nMD20Payment Agreement Expired\n\nMD21Payment Agreement Cancelled Due To Fraud\n\nMS02Not Specified Reason Customer Generated\n\nMS03Not Specified Reason Agent Generated\n\nMSUCPayment Agreement Suspended 7 Consecutive Unsuccessful Collections\n\nNARRNarrative\n\nNOASNo Answer From Customer\n\nRR04Regulatory Reason\n\nSL01Specific Service Offered By Debtor Agent\n\nSL11Creditor Not On Whitelist Of Debtor\n\nSL12Creditor On Blacklist Of Debtor"
+                              },
+                              "response": [
+                                {
+                                  "id": "fb374be5-aba6-404f-9269-5158b924a19e",
+                                  "name": "Success",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"paymentAgreementUID\": \"<string>\",\n  \"statusChange\": \"<string>\",\n  \"reasonCode\": \"<string>\",\n  \"reasonDescription\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/status",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "payto",
+                                        "pam-v1",
+                                        "paymentagreement",
+                                        ":paymentAgreementUID",
+                                        "status"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "paymentAgreementUID"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"traceId\": \"<string>\",\n  \"paymentAgreementUID\": \"Y\",\n  \"paymentAgreementStatus\": \"<string>\",\n  \"paymentAgreementStatusDescription\": \"<string>\",\n  \"mmsId\": \"<string>\"\n}",
+                                  "createdAt": "2026-10-22T01:59:43.000Z",
+                                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                                  "uid": "35240-fb374be5-aba6-404f-9269-5158b924a19e"
+                                },
+                                {
+                                  "id": "2df37567-0e80-41c0-acff-8b4cad915631",
+                                  "name": "Error",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"paymentAgreementUID\": \"<string>\",\n  \"statusChange\": \"<string>\",\n  \"reasonCode\": \"<string>\",\n  \"reasonDescription\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/status",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "payto",
+                                        "pam-v1",
+                                        "paymentagreement",
+                                        ":paymentAgreementUID",
+                                        "status"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "paymentAgreementUID"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:59:43.000Z",
+                                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                                  "uid": "35240-2df37567-0e80-41c0-acff-8b4cad915631"
+                                },
+                                {
+                                  "id": "d624d45a-4771-4566-a2b9-0e8c69ab7480",
+                                  "name": "Error",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"paymentAgreementUID\": \"<string>\",\n  \"statusChange\": \"<string>\",\n  \"reasonCode\": \"<string>\",\n  \"reasonDescription\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/status",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "payto",
+                                        "pam-v1",
+                                        "paymentagreement",
+                                        ":paymentAgreementUID",
+                                        "status"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "paymentAgreementUID"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:59:43.000Z",
+                                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                                  "uid": "35240-d624d45a-4771-4566-a2b9-0e8c69ab7480"
+                                },
+                                {
+                                  "id": "9058a97b-200f-4873-a109-dead610fad44",
+                                  "name": "Error",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"paymentAgreementUID\": \"<string>\",\n  \"statusChange\": \"<string>\",\n  \"reasonCode\": \"<string>\",\n  \"reasonDescription\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/status",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "payto",
+                                        "pam-v1",
+                                        "paymentagreement",
+                                        ":paymentAgreementUID",
+                                        "status"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "paymentAgreementUID"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:59:43.000Z",
+                                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                                  "uid": "35240-9058a97b-200f-4873-a109-dead610fad44"
+                                },
+                                {
+                                  "id": "e83b81e0-d148-4854-87bd-a576515ba20b",
+                                  "name": "Error",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"paymentAgreementUID\": \"<string>\",\n  \"statusChange\": \"<string>\",\n  \"reasonCode\": \"<string>\",\n  \"reasonDescription\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/status",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "payto",
+                                        "pam-v1",
+                                        "paymentagreement",
+                                        ":paymentAgreementUID",
+                                        "status"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "paymentAgreementUID"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:59:43.000Z",
+                                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                                  "uid": "35240-e83b81e0-d148-4854-87bd-a576515ba20b"
+                                },
+                                {
+                                  "id": "ed39104e-663a-40b8-9cb6-7ff197c1fe9b",
+                                  "name": "Error",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"paymentAgreementUID\": \"<string>\",\n  \"statusChange\": \"<string>\",\n  \"reasonCode\": \"<string>\",\n  \"reasonDescription\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/status",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "payto",
+                                        "pam-v1",
+                                        "paymentagreement",
+                                        ":paymentAgreementUID",
+                                        "status"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "paymentAgreementUID"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Gateway",
+                                  "code": 502,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:59:43.000Z",
+                                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                                  "uid": "35240-ed39104e-663a-40b8-9cb6-7ff197c1fe9b"
+                                },
+                                {
+                                  "id": "5ebbf7d1-d6a0-40e4-a707-067539363188",
+                                  "name": "Error",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"paymentAgreementUID\": \"<string>\",\n  \"statusChange\": \"<string>\",\n  \"reasonCode\": \"<string>\",\n  \"reasonDescription\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/payto/pam-v1/paymentagreement/:paymentAgreementUID/status",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "payto",
+                                        "pam-v1",
+                                        "paymentagreement",
+                                        ":paymentAgreementUID",
+                                        "status"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "paymentAgreementUID"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Gateway Timeout",
+                                  "code": 504,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:59:43.000Z",
+                                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                                  "uid": "35240-5ebbf7d1-d6a0-40e4-a707-067539363188"
+                                }
+                              ],
+                              "createdAt": "2026-10-22T01:59:43.000Z",
+                              "updatedAt": "2026-10-22T01:59:43.000Z",
+                              "uid": "35240-21dd7842-d28b-44b0-8a27-aa85bf5bc19e"
+                            }
+                          ],
+                          "id": "e0f8bc3e-e6d6-4a56-b114-80cd14b43c8e",
+                          "createdAt": "2026-10-22T01:59:43.000Z",
+                          "updatedAt": "2026-10-22T01:59:43.000Z",
+                          "uid": "35240-e0f8bc3e-e6d6-4a56-b114-80cd14b43c8e"
+                        }
+                      ],
+                      "id": "2a816b61-b856-492f-abef-b27a467ae4e1",
+                      "createdAt": "2026-10-22T01:59:43.000Z",
+                      "updatedAt": "2026-10-22T01:59:43.000Z",
+                      "uid": "35240-2a816b61-b856-492f-abef-b27a467ae4e1"
+                    }
+                  ],
+                  "id": "a265d9bb-f696-4787-808b-9c35cf41b61a",
+                  "createdAt": "2026-10-22T01:59:43.000Z",
+                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                  "uid": "35240-a265d9bb-f696-4787-808b-9c35cf41b61a"
+                },
+                {
+                  "name": "paymentAgreement",
+                  "item": [
+                    {
+                      "name": "{PaymentAgreementUID}",
+                      "item": [
+                        {
+                          "name": "recall",
+                          "item": [
+                            {
+                              "name": "{actionIdentification}",
+                              "item": [
+                                {
+                                  "name": "Recall a Payment Agreement",
+                                  "id": "ae132c8e-22f1-4554-9f4b-ecc678a46941",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/payto/pam-v1/paymentAgreement/:PaymentAgreementUID/recall/:actionIdentification",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "payto",
+                                        "pam-v1",
+                                        "paymentAgreement",
+                                        ":PaymentAgreementUID",
+                                        "recall",
+                                        ":actionIdentification"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "970e3d7a-caaa-4a8f-b64d-3d490935dbcd",
+                                          "key": "PaymentAgreementUID",
+                                          "value": "3",
+                                          "description": "(Required) "
+                                        },
+                                        {
+                                          "id": "566bd7ad-2018-4450-a02e-2ded15a9ba28",
+                                          "key": "actionIdentification",
+                                          "value": "3fc101528ed114268b71c27a2736a7f7",
+                                          "description": "(Required) "
+                                        }
+                                      ]
+                                    },
+                                    "description": "The purpose of this operation is to recall a pending payment agreement before it is approved or declined by the payer servicer/customer."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "8d335bcd-aad4-407c-8db3-17d1ad13023e",
+                                      "name": "Success",
+                                      "originalRequest": {
+                                        "method": "PATCH",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/au/payto/pam-v1/paymentAgreement/:PaymentAgreementUID/recall/:actionIdentification",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "au",
+                                            "payto",
+                                            "pam-v1",
+                                            "paymentAgreement",
+                                            ":PaymentAgreementUID",
+                                            "recall",
+                                            ":actionIdentification"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "PaymentAgreementUID"
+                                            },
+                                            {
+                                              "key": "actionIdentification"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"paymentAgreementUID\": \"_\",\n  \"mmsId\": \"<string>\",\n  \"paymentAgreementStatus\": \"<string>\",\n  \"paymentAgreementStatusDescription\": \"<string>\",\n  \"actionIdentification\": \"<string>\"\n}",
+                                      "createdAt": "2026-10-22T01:59:43.000Z",
+                                      "updatedAt": "2026-10-22T01:59:43.000Z",
+                                      "uid": "35240-8d335bcd-aad4-407c-8db3-17d1ad13023e"
+                                    },
+                                    {
+                                      "id": "c725fe67-3687-4c9e-a030-4cbdd9771ea2",
+                                      "name": "Error",
+                                      "originalRequest": {
+                                        "method": "PATCH",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/au/payto/pam-v1/paymentAgreement/:PaymentAgreementUID/recall/:actionIdentification",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "au",
+                                            "payto",
+                                            "pam-v1",
+                                            "paymentAgreement",
+                                            ":PaymentAgreementUID",
+                                            "recall",
+                                            ":actionIdentification"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "PaymentAgreementUID"
+                                            },
+                                            {
+                                              "key": "actionIdentification"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Bad Request",
+                                      "code": 400,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                      "createdAt": "2026-10-22T01:59:43.000Z",
+                                      "updatedAt": "2026-10-22T01:59:43.000Z",
+                                      "uid": "35240-c725fe67-3687-4c9e-a030-4cbdd9771ea2"
+                                    },
+                                    {
+                                      "id": "bdfce9f8-8500-4b7a-b2dc-2d4739d4d655",
+                                      "name": "Error",
+                                      "originalRequest": {
+                                        "method": "PATCH",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/au/payto/pam-v1/paymentAgreement/:PaymentAgreementUID/recall/:actionIdentification",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "au",
+                                            "payto",
+                                            "pam-v1",
+                                            "paymentAgreement",
+                                            ":PaymentAgreementUID",
+                                            "recall",
+                                            ":actionIdentification"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "PaymentAgreementUID"
+                                            },
+                                            {
+                                              "key": "actionIdentification"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Forbidden",
+                                      "code": 403,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                      "createdAt": "2026-10-22T01:59:43.000Z",
+                                      "updatedAt": "2026-10-22T01:59:43.000Z",
+                                      "uid": "35240-bdfce9f8-8500-4b7a-b2dc-2d4739d4d655"
+                                    },
+                                    {
+                                      "id": "e9ebfe1b-86ef-4037-a2f4-eeb917fd5379",
+                                      "name": "Error",
+                                      "originalRequest": {
+                                        "method": "PATCH",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/au/payto/pam-v1/paymentAgreement/:PaymentAgreementUID/recall/:actionIdentification",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "au",
+                                            "payto",
+                                            "pam-v1",
+                                            "paymentAgreement",
+                                            ":PaymentAgreementUID",
+                                            "recall",
+                                            ":actionIdentification"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "PaymentAgreementUID"
+                                            },
+                                            {
+                                              "key": "actionIdentification"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                      "createdAt": "2026-10-22T01:59:43.000Z",
+                                      "updatedAt": "2026-10-22T01:59:43.000Z",
+                                      "uid": "35240-e9ebfe1b-86ef-4037-a2f4-eeb917fd5379"
+                                    },
+                                    {
+                                      "id": "0de39389-1c3d-4a0b-8031-f0365f0e539e",
+                                      "name": "Error",
+                                      "originalRequest": {
+                                        "method": "PATCH",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/au/payto/pam-v1/paymentAgreement/:PaymentAgreementUID/recall/:actionIdentification",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "au",
+                                            "payto",
+                                            "pam-v1",
+                                            "paymentAgreement",
+                                            ":PaymentAgreementUID",
+                                            "recall",
+                                            ":actionIdentification"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "PaymentAgreementUID"
+                                            },
+                                            {
+                                              "key": "actionIdentification"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Internal Server Error",
+                                      "code": 500,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                      "createdAt": "2026-10-22T01:59:43.000Z",
+                                      "updatedAt": "2026-10-22T01:59:43.000Z",
+                                      "uid": "35240-0de39389-1c3d-4a0b-8031-f0365f0e539e"
+                                    },
+                                    {
+                                      "id": "e2800709-7794-4dd9-829c-15add0212429",
+                                      "name": "Error",
+                                      "originalRequest": {
+                                        "method": "PATCH",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/au/payto/pam-v1/paymentAgreement/:PaymentAgreementUID/recall/:actionIdentification",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "au",
+                                            "payto",
+                                            "pam-v1",
+                                            "paymentAgreement",
+                                            ":PaymentAgreementUID",
+                                            "recall",
+                                            ":actionIdentification"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "PaymentAgreementUID"
+                                            },
+                                            {
+                                              "key": "actionIdentification"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Bad Gateway",
+                                      "code": 502,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                      "createdAt": "2026-10-22T01:59:43.000Z",
+                                      "updatedAt": "2026-10-22T01:59:43.000Z",
+                                      "uid": "35240-e2800709-7794-4dd9-829c-15add0212429"
+                                    },
+                                    {
+                                      "id": "eeab5600-1d3c-46e4-b080-271b61c77013",
+                                      "name": "Error",
+                                      "originalRequest": {
+                                        "method": "PATCH",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/au/payto/pam-v1/paymentAgreement/:PaymentAgreementUID/recall/:actionIdentification",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "au",
+                                            "payto",
+                                            "pam-v1",
+                                            "paymentAgreement",
+                                            ":PaymentAgreementUID",
+                                            "recall",
+                                            ":actionIdentification"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "PaymentAgreementUID"
+                                            },
+                                            {
+                                              "key": "actionIdentification"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Gateway Timeout",
+                                      "code": 504,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                      "createdAt": "2026-10-22T01:59:43.000Z",
+                                      "updatedAt": "2026-10-22T01:59:43.000Z",
+                                      "uid": "35240-eeab5600-1d3c-46e4-b080-271b61c77013"
+                                    }
+                                  ],
+                                  "createdAt": "2026-10-22T01:59:43.000Z",
+                                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                                  "uid": "35240-ae132c8e-22f1-4554-9f4b-ecc678a46941"
+                                }
+                              ],
+                              "id": "5b4ef06d-40b9-4eaf-8031-ba1ff569882a",
+                              "createdAt": "2026-10-22T01:59:43.000Z",
+                              "updatedAt": "2026-10-22T01:59:43.000Z",
+                              "uid": "35240-5b4ef06d-40b9-4eaf-8031-ba1ff569882a"
+                            }
+                          ],
+                          "id": "242395e4-fbef-47d2-89f7-2fbbcd01e5a1",
+                          "createdAt": "2026-10-22T01:59:43.000Z",
+                          "updatedAt": "2026-10-22T01:59:43.000Z",
+                          "uid": "35240-242395e4-fbef-47d2-89f7-2fbbcd01e5a1"
+                        }
+                      ],
+                      "id": "b80bb871-c9a7-4cbb-811d-f46cc884645b",
+                      "createdAt": "2026-10-22T01:59:43.000Z",
+                      "updatedAt": "2026-10-22T01:59:43.000Z",
+                      "uid": "35240-b80bb871-c9a7-4cbb-811d-f46cc884645b"
+                    }
+                  ],
+                  "id": "129a10c1-5bda-494f-a46d-a04dfbd6d15a",
+                  "createdAt": "2026-10-22T01:59:43.000Z",
+                  "updatedAt": "2026-10-22T01:59:43.000Z",
+                  "uid": "35240-129a10c1-5bda-494f-a46d-a04dfbd6d15a"
+                }
+              ],
+              "id": "af8f110f-d8ca-42cb-a50b-9a167679b59c",
+              "createdAt": "2026-10-22T01:59:43.000Z",
+              "updatedAt": "2026-10-22T01:59:43.000Z",
+              "uid": "35240-af8f110f-d8ca-42cb-a50b-9a167679b59c"
+            }
+          ],
+          "id": "61a0745a-77fd-4657-ad69-f30af61dfbca",
+          "createdAt": "2026-10-22T01:59:43.000Z",
+          "updatedAt": "2026-10-22T01:59:43.000Z",
+          "uid": "35240-61a0745a-77fd-4657-ad69-f30af61dfbca"
+        }
+      ],
+      "id": "c725c789-b66d-46bb-82ab-ff666575c18f",
+      "createdAt": "2026-10-22T01:59:43.000Z",
+      "updatedAt": "2026-10-22T01:59:43.000Z",
+      "uid": "35240-c725c789-b66d-46bb-82ab-ff666575c18f"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.monoova.com"
+    }
+  ]
+}

@@ -1,0 +1,715 @@
+{
+  "info": {
+    "_postman_id": "17a04c38-bb26-4f1d-bcf9-391fab52a813",
+    "name": "Monoova Payments Reconciliation Rules API",
+    "description": "# Introduction\n\nMonoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:00:26.000Z",
+    "updatedAt": "2026-10-22T02:00:26.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-17a04c38-bb26-4f1d-bcf9-391fab52a813"
+  },
+  "item": [
+    {
+      "name": "receivables",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "reconciliationrules",
+              "item": [
+                {
+                  "name": "create",
+                  "item": [
+                    {
+                      "name": "Create Reconciliation Rule",
+                      "id": "26a0357f-e15d-4d32-b447-47b9dc5b38a8",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"reconciliationRuleReference\": \"EVkn4AXxSvtHASIsQ5mW8P-9\",\n  \"amount\": \"<double>\",\n  \"expiryDateTime\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"accountNumber\": \"<string>\",\n  \"payId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/reconciliationrules/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "reconciliationrules",
+                            "create"
+                          ]
+                        },
+                        "description": "Use this API to create new reconciliation rules. Multiple entries can be created for an ABA or PayId for the same or different amount. The system will automatically return payments if the payment details do not match one of the entries. In case there are duplicate entries, payment will be matched with the oldest active rule.\nAn optional Expiry Date Time can be specified for each rule. If expiry date is not provided, this will be defaulted as per pre-decided setup."
+                      },
+                      "response": [
+                        {
+                          "id": "3cd55917-43eb-4fb1-b757-a4906e5e29eb",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"reconciliationRuleReference\": \"EVkn4AXxSvtHASIsQ5mW8P-9\",\n  \"amount\": \"<double>\",\n  \"expiryDateTime\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"accountNumber\": \"<string>\",\n  \"payId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/reconciliationrules/create",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "reconciliationrules",
+                                "create"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:00:26.000Z",
+                          "updatedAt": "2026-10-22T02:00:26.000Z",
+                          "uid": "35240-3cd55917-43eb-4fb1-b757-a4906e5e29eb"
+                        },
+                        {
+                          "id": "d5365149-fca6-4a4b-a160-0c0084666d5f",
+                          "name": "Invalid ReconciliationRuleReference",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"reconciliationRuleReference\": \"EVkn4AXxSvtHASIsQ5mW8P-9\",\n  \"amount\": \"<double>\",\n  \"expiryDateTime\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"accountNumber\": \"<string>\",\n  \"payId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/reconciliationrules/create",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "reconciliationrules",
+                                "create"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"durationMs\": 7,\n    \"status\": \"InvalidReconciliationRuleReference\",\n    \"statusDescription\": \"Invalid Reconciliation Rule Reference. Please ensure that the value provided is not empty and unique.\"\n  }\n}",
+                          "createdAt": "2026-10-22T02:00:26.000Z",
+                          "updatedAt": "2026-10-22T02:00:26.000Z",
+                          "uid": "35240-d5365149-fca6-4a4b-a160-0c0084666d5f"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:00:26.000Z",
+                      "updatedAt": "2026-10-22T02:00:26.000Z",
+                      "uid": "35240-26a0357f-e15d-4d32-b447-47b9dc5b38a8"
+                    }
+                  ],
+                  "id": "be925d62-9d9c-49c6-9994-414fcf226216",
+                  "createdAt": "2026-10-22T02:00:26.000Z",
+                  "updatedAt": "2026-10-22T02:00:26.000Z",
+                  "uid": "35240-be925d62-9d9c-49c6-9994-414fcf226216"
+                },
+                {
+                  "name": "{ReconciliationRuleReference}",
+                  "item": [
+                    {
+                      "name": "Cancel Reconciliation Rule",
+                      "id": "b997fd68-9b1b-411d-b34f-5330fbd0cba8",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/reconciliationrules/:ReconciliationRuleReference",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "reconciliationrules",
+                            ":ReconciliationRuleReference"
+                          ],
+                          "variable": [
+                            {
+                              "id": "e1ce1be6-8eec-4ef7-a32f-5b5d505f4366",
+                              "key": "ReconciliationRuleReference",
+                              "value": "vBVe-K6yxmedPkh4s47dSRz_Ilp",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "This API can be used to cancel an active Reconciliation Rule. The system will automatically return payments if the payment details match a cancelled reconciliation rule.\n\nThis API will mark the status of Reconciliation Rules as Cancelled.\n\nOnly Reconciliation Rules in Received status can be Cancelled."
+                      },
+                      "response": [
+                        {
+                          "id": "7fee5759-fee4-401b-b14a-a3382548c7ee",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/reconciliationrules/:ReconciliationRuleReference",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "reconciliationrules",
+                                ":ReconciliationRuleReference"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ReconciliationRuleReference"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:00:26.000Z",
+                          "updatedAt": "2026-10-22T02:00:26.000Z",
+                          "uid": "35240-7fee5759-fee4-401b-b14a-a3382548c7ee"
+                        },
+                        {
+                          "id": "daf36853-4cf2-47d4-a3fb-7cd7c0e8660a",
+                          "name": "Invalid ReconciliationRule Status",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/reconciliationrules/:ReconciliationRuleReference",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "reconciliationrules",
+                                ":ReconciliationRuleReference"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ReconciliationRuleReference"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"durationMs\": 7,\n    \"status\": \"InvalidReconciliationRuleStatus\",\n    \"statusDescription\": \"The specified Reconciliation Rule cannot be cancelled due to its current status. Only Reconciliation Rules that are in Received status can be cancelled.\"\n  }\n}",
+                          "createdAt": "2026-10-22T02:00:26.000Z",
+                          "updatedAt": "2026-10-22T02:00:26.000Z",
+                          "uid": "35240-daf36853-4cf2-47d4-a3fb-7cd7c0e8660a"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:00:26.000Z",
+                      "updatedAt": "2026-10-22T02:00:26.000Z",
+                      "uid": "35240-b997fd68-9b1b-411d-b34f-5330fbd0cba8"
+                    }
+                  ],
+                  "id": "b8a643e2-7643-48e7-aa3d-2558a0b6c1e7",
+                  "createdAt": "2026-10-22T02:00:26.000Z",
+                  "updatedAt": "2026-10-22T02:00:26.000Z",
+                  "uid": "35240-b8a643e2-7643-48e7-aa3d-2558a0b6c1e7"
+                },
+                {
+                  "name": "list",
+                  "item": [
+                    {
+                      "name": "{dateTime}",
+                      "item": [
+                        {
+                          "name": "Get the list of Reconciliation Rules by Date/Time",
+                          "id": "f522f303-c503-41d9-b8b1-40b3cb97ca90",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/reconciliationrules/list/:dateTime?endDate=<date>&payId=<string>&ABA=<string>&status=InProgress&pageNumber=1&pageSize=50",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "reconciliationrules",
+                                "list",
+                                ":dateTime"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Optional - If not provided we will provide data for the day specified in Start Date. <br/> Maximum range allowed is 1 month",
+                                  "key": "endDate",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "description": "string <= 256 characters",
+                                  "key": "payId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Number combination of BSB + Account number with any special characters 802985123456789",
+                                  "key": "ABA",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "possible Values - <br/> <ul> <li>Received - Initial Status</li> <li>InProgress - Matching Payment is being processed </li> <li>Expired - Rule expired</li> <li>Processed - Matching Payment processed</li> <li>Cancelled - User cancelled the rule</li> </ul>",
+                                  "key": "status",
+                                  "value": "InProgress"
+                                },
+                                {
+                                  "description": "Optional - If not provided, it is defaulted to 1",
+                                  "key": "pageNumber",
+                                  "value": "1"
+                                },
+                                {
+                                  "description": "Optional - If not provided, page size will be defaulted to 50 (Configuration). Maximum allowed is 200 (Configuration).",
+                                  "key": "pageSize",
+                                  "value": "50"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "6679348c-5e2c-428d-b02e-248ad4e636d2",
+                                  "key": "dateTime",
+                                  "value": "<date>",
+                                  "description": "(Required) Example 2020-03-15 <br/> date format should be 'yyyy-MM-dd' format."
+                                }
+                              ]
+                            },
+                            "description": "This API can be used to search for a list of reconciliation rules. Customer will be allowed to search for rules for a date range of upto a month. If End Date is not provided, the system will return records for the day specified in Start Date."
+                          },
+                          "response": [
+                            {
+                              "id": "9f7eb9b6-3bdf-4371-95af-561a8eb972c8",
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/receivables/v1/reconciliationrules/list/:dateTime?endDate=<date>&payId=<string>&ABA=<string>&status=InProgress&pageNumber=1&pageSize=50",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "receivables",
+                                    "v1",
+                                    "reconciliationrules",
+                                    "list",
+                                    ":dateTime"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Optional - If not provided we will provide data for the day specified in Start Date. <br/> Maximum range allowed is 1 month",
+                                      "key": "endDate",
+                                      "value": "<date>"
+                                    },
+                                    {
+                                      "description": "string <= 256 characters",
+                                      "key": "payId",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Number combination of BSB + Account number with any special characters 802985123456789",
+                                      "key": "ABA",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "possible Values - <br/> <ul> <li>Received - Initial Status</li> <li>InProgress - Matching Payment is being processed </li> <li>Expired - Rule expired</li> <li>Processed - Matching Payment processed</li> <li>Cancelled - User cancelled the rule</li> </ul>",
+                                      "key": "status",
+                                      "value": "InProgress"
+                                    },
+                                    {
+                                      "description": "Optional - If not provided, it is defaulted to 1",
+                                      "key": "pageNumber",
+                                      "value": "1"
+                                    },
+                                    {
+                                      "description": "Optional - If not provided, page size will be defaulted to 50 (Configuration). Maximum allowed is 200 (Configuration).",
+                                      "key": "pageSize",
+                                      "value": "50"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "dateTime"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"reconciliationRules\": {\n    \"reconciliationRuleReference\": \"T6QreOXfBpzlXl83TdJSovhPiveh7E\",\n    \"expiryDateTime\": \"<string>\",\n    \"bsb\": \"<string>\",\n    \"accountNumber\": \"0000000000000000\",\n    \"payId\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"createdDateTime\": \"<string>\",\n    \"updatedDateTime\": \"<string>\",\n    \"processedDateTime\": \"<string>\",\n    \"transactionId\": \"<string>\",\n    \"status\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-10-22T02:00:26.000Z",
+                              "updatedAt": "2026-10-22T02:00:26.000Z",
+                              "uid": "35240-9f7eb9b6-3bdf-4371-95af-561a8eb972c8"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T02:00:26.000Z",
+                          "updatedAt": "2026-10-22T02:00:26.000Z",
+                          "uid": "35240-f522f303-c503-41d9-b8b1-40b3cb97ca90"
+                        }
+                      ],
+                      "id": "1e93f379-eafa-42dc-9aab-5882bb93e992",
+                      "createdAt": "2026-10-22T02:00:26.000Z",
+                      "updatedAt": "2026-10-22T02:00:26.000Z",
+                      "uid": "35240-1e93f379-eafa-42dc-9aab-5882bb93e992"
+                    }
+                  ],
+                  "id": "54f260d5-2154-43b0-bc07-c7c6ef5b8502",
+                  "createdAt": "2026-10-22T02:00:26.000Z",
+                  "updatedAt": "2026-10-22T02:00:26.000Z",
+                  "uid": "35240-54f260d5-2154-43b0-bc07-c7c6ef5b8502"
+                },
+                {
+                  "name": "{id}",
+                  "item": [
+                    {
+                      "name": "Get Reconciliation Rule By ID",
+                      "id": "09f010a4-0f9d-40d7-ba17-6231723ec761",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/receivables/v1/reconciliationrules/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "receivables",
+                            "v1",
+                            "reconciliationrules",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "c693534d-e069-4a84-a168-5055a635602c",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) ReconciliationRuleReference. The unique identifier for the Reconciliation Rule."
+                            }
+                          ]
+                        },
+                        "description": "This API is used to retrieve a single Reconciliation Rule based on its ID. The ReconciliationRuleReference should belong to the signin merchant."
+                      },
+                      "response": [
+                        {
+                          "id": "6bb9745e-232a-4bb2-a582-513bb2c05098",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/reconciliationrules/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "reconciliationrules",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"reconciliationRule\": {\n    \"reconciliationRuleReference\": \"jcB4escE2TN0lbZAVHXel\",\n    \"expiryDateTime\": \"<string>\",\n    \"bsb\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"payId\": \"<string>\",\n    \"amount\": \"<double>\",\n    \"createdDateTime\": \"<string>\",\n    \"updatedDateTime\": \"<string>\",\n    \"processedDateTime\": \"<string>\",\n    \"transactionId\": \"<string>\",\n    \"status\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T02:00:26.000Z",
+                          "updatedAt": "2026-10-22T02:00:26.000Z",
+                          "uid": "35240-6bb9745e-232a-4bb2-a582-513bb2c05098"
+                        },
+                        {
+                          "id": "04e1fe90-b38d-402d-8e01-b8c47dfff193",
+                          "name": "Invalid ReconciliationRuleReference",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/receivables/v1/reconciliationrules/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "receivables",
+                                "v1",
+                                "reconciliationrules",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"durationMs\": 7,\n    \"status\": \"InvalidReconciliationRuleReference\",\n    \"statusDescription\": \"Invalid Reconciliation Rule Reference. Please ensure that the value provided is not empty and unique.\"\n  }\n}",
+                          "createdAt": "2026-10-22T02:00:26.000Z",
+                          "updatedAt": "2026-10-22T02:00:26.000Z",
+                          "uid": "35240-04e1fe90-b38d-402d-8e01-b8c47dfff193"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:00:26.000Z",
+                      "updatedAt": "2026-10-22T02:00:26.000Z",
+                      "uid": "35240-09f010a4-0f9d-40d7-ba17-6231723ec761"
+                    }
+                  ],
+                  "id": "3d80e32b-1471-41f1-970e-c8d374e64e00",
+                  "createdAt": "2026-10-22T02:00:26.000Z",
+                  "updatedAt": "2026-10-22T02:00:26.000Z",
+                  "uid": "35240-3d80e32b-1471-41f1-970e-c8d374e64e00"
+                }
+              ],
+              "id": "c23a037b-cd63-4764-beed-e417a3fce99b",
+              "createdAt": "2026-10-22T02:00:26.000Z",
+              "updatedAt": "2026-10-22T02:00:26.000Z",
+              "uid": "35240-c23a037b-cd63-4764-beed-e417a3fce99b"
+            }
+          ],
+          "id": "23965a9e-d37c-4a30-95af-0af0e0425d7a",
+          "createdAt": "2026-10-22T02:00:26.000Z",
+          "updatedAt": "2026-10-22T02:00:26.000Z",
+          "uid": "35240-23965a9e-d37c-4a30-95af-0af0e0425d7a"
+        }
+      ],
+      "id": "ea73e08f-0c9f-4b17-a74d-8208a87931ac",
+      "createdAt": "2026-10-22T02:00:26.000Z",
+      "updatedAt": "2026-10-22T02:00:26.000Z",
+      "uid": "35240-ea73e08f-0c9f-4b17-a74d-8208a87931ac"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.mpay.com.au"
+    }
+  ]
+}

@@ -1,0 +1,1633 @@
+{
+  "info": {
+    "_postman_id": "c9881698-f133-448f-a5b2-7029f04915ab",
+    "name": "Monoova Payments M Account API",
+    "description": "# Introduction\n\nMonoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:59:36.000Z",
+    "updatedAt": "2026-10-22T01:59:36.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c9881698-f133-448f-a5b2-7029f04915ab"
+  },
+  "item": [
+    {
+      "name": "mAccount",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "create",
+              "item": [
+                {
+                  "name": "Create an mAccount",
+                  "id": "d2f4e58d-b730-4d27-b522-4f33b91a6fc4",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"\u201c !\\\"#%&',-1/:;@z{\",\n  \"abn\": \"<string>\",\n  \"contactName\": \"<string>\",\n  \"contactNumber\": \"<number>\",\n  \"email\": \"<string>\",\n  \"addressLine2\": \"<string>\",\n  \"suburb\": \"<string>\",\n  \"state\": \"<string>\",\n  \"postCode\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"bankAccountNumber\": \"<string>\",\n  \"bankAccountTitle\": \"<string>\",\n  \"accountNumber\": \"<string>\",\n  \"allowDuplicates\": \"<boolean>\",\n  \"addressLine1\": \"<string>\",\n  \"financials\": \"<boolean>\",\n  \"options\": [\n    {\n      \"key\": \"MinimumSettlementAmount\",\n      \"value\": \"<number>\"\n    },\n    {\n      \"key\": \"MinimumSettlementAmount\",\n      \"value\": \"<number>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/mAccount/v1/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mAccount",
+                        "v1",
+                        "create"
+                      ]
+                    },
+                    "description": "This API creates an mAccount."
+                  },
+                  "response": [
+                    {
+                      "id": "8f5d3cf9-0cf6-40c5-b07d-70ab783a98f2",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"\u201c !\\\"#%&',-1/:;@z{\",\n  \"abn\": \"<string>\",\n  \"contactName\": \"<string>\",\n  \"contactNumber\": \"<number>\",\n  \"email\": \"<string>\",\n  \"addressLine2\": \"<string>\",\n  \"suburb\": \"<string>\",\n  \"state\": \"<string>\",\n  \"postCode\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"bankAccountNumber\": \"<string>\",\n  \"bankAccountTitle\": \"<string>\",\n  \"accountNumber\": \"<string>\",\n  \"allowDuplicates\": \"<boolean>\",\n  \"addressLine1\": \"<string>\",\n  \"financials\": \"<boolean>\",\n  \"options\": [\n    {\n      \"key\": \"MinimumSettlementAmount\",\n      \"value\": \"<number>\"\n    },\n    {\n      \"key\": \"MinimumSettlementAmount\",\n      \"value\": \"<number>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mAccount/v1/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mAccount",
+                            "v1",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"accountNumber\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-22T01:59:37.000Z",
+                      "updatedAt": "2026-10-22T01:59:37.000Z",
+                      "uid": "35240-8f5d3cf9-0cf6-40c5-b07d-70ab783a98f2"
+                    },
+                    {
+                      "id": "bbc60bdc-faa7-4b41-9028-a5eb80243a0a",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"\u201c !\\\"#%&',-1/:;@z{\",\n  \"abn\": \"<string>\",\n  \"contactName\": \"<string>\",\n  \"contactNumber\": \"<number>\",\n  \"email\": \"<string>\",\n  \"addressLine2\": \"<string>\",\n  \"suburb\": \"<string>\",\n  \"state\": \"<string>\",\n  \"postCode\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"bankAccountNumber\": \"<string>\",\n  \"bankAccountTitle\": \"<string>\",\n  \"accountNumber\": \"<string>\",\n  \"allowDuplicates\": \"<boolean>\",\n  \"addressLine1\": \"<string>\",\n  \"financials\": \"<boolean>\",\n  \"options\": [\n    {\n      \"key\": \"MinimumSettlementAmount\",\n      \"value\": \"<number>\"\n    },\n    {\n      \"key\": \"MinimumSettlementAmount\",\n      \"value\": \"<number>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mAccount/v1/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mAccount",
+                            "v1",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:37.000Z",
+                      "updatedAt": "2026-10-22T01:59:37.000Z",
+                      "uid": "35240-bbc60bdc-faa7-4b41-9028-a5eb80243a0a"
+                    },
+                    {
+                      "id": "1ca627e3-8fee-4df6-895e-1971479d7caa",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"\u201c !\\\"#%&',-1/:;@z{\",\n  \"abn\": \"<string>\",\n  \"contactName\": \"<string>\",\n  \"contactNumber\": \"<number>\",\n  \"email\": \"<string>\",\n  \"addressLine2\": \"<string>\",\n  \"suburb\": \"<string>\",\n  \"state\": \"<string>\",\n  \"postCode\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"bankAccountNumber\": \"<string>\",\n  \"bankAccountTitle\": \"<string>\",\n  \"accountNumber\": \"<string>\",\n  \"allowDuplicates\": \"<boolean>\",\n  \"addressLine1\": \"<string>\",\n  \"financials\": \"<boolean>\",\n  \"options\": [\n    {\n      \"key\": \"MinimumSettlementAmount\",\n      \"value\": \"<number>\"\n    },\n    {\n      \"key\": \"MinimumSettlementAmount\",\n      \"value\": \"<number>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mAccount/v1/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mAccount",
+                            "v1",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:37.000Z",
+                      "updatedAt": "2026-10-22T01:59:37.000Z",
+                      "uid": "35240-1ca627e3-8fee-4df6-895e-1971479d7caa"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:59:37.000Z",
+                  "updatedAt": "2026-10-22T01:59:37.000Z",
+                  "uid": "35240-d2f4e58d-b730-4d27-b522-4f33b91a6fc4"
+                }
+              ],
+              "id": "a6afc231-0e6d-4635-9c67-5ea4edf9e794",
+              "createdAt": "2026-10-22T01:59:36.000Z",
+              "updatedAt": "2026-10-22T01:59:36.000Z",
+              "uid": "35240-a6afc231-0e6d-4635-9c67-5ea4edf9e794"
+            },
+            {
+              "name": "close",
+              "item": [
+                {
+                  "name": "{accountNumber}",
+                  "item": [
+                    {
+                      "name": "Close an mAccount",
+                      "id": "2c002be8-9d1f-4a6f-ba8e-0cfd8c5e524b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/mAccount/v1/close/:accountNumber",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mAccount",
+                            "v1",
+                            "close",
+                            ":accountNumber"
+                          ],
+                          "variable": [
+                            {
+                              "id": "4e1fa8ff-adc6-4d1a-b555-6a123724bfbd",
+                              "key": "accountNumber",
+                              "value": "<string>",
+                              "description": "(Required) 16-Digit account number that uniquely identifies the mAccount"
+                            }
+                          ]
+                        },
+                        "description": "This API closes an mAccount."
+                      },
+                      "response": [
+                        {
+                          "id": "7f0628d7-abd8-4d79-824b-74046eebe5eb",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/mAccount/v1/close/:accountNumber",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "mAccount",
+                                "v1",
+                                "close",
+                                ":accountNumber"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "accountNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T01:59:37.000Z",
+                          "updatedAt": "2026-10-22T01:59:37.000Z",
+                          "uid": "35240-7f0628d7-abd8-4d79-824b-74046eebe5eb"
+                        },
+                        {
+                          "id": "c770a41c-a7dd-442c-8b53-d8fed3ae1535",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/mAccount/v1/close/:accountNumber",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "mAccount",
+                                "v1",
+                                "close",
+                                ":accountNumber"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "accountNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:59:37.000Z",
+                          "updatedAt": "2026-10-22T01:59:37.000Z",
+                          "uid": "35240-c770a41c-a7dd-442c-8b53-d8fed3ae1535"
+                        },
+                        {
+                          "id": "2138ed23-d22f-435a-92bf-eb817d50919f",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/mAccount/v1/close/:accountNumber",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "mAccount",
+                                "v1",
+                                "close",
+                                ":accountNumber"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "accountNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:59:37.000Z",
+                          "updatedAt": "2026-10-22T01:59:37.000Z",
+                          "uid": "35240-2138ed23-d22f-435a-92bf-eb817d50919f"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:59:37.000Z",
+                      "updatedAt": "2026-10-22T01:59:37.000Z",
+                      "uid": "35240-2c002be8-9d1f-4a6f-ba8e-0cfd8c5e524b"
+                    }
+                  ],
+                  "id": "09ef96d2-73cd-4c17-8634-095204f94ae1",
+                  "createdAt": "2026-10-22T01:59:36.000Z",
+                  "updatedAt": "2026-10-22T01:59:36.000Z",
+                  "uid": "35240-09ef96d2-73cd-4c17-8634-095204f94ae1"
+                }
+              ],
+              "id": "2fd47816-03af-441f-8e93-4eab18c65e1b",
+              "createdAt": "2026-10-22T01:59:36.000Z",
+              "updatedAt": "2026-10-22T01:59:36.000Z",
+              "uid": "35240-2fd47816-03af-441f-8e93-4eab18c65e1b"
+            },
+            {
+              "name": "financials",
+              "item": [
+                {
+                  "name": "{accountNumber}",
+                  "item": [
+                    {
+                      "name": "Get mAccount Balance",
+                      "id": "122428b5-a24e-450f-994f-d8141528bfe1",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/mAccount/v1/financials/:accountNumber",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mAccount",
+                            "v1",
+                            "financials",
+                            ":accountNumber"
+                          ],
+                          "variable": [
+                            {
+                              "id": "70a63bef-70da-48fe-85d5-c328b9f85969",
+                              "key": "accountNumber",
+                              "value": "<string>",
+                              "description": "(Required) 16-Digit account number that uniquely identifies the mAccount"
+                            }
+                          ]
+                        },
+                        "description": "This API will return the current financials for an mAccount."
+                      },
+                      "response": [
+                        {
+                          "id": "6447e4a8-1918-436e-904a-a6d3c72f0eb4",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/mAccount/v1/financials/:accountNumber",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "mAccount",
+                                "v1",
+                                "financials",
+                                ":accountNumber"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "accountNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"financials\": {\n    \"accountNumber\": \"<integer>\",\n    \"actualBalance\": \"<number>\",\n    \"clearedFundsOnly\": \"<boolean>\",\n    \"creditLimit\": \"<number>\",\n    \"feeAccountActualBalance\": \"<number>\",\n    \"feeAccountNumber\": \"<integer>\",\n    \"hasSeparateFeeAccount\": \"<boolean>\",\n    \"lowerCreditLimit\": \"<number>\",\n    \"minimumSettlementAmount\": \"<number>\",\n    \"settlementFrequency\": \"<string>\",\n    \"upperCreditLimit\": \"<number>\",\n    \"availableToDebit\": \"<number>\",\n    \"availableToCredit\": \"<number>\",\n    \"nppBalance\": \"<number>\",\n    \"nppPayoutLimit\": \"<number>\",\n    \"isFeeAccount\": \"<boolean>\",\n    \"isParentAccount\": \"<boolean>\",\n    \"isParentClearedFunds\": \"<boolean>\",\n    \"clearedFundsAccountFinancials\": {\n      \"availableBalance\": \"<number>\",\n      \"unclearedFunds\": \"<number>\",\n      \"uniqueReferencesWaitingToClear\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:37.000Z",
+                          "updatedAt": "2026-10-22T01:59:37.000Z",
+                          "uid": "35240-6447e4a8-1918-436e-904a-a6d3c72f0eb4"
+                        },
+                        {
+                          "id": "f19c0a56-053f-4c57-b011-23145e578c8a",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/mAccount/v1/financials/:accountNumber",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "mAccount",
+                                "v1",
+                                "financials",
+                                ":accountNumber"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "accountNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:59:37.000Z",
+                          "updatedAt": "2026-10-22T01:59:37.000Z",
+                          "uid": "35240-f19c0a56-053f-4c57-b011-23145e578c8a"
+                        },
+                        {
+                          "id": "ffe2c36b-8b47-4261-a7f7-f92fedd3f486",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/mAccount/v1/financials/:accountNumber",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "mAccount",
+                                "v1",
+                                "financials",
+                                ":accountNumber"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "accountNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:59:37.000Z",
+                          "updatedAt": "2026-10-22T01:59:37.000Z",
+                          "uid": "35240-ffe2c36b-8b47-4261-a7f7-f92fedd3f486"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:59:37.000Z",
+                      "updatedAt": "2026-10-22T01:59:37.000Z",
+                      "uid": "35240-122428b5-a24e-450f-994f-d8141528bfe1"
+                    }
+                  ],
+                  "id": "7b562e43-aa05-4006-8974-5e031f2d4b12",
+                  "createdAt": "2026-10-22T01:59:36.000Z",
+                  "updatedAt": "2026-10-22T01:59:36.000Z",
+                  "uid": "35240-7b562e43-aa05-4006-8974-5e031f2d4b12"
+                }
+              ],
+              "id": "3078bbb2-145e-44e1-a3d4-a9fcee040e38",
+              "createdAt": "2026-10-22T01:59:36.000Z",
+              "updatedAt": "2026-10-22T01:59:36.000Z",
+              "uid": "35240-3078bbb2-145e-44e1-a3d4-a9fcee040e38"
+            },
+            {
+              "name": "get",
+              "item": [
+                {
+                  "name": "{accountNumber}",
+                  "item": [
+                    {
+                      "name": "Get mAccount details",
+                      "id": "6bbff30d-b8e1-4578-808f-a2fd025e4c55",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/mAccount/v1/get/:accountNumber",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mAccount",
+                            "v1",
+                            "get",
+                            ":accountNumber"
+                          ],
+                          "variable": [
+                            {
+                              "id": "02c5a40f-acd0-4c47-b3c7-0c9e3d83983f",
+                              "key": "accountNumber",
+                              "value": "<string>",
+                              "description": "(Required) 16-Digit account number that uniquely identifies the mAccount"
+                            }
+                          ]
+                        },
+                        "description": "This API gets details of an mAccount. Property details.options will contain ALL options and their current values."
+                      },
+                      "response": [
+                        {
+                          "id": "37ccf779-5b4f-4ce9-b9a9-5751a9e26116",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/mAccount/v1/get/:accountNumber",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "mAccount",
+                                "v1",
+                                "get",
+                                ":accountNumber"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "accountNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"details\": {\n    \"accountNumber\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"abn\": \"<string>\",\n    \"contactName\": \"<string>\",\n    \"contactNumber\": \"<string>\",\n    \"email\": \"<string>\",\n    \"addressLine1\": \"<string>\",\n    \"addressLine2\": \"<string>\",\n    \"suburb\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postCode\": \"<string>\",\n    \"bsb\": \"<string>\",\n    \"bankAccountNumber\": \"<string>\",\n    \"bankAccountTitle\": \"<string>\",\n    \"allowDuplicates\": \"<boolean>\",\n    \"feeAccount\": \"<integer>\",\n    \"financials\": {\n      \"accountNumber\": \"<integer>\",\n      \"actualBalance\": \"<number>\",\n      \"clearedFundsOnly\": \"<boolean>\",\n      \"creditLimit\": \"<number>\",\n      \"feeAccountActualBalance\": \"<number>\",\n      \"feeAccountNumber\": \"<integer>\",\n      \"hasSeparateFeeAccount\": \"<boolean>\",\n      \"lowerCreditLimit\": \"<number>\",\n      \"minimumSettlementAmount\": \"<number>\",\n      \"settlementFrequency\": \"<string>\",\n      \"upperCreditLimit\": \"<number>\",\n      \"availableToDebit\": \"<number>\",\n      \"availableToCredit\": \"<number>\",\n      \"nppBalance\": \"<number>\",\n      \"nppPayoutLimit\": \"<number>\",\n      \"isFeeAccount\": \"<boolean>\",\n      \"isParentAccount\": \"<boolean>\",\n      \"isParentClearedFunds\": \"<boolean>\",\n      \"clearedFundsAccountFinancials\": {\n        \"availableBalance\": \"<number>\",\n        \"unclearedFunds\": \"<number>\",\n        \"uniqueReferencesWaitingToClear\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    \"options\": [\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:37.000Z",
+                          "updatedAt": "2026-10-22T01:59:37.000Z",
+                          "uid": "35240-37ccf779-5b4f-4ce9-b9a9-5751a9e26116"
+                        },
+                        {
+                          "id": "3d9ee8ec-90ee-414c-b1f3-7628935b4ad2",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/mAccount/v1/get/:accountNumber",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "mAccount",
+                                "v1",
+                                "get",
+                                ":accountNumber"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "accountNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:59:37.000Z",
+                          "updatedAt": "2026-10-22T01:59:37.000Z",
+                          "uid": "35240-3d9ee8ec-90ee-414c-b1f3-7628935b4ad2"
+                        },
+                        {
+                          "id": "46ccdf17-ef1a-49b7-b18f-f97771d38500",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/mAccount/v1/get/:accountNumber",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "mAccount",
+                                "v1",
+                                "get",
+                                ":accountNumber"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "accountNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:59:37.000Z",
+                          "updatedAt": "2026-10-22T01:59:37.000Z",
+                          "uid": "35240-46ccdf17-ef1a-49b7-b18f-f97771d38500"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:59:37.000Z",
+                      "updatedAt": "2026-10-22T01:59:37.000Z",
+                      "uid": "35240-6bbff30d-b8e1-4578-808f-a2fd025e4c55"
+                    }
+                  ],
+                  "id": "017d1873-ea48-485c-92fd-b2343619bc1a",
+                  "createdAt": "2026-10-22T01:59:36.000Z",
+                  "updatedAt": "2026-10-22T01:59:36.000Z",
+                  "uid": "35240-017d1873-ea48-485c-92fd-b2343619bc1a"
+                }
+              ],
+              "id": "a6df9488-b14e-451d-af3e-8a3c45e3a10e",
+              "createdAt": "2026-10-22T01:59:36.000Z",
+              "updatedAt": "2026-10-22T01:59:36.000Z",
+              "uid": "35240-a6df9488-b14e-451d-af3e-8a3c45e3a10e"
+            },
+            {
+              "name": "listAsIssuer",
+              "item": [
+                {
+                  "name": "List as issuer",
+                  "id": "747de734-4a4b-4545-b356-537584db46c0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/mAccount/v1/listAsIssuer",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mAccount",
+                        "v1",
+                        "listAsIssuer"
+                      ]
+                    },
+                    "description": "Returns a list of 16-Digit mAccounts that you own."
+                  },
+                  "response": [
+                    {
+                      "id": "51f8c359-54dc-431c-9818-2208e1f5efc0",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/mAccount/v1/listAsIssuer",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mAccount",
+                            "v1",
+                            "listAsIssuer"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"mAccounts\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-10-22T01:59:37.000Z",
+                      "updatedAt": "2026-10-22T01:59:37.000Z",
+                      "uid": "35240-51f8c359-54dc-431c-9818-2208e1f5efc0"
+                    },
+                    {
+                      "id": "08949f35-e940-426d-8427-ea428d3b4ff3",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/mAccount/v1/listAsIssuer",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mAccount",
+                            "v1",
+                            "listAsIssuer"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:37.000Z",
+                      "updatedAt": "2026-10-22T01:59:37.000Z",
+                      "uid": "35240-08949f35-e940-426d-8427-ea428d3b4ff3"
+                    },
+                    {
+                      "id": "9a76f4e0-2bc9-4767-8bcc-3fe028100dd7",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/mAccount/v1/listAsIssuer",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mAccount",
+                            "v1",
+                            "listAsIssuer"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:37.000Z",
+                      "updatedAt": "2026-10-22T01:59:37.000Z",
+                      "uid": "35240-9a76f4e0-2bc9-4767-8bcc-3fe028100dd7"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:59:37.000Z",
+                  "updatedAt": "2026-10-22T01:59:37.000Z",
+                  "uid": "35240-747de734-4a4b-4545-b356-537584db46c0"
+                }
+              ],
+              "id": "28a274b5-5252-486f-a495-60c3d430d23e",
+              "createdAt": "2026-10-22T01:59:36.000Z",
+              "updatedAt": "2026-10-22T01:59:36.000Z",
+              "uid": "35240-28a274b5-5252-486f-a495-60c3d430d23e"
+            },
+            {
+              "name": "sendStatement",
+              "item": [
+                {
+                  "name": "Send a statement",
+                  "id": "70bb35c6-f8ce-48e2-b6f4-74ee0198e746",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"frequency\": \"<string>\",\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/mAccount/v1/sendStatement",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mAccount",
+                        "v1",
+                        "sendStatement"
+                      ]
+                    },
+                    "description": "This API generates a detailed pdf statement for delivery via email."
+                  },
+                  "response": [
+                    {
+                      "id": "f6288bd8-490e-433a-a1bb-3a2b02d3e90a",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"frequency\": \"<string>\",\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mAccount/v1/sendStatement",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mAccount",
+                            "v1",
+                            "sendStatement"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:59:37.000Z",
+                      "updatedAt": "2026-10-22T01:59:37.000Z",
+                      "uid": "35240-f6288bd8-490e-433a-a1bb-3a2b02d3e90a"
+                    },
+                    {
+                      "id": "15c6b024-30b1-4c5c-a718-deac46608b3c",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"frequency\": \"<string>\",\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mAccount/v1/sendStatement",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mAccount",
+                            "v1",
+                            "sendStatement"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:37.000Z",
+                      "updatedAt": "2026-10-22T01:59:37.000Z",
+                      "uid": "35240-15c6b024-30b1-4c5c-a718-deac46608b3c"
+                    },
+                    {
+                      "id": "45d5a079-3082-47ce-ba8c-b688669d67af",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"frequency\": \"<string>\",\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mAccount/v1/sendStatement",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mAccount",
+                            "v1",
+                            "sendStatement"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:37.000Z",
+                      "updatedAt": "2026-10-22T01:59:37.000Z",
+                      "uid": "35240-45d5a079-3082-47ce-ba8c-b688669d67af"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:59:37.000Z",
+                  "updatedAt": "2026-10-22T01:59:37.000Z",
+                  "uid": "35240-70bb35c6-f8ce-48e2-b6f4-74ee0198e746"
+                }
+              ],
+              "id": "411a6d35-2f92-4d60-a01d-608495aad39f",
+              "createdAt": "2026-10-22T01:59:36.000Z",
+              "updatedAt": "2026-10-22T01:59:36.000Z",
+              "uid": "35240-411a6d35-2f92-4d60-a01d-608495aad39f"
+            },
+            {
+              "name": "transactions",
+              "item": [
+                {
+                  "name": "Get transactions by mAccount",
+                  "id": "6da53693-6e07-4218-a72d-6faf3fa0c5da",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"frequency\": \"Custom\",\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"descending\": false,\n  \"useTime\": false\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/mAccount/v1/transactions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mAccount",
+                        "v1",
+                        "transactions"
+                      ]
+                    },
+                    "description": "This API generates a transaction details."
+                  },
+                  "response": [
+                    {
+                      "id": "71ee1345-b6ed-4aed-9f31-d297396e8d39",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"frequency\": \"Custom\",\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"descending\": false,\n  \"useTime\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mAccount/v1/transactions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mAccount",
+                            "v1",
+                            "transactions"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"openingBalance\": \"<number>\",\n  \"closingBalance\": \"<number>\",\n  \"totalDebits\": \"<number>\",\n  \"totalCredits\": \"<number>\",\n  \"items\": [\n    {\n      \"credit\": \"<number>\",\n      \"dateTime\": \"<string>\",\n      \"debit\": \"<number>\",\n      \"description\": \"<string>\",\n      \"destinationMAccountCardNumber\": \"<string>\",\n      \"isWaitingForFundsToClear\": \"<boolean>\",\n      \"mPaymentsId\": \"<integer>\",\n      \"mWalletAccountNumber\": \"<string>\",\n      \"rowOrder\": \"<integer>\",\n      \"runningBalance\": \"<number>\",\n      \"sourceMAccountCardNumber\": \"<string>\",\n      \"subTransactionType\": \"<string>\",\n      \"transactionDescription\": \"<string>\",\n      \"transactionId\": \"<integer>\",\n      \"transactionType\": \"<string>\",\n      \"uniqueReference\": \"<string>\"\n    },\n    {\n      \"credit\": \"<number>\",\n      \"dateTime\": \"<string>\",\n      \"debit\": \"<number>\",\n      \"description\": \"<string>\",\n      \"destinationMAccountCardNumber\": \"<string>\",\n      \"isWaitingForFundsToClear\": \"<boolean>\",\n      \"mPaymentsId\": \"<integer>\",\n      \"mWalletAccountNumber\": \"<string>\",\n      \"rowOrder\": \"<integer>\",\n      \"runningBalance\": \"<number>\",\n      \"sourceMAccountCardNumber\": \"<string>\",\n      \"subTransactionType\": \"<string>\",\n      \"transactionDescription\": \"<string>\",\n      \"transactionId\": \"<integer>\",\n      \"transactionType\": \"<string>\",\n      \"uniqueReference\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T01:59:37.000Z",
+                      "updatedAt": "2026-10-22T01:59:37.000Z",
+                      "uid": "35240-71ee1345-b6ed-4aed-9f31-d297396e8d39"
+                    },
+                    {
+                      "id": "73b84330-82dd-4f00-94c2-93d6d662da39",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"frequency\": \"Custom\",\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"descending\": false,\n  \"useTime\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mAccount/v1/transactions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mAccount",
+                            "v1",
+                            "transactions"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:37.000Z",
+                      "updatedAt": "2026-10-22T01:59:37.000Z",
+                      "uid": "35240-73b84330-82dd-4f00-94c2-93d6d662da39"
+                    },
+                    {
+                      "id": "cfbfd236-cbde-4ccd-9a85-d94ddc7db38d",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"frequency\": \"Custom\",\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"descending\": false,\n  \"useTime\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mAccount/v1/transactions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mAccount",
+                            "v1",
+                            "transactions"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:37.000Z",
+                      "updatedAt": "2026-10-22T01:59:37.000Z",
+                      "uid": "35240-cfbfd236-cbde-4ccd-9a85-d94ddc7db38d"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:59:37.000Z",
+                  "updatedAt": "2026-10-22T01:59:37.000Z",
+                  "uid": "35240-6da53693-6e07-4218-a72d-6faf3fa0c5da"
+                }
+              ],
+              "id": "7ba43b69-852c-4b08-8e4d-a30ac25a2393",
+              "createdAt": "2026-10-22T01:59:36.000Z",
+              "updatedAt": "2026-10-22T01:59:36.000Z",
+              "uid": "35240-7ba43b69-852c-4b08-8e4d-a30ac25a2393"
+            },
+            {
+              "name": "update",
+              "item": [
+                {
+                  "name": "Update mAccount details",
+                  "id": "9709a39e-daba-4ad8-8691-af56ea2ac180",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"abn\": \"<string>\",\n  \"contactName\": \"<string>\",\n  \"contactNumber\": \"<number>\",\n  \"email\": \"<string>\",\n  \"addressLine2\": \"<string>\",\n  \"suburb\": \"<string>\",\n  \"state\": \"<string>\",\n  \"name\": \"<string>\",\n  \"addressLine1\": \"<string>\",\n  \"postCode\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"bankAccountNumber\": \"<string>\",\n  \"bankAccountTitle\": \"<string>\",\n  \"financials\": \"<boolean>\",\n  \"options\": [\n    {\n      \"key\": \"MinimumSettlementAmount\",\n      \"value\": \"<number>\"\n    },\n    {\n      \"key\": \"MinimumSettlementAmount\",\n      \"value\": \"<number>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/mAccount/v1/update",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mAccount",
+                        "v1",
+                        "update"
+                      ]
+                    },
+                    "description": "This API updates a mAccount."
+                  },
+                  "response": [
+                    {
+                      "id": "d99dba6d-bfff-434a-9ea0-1ca2f1d5de36",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"abn\": \"<string>\",\n  \"contactName\": \"<string>\",\n  \"contactNumber\": \"<number>\",\n  \"email\": \"<string>\",\n  \"addressLine2\": \"<string>\",\n  \"suburb\": \"<string>\",\n  \"state\": \"<string>\",\n  \"name\": \"<string>\",\n  \"addressLine1\": \"<string>\",\n  \"postCode\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"bankAccountNumber\": \"<string>\",\n  \"bankAccountTitle\": \"<string>\",\n  \"financials\": \"<boolean>\",\n  \"options\": [\n    {\n      \"key\": \"MinimumSettlementAmount\",\n      \"value\": \"<number>\"\n    },\n    {\n      \"key\": \"MinimumSettlementAmount\",\n      \"value\": \"<number>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mAccount/v1/update",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mAccount",
+                            "v1",
+                            "update"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:59:37.000Z",
+                      "updatedAt": "2026-10-22T01:59:37.000Z",
+                      "uid": "35240-d99dba6d-bfff-434a-9ea0-1ca2f1d5de36"
+                    },
+                    {
+                      "id": "5d4bf144-8e6a-4b68-9249-665194c8e0f2",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"abn\": \"<string>\",\n  \"contactName\": \"<string>\",\n  \"contactNumber\": \"<number>\",\n  \"email\": \"<string>\",\n  \"addressLine2\": \"<string>\",\n  \"suburb\": \"<string>\",\n  \"state\": \"<string>\",\n  \"name\": \"<string>\",\n  \"addressLine1\": \"<string>\",\n  \"postCode\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"bankAccountNumber\": \"<string>\",\n  \"bankAccountTitle\": \"<string>\",\n  \"financials\": \"<boolean>\",\n  \"options\": [\n    {\n      \"key\": \"MinimumSettlementAmount\",\n      \"value\": \"<number>\"\n    },\n    {\n      \"key\": \"MinimumSettlementAmount\",\n      \"value\": \"<number>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mAccount/v1/update",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mAccount",
+                            "v1",
+                            "update"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:37.000Z",
+                      "updatedAt": "2026-10-22T01:59:37.000Z",
+                      "uid": "35240-5d4bf144-8e6a-4b68-9249-665194c8e0f2"
+                    },
+                    {
+                      "id": "87d95ff2-ace8-4889-9cb7-9f5c48ba4e79",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"abn\": \"<string>\",\n  \"contactName\": \"<string>\",\n  \"contactNumber\": \"<number>\",\n  \"email\": \"<string>\",\n  \"addressLine2\": \"<string>\",\n  \"suburb\": \"<string>\",\n  \"state\": \"<string>\",\n  \"name\": \"<string>\",\n  \"addressLine1\": \"<string>\",\n  \"postCode\": \"<string>\",\n  \"bsb\": \"<string>\",\n  \"bankAccountNumber\": \"<string>\",\n  \"bankAccountTitle\": \"<string>\",\n  \"financials\": \"<boolean>\",\n  \"options\": [\n    {\n      \"key\": \"MinimumSettlementAmount\",\n      \"value\": \"<number>\"\n    },\n    {\n      \"key\": \"MinimumSettlementAmount\",\n      \"value\": \"<number>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mAccount/v1/update",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mAccount",
+                            "v1",
+                            "update"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:37.000Z",
+                      "updatedAt": "2026-10-22T01:59:37.000Z",
+                      "uid": "35240-87d95ff2-ace8-4889-9cb7-9f5c48ba4e79"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:59:37.000Z",
+                  "updatedAt": "2026-10-22T01:59:37.000Z",
+                  "uid": "35240-9709a39e-daba-4ad8-8691-af56ea2ac180"
+                }
+              ],
+              "id": "4c2f3ac3-78d0-4126-ba24-07d06dc5cde5",
+              "createdAt": "2026-10-22T01:59:36.000Z",
+              "updatedAt": "2026-10-22T01:59:36.000Z",
+              "uid": "35240-4c2f3ac3-78d0-4126-ba24-07d06dc5cde5"
+            }
+          ],
+          "id": "8c2bff54-f094-428f-8bd8-02ea3a5ceff5",
+          "createdAt": "2026-10-22T01:59:36.000Z",
+          "updatedAt": "2026-10-22T01:59:36.000Z",
+          "uid": "35240-8c2bff54-f094-428f-8bd8-02ea3a5ceff5"
+        }
+      ],
+      "id": "3f2e939f-a3a7-454d-840f-0192c4072f74",
+      "createdAt": "2026-10-22T01:59:36.000Z",
+      "updatedAt": "2026-10-22T01:59:36.000Z",
+      "uid": "35240-3f2e939f-a3a7-454d-840f-0192c4072f74"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.mpay.com.au"
+    }
+  ]
+}

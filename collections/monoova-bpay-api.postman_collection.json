@@ -1,0 +1,1381 @@
+{
+  "info": {
+    "_postman_id": "5853dad6-dc93-49b1-a0c8-a99b7d242976",
+    "name": "Monoova Payments BPAY API",
+    "description": "# Introduction\n\nMonoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:58:23.000Z",
+    "updatedAt": "2026-10-22T01:58:23.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-5853dad6-dc93-49b1-a0c8-a99b7d242976"
+  },
+  "item": [
+    {
+      "name": "bpay",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "validate",
+              "item": [
+                {
+                  "name": "{billerCode}",
+                  "item": [
+                    {
+                      "name": "Validate a BPAY transaction",
+                      "id": "2ec4a302-6d43-4edf-896e-9e7a004a11e5",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/bpay/v1/validate/:billerCode?custRef=<string>&amount=<number>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "bpay",
+                            "v1",
+                            "validate",
+                            ":billerCode"
+                          ],
+                          "query": [
+                            {
+                              "description": "BPAY Customer Reference Number. If this field is empty this denotes that the customerReferenceNumber is variable for each bill and should not be reused.",
+                              "key": "custRef",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Bill amount to be validated. <strong> Note if CustRef is not provided, amount will not validate as it is dependent on both the CRN and Biller. </strong> The maximum value of the field is $9999999999.99.",
+                              "key": "amount",
+                              "value": "<number>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "ae126fb5-ee2d-4f80-8c61-fd09f98b1e79",
+                              "key": "billerCode",
+                              "value": "<string>",
+                              "description": "(Required) This is the BPAY biller code that was requested. billerCode must be numeric"
+                            }
+                          ]
+                        },
+                        "description": "This API validates the BPAY Biller Code and optionally the BPAY Customer Reference Number and Amount. For a complete BPAY validation the BPAY Biller Code, BPAY Customer Reference Number and Amount must be supplied. When fully validated a BPAY financial transaction should be made as soon as practicable as some BPAY combinations are date sensitive. BPAY validation uses the BPAY subsystem error codes.\nSample URL: https://api.mpay.com.au/bpay/v1/validate/{billerCode}?custRef={CRN}&amount={amount}"
+                      },
+                      "response": [
+                        {
+                          "id": "eb5fb22d-1713-47c8-8141-cb6c8a735dd3",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/bpay/v1/validate/:billerCode?custRef=<string>&amount=<number>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "bpay",
+                                "v1",
+                                "validate",
+                                ":billerCode"
+                              ],
+                              "query": [
+                                {
+                                  "description": "BPAY Customer Reference Number. If this field is empty this denotes that the customerReferenceNumber is variable for each bill and should not be reused.",
+                                  "key": "custRef",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Bill amount to be validated. <strong> Note if CustRef is not provided, amount will not validate as it is dependent on both the CRN and Biller. </strong> The maximum value of the field is $9999999999.99.",
+                                  "key": "amount",
+                                  "value": "<number>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "billerCode"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"validation\": {\n    \"billerCode\": \"<string>\",\n    \"customerReferenceNumber\": \"<string>\",\n    \"amount\": \"<string>\",\n    \"billerName\": \"<string>\",\n    \"isVariableCrn\": \"<boolean>\",\n    \"minimumPaymentAmount\": \"<number>\",\n    \"maximumPaymentAmount\": \"<number>\"\n  }\n}",
+                          "createdAt": "2026-10-22T01:58:24.000Z",
+                          "updatedAt": "2026-10-22T01:58:24.000Z",
+                          "uid": "35240-eb5fb22d-1713-47c8-8141-cb6c8a735dd3"
+                        },
+                        {
+                          "id": "73426df1-0935-41fd-98cc-0862635ddefa",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/bpay/v1/validate/:billerCode?custRef=<string>&amount=<number>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "bpay",
+                                "v1",
+                                "validate",
+                                ":billerCode"
+                              ],
+                              "query": [
+                                {
+                                  "description": "BPAY Customer Reference Number. If this field is empty this denotes that the customerReferenceNumber is variable for each bill and should not be reused.",
+                                  "key": "custRef",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Bill amount to be validated. <strong> Note if CustRef is not provided, amount will not validate as it is dependent on both the CRN and Biller. </strong> The maximum value of the field is $9999999999.99.",
+                                  "key": "amount",
+                                  "value": "<number>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "billerCode"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:24.000Z",
+                          "updatedAt": "2026-10-22T01:58:24.000Z",
+                          "uid": "35240-73426df1-0935-41fd-98cc-0862635ddefa"
+                        },
+                        {
+                          "id": "1d4f0bdc-87f5-445b-a9ed-bb86c591c296",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/bpay/v1/validate/:billerCode?custRef=<string>&amount=<number>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "bpay",
+                                "v1",
+                                "validate",
+                                ":billerCode"
+                              ],
+                              "query": [
+                                {
+                                  "description": "BPAY Customer Reference Number. If this field is empty this denotes that the customerReferenceNumber is variable for each bill and should not be reused.",
+                                  "key": "custRef",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Bill amount to be validated. <strong> Note if CustRef is not provided, amount will not validate as it is dependent on both the CRN and Biller. </strong> The maximum value of the field is $9999999999.99.",
+                                  "key": "amount",
+                                  "value": "<number>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "billerCode"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:24.000Z",
+                          "updatedAt": "2026-10-22T01:58:24.000Z",
+                          "uid": "35240-1d4f0bdc-87f5-445b-a9ed-bb86c591c296"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:58:24.000Z",
+                      "updatedAt": "2026-10-22T01:58:24.000Z",
+                      "uid": "35240-2ec4a302-6d43-4edf-896e-9e7a004a11e5"
+                    }
+                  ],
+                  "id": "07d8125e-3c6d-49ae-b6b7-3f8ec57fa3be",
+                  "createdAt": "2026-10-22T01:58:24.000Z",
+                  "updatedAt": "2026-10-22T01:58:24.000Z",
+                  "uid": "35240-07d8125e-3c6d-49ae-b6b7-3f8ec57fa3be"
+                }
+              ],
+              "id": "5f9787ab-99ae-46d3-9054-4ade5043131a",
+              "createdAt": "2026-10-22T01:58:24.000Z",
+              "updatedAt": "2026-10-22T01:58:24.000Z",
+              "uid": "35240-5f9787ab-99ae-46d3-9054-4ade5043131a"
+            },
+            {
+              "name": "biller",
+              "item": [
+                {
+                  "name": "{billerCode}",
+                  "item": [
+                    {
+                      "name": "Get BPAY biller code details",
+                      "id": "48d67e55-cd98-4fed-aa91-a1ba46c9c8bc",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/bpay/v1/biller/:billerCode",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "bpay",
+                            "v1",
+                            "biller",
+                            ":billerCode"
+                          ],
+                          "variable": [
+                            {
+                              "id": "e7bdf67d-d345-4f1a-969d-f0040f6d7629",
+                              "key": "billerCode",
+                              "value": "<string>",
+                              "description": "(Required) This is the BPAY biller code that was requested. billerCode must be numeric"
+                            }
+                          ]
+                        },
+                        "description": "This API returns extended information for the BPAY biller. Status will be \u201cUnknownBillerCode\u201d if Biller Code is invalid."
+                      },
+                      "response": [
+                        {
+                          "id": "1e1e4f54-2358-4169-884f-a888ace9a982",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/bpay/v1/biller/:billerCode",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "bpay",
+                                "v1",
+                                "biller",
+                                ":billerCode"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "billerCode"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"biller\": {\n    \"billerCode\": \"<string>\",\n    \"billerLongName\": \"<string>\",\n    \"billerShortName\": \"<string>\",\n    \"acceptedPaymentMethods\": \"<string>\",\n    \"activationDate\": \"<string>\",\n    \"deactivationDate\": \"<string>\",\n    \"minPaymentAmount\": \"<number>\",\n    \"maxPaymentAmount\": \"<number>\",\n    \"crnValidationRuleName\": \"<string>\",\n    \"checkDigitRuleName\": \"<string>\",\n    \"lengthMask\": \"<string>\",\n    \"fixedDigits\": \"<string>\",\n    \"isVariableCrn\": \"<boolean>\"\n  }\n}",
+                          "createdAt": "2026-10-22T01:58:24.000Z",
+                          "updatedAt": "2026-10-22T01:58:24.000Z",
+                          "uid": "35240-1e1e4f54-2358-4169-884f-a888ace9a982"
+                        },
+                        {
+                          "id": "ba177f5e-5a19-417c-afe8-c737ff683307",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/bpay/v1/biller/:billerCode",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "bpay",
+                                "v1",
+                                "biller",
+                                ":billerCode"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "billerCode"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:24.000Z",
+                          "updatedAt": "2026-10-22T01:58:24.000Z",
+                          "uid": "35240-ba177f5e-5a19-417c-afe8-c737ff683307"
+                        },
+                        {
+                          "id": "22b6af14-300a-428e-81e0-5d2a093b0bb9",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/bpay/v1/biller/:billerCode",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "bpay",
+                                "v1",
+                                "biller",
+                                ":billerCode"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "billerCode"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:24.000Z",
+                          "updatedAt": "2026-10-22T01:58:24.000Z",
+                          "uid": "35240-22b6af14-300a-428e-81e0-5d2a093b0bb9"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:58:24.000Z",
+                      "updatedAt": "2026-10-22T01:58:24.000Z",
+                      "uid": "35240-48d67e55-cd98-4fed-aa91-a1ba46c9c8bc"
+                    }
+                  ],
+                  "id": "37dabbb3-c27b-4b65-960f-a486a89ba5a0",
+                  "createdAt": "2026-10-22T01:58:24.000Z",
+                  "updatedAt": "2026-10-22T01:58:24.000Z",
+                  "uid": "35240-37dabbb3-c27b-4b65-960f-a486a89ba5a0"
+                }
+              ],
+              "id": "79707650-0bc1-4da6-b95b-36cfa1b067ab",
+              "createdAt": "2026-10-22T01:58:24.000Z",
+              "updatedAt": "2026-10-22T01:58:24.000Z",
+              "uid": "35240-79707650-0bc1-4da6-b95b-36cfa1b067ab"
+            },
+            {
+              "name": "receipts",
+              "item": [
+                {
+                  "name": "Get BPAY receipts",
+                  "id": "b0f9a5e2-8bb3-4cf8-b3f9-3619f3c53627",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"date\": 26859333.26741296,\n  \"billerCode\": true,\n  \"referenceNumber\": 38285199\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/bpay/v1/receipts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bpay",
+                        "v1",
+                        "receipts"
+                      ]
+                    },
+                    "description": "This API returns the list of BPAY receipts.\nNote: Filters - One of the below options should be provided by customer.\n1) uniqueReferenceNumber\n2) billerCode + referenceNumber + date"
+                  },
+                  "response": [
+                    {
+                      "id": "45b22645-9c06-44ff-9c8a-d5893be88a24",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"date\": 26859333.26741296,\n  \"billerCode\": true,\n  \"referenceNumber\": 38285199\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/bpay/v1/receipts",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "bpay",
+                            "v1",
+                            "receipts"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"receipts\": [\n    {\n      \"billerCode\": \"<string>\",\n      \"billerName\": \"<string>\",\n      \"receiptNumber\": \"<string>\",\n      \"referenceNumber\": \"<string>\",\n      \"status\": \"<string>\",\n      \"transactionDateTime\": \"<string>\",\n      \"voidDateTime\": \"<string>\"\n    },\n    {\n      \"billerCode\": \"<string>\",\n      \"billerName\": \"<string>\",\n      \"receiptNumber\": \"<string>\",\n      \"referenceNumber\": \"<string>\",\n      \"status\": \"<string>\",\n      \"transactionDateTime\": \"<string>\",\n      \"voidDateTime\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T01:58:24.000Z",
+                      "updatedAt": "2026-10-22T01:58:24.000Z",
+                      "uid": "35240-45b22645-9c06-44ff-9c8a-d5893be88a24"
+                    },
+                    {
+                      "id": "d962bbe8-e5c6-4221-ba65-233c4a8646da",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"date\": 26859333.26741296,\n  \"billerCode\": true,\n  \"referenceNumber\": 38285199\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/bpay/v1/receipts",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "bpay",
+                            "v1",
+                            "receipts"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:58:24.000Z",
+                      "updatedAt": "2026-10-22T01:58:24.000Z",
+                      "uid": "35240-d962bbe8-e5c6-4221-ba65-233c4a8646da"
+                    },
+                    {
+                      "id": "4dda980b-9196-43bb-ba79-d652cb4ae616",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"date\": 26859333.26741296,\n  \"billerCode\": true,\n  \"referenceNumber\": 38285199\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/bpay/v1/receipts",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "bpay",
+                            "v1",
+                            "receipts"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:58:24.000Z",
+                      "updatedAt": "2026-10-22T01:58:24.000Z",
+                      "uid": "35240-4dda980b-9196-43bb-ba79-d652cb4ae616"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:58:24.000Z",
+                  "updatedAt": "2026-10-22T01:58:24.000Z",
+                  "uid": "35240-b0f9a5e2-8bb3-4cf8-b3f9-3619f3c53627"
+                }
+              ],
+              "id": "93493570-d805-432f-8580-0505a25ab18a",
+              "createdAt": "2026-10-22T01:58:24.000Z",
+              "updatedAt": "2026-10-22T01:58:24.000Z",
+              "uid": "35240-93493570-d805-432f-8580-0505a25ab18a"
+            },
+            {
+              "name": "billers",
+              "item": [
+                {
+                  "name": "Search for BPAY billers",
+                  "id": "a8d1c1a4-0879-4abf-ab8b-9602561403a0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/bpay/v1/billers?search=<string>&skip=<number>&take=<number>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bpay",
+                        "v1",
+                        "billers"
+                      ],
+                      "query": [
+                        {
+                          "description": "The search string",
+                          "key": "search",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The actual number of records skipped.",
+                          "key": "skip",
+                          "value": "<number>"
+                        },
+                        {
+                          "description": "The number of records that were requested.",
+                          "key": "take",
+                          "value": "<number>"
+                        }
+                      ]
+                    },
+                    "description": "This API returns an array of BPAY billers matched to the case insensitive search string. The system matches on the billerLongName and billerShortName. Use skip and take to page through result set. Skip and take will be changed back to their defaults if they are over-range. Status will be \u201cUnknownBillerCode\u201d if there are no matches."
+                  },
+                  "response": [
+                    {
+                      "id": "877b590a-0cf9-484d-ba07-a1f41a51d8d7",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/bpay/v1/billers?search=<string>&skip=<number>&take=<number>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "bpay",
+                            "v1",
+                            "billers"
+                          ],
+                          "query": [
+                            {
+                              "description": "The search string",
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The actual number of records skipped.",
+                              "key": "skip",
+                              "value": "<number>"
+                            },
+                            {
+                              "description": "The number of records that were requested.",
+                              "key": "take",
+                              "value": "<number>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"search\": \"<string>\",\n  \"totalCount\": \"<integer>\",\n  \"skip\": \"<integer>\",\n  \"take\": \"<integer>\",\n  \"billers\": [\n    {\n      \"billerCode\": \"<string>\",\n      \"billerLongName\": \"<string>\",\n      \"billerShortName\": \"<string>\",\n      \"acceptedPaymentMethods\": \"<string>\",\n      \"activationDate\": \"<string>\",\n      \"deactivationDate\": \"<string>\",\n      \"minPaymentAmount\": \"<number>\",\n      \"maxPaymentAmount\": \"<number>\",\n      \"crnValidationRuleName\": \"<string>\",\n      \"checkDigitRuleName\": \"<string>\",\n      \"lengthMask\": \"<string>\",\n      \"fixedDigits\": \"<string>\",\n      \"isVariableCrn\": \"<boolean>\"\n    },\n    {\n      \"billerCode\": \"<string>\",\n      \"billerLongName\": \"<string>\",\n      \"billerShortName\": \"<string>\",\n      \"acceptedPaymentMethods\": \"<string>\",\n      \"activationDate\": \"<string>\",\n      \"deactivationDate\": \"<string>\",\n      \"minPaymentAmount\": \"<number>\",\n      \"maxPaymentAmount\": \"<number>\",\n      \"crnValidationRuleName\": \"<string>\",\n      \"checkDigitRuleName\": \"<string>\",\n      \"lengthMask\": \"<string>\",\n      \"fixedDigits\": \"<string>\",\n      \"isVariableCrn\": \"<boolean>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T01:58:24.000Z",
+                      "updatedAt": "2026-10-22T01:58:24.000Z",
+                      "uid": "35240-877b590a-0cf9-484d-ba07-a1f41a51d8d7"
+                    },
+                    {
+                      "id": "d69beba1-5c3e-4982-a0d9-711ff72265f4",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/bpay/v1/billers?search=<string>&skip=<number>&take=<number>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "bpay",
+                            "v1",
+                            "billers"
+                          ],
+                          "query": [
+                            {
+                              "description": "The search string",
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The actual number of records skipped.",
+                              "key": "skip",
+                              "value": "<number>"
+                            },
+                            {
+                              "description": "The number of records that were requested.",
+                              "key": "take",
+                              "value": "<number>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:58:24.000Z",
+                      "updatedAt": "2026-10-22T01:58:24.000Z",
+                      "uid": "35240-d69beba1-5c3e-4982-a0d9-711ff72265f4"
+                    },
+                    {
+                      "id": "dd876955-64e2-4907-8f2c-672df3322f84",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/bpay/v1/billers?search=<string>&skip=<number>&take=<number>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "bpay",
+                            "v1",
+                            "billers"
+                          ],
+                          "query": [
+                            {
+                              "description": "The search string",
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The actual number of records skipped.",
+                              "key": "skip",
+                              "value": "<number>"
+                            },
+                            {
+                              "description": "The number of records that were requested.",
+                              "key": "take",
+                              "value": "<number>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:58:24.000Z",
+                      "updatedAt": "2026-10-22T01:58:24.000Z",
+                      "uid": "35240-dd876955-64e2-4907-8f2c-672df3322f84"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:58:24.000Z",
+                  "updatedAt": "2026-10-22T01:58:24.000Z",
+                  "uid": "35240-a8d1c1a4-0879-4abf-ab8b-9602561403a0"
+                }
+              ],
+              "id": "bf6e212c-2d46-415f-92a2-2b5a37b770a3",
+              "createdAt": "2026-10-22T01:58:24.000Z",
+              "updatedAt": "2026-10-22T01:58:24.000Z",
+              "uid": "35240-bf6e212c-2d46-415f-92a2-2b5a37b770a3"
+            },
+            {
+              "name": "history",
+              "item": [
+                {
+                  "name": "{accountNumber}",
+                  "item": [
+                    {
+                      "name": "Get a wallet's BPAY History",
+                      "id": "8026a034-31cb-445c-802d-d8ef7005d236",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/bpay/v1/history/:accountNumber?take=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "bpay",
+                            "v1",
+                            "history",
+                            ":accountNumber"
+                          ],
+                          "query": [
+                            {
+                              "description": "The number of records that were requested.",
+                              "key": "take",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "10396e05-b031-4cc7-b3a3-a8b0967c7ec7",
+                              "key": "accountNumber",
+                              "value": "<integer>",
+                              "description": "(Required) associated 'mWallet' 16 digit number"
+                            }
+                          ]
+                        },
+                        "description": "This API returns the mWallets history of BPAY payments. The returned history list is sorted by the count property of the BPAYHistoryItem descending."
+                      },
+                      "response": [
+                        {
+                          "id": "bf5890cd-215a-4cb2-b414-b5f688b86c35",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/bpay/v1/history/:accountNumber?take=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "bpay",
+                                "v1",
+                                "history",
+                                ":accountNumber"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The number of records that were requested.",
+                                  "key": "take",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "accountNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"history\": [\n    {\n      \"billerCode\": \"<string>\",\n      \"customerReferenceNumber\": \"<string>\",\n      \"billerName\": \"<string>\",\n      \"count\": \"<integer>\"\n    },\n    {\n      \"billerCode\": \"<string>\",\n      \"customerReferenceNumber\": \"<string>\",\n      \"billerName\": \"<string>\",\n      \"count\": \"<integer>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-10-22T01:58:24.000Z",
+                          "updatedAt": "2026-10-22T01:58:24.000Z",
+                          "uid": "35240-bf5890cd-215a-4cb2-b414-b5f688b86c35"
+                        },
+                        {
+                          "id": "13061c55-3f2a-4d92-bbd9-ca617018a5f4",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/bpay/v1/history/:accountNumber?take=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "bpay",
+                                "v1",
+                                "history",
+                                ":accountNumber"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The number of records that were requested.",
+                                  "key": "take",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "accountNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:24.000Z",
+                          "updatedAt": "2026-10-22T01:58:24.000Z",
+                          "uid": "35240-13061c55-3f2a-4d92-bbd9-ca617018a5f4"
+                        },
+                        {
+                          "id": "0344fc36-86b6-4ba6-bc74-38ed64e0bf66",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/bpay/v1/history/:accountNumber?take=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "bpay",
+                                "v1",
+                                "history",
+                                ":accountNumber"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The number of records that were requested.",
+                                  "key": "take",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "accountNumber"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:24.000Z",
+                          "updatedAt": "2026-10-22T01:58:24.000Z",
+                          "uid": "35240-0344fc36-86b6-4ba6-bc74-38ed64e0bf66"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:58:24.000Z",
+                      "updatedAt": "2026-10-22T01:58:24.000Z",
+                      "uid": "35240-8026a034-31cb-445c-802d-d8ef7005d236"
+                    }
+                  ],
+                  "id": "d9e6e18b-2827-45e8-8da2-b2bb3881db89",
+                  "createdAt": "2026-10-22T01:58:24.000Z",
+                  "updatedAt": "2026-10-22T01:58:24.000Z",
+                  "uid": "35240-d9e6e18b-2827-45e8-8da2-b2bb3881db89"
+                }
+              ],
+              "id": "8b0df82d-e39d-490c-ad23-05182a03036f",
+              "createdAt": "2026-10-22T01:58:24.000Z",
+              "updatedAt": "2026-10-22T01:58:24.000Z",
+              "uid": "35240-8b0df82d-e39d-490c-ad23-05182a03036f"
+            },
+            {
+              "name": "bpayInReport",
+              "item": [
+                {
+                  "name": "{date}",
+                  "item": [
+                    {
+                      "name": "BPAY Receivables Report",
+                      "id": "ed58ebb3-1c13-443b-b5fa-767eeb276365",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/bpay/v1/bpayInReport/:date?skip=<integer>&take=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "bpay",
+                            "v1",
+                            "bpayInReport",
+                            ":date"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of records to skip. 1 is the first record.",
+                              "key": "skip",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Number of records to take.",
+                              "key": "take",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "03ea9bdb-0395-464b-b1b0-c4f2b34c404d",
+                              "key": "date",
+                              "value": "<string>",
+                              "description": "(Required) Format:&nbsp; 'yyyy-MM-dd'. The date for which Monoova received the BPAY Receivable transactions."
+                            }
+                          ]
+                        },
+                        "description": "Returns a report of all received BPAY transactions for the day with associated details. If requested multiple times on the current date (calendar day, AEDT), the report is cumulative. E.g. if, on the same day, a report is requested at 10am and another one at 1pm, the report at 1pm will contain all the transactions already contained in the 10am report, in addition to any new transactions.\n\nThe report is an application/octet-stream, columns are comma separated. Where a comma(,) or double quote(\") is present in any of the below fields, the field will be encased in double quotes and/or escaped as per RFC4180\nColumns are as follows: .tb { table-layout:auto; width:100px;!important } .td { overflow:hidden; white-space:nowrap; text-overflow:ellipsis; !important}\n\nTransaction Id Batch Id BPAY Settlement Date Payment Accepted DateTime Payment Type Payer Institution Code Payer State Biller Code Customer Reference Number Payment Method Amount Transaction Reference Number\n\nMonoova generated Unique ID.\nInteger.\n\nPayment Batch ID.\nPayments come in batches\nthroughout the day.\nInteger.\nAEDT, Sydney.\nMax 27 chars. AEDT, Sydney.\nMax 27 chars. Possible values:\n'Payment', 'Error Correction', 'Reversal'. PayerInstitutionCode.\nMax 3 chars. PayerState\nMax 3 chars. BillerCode\nMax 10 chars. CustomerReferenceNumber\nMax 20 chars. PaymentMethod\nMax 3 chars.\nAmount,\n2 decimal places\nfor cents. Max 12 chars. TransactionReferenceNumber.\nMax 21 chars."
+                      },
+                      "response": [
+                        {
+                          "id": "4c81273f-4984-4346-97c9-b8dc075e7382",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "text/plain"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/bpay/v1/bpayInReport/:date?skip=<integer>&take=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "bpay",
+                                "v1",
+                                "bpayInReport",
+                                ":date"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Number of records to skip. 1 is the first record.",
+                                  "key": "skip",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records to take.",
+                                  "key": "take",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/plain"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"examples\": {\n    \"response\": {\n      \"value\": \"Transaction Id,Batch Id,BPAY Settlement Date,Payment Accepted DateTime,Payment Type,Payer Institution Code,Payer State,Biller Code,Customer Reference Number,Payment Method,Amount,Transaction Reference Number,Receipt Number\\n10557123,57,2020-11-02T00:00:00,2020-11-02T19:58:06,Payment,CBA,NSW,857763,100014080495384,DebitAccount,20000.00,CBA202011020140276714,5678120\\n\"\n    }\n  }\n}",
+                          "createdAt": "2026-10-22T01:58:24.000Z",
+                          "updatedAt": "2026-10-22T01:58:24.000Z",
+                          "uid": "35240-4c81273f-4984-4346-97c9-b8dc075e7382"
+                        },
+                        {
+                          "id": "1d798f2d-7612-4f71-be80-fda4d654fecf",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/bpay/v1/bpayInReport/:date?skip=<integer>&take=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "bpay",
+                                "v1",
+                                "bpayInReport",
+                                ":date"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Number of records to skip. 1 is the first record.",
+                                  "key": "skip",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records to take.",
+                                  "key": "take",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:24.000Z",
+                          "updatedAt": "2026-10-22T01:58:24.000Z",
+                          "uid": "35240-1d798f2d-7612-4f71-be80-fda4d654fecf"
+                        },
+                        {
+                          "id": "4b72a8b6-cbee-4e12-b7b4-c9b3166c090d",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/bpay/v1/bpayInReport/:date?skip=<integer>&take=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "bpay",
+                                "v1",
+                                "bpayInReport",
+                                ":date"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Number of records to skip. 1 is the first record.",
+                                  "key": "skip",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Number of records to take.",
+                                  "key": "take",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:58:24.000Z",
+                          "updatedAt": "2026-10-22T01:58:24.000Z",
+                          "uid": "35240-4b72a8b6-cbee-4e12-b7b4-c9b3166c090d"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:58:24.000Z",
+                      "updatedAt": "2026-10-22T01:58:24.000Z",
+                      "uid": "35240-ed58ebb3-1c13-443b-b5fa-767eeb276365"
+                    }
+                  ],
+                  "id": "32b60af7-899f-4e4f-9fd8-9e3b9edbf96a",
+                  "createdAt": "2026-10-22T01:58:24.000Z",
+                  "updatedAt": "2026-10-22T01:58:24.000Z",
+                  "uid": "35240-32b60af7-899f-4e4f-9fd8-9e3b9edbf96a"
+                }
+              ],
+              "id": "da9dde31-1499-4a33-ac2d-3df36a11dd21",
+              "createdAt": "2026-10-22T01:58:24.000Z",
+              "updatedAt": "2026-10-22T01:58:24.000Z",
+              "uid": "35240-da9dde31-1499-4a33-ac2d-3df36a11dd21"
+            }
+          ],
+          "id": "5ff84ca6-bd6a-4dfa-a32d-dd81429b788a",
+          "createdAt": "2026-10-22T01:58:24.000Z",
+          "updatedAt": "2026-10-22T01:58:24.000Z",
+          "uid": "35240-5ff84ca6-bd6a-4dfa-a32d-dd81429b788a"
+        }
+      ],
+      "id": "a77ba0d5-8f6f-453b-9842-59f448930311",
+      "createdAt": "2026-10-22T01:58:24.000Z",
+      "updatedAt": "2026-10-22T01:58:24.000Z",
+      "uid": "35240-a77ba0d5-8f6f-453b-9842-59f448930311"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.mpay.com.au"
+    }
+  ]
+}

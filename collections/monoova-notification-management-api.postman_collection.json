@@ -1,0 +1,3152 @@
+{
+  "info": {
+    "_postman_id": "9a2331d3-0db1-445a-b378-3c03b6be969e",
+    "name": "Monoova Notification Management API",
+    "description": "Operations tagged Notification Management across 2 of this provider's published API definitions: monoova-cc.yml, monoova-payto.yml. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:59:57.000Z",
+    "updatedAt": "2026-10-22T01:59:57.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9a2331d3-0db1-445a-b378-3c03b6be969e"
+  },
+  "item": [
+    {
+      "name": "au",
+      "item": [
+        {
+          "name": "core",
+          "item": [
+            {
+              "name": "notification-v1",
+              "item": [
+                {
+                  "name": "Subscription",
+                  "item": [
+                    {
+                      "name": "{subscriptionId}",
+                      "item": [
+                        {
+                          "name": "GET Subscription",
+                          "id": "79a265ca-b4e7-469a-9578-928e9b022f1f",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/core/notification-v1/Subscription/:subscriptionId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "core",
+                                "notification-v1",
+                                "Subscription",
+                                ":subscriptionId"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "a119c02c-4b5e-447e-8327-8da161b4708f",
+                                  "key": "subscriptionId",
+                                  "value": "<string>",
+                                  "description": "(Required) Monoova generated Guid to uniquely identify the subscription. </br> This is required when updating a subscription, if not provided then we assume we are trying to create a new subscription.</br>Is a valid Guid when not blank."
+                                }
+                              ]
+                            },
+                            "description": "Gets the subscription by Id"
+                          },
+                          "response": [
+                            {
+                              "id": "3736e81a-5cad-4727-9771-1b89d211806c",
+                              "name": "Success",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/core/notification-v1/Subscription/:subscriptionId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "core",
+                                    "notification-v1",
+                                    "Subscription",
+                                    ":subscriptionId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "subscriptionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"status\": \"<string,null>\",\n  \"statusDescription\": \"<string,null>\",\n  \"subscriptionDetails\": \"<array,null>\"\n}",
+                              "createdAt": "2026-10-22T01:59:58.000Z",
+                              "updatedAt": "2026-10-22T01:59:58.000Z",
+                              "uid": "35240-3736e81a-5cad-4727-9771-1b89d211806c"
+                            },
+                            {
+                              "id": "8c211363-4659-4395-ad7d-7b5505eeb48f",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/core/notification-v1/Subscription/:subscriptionId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "core",
+                                    "notification-v1",
+                                    "Subscription",
+                                    ":subscriptionId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "subscriptionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T01:59:58.000Z",
+                              "updatedAt": "2026-10-22T01:59:58.000Z",
+                              "uid": "35240-8c211363-4659-4395-ad7d-7b5505eeb48f"
+                            },
+                            {
+                              "id": "c6116744-9a09-4240-883c-6e7afefdb1dd",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/core/notification-v1/Subscription/:subscriptionId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "core",
+                                    "notification-v1",
+                                    "Subscription",
+                                    ":subscriptionId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "subscriptionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T01:59:58.000Z",
+                              "updatedAt": "2026-10-22T01:59:58.000Z",
+                              "uid": "35240-c6116744-9a09-4240-883c-6e7afefdb1dd"
+                            },
+                            {
+                              "id": "57bbf5fc-506d-4d28-af93-8179dbe7a281",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/core/notification-v1/Subscription/:subscriptionId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "core",
+                                    "notification-v1",
+                                    "Subscription",
+                                    ":subscriptionId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "subscriptionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T01:59:58.000Z",
+                              "updatedAt": "2026-10-22T01:59:58.000Z",
+                              "uid": "35240-57bbf5fc-506d-4d28-af93-8179dbe7a281"
+                            },
+                            {
+                              "id": "ed3f34e5-ec04-451b-bb37-49854af274cb",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/core/notification-v1/Subscription/:subscriptionId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "core",
+                                    "notification-v1",
+                                    "Subscription",
+                                    ":subscriptionId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "subscriptionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T01:59:58.000Z",
+                              "updatedAt": "2026-10-22T01:59:58.000Z",
+                              "uid": "35240-ed3f34e5-ec04-451b-bb37-49854af274cb"
+                            },
+                            {
+                              "id": "1dcdba37-6f31-4cd3-8d9a-e5dd2037dc63",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/core/notification-v1/Subscription/:subscriptionId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "core",
+                                    "notification-v1",
+                                    "Subscription",
+                                    ":subscriptionId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "subscriptionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Gateway",
+                              "code": 502,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T01:59:58.000Z",
+                              "updatedAt": "2026-10-22T01:59:58.000Z",
+                              "uid": "35240-1dcdba37-6f31-4cd3-8d9a-e5dd2037dc63"
+                            },
+                            {
+                              "id": "503e5725-ae65-44e9-a82b-e3065872cdb8",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/core/notification-v1/Subscription/:subscriptionId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "core",
+                                    "notification-v1",
+                                    "Subscription",
+                                    ":subscriptionId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "subscriptionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Gateway Timeout",
+                              "code": 504,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T01:59:58.000Z",
+                              "updatedAt": "2026-10-22T01:59:58.000Z",
+                              "uid": "35240-503e5725-ae65-44e9-a82b-e3065872cdb8"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T01:59:57.000Z",
+                          "updatedAt": "2026-10-22T01:59:57.000Z",
+                          "uid": "35240-79a265ca-b4e7-469a-9578-928e9b022f1f"
+                        },
+                        {
+                          "name": "DELETE a subscription",
+                          "id": "aed0ca46-8f18-44b7-bd29-c136224f0788",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/core/notification-v1/Subscription/:subscriptionId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "core",
+                                "notification-v1",
+                                "Subscription",
+                                ":subscriptionId"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "8e26830c-7003-48f2-81f6-5b412a7adfe4",
+                                  "key": "subscriptionId",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "id": "9186cd87-da07-42e0-a22e-28cdbb4a7390",
+                              "name": "Success",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/core/notification-v1/Subscription/:subscriptionId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "core",
+                                    "notification-v1",
+                                    "Subscription",
+                                    ":subscriptionId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "subscriptionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"traceId\": \"<string,null>\",\n  \"errors\": \"<string,null>\"\n}",
+                              "createdAt": "2026-10-22T01:59:58.000Z",
+                              "updatedAt": "2026-10-22T01:59:58.000Z",
+                              "uid": "35240-9186cd87-da07-42e0-a22e-28cdbb4a7390"
+                            },
+                            {
+                              "id": "bec26266-dbef-4171-a26d-ce66e5f80a4d",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/core/notification-v1/Subscription/:subscriptionId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "core",
+                                    "notification-v1",
+                                    "Subscription",
+                                    ":subscriptionId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "subscriptionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T01:59:58.000Z",
+                              "updatedAt": "2026-10-22T01:59:58.000Z",
+                              "uid": "35240-bec26266-dbef-4171-a26d-ce66e5f80a4d"
+                            },
+                            {
+                              "id": "026fa701-b5ae-4dc1-9ad0-e21073a575f6",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/core/notification-v1/Subscription/:subscriptionId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "core",
+                                    "notification-v1",
+                                    "Subscription",
+                                    ":subscriptionId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "subscriptionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T01:59:58.000Z",
+                              "updatedAt": "2026-10-22T01:59:58.000Z",
+                              "uid": "35240-026fa701-b5ae-4dc1-9ad0-e21073a575f6"
+                            },
+                            {
+                              "id": "c3ba3716-51a3-41b5-a564-f9f1dd24d154",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/core/notification-v1/Subscription/:subscriptionId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "core",
+                                    "notification-v1",
+                                    "Subscription",
+                                    ":subscriptionId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "subscriptionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T01:59:58.000Z",
+                              "updatedAt": "2026-10-22T01:59:58.000Z",
+                              "uid": "35240-c3ba3716-51a3-41b5-a564-f9f1dd24d154"
+                            },
+                            {
+                              "id": "d76f41ac-62ea-46da-8fb7-dd6559b24126",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/core/notification-v1/Subscription/:subscriptionId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "core",
+                                    "notification-v1",
+                                    "Subscription",
+                                    ":subscriptionId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "subscriptionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T01:59:58.000Z",
+                              "updatedAt": "2026-10-22T01:59:58.000Z",
+                              "uid": "35240-d76f41ac-62ea-46da-8fb7-dd6559b24126"
+                            },
+                            {
+                              "id": "71360c49-9ec6-4911-94c3-7e2e4c89dd29",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/core/notification-v1/Subscription/:subscriptionId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "core",
+                                    "notification-v1",
+                                    "Subscription",
+                                    ":subscriptionId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "subscriptionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Gateway",
+                              "code": 502,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T01:59:58.000Z",
+                              "updatedAt": "2026-10-22T01:59:58.000Z",
+                              "uid": "35240-71360c49-9ec6-4911-94c3-7e2e4c89dd29"
+                            },
+                            {
+                              "id": "651b7c5d-0fc8-42c5-af57-ac768e8875db",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/core/notification-v1/Subscription/:subscriptionId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "core",
+                                    "notification-v1",
+                                    "Subscription",
+                                    ":subscriptionId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "subscriptionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Gateway Timeout",
+                              "code": 504,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T01:59:58.000Z",
+                              "updatedAt": "2026-10-22T01:59:58.000Z",
+                              "uid": "35240-651b7c5d-0fc8-42c5-af57-ac768e8875db"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T01:59:57.000Z",
+                          "updatedAt": "2026-10-22T01:59:57.000Z",
+                          "uid": "35240-aed0ca46-8f18-44b7-bd29-c136224f0788"
+                        },
+                        {
+                          "name": "Update a subscription",
+                          "id": "38272d00-b59d-4aa9-b8c9-5ecf9ce7d8e5",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"subscriptionName\": \"i\",\n  \"eventName\": \"<string,null>\",\n  \"isActive\": \"<boolean>\",\n  \"webHookDetail\": {\n    \"callBackUrl\": \"<string,null>\",\n    \"securityToken\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/core/notification-v1/Subscription/:subscriptionId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "core",
+                                "notification-v1",
+                                "Subscription",
+                                ":subscriptionId"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "5de39a8e-48d3-49ed-99ff-05abee34a1d1",
+                                  "key": "subscriptionId",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "id": "b7313e55-f27c-4c4e-8df4-d38cdf89b574",
+                              "name": "Success",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"subscriptionName\": \"i\",\n  \"eventName\": \"<string,null>\",\n  \"isActive\": \"<boolean>\",\n  \"webHookDetail\": {\n    \"callBackUrl\": \"<string,null>\",\n    \"securityToken\": \"<string>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/core/notification-v1/Subscription/:subscriptionId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "core",
+                                    "notification-v1",
+                                    "Subscription",
+                                    ":subscriptionId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "subscriptionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"traceId\": \"<string,null>\",\n  \"subscriptionId\": \"<string,null>\"\n}",
+                              "createdAt": "2026-10-22T01:59:58.000Z",
+                              "updatedAt": "2026-10-22T01:59:58.000Z",
+                              "uid": "35240-b7313e55-f27c-4c4e-8df4-d38cdf89b574"
+                            },
+                            {
+                              "id": "f737366a-1219-4b87-af2f-4ac6961dc1e8",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"subscriptionName\": \"i\",\n  \"eventName\": \"<string,null>\",\n  \"isActive\": \"<boolean>\",\n  \"webHookDetail\": {\n    \"callBackUrl\": \"<string,null>\",\n    \"securityToken\": \"<string>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/core/notification-v1/Subscription/:subscriptionId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "core",
+                                    "notification-v1",
+                                    "Subscription",
+                                    ":subscriptionId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "subscriptionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T01:59:58.000Z",
+                              "updatedAt": "2026-10-22T01:59:58.000Z",
+                              "uid": "35240-f737366a-1219-4b87-af2f-4ac6961dc1e8"
+                            },
+                            {
+                              "id": "4fa4432b-acb3-4ddf-bba7-b408c3a43685",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"subscriptionName\": \"i\",\n  \"eventName\": \"<string,null>\",\n  \"isActive\": \"<boolean>\",\n  \"webHookDetail\": {\n    \"callBackUrl\": \"<string,null>\",\n    \"securityToken\": \"<string>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/core/notification-v1/Subscription/:subscriptionId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "core",
+                                    "notification-v1",
+                                    "Subscription",
+                                    ":subscriptionId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "subscriptionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T01:59:58.000Z",
+                              "updatedAt": "2026-10-22T01:59:58.000Z",
+                              "uid": "35240-4fa4432b-acb3-4ddf-bba7-b408c3a43685"
+                            },
+                            {
+                              "id": "e8a9fd9c-82c2-4ea8-9bbf-bde7ae344d72",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"subscriptionName\": \"i\",\n  \"eventName\": \"<string,null>\",\n  \"isActive\": \"<boolean>\",\n  \"webHookDetail\": {\n    \"callBackUrl\": \"<string,null>\",\n    \"securityToken\": \"<string>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/core/notification-v1/Subscription/:subscriptionId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "core",
+                                    "notification-v1",
+                                    "Subscription",
+                                    ":subscriptionId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "subscriptionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T01:59:58.000Z",
+                              "updatedAt": "2026-10-22T01:59:58.000Z",
+                              "uid": "35240-e8a9fd9c-82c2-4ea8-9bbf-bde7ae344d72"
+                            },
+                            {
+                              "id": "0d1b1615-2a41-4601-80ad-a9282cbfec5f",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"subscriptionName\": \"i\",\n  \"eventName\": \"<string,null>\",\n  \"isActive\": \"<boolean>\",\n  \"webHookDetail\": {\n    \"callBackUrl\": \"<string,null>\",\n    \"securityToken\": \"<string>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/core/notification-v1/Subscription/:subscriptionId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "core",
+                                    "notification-v1",
+                                    "Subscription",
+                                    ":subscriptionId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "subscriptionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T01:59:58.000Z",
+                              "updatedAt": "2026-10-22T01:59:58.000Z",
+                              "uid": "35240-0d1b1615-2a41-4601-80ad-a9282cbfec5f"
+                            },
+                            {
+                              "id": "2592cf44-cc7a-4710-ae8b-34cde5389eda",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"subscriptionName\": \"i\",\n  \"eventName\": \"<string,null>\",\n  \"isActive\": \"<boolean>\",\n  \"webHookDetail\": {\n    \"callBackUrl\": \"<string,null>\",\n    \"securityToken\": \"<string>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/core/notification-v1/Subscription/:subscriptionId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "core",
+                                    "notification-v1",
+                                    "Subscription",
+                                    ":subscriptionId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "subscriptionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Gateway",
+                              "code": 502,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T01:59:58.000Z",
+                              "updatedAt": "2026-10-22T01:59:58.000Z",
+                              "uid": "35240-2592cf44-cc7a-4710-ae8b-34cde5389eda"
+                            },
+                            {
+                              "id": "77b7d71e-9663-4ebd-a860-fb3711d633ca",
+                              "name": "Error",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"subscriptionName\": \"i\",\n  \"eventName\": \"<string,null>\",\n  \"isActive\": \"<boolean>\",\n  \"webHookDetail\": {\n    \"callBackUrl\": \"<string,null>\",\n    \"securityToken\": \"<string>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/core/notification-v1/Subscription/:subscriptionId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "core",
+                                    "notification-v1",
+                                    "Subscription",
+                                    ":subscriptionId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "subscriptionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Gateway Timeout",
+                              "code": 504,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-10-22T01:59:58.000Z",
+                              "updatedAt": "2026-10-22T01:59:58.000Z",
+                              "uid": "35240-77b7d71e-9663-4ebd-a860-fb3711d633ca"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T01:59:57.000Z",
+                          "updatedAt": "2026-10-22T01:59:57.000Z",
+                          "uid": "35240-38272d00-b59d-4aa9-b8c9-5ecf9ce7d8e5"
+                        }
+                      ],
+                      "id": "3d5d35c6-11be-4126-a87a-4050900710ec",
+                      "createdAt": "2026-10-22T01:59:57.000Z",
+                      "updatedAt": "2026-10-22T01:59:57.000Z",
+                      "uid": "35240-3d5d35c6-11be-4126-a87a-4050900710ec"
+                    },
+                    {
+                      "name": "Create a subscription",
+                      "id": "af1287a9-8665-423c-83b0-880047ffa102",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"subscriptionName\": \"i\",\n  \"eventName\": \"<string,null>\",\n  \"isActive\": \"<boolean>\",\n  \"webHookDetail\": {\n    \"callBackUrl\": \"<string,null>\",\n    \"securityToken\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/au/core/notification-v1/Subscription",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "au",
+                            "core",
+                            "notification-v1",
+                            "Subscription"
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "4219c268-a3cb-45ef-be3f-312fb864da9c",
+                          "name": "Success",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"subscriptionName\": \"i\",\n  \"eventName\": \"<string,null>\",\n  \"isActive\": \"<boolean>\",\n  \"webHookDetail\": {\n    \"callBackUrl\": \"<string,null>\",\n    \"securityToken\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/core/notification-v1/Subscription",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "core",
+                                "notification-v1",
+                                "Subscription"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"traceId\": \"<string,null>\",\n  \"subscriptionId\": \"<string,null>\"\n}",
+                          "createdAt": "2026-10-22T01:59:58.000Z",
+                          "updatedAt": "2026-10-22T01:59:58.000Z",
+                          "uid": "35240-4219c268-a3cb-45ef-be3f-312fb864da9c"
+                        },
+                        {
+                          "id": "284fd77c-e78a-45d8-9ba8-64be839ae05e",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"subscriptionName\": \"i\",\n  \"eventName\": \"<string,null>\",\n  \"isActive\": \"<boolean>\",\n  \"webHookDetail\": {\n    \"callBackUrl\": \"<string,null>\",\n    \"securityToken\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/core/notification-v1/Subscription",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "core",
+                                "notification-v1",
+                                "Subscription"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:58.000Z",
+                          "updatedAt": "2026-10-22T01:59:58.000Z",
+                          "uid": "35240-284fd77c-e78a-45d8-9ba8-64be839ae05e"
+                        },
+                        {
+                          "id": "a5639bc2-e29d-4f4a-bd45-077f2db7994f",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"subscriptionName\": \"i\",\n  \"eventName\": \"<string,null>\",\n  \"isActive\": \"<boolean>\",\n  \"webHookDetail\": {\n    \"callBackUrl\": \"<string,null>\",\n    \"securityToken\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/core/notification-v1/Subscription",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "core",
+                                "notification-v1",
+                                "Subscription"
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:58.000Z",
+                          "updatedAt": "2026-10-22T01:59:58.000Z",
+                          "uid": "35240-a5639bc2-e29d-4f4a-bd45-077f2db7994f"
+                        },
+                        {
+                          "id": "5d5f80bf-6d5e-49de-a342-cd605ad086c4",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"subscriptionName\": \"i\",\n  \"eventName\": \"<string,null>\",\n  \"isActive\": \"<boolean>\",\n  \"webHookDetail\": {\n    \"callBackUrl\": \"<string,null>\",\n    \"securityToken\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/core/notification-v1/Subscription",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "core",
+                                "notification-v1",
+                                "Subscription"
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:58.000Z",
+                          "updatedAt": "2026-10-22T01:59:58.000Z",
+                          "uid": "35240-5d5f80bf-6d5e-49de-a342-cd605ad086c4"
+                        },
+                        {
+                          "id": "ce974dca-c671-4992-ae22-da3b904b4b44",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"subscriptionName\": \"i\",\n  \"eventName\": \"<string,null>\",\n  \"isActive\": \"<boolean>\",\n  \"webHookDetail\": {\n    \"callBackUrl\": \"<string,null>\",\n    \"securityToken\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/core/notification-v1/Subscription",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "core",
+                                "notification-v1",
+                                "Subscription"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:58.000Z",
+                          "updatedAt": "2026-10-22T01:59:58.000Z",
+                          "uid": "35240-ce974dca-c671-4992-ae22-da3b904b4b44"
+                        },
+                        {
+                          "id": "99d81596-45d2-4b17-9056-ce631145d5b8",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"subscriptionName\": \"i\",\n  \"eventName\": \"<string,null>\",\n  \"isActive\": \"<boolean>\",\n  \"webHookDetail\": {\n    \"callBackUrl\": \"<string,null>\",\n    \"securityToken\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/core/notification-v1/Subscription",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "core",
+                                "notification-v1",
+                                "Subscription"
+                              ]
+                            }
+                          },
+                          "status": "Bad Gateway",
+                          "code": 502,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:58.000Z",
+                          "updatedAt": "2026-10-22T01:59:58.000Z",
+                          "uid": "35240-99d81596-45d2-4b17-9056-ce631145d5b8"
+                        },
+                        {
+                          "id": "16ab8620-0cff-4484-bbed-86845fe3dba0",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"subscriptionName\": \"i\",\n  \"eventName\": \"<string,null>\",\n  \"isActive\": \"<boolean>\",\n  \"webHookDetail\": {\n    \"callBackUrl\": \"<string,null>\",\n    \"securityToken\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/au/core/notification-v1/Subscription",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "core",
+                                "notification-v1",
+                                "Subscription"
+                              ]
+                            }
+                          },
+                          "status": "Gateway Timeout",
+                          "code": 504,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:58.000Z",
+                          "updatedAt": "2026-10-22T01:59:58.000Z",
+                          "uid": "35240-16ab8620-0cff-4484-bbed-86845fe3dba0"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:59:57.000Z",
+                      "updatedAt": "2026-10-22T01:59:57.000Z",
+                      "uid": "35240-af1287a9-8665-423c-83b0-880047ffa102"
+                    },
+                    {
+                      "name": "Get All Subscriptions",
+                      "id": "0d0ae3e8-cb7e-447d-9b86-a9f6efbc0da3",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/au/core/notification-v1/Subscription",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "au",
+                            "core",
+                            "notification-v1",
+                            "Subscription"
+                          ]
+                        },
+                        "description": "Retrieves details of all subscriptions."
+                      },
+                      "response": [
+                        {
+                          "id": "3825e981-71a0-4aad-9c14-7088cf6e0a18",
+                          "name": "Success",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/core/notification-v1/Subscription",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "core",
+                                "notification-v1",
+                                "Subscription"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"traceId\": \"<string>\",\n  \"subscriptionDetails\": \"<array,null>\"\n}",
+                          "createdAt": "2026-10-22T01:59:58.000Z",
+                          "updatedAt": "2026-10-22T01:59:58.000Z",
+                          "uid": "35240-3825e981-71a0-4aad-9c14-7088cf6e0a18"
+                        },
+                        {
+                          "id": "9bf64a8b-1273-4bac-8590-452d783256d8",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/core/notification-v1/Subscription",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "core",
+                                "notification-v1",
+                                "Subscription"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:58.000Z",
+                          "updatedAt": "2026-10-22T01:59:58.000Z",
+                          "uid": "35240-9bf64a8b-1273-4bac-8590-452d783256d8"
+                        },
+                        {
+                          "id": "c6b8d985-8124-4188-8546-4e64d277fcc9",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/core/notification-v1/Subscription",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "core",
+                                "notification-v1",
+                                "Subscription"
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:58.000Z",
+                          "updatedAt": "2026-10-22T01:59:58.000Z",
+                          "uid": "35240-c6b8d985-8124-4188-8546-4e64d277fcc9"
+                        },
+                        {
+                          "id": "c28ca360-8368-45b9-83df-6742ef0182dc",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/core/notification-v1/Subscription",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "core",
+                                "notification-v1",
+                                "Subscription"
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:58.000Z",
+                          "updatedAt": "2026-10-22T01:59:58.000Z",
+                          "uid": "35240-c28ca360-8368-45b9-83df-6742ef0182dc"
+                        },
+                        {
+                          "id": "0ee556fe-dc73-4ef6-9567-1385d92580a1",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/core/notification-v1/Subscription",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "core",
+                                "notification-v1",
+                                "Subscription"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:58.000Z",
+                          "updatedAt": "2026-10-22T01:59:58.000Z",
+                          "uid": "35240-0ee556fe-dc73-4ef6-9567-1385d92580a1"
+                        },
+                        {
+                          "id": "4ac2f8a0-cfc6-43a5-95c6-f81e4e3aafa5",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/core/notification-v1/Subscription",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "core",
+                                "notification-v1",
+                                "Subscription"
+                              ]
+                            }
+                          },
+                          "status": "Bad Gateway",
+                          "code": 502,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:58.000Z",
+                          "updatedAt": "2026-10-22T01:59:58.000Z",
+                          "uid": "35240-4ac2f8a0-cfc6-43a5-95c6-f81e4e3aafa5"
+                        },
+                        {
+                          "id": "3e12d168-1e69-4203-ba4f-8e056f7fd4fb",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/core/notification-v1/Subscription",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "core",
+                                "notification-v1",
+                                "Subscription"
+                              ]
+                            }
+                          },
+                          "status": "Gateway Timeout",
+                          "code": 504,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:58.000Z",
+                          "updatedAt": "2026-10-22T01:59:58.000Z",
+                          "uid": "35240-3e12d168-1e69-4203-ba4f-8e056f7fd4fb"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:59:57.000Z",
+                      "updatedAt": "2026-10-22T01:59:57.000Z",
+                      "uid": "35240-0d0ae3e8-cb7e-447d-9b86-a9f6efbc0da3"
+                    }
+                  ],
+                  "id": "df8f83c4-a9dc-4274-8b84-0bb5fd7fc339",
+                  "createdAt": "2026-10-22T01:59:57.000Z",
+                  "updatedAt": "2026-10-22T01:59:57.000Z",
+                  "uid": "35240-df8f83c4-a9dc-4274-8b84-0bb5fd7fc339"
+                },
+                {
+                  "name": "Notification",
+                  "item": [
+                    {
+                      "name": "resend",
+                      "item": [
+                        {
+                          "name": "{eventId}",
+                          "item": [
+                            {
+                              "name": "Request a resend",
+                              "id": "44de31aa-a107-44ad-abf7-87288ffd9d4d",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/core/notification-v1/Notification/resend/:eventId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "core",
+                                    "notification-v1",
+                                    "Notification",
+                                    "resend",
+                                    ":eventId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "2970aa7f-197b-45d4-8839-f50e35db1eaf",
+                                      "key": "eventId",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                }
+                              },
+                              "response": [
+                                {
+                                  "id": "1f8f2df6-2c87-4d38-a3a9-cd55d567f04d",
+                                  "name": "Success",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/core/notification-v1/Notification/resend/:eventId",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "core",
+                                        "notification-v1",
+                                        "Notification",
+                                        "resend",
+                                        ":eventId"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "eventId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"status\": \"<string,null>\",\n  \"statusDescription\": \"<string,null>\"\n}",
+                                  "createdAt": "2026-10-22T01:59:58.000Z",
+                                  "updatedAt": "2026-10-22T01:59:58.000Z",
+                                  "uid": "35240-1f8f2df6-2c87-4d38-a3a9-cd55d567f04d"
+                                },
+                                {
+                                  "id": "1dd0328d-0dc7-4a43-9237-4772c82acdba",
+                                  "name": "Error",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/core/notification-v1/Notification/resend/:eventId",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "core",
+                                        "notification-v1",
+                                        "Notification",
+                                        "resend",
+                                        ":eventId"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "eventId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:59:58.000Z",
+                                  "updatedAt": "2026-10-22T01:59:58.000Z",
+                                  "uid": "35240-1dd0328d-0dc7-4a43-9237-4772c82acdba"
+                                },
+                                {
+                                  "id": "d1f5d733-00f0-4457-9dfa-f953e808e80a",
+                                  "name": "Error",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/core/notification-v1/Notification/resend/:eventId",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "core",
+                                        "notification-v1",
+                                        "Notification",
+                                        "resend",
+                                        ":eventId"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "eventId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:59:58.000Z",
+                                  "updatedAt": "2026-10-22T01:59:58.000Z",
+                                  "uid": "35240-d1f5d733-00f0-4457-9dfa-f953e808e80a"
+                                },
+                                {
+                                  "id": "ac5b3b8c-16e6-466b-8bee-67039a4b3424",
+                                  "name": "Error",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/core/notification-v1/Notification/resend/:eventId",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "core",
+                                        "notification-v1",
+                                        "Notification",
+                                        "resend",
+                                        ":eventId"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "eventId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:59:58.000Z",
+                                  "updatedAt": "2026-10-22T01:59:58.000Z",
+                                  "uid": "35240-ac5b3b8c-16e6-466b-8bee-67039a4b3424"
+                                },
+                                {
+                                  "id": "aab97fbe-bdf8-4d08-a6bd-6d518161fa1d",
+                                  "name": "Error",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/core/notification-v1/Notification/resend/:eventId",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "core",
+                                        "notification-v1",
+                                        "Notification",
+                                        "resend",
+                                        ":eventId"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "eventId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:59:58.000Z",
+                                  "updatedAt": "2026-10-22T01:59:58.000Z",
+                                  "uid": "35240-aab97fbe-bdf8-4d08-a6bd-6d518161fa1d"
+                                },
+                                {
+                                  "id": "e0813e8d-1098-4c55-bdb3-138a86b0fd30",
+                                  "name": "Error",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/core/notification-v1/Notification/resend/:eventId",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "core",
+                                        "notification-v1",
+                                        "Notification",
+                                        "resend",
+                                        ":eventId"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "eventId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Gateway",
+                                  "code": 502,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:59:58.000Z",
+                                  "updatedAt": "2026-10-22T01:59:58.000Z",
+                                  "uid": "35240-e0813e8d-1098-4c55-bdb3-138a86b0fd30"
+                                },
+                                {
+                                  "id": "b6ad2350-d964-4022-9c83-dc5b3475dedc",
+                                  "name": "Error",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/core/notification-v1/Notification/resend/:eventId",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "core",
+                                        "notification-v1",
+                                        "Notification",
+                                        "resend",
+                                        ":eventId"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "eventId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Gateway Timeout",
+                                  "code": 504,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-10-22T01:59:58.000Z",
+                                  "updatedAt": "2026-10-22T01:59:58.000Z",
+                                  "uid": "35240-b6ad2350-d964-4022-9c83-dc5b3475dedc"
+                                }
+                              ],
+                              "createdAt": "2026-10-22T01:59:57.000Z",
+                              "updatedAt": "2026-10-22T01:59:57.000Z",
+                              "uid": "35240-44de31aa-a107-44ad-abf7-87288ffd9d4d"
+                            }
+                          ],
+                          "id": "107dd69d-667b-41f1-9bc8-37a5c47db906",
+                          "createdAt": "2026-10-22T01:59:57.000Z",
+                          "updatedAt": "2026-10-22T01:59:57.000Z",
+                          "uid": "35240-107dd69d-667b-41f1-9bc8-37a5c47db906"
+                        }
+                      ],
+                      "id": "c7cd5b37-dbea-4537-b635-99f09326f171",
+                      "createdAt": "2026-10-22T01:59:57.000Z",
+                      "updatedAt": "2026-10-22T01:59:57.000Z",
+                      "uid": "35240-c7cd5b37-dbea-4537-b635-99f09326f171"
+                    },
+                    {
+                      "name": "GET Webhooks",
+                      "id": "788e7915-ef0d-4c4b-91d6-c6470d711aee",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/au/core/notification-v1/Notification?start=<dateTime>&pageSize=<integer>&pageNumber=<integer>&end=<dateTime>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "au",
+                            "core",
+                            "notification-v1",
+                            "Notification"
+                          ],
+                          "query": [
+                            {
+                              "description": "Format - date-time (as date-time in RFC3339).",
+                              "key": "start",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "Format - int32.",
+                              "key": "pageSize",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Format - int32.",
+                              "key": "pageNumber",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Format - date-time (as date-time in RFC3339).",
+                              "key": "end",
+                              "value": "<dateTime>"
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "0ff83524-32a2-4afc-8169-6eba4ddcd803",
+                          "name": "Success",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/core/notification-v1/Notification?start=<dateTime>&pageSize=<integer>&pageNumber=<integer>&end=<dateTime>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "core",
+                                "notification-v1",
+                                "Notification"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Format - date-time (as date-time in RFC3339).",
+                                  "key": "start",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Format - int32.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Format - int32.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Format - date-time (as date-time in RFC3339).",
+                                  "key": "end",
+                                  "value": "<dateTime>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string,null>\",\n  \"statusDescription\": \"<string,null>\",\n  \"notifications\": \"<array,null>\"\n}",
+                          "createdAt": "2026-10-22T01:59:58.000Z",
+                          "updatedAt": "2026-10-22T01:59:58.000Z",
+                          "uid": "35240-0ff83524-32a2-4afc-8169-6eba4ddcd803"
+                        },
+                        {
+                          "id": "d2ef6e20-3186-4d1b-9a79-09f4a0163d61",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/core/notification-v1/Notification?start=<dateTime>&pageSize=<integer>&pageNumber=<integer>&end=<dateTime>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "core",
+                                "notification-v1",
+                                "Notification"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Format - date-time (as date-time in RFC3339).",
+                                  "key": "start",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Format - int32.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Format - int32.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Format - date-time (as date-time in RFC3339).",
+                                  "key": "end",
+                                  "value": "<dateTime>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:58.000Z",
+                          "updatedAt": "2026-10-22T01:59:58.000Z",
+                          "uid": "35240-d2ef6e20-3186-4d1b-9a79-09f4a0163d61"
+                        },
+                        {
+                          "id": "08e2807d-3d2d-4039-be5b-341d70c3beff",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/core/notification-v1/Notification?start=<dateTime>&pageSize=<integer>&pageNumber=<integer>&end=<dateTime>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "core",
+                                "notification-v1",
+                                "Notification"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Format - date-time (as date-time in RFC3339).",
+                                  "key": "start",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Format - int32.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Format - int32.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Format - date-time (as date-time in RFC3339).",
+                                  "key": "end",
+                                  "value": "<dateTime>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:58.000Z",
+                          "updatedAt": "2026-10-22T01:59:58.000Z",
+                          "uid": "35240-08e2807d-3d2d-4039-be5b-341d70c3beff"
+                        },
+                        {
+                          "id": "475673f8-3238-47df-862d-ff6f22cc5a7d",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/core/notification-v1/Notification?start=<dateTime>&pageSize=<integer>&pageNumber=<integer>&end=<dateTime>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "core",
+                                "notification-v1",
+                                "Notification"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Format - date-time (as date-time in RFC3339).",
+                                  "key": "start",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Format - int32.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Format - int32.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Format - date-time (as date-time in RFC3339).",
+                                  "key": "end",
+                                  "value": "<dateTime>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:58.000Z",
+                          "updatedAt": "2026-10-22T01:59:58.000Z",
+                          "uid": "35240-475673f8-3238-47df-862d-ff6f22cc5a7d"
+                        },
+                        {
+                          "id": "b8b7ba92-e396-4a3e-aab9-b25e977bb5b3",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/core/notification-v1/Notification?start=<dateTime>&pageSize=<integer>&pageNumber=<integer>&end=<dateTime>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "core",
+                                "notification-v1",
+                                "Notification"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Format - date-time (as date-time in RFC3339).",
+                                  "key": "start",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Format - int32.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Format - int32.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Format - date-time (as date-time in RFC3339).",
+                                  "key": "end",
+                                  "value": "<dateTime>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:58.000Z",
+                          "updatedAt": "2026-10-22T01:59:58.000Z",
+                          "uid": "35240-b8b7ba92-e396-4a3e-aab9-b25e977bb5b3"
+                        },
+                        {
+                          "id": "5def29e8-93f1-4248-826d-96d7d1bbda0e",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/core/notification-v1/Notification?start=<dateTime>&pageSize=<integer>&pageNumber=<integer>&end=<dateTime>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "core",
+                                "notification-v1",
+                                "Notification"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Format - date-time (as date-time in RFC3339).",
+                                  "key": "start",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Format - int32.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Format - int32.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Format - date-time (as date-time in RFC3339).",
+                                  "key": "end",
+                                  "value": "<dateTime>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Gateway",
+                          "code": 502,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:58.000Z",
+                          "updatedAt": "2026-10-22T01:59:58.000Z",
+                          "uid": "35240-5def29e8-93f1-4248-826d-96d7d1bbda0e"
+                        },
+                        {
+                          "id": "374efa5f-1cfe-4fda-936a-569206d0c579",
+                          "name": "Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/au/core/notification-v1/Notification?start=<dateTime>&pageSize=<integer>&pageNumber=<integer>&end=<dateTime>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "au",
+                                "core",
+                                "notification-v1",
+                                "Notification"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Format - date-time (as date-time in RFC3339).",
+                                  "key": "start",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Format - int32.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Format - int32.",
+                                  "key": "pageNumber",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Format - date-time (as date-time in RFC3339).",
+                                  "key": "end",
+                                  "value": "<dateTime>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Gateway Timeout",
+                          "code": 504,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"example\": {\n    \"traceId\": \"f1a7fbd7-ca39-4b98-b247-f4e0e004f152\",\n    \"errors\": [\n      {\n        \"errorCode\": \"string\",\n        \"errorMessage\": \"string\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T01:59:58.000Z",
+                          "updatedAt": "2026-10-22T01:59:58.000Z",
+                          "uid": "35240-374efa5f-1cfe-4fda-936a-569206d0c579"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:59:57.000Z",
+                      "updatedAt": "2026-10-22T01:59:57.000Z",
+                      "uid": "35240-788e7915-ef0d-4c4b-91d6-c6470d711aee"
+                    }
+                  ],
+                  "id": "66f3842f-43d3-467e-ad4c-50e4a24d79cc",
+                  "createdAt": "2026-10-22T01:59:57.000Z",
+                  "updatedAt": "2026-10-22T01:59:57.000Z",
+                  "uid": "35240-66f3842f-43d3-467e-ad4c-50e4a24d79cc"
+                }
+              ],
+              "id": "96bff22c-1d69-409f-9943-5b112c77655b",
+              "createdAt": "2026-10-22T01:59:57.000Z",
+              "updatedAt": "2026-10-22T01:59:57.000Z",
+              "uid": "35240-96bff22c-1d69-409f-9943-5b112c77655b"
+            }
+          ],
+          "id": "ad8d2669-a82f-4ae1-b5b8-a4322d8d1d5b",
+          "createdAt": "2026-10-22T01:59:57.000Z",
+          "updatedAt": "2026-10-22T01:59:57.000Z",
+          "uid": "35240-ad8d2669-a82f-4ae1-b5b8-a4322d8d1d5b"
+        }
+      ],
+      "id": "be37c6b5-b3e4-41b7-bdc0-719167fe518c",
+      "createdAt": "2026-10-22T01:59:57.000Z",
+      "updatedAt": "2026-10-22T01:59:57.000Z",
+      "uid": "35240-be37c6b5-b3e4-41b7-bdc0-719167fe518c"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.monoova.com"
+    }
+  ]
+}

@@ -1,0 +1,1745 @@
+{
+  "info": {
+    "_postman_id": "c562b1a7-60a8-4552-b6f8-e93dc448e1ed",
+    "name": "Monoova Payments M Wallet API",
+    "description": "# Introduction\n\nMonoova has developed a powerful payments engine which allows you to receive, manage and pay funds in AUD in Australia automatically.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:59:49.000Z",
+    "updatedAt": "2026-10-22T01:59:49.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c562b1a7-60a8-4552-b6f8-e93dc448e1ed"
+  },
+  "item": [
+    {
+      "name": "mWallet",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "create",
+              "item": [
+                {
+                  "name": "Create an mWallet",
+                  "id": "51f1ceb3-bbe3-4591-8d6d-92899244143b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"identifier\": \"<string>\",\n  \"pin\": \"<number>\",\n  \"name\": \"<string>\",\n  \"dateOfBirth\": \"<dateTime>\",\n  \"nickName\": \"<string>\",\n  \"phone\": \"<number>\",\n  \"email\": \"<string>\",\n  \"allowDuplicates\": \"<boolean>\",\n  \"abn\": \"<string>\",\n  \"options\": [\n    {\n      \"key\": \"MobileForSms\",\n      \"value\": 70297171\n    },\n    {\n      \"key\": \"MobileForSms\",\n      \"value\": 70297171\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/mWallet/v1/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mWallet",
+                        "v1",
+                        "create"
+                      ]
+                    },
+                    "description": "This API creates a new mWallet. This creation process has been mandated by BPAY Pty Ltd as part of the license to use BPAY as a payment method. Ideally client software should mask the pin from the merchant and get the customer to key in the pin number twice to ensure accuracy and to maintain privacy. The pin and the Date of Birth Fields are the ultimate authentication fields that a customer has to allow the payment. If the customer forgets their pin then it can be reset using the ResetPin function. The customer must supply a birth date (or any other significant date) that matches the one that is registered. If a customer queries why a birth date is needed as part of the registration process then it is for this reason. Note: Though specified as a birth date any date of significance would be appropriate. There is no date range checking to check for age etc. The date is used to allow changes to the pin only."
+                  },
+                  "response": [
+                    {
+                      "id": "8256b6fe-dceb-4126-a96c-97b81a18aad8",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"identifier\": \"<string>\",\n  \"pin\": \"<number>\",\n  \"name\": \"<string>\",\n  \"dateOfBirth\": \"<dateTime>\",\n  \"nickName\": \"<string>\",\n  \"phone\": \"<number>\",\n  \"email\": \"<string>\",\n  \"allowDuplicates\": \"<boolean>\",\n  \"abn\": \"<string>\",\n  \"options\": [\n    {\n      \"key\": \"MobileForSms\",\n      \"value\": 70297171\n    },\n    {\n      \"key\": \"MobileForSms\",\n      \"value\": 70297171\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mWallet/v1/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mWallet",
+                            "v1",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"accountNumber\": \"<string>\",\n  \"mWallet\": {\n    \"createdDateTime\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"name\": \"<string>\",\n    \"nickName\": \"<string>\",\n    \"email\": \"<string>\",\n    \"mobile\": \"<string>\",\n    \"lastTransactionDate\": \"<string>\",\n    \"contactPhone\": \"<string>\",\n    \"authenticationEmail\": \"<string>\",\n    \"authenticationMobile\": \"<string>\",\n    \"authenticationLandLine\": \"<string>\",\n    \"registeredByMAccountNumber\": \"<string>\",\n    \"isOnHold\": \"<boolean>\",\n    \"isClosed\": \"<boolean>\",\n    \"isStolen\": \"<boolean>\",\n    \"isRegistered\": \"<boolean>\",\n    \"financials\": {\n      \"actualBalance\": \"<number>\",\n      \"availableSpend\": \"<number>\",\n      \"availableLoad\": \"<number>\"\n    },\n    \"options\": [\n      {\n        \"key\": \"MobileForSms\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"key\": \"MobileForSms\",\n        \"value\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-10-22T01:59:50.000Z",
+                      "updatedAt": "2026-10-22T01:59:50.000Z",
+                      "uid": "35240-8256b6fe-dceb-4126-a96c-97b81a18aad8"
+                    },
+                    {
+                      "id": "4362b4ac-b1c0-4d6d-86b0-8a12e733f8a6",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"identifier\": \"<string>\",\n  \"pin\": \"<number>\",\n  \"name\": \"<string>\",\n  \"dateOfBirth\": \"<dateTime>\",\n  \"nickName\": \"<string>\",\n  \"phone\": \"<number>\",\n  \"email\": \"<string>\",\n  \"allowDuplicates\": \"<boolean>\",\n  \"abn\": \"<string>\",\n  \"options\": [\n    {\n      \"key\": \"MobileForSms\",\n      \"value\": 70297171\n    },\n    {\n      \"key\": \"MobileForSms\",\n      \"value\": 70297171\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mWallet/v1/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mWallet",
+                            "v1",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:50.000Z",
+                      "updatedAt": "2026-10-22T01:59:50.000Z",
+                      "uid": "35240-4362b4ac-b1c0-4d6d-86b0-8a12e733f8a6"
+                    },
+                    {
+                      "id": "c0cf1acc-e3f8-4e59-84cb-e73aab731a46",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"identifier\": \"<string>\",\n  \"pin\": \"<number>\",\n  \"name\": \"<string>\",\n  \"dateOfBirth\": \"<dateTime>\",\n  \"nickName\": \"<string>\",\n  \"phone\": \"<number>\",\n  \"email\": \"<string>\",\n  \"allowDuplicates\": \"<boolean>\",\n  \"abn\": \"<string>\",\n  \"options\": [\n    {\n      \"key\": \"MobileForSms\",\n      \"value\": 70297171\n    },\n    {\n      \"key\": \"MobileForSms\",\n      \"value\": 70297171\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mWallet/v1/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mWallet",
+                            "v1",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:50.000Z",
+                      "updatedAt": "2026-10-22T01:59:50.000Z",
+                      "uid": "35240-c0cf1acc-e3f8-4e59-84cb-e73aab731a46"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:59:50.000Z",
+                  "updatedAt": "2026-10-22T01:59:50.000Z",
+                  "uid": "35240-51f1ceb3-bbe3-4591-8d6d-92899244143b"
+                }
+              ],
+              "id": "cb610756-53ba-4571-b0a1-d25d8ac6bb75",
+              "createdAt": "2026-10-22T01:59:50.000Z",
+              "updatedAt": "2026-10-22T01:59:50.000Z",
+              "uid": "35240-cb610756-53ba-4571-b0a1-d25d8ac6bb75"
+            },
+            {
+              "name": "close",
+              "item": [
+                {
+                  "name": "{accountNumber}",
+                  "item": [
+                    {
+                      "name": "{pin}",
+                      "item": [
+                        {
+                          "name": "Close an mWallet",
+                          "id": "d3b9f12d-211d-41e8-8755-605601f32564",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/mWallet/v1/close/:accountNumber/:pin",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "mWallet",
+                                "v1",
+                                "close",
+                                ":accountNumber",
+                                ":pin"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "98785661-a895-484e-80b1-3e05a2b66e2f",
+                                  "key": "accountNumber",
+                                  "value": "<integer>",
+                                  "description": "(Required) 16-Digit account number that uniquely identifies the mWallet"
+                                },
+                                {
+                                  "id": "b6b9f6fd-e282-4541-8d89-b21b29e98125",
+                                  "key": "pin",
+                                  "value": "<integer>",
+                                  "description": "(Required) 4 digit numerical pin."
+                                }
+                              ]
+                            },
+                            "description": "This API will set an account to be closed and no further financial transactions can be performed in the Engine."
+                          },
+                          "response": [
+                            {
+                              "id": "a023c08d-52b8-4a19-b096-6f9b05cc7f7d",
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/mWallet/v1/close/:accountNumber/:pin",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "mWallet",
+                                    "v1",
+                                    "close",
+                                    ":accountNumber",
+                                    ":pin"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "accountNumber"
+                                    },
+                                    {
+                                      "key": "pin"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T01:59:50.000Z",
+                              "updatedAt": "2026-10-22T01:59:50.000Z",
+                              "uid": "35240-a023c08d-52b8-4a19-b096-6f9b05cc7f7d"
+                            },
+                            {
+                              "id": "2e49196c-d454-46d2-87f2-c99e583ea743",
+                              "name": "Bad request",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/mWallet/v1/close/:accountNumber/:pin",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "mWallet",
+                                    "v1",
+                                    "close",
+                                    ":accountNumber",
+                                    ":pin"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "accountNumber"
+                                    },
+                                    {
+                                      "key": "pin"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-22T01:59:50.000Z",
+                              "updatedAt": "2026-10-22T01:59:50.000Z",
+                              "uid": "35240-2e49196c-d454-46d2-87f2-c99e583ea743"
+                            },
+                            {
+                              "id": "6a48b418-8f7b-4b3d-b7f7-90a3610b05f1",
+                              "name": "Internal Server Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/mWallet/v1/close/:accountNumber/:pin",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "mWallet",
+                                    "v1",
+                                    "close",
+                                    ":accountNumber",
+                                    ":pin"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "accountNumber"
+                                    },
+                                    {
+                                      "key": "pin"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-22T01:59:50.000Z",
+                              "updatedAt": "2026-10-22T01:59:50.000Z",
+                              "uid": "35240-6a48b418-8f7b-4b3d-b7f7-90a3610b05f1"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T01:59:50.000Z",
+                          "updatedAt": "2026-10-22T01:59:50.000Z",
+                          "uid": "35240-d3b9f12d-211d-41e8-8755-605601f32564"
+                        }
+                      ],
+                      "id": "577c04fe-d4aa-496a-a1ab-02f7b9e1f879",
+                      "createdAt": "2026-10-22T01:59:50.000Z",
+                      "updatedAt": "2026-10-22T01:59:50.000Z",
+                      "uid": "35240-577c04fe-d4aa-496a-a1ab-02f7b9e1f879"
+                    }
+                  ],
+                  "id": "6a2c0162-342b-49a2-ad69-666f68b9f415",
+                  "createdAt": "2026-10-22T01:59:50.000Z",
+                  "updatedAt": "2026-10-22T01:59:50.000Z",
+                  "uid": "35240-6a2c0162-342b-49a2-ad69-666f68b9f415"
+                }
+              ],
+              "id": "d739d74d-e9b0-476a-8e06-e47b5524d585",
+              "createdAt": "2026-10-22T01:59:50.000Z",
+              "updatedAt": "2026-10-22T01:59:50.000Z",
+              "uid": "35240-d739d74d-e9b0-476a-8e06-e47b5524d585"
+            },
+            {
+              "name": "financials",
+              "item": [
+                {
+                  "name": "{accountNumber}",
+                  "item": [
+                    {
+                      "name": "{pin}",
+                      "item": [
+                        {
+                          "name": "Get mWallet Balance",
+                          "id": "ca28469d-a4a1-4082-9085-c18989c565e1",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/mWallet/v1/financials/:accountNumber/:pin",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "mWallet",
+                                "v1",
+                                "financials",
+                                ":accountNumber",
+                                ":pin"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "2d626218-2e41-4e9f-8254-3aaecbec0682",
+                                  "key": "accountNumber",
+                                  "value": "<integer>",
+                                  "description": "(Required) 16-Digit account number that uniquely identifies the mWallet"
+                                },
+                                {
+                                  "id": "70b2aff4-09b4-413e-8885-b1b2b22778df",
+                                  "key": "pin",
+                                  "value": "<integer>",
+                                  "description": "(Required) 4 digit numerical pin."
+                                }
+                              ]
+                            },
+                            "description": "This API will return the current financials for an mWallet."
+                          },
+                          "response": [
+                            {
+                              "id": "e386bc50-a83d-483a-ace8-37e4a7c1befa",
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/mWallet/v1/financials/:accountNumber/:pin",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "mWallet",
+                                    "v1",
+                                    "financials",
+                                    ":accountNumber",
+                                    ":pin"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "accountNumber"
+                                    },
+                                    {
+                                      "key": "pin"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"financials\": {\n    \"actualBalance\": \"<number>\",\n    \"availableSpend\": \"<number>\",\n    \"availableLoad\": \"<number>\"\n  }\n}",
+                              "createdAt": "2026-10-22T01:59:50.000Z",
+                              "updatedAt": "2026-10-22T01:59:50.000Z",
+                              "uid": "35240-e386bc50-a83d-483a-ace8-37e4a7c1befa"
+                            },
+                            {
+                              "id": "377d71c4-e3d1-4240-88f4-62a3590c1696",
+                              "name": "Bad request",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/mWallet/v1/financials/:accountNumber/:pin",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "mWallet",
+                                    "v1",
+                                    "financials",
+                                    ":accountNumber",
+                                    ":pin"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "accountNumber"
+                                    },
+                                    {
+                                      "key": "pin"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-22T01:59:50.000Z",
+                              "updatedAt": "2026-10-22T01:59:50.000Z",
+                              "uid": "35240-377d71c4-e3d1-4240-88f4-62a3590c1696"
+                            },
+                            {
+                              "id": "6718ac84-800f-4912-827f-10f3abf212cb",
+                              "name": "Internal Server Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/mWallet/v1/financials/:accountNumber/:pin",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "mWallet",
+                                    "v1",
+                                    "financials",
+                                    ":accountNumber",
+                                    ":pin"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "accountNumber"
+                                    },
+                                    {
+                                      "key": "pin"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-22T01:59:50.000Z",
+                              "updatedAt": "2026-10-22T01:59:50.000Z",
+                              "uid": "35240-6718ac84-800f-4912-827f-10f3abf212cb"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T01:59:50.000Z",
+                          "updatedAt": "2026-10-22T01:59:50.000Z",
+                          "uid": "35240-ca28469d-a4a1-4082-9085-c18989c565e1"
+                        }
+                      ],
+                      "id": "c7f576f3-b765-4131-a7c0-bfbfc1d4feb3",
+                      "createdAt": "2026-10-22T01:59:50.000Z",
+                      "updatedAt": "2026-10-22T01:59:50.000Z",
+                      "uid": "35240-c7f576f3-b765-4131-a7c0-bfbfc1d4feb3"
+                    }
+                  ],
+                  "id": "b5e1af11-fc08-47cc-b67c-296a6e4e3e7a",
+                  "createdAt": "2026-10-22T01:59:50.000Z",
+                  "updatedAt": "2026-10-22T01:59:50.000Z",
+                  "uid": "35240-b5e1af11-fc08-47cc-b67c-296a6e4e3e7a"
+                }
+              ],
+              "id": "1048e405-9d6a-4cdc-9550-b70c159f2eb2",
+              "createdAt": "2026-10-22T01:59:50.000Z",
+              "updatedAt": "2026-10-22T01:59:50.000Z",
+              "uid": "35240-1048e405-9d6a-4cdc-9550-b70c159f2eb2"
+            },
+            {
+              "name": "reopen",
+              "item": [
+                {
+                  "name": "{accountNumber}",
+                  "item": [
+                    {
+                      "name": "{pin}",
+                      "item": [
+                        {
+                          "name": "Reopen a closed mWallet",
+                          "id": "33029926-5add-450b-8e72-59549a828f83",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/mWallet/v1/reopen/:accountNumber/:pin",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "mWallet",
+                                "v1",
+                                "reopen",
+                                ":accountNumber",
+                                ":pin"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "1b277747-c58d-4741-982c-d9e9e29f09f8",
+                                  "key": "accountNumber",
+                                  "value": "<string>",
+                                  "description": "(Required) 16-Digit account number that uniquely identifies the mWallet"
+                                },
+                                {
+                                  "id": "ba736553-5f2a-4fb4-acf3-bc5b0a054fe3",
+                                  "key": "pin",
+                                  "value": "<integer>",
+                                  "description": "(Required) 4 digit numerical pin."
+                                }
+                              ]
+                            },
+                            "description": "This API will reopen an mWallet that was closed."
+                          },
+                          "response": [
+                            {
+                              "id": "806a3c95-2f1f-4beb-acd6-afa794ef68ae",
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/mWallet/v1/reopen/:accountNumber/:pin",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "mWallet",
+                                    "v1",
+                                    "reopen",
+                                    ":accountNumber",
+                                    ":pin"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "accountNumber"
+                                    },
+                                    {
+                                      "key": "pin"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T01:59:50.000Z",
+                              "updatedAt": "2026-10-22T01:59:50.000Z",
+                              "uid": "35240-806a3c95-2f1f-4beb-acd6-afa794ef68ae"
+                            },
+                            {
+                              "id": "33cf4fd1-cc8c-4aeb-8a0a-1a2890895edd",
+                              "name": "Bad request",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/mWallet/v1/reopen/:accountNumber/:pin",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "mWallet",
+                                    "v1",
+                                    "reopen",
+                                    ":accountNumber",
+                                    ":pin"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "accountNumber"
+                                    },
+                                    {
+                                      "key": "pin"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-22T01:59:50.000Z",
+                              "updatedAt": "2026-10-22T01:59:50.000Z",
+                              "uid": "35240-33cf4fd1-cc8c-4aeb-8a0a-1a2890895edd"
+                            },
+                            {
+                              "id": "2b634ff7-3fe7-4348-bd3c-4cea99338eb0",
+                              "name": "Internal Server Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/mWallet/v1/reopen/:accountNumber/:pin",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "mWallet",
+                                    "v1",
+                                    "reopen",
+                                    ":accountNumber",
+                                    ":pin"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "accountNumber"
+                                    },
+                                    {
+                                      "key": "pin"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-22T01:59:50.000Z",
+                              "updatedAt": "2026-10-22T01:59:50.000Z",
+                              "uid": "35240-2b634ff7-3fe7-4348-bd3c-4cea99338eb0"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T01:59:50.000Z",
+                          "updatedAt": "2026-10-22T01:59:50.000Z",
+                          "uid": "35240-33029926-5add-450b-8e72-59549a828f83"
+                        }
+                      ],
+                      "id": "0662b790-fb5f-49fe-8b2d-91ca747cd28b",
+                      "createdAt": "2026-10-22T01:59:50.000Z",
+                      "updatedAt": "2026-10-22T01:59:50.000Z",
+                      "uid": "35240-0662b790-fb5f-49fe-8b2d-91ca747cd28b"
+                    }
+                  ],
+                  "id": "7bed702c-b15b-4577-b0ff-90094b188a6a",
+                  "createdAt": "2026-10-22T01:59:50.000Z",
+                  "updatedAt": "2026-10-22T01:59:50.000Z",
+                  "uid": "35240-7bed702c-b15b-4577-b0ff-90094b188a6a"
+                }
+              ],
+              "id": "c1ebbf14-ab4a-4489-a240-fea33231f962",
+              "createdAt": "2026-10-22T01:59:50.000Z",
+              "updatedAt": "2026-10-22T01:59:50.000Z",
+              "uid": "35240-c1ebbf14-ab4a-4489-a240-fea33231f962"
+            },
+            {
+              "name": "resetPin",
+              "item": [
+                {
+                  "name": "Reset an mWallet PIN",
+                  "id": "af8fd009-d961-4e99-b681-3d61dcbe4a92",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"pin\": \"<number>\",\n  \"dateOfBirth\": \"<dateTime>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/mWallet/v1/resetPin",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mWallet",
+                        "v1",
+                        "resetPin"
+                      ]
+                    },
+                    "description": "This API resets a customer's mWallet PIN. The Date of Birth is used to authenticate the user. This API should be used when a customer has forgotten their pin."
+                  },
+                  "response": [
+                    {
+                      "id": "a888d1c5-94b5-4aff-b9c9-233deee5c717",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"pin\": \"<number>\",\n  \"dateOfBirth\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mWallet/v1/resetPin",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mWallet",
+                            "v1",
+                            "resetPin"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:59:50.000Z",
+                      "updatedAt": "2026-10-22T01:59:50.000Z",
+                      "uid": "35240-a888d1c5-94b5-4aff-b9c9-233deee5c717"
+                    },
+                    {
+                      "id": "ab6fa90c-57af-4014-b433-7aac0a4a193c",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"pin\": \"<number>\",\n  \"dateOfBirth\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mWallet/v1/resetPin",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mWallet",
+                            "v1",
+                            "resetPin"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:50.000Z",
+                      "updatedAt": "2026-10-22T01:59:50.000Z",
+                      "uid": "35240-ab6fa90c-57af-4014-b433-7aac0a4a193c"
+                    },
+                    {
+                      "id": "6e6c16d1-6f2f-4877-b78a-a9ae791a6af6",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"pin\": \"<number>\",\n  \"dateOfBirth\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mWallet/v1/resetPin",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mWallet",
+                            "v1",
+                            "resetPin"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:50.000Z",
+                      "updatedAt": "2026-10-22T01:59:50.000Z",
+                      "uid": "35240-6e6c16d1-6f2f-4877-b78a-a9ae791a6af6"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:59:50.000Z",
+                  "updatedAt": "2026-10-22T01:59:50.000Z",
+                  "uid": "35240-af8fd009-d961-4e99-b681-3d61dcbe4a92"
+                }
+              ],
+              "id": "bb122bf1-b838-43e3-8e64-bc7fc449463c",
+              "createdAt": "2026-10-22T01:59:50.000Z",
+              "updatedAt": "2026-10-22T01:59:50.000Z",
+              "uid": "35240-bb122bf1-b838-43e3-8e64-bc7fc449463c"
+            },
+            {
+              "name": "search",
+              "item": [
+                {
+                  "name": "mWallet search",
+                  "id": "210c73d7-a49a-4b0f-bda9-3355eca51fbb",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/mWallet/v1/search?identifier=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mWallet",
+                        "v1",
+                        "search"
+                      ],
+                      "query": [
+                        {
+                          "description": "Mobile phone number, email address, landline number or the 16-Digit mWallet account number",
+                          "key": "identifier",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "This API returns an array of mWallets whose authentication fields match the search criteria specified by the identifier. Mobile phone, land line and 16 - Digit mWallet account numbers have all non - numbers stripped and email address is converted to lower case. This is the first function to call when trying to identify a customer with an mWallet. The key piece of information returned for each mWallet is the unique accountNumber that is used in later calls and in the payment gateway."
+                  },
+                  "response": [
+                    {
+                      "id": "2668798b-c385-4e33-9651-e93d200feddb",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/mWallet/v1/search?identifier=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mWallet",
+                            "v1",
+                            "search"
+                          ],
+                          "query": [
+                            {
+                              "description": "Mobile phone number, email address, landline number or the 16-Digit mWallet account number",
+                              "key": "identifier",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"mWallets\": [\n    {\n      \"createdDateTime\": \"<string>\",\n      \"accountNumber\": \"<string>\",\n      \"name\": \"<string>\",\n      \"nickName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"mobile\": \"<string>\",\n      \"lastTransactionDate\": \"<string>\",\n      \"contactPhone\": \"<string>\",\n      \"authenticationEmail\": \"<string>\",\n      \"authenticationMobile\": \"<string>\",\n      \"authenticationLandLine\": \"<string>\",\n      \"registeredByMAccountNumber\": \"<string>\",\n      \"isOnHold\": \"<boolean>\",\n      \"isClosed\": \"<boolean>\",\n      \"isStolen\": \"<boolean>\",\n      \"isRegistered\": \"<boolean>\",\n      \"financials\": {\n        \"actualBalance\": \"<number>\",\n        \"availableSpend\": \"<number>\",\n        \"availableLoad\": \"<number>\"\n      },\n      \"options\": [\n        {\n          \"key\": \"MobileForSms\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"key\": \"MobileForSms\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"createdDateTime\": \"<string>\",\n      \"accountNumber\": \"<string>\",\n      \"name\": \"<string>\",\n      \"nickName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"mobile\": \"<string>\",\n      \"lastTransactionDate\": \"<string>\",\n      \"contactPhone\": \"<string>\",\n      \"authenticationEmail\": \"<string>\",\n      \"authenticationMobile\": \"<string>\",\n      \"authenticationLandLine\": \"<string>\",\n      \"registeredByMAccountNumber\": \"<string>\",\n      \"isOnHold\": \"<boolean>\",\n      \"isClosed\": \"<boolean>\",\n      \"isStolen\": \"<boolean>\",\n      \"isRegistered\": \"<boolean>\",\n      \"financials\": {\n        \"actualBalance\": \"<number>\",\n        \"availableSpend\": \"<number>\",\n        \"availableLoad\": \"<number>\"\n      },\n      \"options\": [\n        {\n          \"key\": \"MobileForSms\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"key\": \"MobileForSms\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T01:59:50.000Z",
+                      "updatedAt": "2026-10-22T01:59:50.000Z",
+                      "uid": "35240-2668798b-c385-4e33-9651-e93d200feddb"
+                    },
+                    {
+                      "id": "2d233b8b-d188-44f7-812d-8d425c3b53b8",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/mWallet/v1/search?identifier=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mWallet",
+                            "v1",
+                            "search"
+                          ],
+                          "query": [
+                            {
+                              "description": "Mobile phone number, email address, landline number or the 16-Digit mWallet account number",
+                              "key": "identifier",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:50.000Z",
+                      "updatedAt": "2026-10-22T01:59:50.000Z",
+                      "uid": "35240-2d233b8b-d188-44f7-812d-8d425c3b53b8"
+                    },
+                    {
+                      "id": "fd01e60c-8260-496e-8dbb-fade970a86da",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/mWallet/v1/search?identifier=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mWallet",
+                            "v1",
+                            "search"
+                          ],
+                          "query": [
+                            {
+                              "description": "Mobile phone number, email address, landline number or the 16-Digit mWallet account number",
+                              "key": "identifier",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:50.000Z",
+                      "updatedAt": "2026-10-22T01:59:50.000Z",
+                      "uid": "35240-fd01e60c-8260-496e-8dbb-fade970a86da"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:59:50.000Z",
+                  "updatedAt": "2026-10-22T01:59:50.000Z",
+                  "uid": "35240-210c73d7-a49a-4b0f-bda9-3355eca51fbb"
+                }
+              ],
+              "id": "80903d03-17f0-4678-a19c-52e741a7b65f",
+              "createdAt": "2026-10-22T01:59:50.000Z",
+              "updatedAt": "2026-10-22T01:59:50.000Z",
+              "uid": "35240-80903d03-17f0-4678-a19c-52e741a7b65f"
+            },
+            {
+              "name": "transactions",
+              "item": [
+                {
+                  "name": "Get transactions by mWallet",
+                  "id": "50860456-6cbe-4643-a7cf-1bdf5b2f98f8",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"pin\": \"<number>\",\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"skip\": \"<number>\",\n  \"take\": \"<number>\",\n  \"descending\": \"<boolean>\",\n  \"useTime\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/mWallet/v1/transactions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mWallet",
+                        "v1",
+                        "transactions"
+                      ]
+                    },
+                    "description": "This API will return an array of transactions for an mWallet between two dates. Paging is supported by using the skip and take properties of the mWalletTransactionRequestDetails class. The information retrieved is in real - time and represents the same details as displayed on an mAccounts financial statement."
+                  },
+                  "response": [
+                    {
+                      "id": "78ab693d-e534-48da-a957-8efaa402ac1d",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"pin\": \"<number>\",\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"skip\": \"<number>\",\n  \"take\": \"<number>\",\n  \"descending\": \"<boolean>\",\n  \"useTime\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mWallet/v1/transactions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mWallet",
+                            "v1",
+                            "transactions"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"openingBalance\": \"<number>\",\n  \"closingBalance\": \"<number>\",\n  \"totalDebits\": \"<number>\",\n  \"totalCredits\": \"<number>\",\n  \"items\": [\n    {\n      \"rowOrder\": \"<integer>\",\n      \"mPaymentsId\": \"<integer>\",\n      \"transactionId\": \"<integer>\",\n      \"dateTime\": \"<string>\",\n      \"mAccountName\": \"<string>\",\n      \"transactionType\": \"<string>\",\n      \"subTransactionType\": \"<string>\",\n      \"credit\": \"<number>\",\n      \"debit\": \"<number>\",\n      \"runningBalance\": \"<number>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"rowOrder\": \"<integer>\",\n      \"mPaymentsId\": \"<integer>\",\n      \"transactionId\": \"<integer>\",\n      \"dateTime\": \"<string>\",\n      \"mAccountName\": \"<string>\",\n      \"transactionType\": \"<string>\",\n      \"subTransactionType\": \"<string>\",\n      \"credit\": \"<number>\",\n      \"debit\": \"<number>\",\n      \"runningBalance\": \"<number>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T01:59:50.000Z",
+                      "updatedAt": "2026-10-22T01:59:50.000Z",
+                      "uid": "35240-78ab693d-e534-48da-a957-8efaa402ac1d"
+                    },
+                    {
+                      "id": "9b95f9fc-1f22-44f3-b9ff-e53243b2d646",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"pin\": \"<number>\",\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"skip\": \"<number>\",\n  \"take\": \"<number>\",\n  \"descending\": \"<boolean>\",\n  \"useTime\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mWallet/v1/transactions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mWallet",
+                            "v1",
+                            "transactions"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:50.000Z",
+                      "updatedAt": "2026-10-22T01:59:50.000Z",
+                      "uid": "35240-9b95f9fc-1f22-44f3-b9ff-e53243b2d646"
+                    },
+                    {
+                      "id": "4e844e51-77c2-42d9-b949-66844137811c",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"pin\": \"<number>\",\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"skip\": \"<number>\",\n  \"take\": \"<number>\",\n  \"descending\": \"<boolean>\",\n  \"useTime\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mWallet/v1/transactions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mWallet",
+                            "v1",
+                            "transactions"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:50.000Z",
+                      "updatedAt": "2026-10-22T01:59:50.000Z",
+                      "uid": "35240-4e844e51-77c2-42d9-b949-66844137811c"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:59:50.000Z",
+                  "updatedAt": "2026-10-22T01:59:50.000Z",
+                  "uid": "35240-50860456-6cbe-4643-a7cf-1bdf5b2f98f8"
+                }
+              ],
+              "id": "d7d9577b-9a51-4b9a-a06e-63bd2de71348",
+              "createdAt": "2026-10-22T01:59:50.000Z",
+              "updatedAt": "2026-10-22T01:59:50.000Z",
+              "uid": "35240-d7d9577b-9a51-4b9a-a06e-63bd2de71348"
+            },
+            {
+              "name": "update",
+              "item": [
+                {
+                  "name": "Update mWallet details",
+                  "id": "5d175dc2-d6cc-4b28-ba38-470d1dd22157",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"pin\": \"<number>\",\n  \"name\": \"<string>\",\n  \"nickName\": \"<string>\",\n  \"phone\": \"<number>\",\n  \"email\": \"<string>\",\n  \"abn\": \"<string>\",\n  \"options\": [\n    {\n      \"key\": \"MobileForSms\",\n      \"value\": 70297171\n    },\n    {\n      \"key\": \"MobileForSms\",\n      \"value\": 70297171\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/mWallet/v1/update",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mWallet",
+                        "v1",
+                        "update"
+                      ]
+                    },
+                    "description": "This API updates an mWallet. This update process has been mandated by BPAY Pty Ltd as part of the license to use BPAY as a payment method. The pin or dateOfBirth Dates are not updatable."
+                  },
+                  "response": [
+                    {
+                      "id": "277ca794-bd2a-4ef1-897c-703158c71543",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"pin\": \"<number>\",\n  \"name\": \"<string>\",\n  \"nickName\": \"<string>\",\n  \"phone\": \"<number>\",\n  \"email\": \"<string>\",\n  \"abn\": \"<string>\",\n  \"options\": [\n    {\n      \"key\": \"MobileForSms\",\n      \"value\": 70297171\n    },\n    {\n      \"key\": \"MobileForSms\",\n      \"value\": 70297171\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mWallet/v1/update",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mWallet",
+                            "v1",
+                            "update"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"durationMs\": \"<long>\",\n  \"status\": \"<string>\",\n  \"statusDescription\": \"<string>\",\n  \"mWallet\": {\n    \"createdDateTime\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"name\": \"<string>\",\n    \"nickName\": \"<string>\",\n    \"email\": \"<string>\",\n    \"mobile\": \"<string>\",\n    \"lastTransactionDate\": \"<string>\",\n    \"contactPhone\": \"<string>\",\n    \"authenticationEmail\": \"<string>\",\n    \"authenticationMobile\": \"<string>\",\n    \"authenticationLandLine\": \"<string>\",\n    \"registeredByMAccountNumber\": \"<string>\",\n    \"isOnHold\": \"<boolean>\",\n    \"isClosed\": \"<boolean>\",\n    \"isStolen\": \"<boolean>\",\n    \"isRegistered\": \"<boolean>\",\n    \"financials\": {\n      \"actualBalance\": \"<number>\",\n      \"availableSpend\": \"<number>\",\n      \"availableLoad\": \"<number>\"\n    },\n    \"options\": [\n      {\n        \"key\": \"MobileForSms\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"key\": \"MobileForSms\",\n        \"value\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-10-22T01:59:50.000Z",
+                      "updatedAt": "2026-10-22T01:59:50.000Z",
+                      "uid": "35240-277ca794-bd2a-4ef1-897c-703158c71543"
+                    },
+                    {
+                      "id": "797e596f-1fa1-403b-a815-266767bb7b72",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"pin\": \"<number>\",\n  \"name\": \"<string>\",\n  \"nickName\": \"<string>\",\n  \"phone\": \"<number>\",\n  \"email\": \"<string>\",\n  \"abn\": \"<string>\",\n  \"options\": [\n    {\n      \"key\": \"MobileForSms\",\n      \"value\": 70297171\n    },\n    {\n      \"key\": \"MobileForSms\",\n      \"value\": 70297171\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mWallet/v1/update",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mWallet",
+                            "v1",
+                            "update"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:50.000Z",
+                      "updatedAt": "2026-10-22T01:59:50.000Z",
+                      "uid": "35240-797e596f-1fa1-403b-a815-266767bb7b72"
+                    },
+                    {
+                      "id": "d089a17f-1496-49db-9962-20933d945ba5",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"accountNumber\": \"<string>\",\n  \"pin\": \"<number>\",\n  \"name\": \"<string>\",\n  \"nickName\": \"<string>\",\n  \"phone\": \"<number>\",\n  \"email\": \"<string>\",\n  \"abn\": \"<string>\",\n  \"options\": [\n    {\n      \"key\": \"MobileForSms\",\n      \"value\": 70297171\n    },\n    {\n      \"key\": \"MobileForSms\",\n      \"value\": 70297171\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mWallet/v1/update",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mWallet",
+                            "v1",
+                            "update"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:59:50.000Z",
+                      "updatedAt": "2026-10-22T01:59:50.000Z",
+                      "uid": "35240-d089a17f-1496-49db-9962-20933d945ba5"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:59:50.000Z",
+                  "updatedAt": "2026-10-22T01:59:50.000Z",
+                  "uid": "35240-5d175dc2-d6cc-4b28-ba38-470d1dd22157"
+                }
+              ],
+              "id": "49fd139f-93de-42ba-b2b1-a5e7b304753e",
+              "createdAt": "2026-10-22T01:59:50.000Z",
+              "updatedAt": "2026-10-22T01:59:50.000Z",
+              "uid": "35240-49fd139f-93de-42ba-b2b1-a5e7b304753e"
+            }
+          ],
+          "id": "912606f3-fa27-4f9c-b5a9-4a8b8c423aa1",
+          "createdAt": "2026-10-22T01:59:50.000Z",
+          "updatedAt": "2026-10-22T01:59:50.000Z",
+          "uid": "35240-912606f3-fa27-4f9c-b5a9-4a8b8c423aa1"
+        }
+      ],
+      "id": "34e539be-82fa-4475-a774-dd6cb7230276",
+      "createdAt": "2026-10-22T01:59:50.000Z",
+      "updatedAt": "2026-10-22T01:59:50.000Z",
+      "uid": "35240-34e539be-82fa-4475-a774-dd6cb7230276"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.mpay.com.au"
+    }
+  ]
+}

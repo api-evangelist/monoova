@@ -1,0 +1,217 @@
+{
+  "info": {
+    "_postman_id": "60f751a0-3430-4cbd-9201-4af7a344215b",
+    "name": "Monoova Card Payments Update Payment Method Token Status API",
+    "description": "# Introduction\nMonoova's Online Card Payment Service incorporates a next-gen Card Payment Checkout integrated with our expansive Payments API to allow merchants to capture card and mobile wallet payments from your customers online and receive funds into your Monoova account for automated reconciliation and disbursement.\n\nContact Support:\n Name: Monoova Support\n Email: support@monoova.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:01:15.000Z",
+    "updatedAt": "2026-10-22T02:01:15.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-60f751a0-3430-4cbd-9201-4af7a344215b"
+  },
+  "item": [
+    {
+      "name": "au",
+      "item": [
+        {
+          "name": "card",
+          "item": [
+            {
+              "name": "ccm",
+              "item": [
+                {
+                  "name": "PaymentMethodToken",
+                  "item": [
+                    {
+                      "name": "{customerId}",
+                      "item": [
+                        {
+                          "name": "{clientPaymentTokenReference}",
+                          "item": [
+                            {
+                              "name": "Update Status of Payment Method Token",
+                              "id": "d4504f44-db25-44fe-95a9-cfbbdbe8739d",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"status\": \"Paused\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/au/card/ccm/PaymentMethodToken/:customerId/:clientPaymentTokenReference",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "au",
+                                    "card",
+                                    "ccm",
+                                    "PaymentMethodToken",
+                                    ":customerId",
+                                    ":clientPaymentTokenReference"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "43300d98-7e36-49d1-ae7f-1c7d7578bfe1",
+                                      "key": "customerId",
+                                      "value": "<string>",
+                                      "description": "(Required) Customer ID as specified in Credit Card - Generate Client Session."
+                                    },
+                                    {
+                                      "id": "d50081e7-3cab-4108-b32c-f71d84e7cc71",
+                                      "key": "clientPaymentTokenReference",
+                                      "value": "<string>",
+                                      "description": "(Required) Client Payment Token Unique Reference as specified in Credit Card - Generate Client Session."
+                                    }
+                                  ]
+                                },
+                                "description": "This endpoint can be used to update the status of a paymentMethodToken."
+                              },
+                              "response": [
+                                {
+                                  "id": "3b76ea2a-36be-410c-80dd-44d6ef278c14",
+                                  "name": "Status updated successfully",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"status\": \"Paused\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/au/card/ccm/PaymentMethodToken/:customerId/:clientPaymentTokenReference",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "au",
+                                        "card",
+                                        "ccm",
+                                        "PaymentMethodToken",
+                                        ":customerId",
+                                        ":clientPaymentTokenReference"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "customerId"
+                                        },
+                                        {
+                                          "key": "clientPaymentTokenReference"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"traceId\": \"<string>\",\n  \"errors\": [\n    {\n      \"errorCode\": \"<string>\",\n      \"errorMessage\": \"<string>\",\n      \"sourceErrorCode\": \"<string>\",\n      \"sourceErrorMessage\": \"<string>\"\n    },\n    {\n      \"errorCode\": \"<string>\",\n      \"errorMessage\": \"<string>\",\n      \"sourceErrorCode\": \"<string>\",\n      \"sourceErrorMessage\": \"<string>\"\n    }\n  ]\n}",
+                                  "createdAt": "2026-10-22T02:01:16.000Z",
+                                  "updatedAt": "2026-10-22T02:01:16.000Z",
+                                  "uid": "35240-3b76ea2a-36be-410c-80dd-44d6ef278c14"
+                                }
+                              ],
+                              "createdAt": "2026-10-22T02:01:16.000Z",
+                              "updatedAt": "2026-10-22T02:01:16.000Z",
+                              "uid": "35240-d4504f44-db25-44fe-95a9-cfbbdbe8739d"
+                            }
+                          ],
+                          "id": "316a9d5a-6818-4004-8260-d80ed434b425",
+                          "createdAt": "2026-10-22T02:01:16.000Z",
+                          "updatedAt": "2026-10-22T02:01:16.000Z",
+                          "uid": "35240-316a9d5a-6818-4004-8260-d80ed434b425"
+                        }
+                      ],
+                      "id": "c4d89af4-d6c2-4bb2-bbaf-76115ced1bab",
+                      "createdAt": "2026-10-22T02:01:16.000Z",
+                      "updatedAt": "2026-10-22T02:01:16.000Z",
+                      "uid": "35240-c4d89af4-d6c2-4bb2-bbaf-76115ced1bab"
+                    }
+                  ],
+                  "id": "522307d5-9201-4f9d-baaa-02b1f440974c",
+                  "createdAt": "2026-10-22T02:01:16.000Z",
+                  "updatedAt": "2026-10-22T02:01:16.000Z",
+                  "uid": "35240-522307d5-9201-4f9d-baaa-02b1f440974c"
+                }
+              ],
+              "id": "d99e7320-65d3-4377-8891-18060549c4a5",
+              "createdAt": "2026-10-22T02:01:16.000Z",
+              "updatedAt": "2026-10-22T02:01:16.000Z",
+              "uid": "35240-d99e7320-65d3-4377-8891-18060549c4a5"
+            }
+          ],
+          "id": "90dcda92-5ef5-47ec-b8d2-977757f9162d",
+          "createdAt": "2026-10-22T02:01:16.000Z",
+          "updatedAt": "2026-10-22T02:01:16.000Z",
+          "uid": "35240-90dcda92-5ef5-47ec-b8d2-977757f9162d"
+        }
+      ],
+      "id": "584a4a38-b1a1-44d4-8bec-23240b993e6d",
+      "createdAt": "2026-10-22T02:01:16.000Z",
+      "updatedAt": "2026-10-22T02:01:16.000Z",
+      "uid": "35240-584a4a38-b1a1-44d4-8bec-23240b993e6d"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.monoova.com"
+    }
+  ]
+}
