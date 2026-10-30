@@ -1,4 +1,4 @@
-# Monoova (monoova)
+# Monoova
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,90 +64,163 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Monoova is an Australian payments platform that lets businesses receive, manage, and pay funds in AUD across every domestic rail through a single set of RESTful JSON APIs. Operated by Monoova Global Payments Pty Ltd (AFSL 421414) and enrolled with AUSTRAC, it connects directly to the New Payments Platform — real-time account-to-account transfers via NPP/Osko, PayID addressing, and PayTo mandated debits — alongside BPAY, direct entry, card acquiring, and Apple Pay / Google Pay. Its Automatcher reconciliation engine, virtual mAccount/mWallet hierarchies, Confirmation of Payee, account verification, payment tokenisation, and webhook-driven reporting serve fintechs, marketplaces, payroll, lending, remittance, and SaaS businesses (customers include Wise, Nium, Finder, and Sharesies).
+Monoova is an Australian payments platform that lets businesses receive, manage, and pay funds in AUD across every domestic rail through a single set of RESTful JSON APIs. Operated by Monoova Global Payments Pty Ltd (AFSL 421414) and enrolled with AUSTRAC, it connects directly to the New Payments Platform (real-time account-to-account transfers via NPP/Osko, PayID addressing, and PayTo mandated debits) alongside BPAY, direct entry (credit/debit), card acquiring, and Apple Pay / Google Pay. Its Automatcher reconciliation engine, virtual mAccount/mWallet hierarchies, Confirmation of Payee, account verification, payment tokenisation, and webhook-driven reporting target fintechs, marketplaces, payroll, lending, remittance, and SaaS businesses (customers include Wise, Nium, Finder, and Sharesies). Monoova is genuinely API-first: it ships a public developer portal, a Redoc API reference, downloadable OpenAPI specifications, and a public Postman workspace, plus a free self-serve sandbox.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/monoova/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/monoova/refs/heads/main/apis.yml)
+**Areas:** Payments · Australia · Real-Time Payments · New Payments Platform · PayTo · PayID · Account-to-Account · BPAY · Card Payments · Money Movement · Virtual Accounts · Cross-Border
 
-## Tags
+## Monoova on APIs.io
 
-- Payments
-- Australia
-- Real-Time Payments
-- NPP
-- PayTo
-- PayID
-- Account-to-Account
-- BPAY
-- Card Payments
-- Money Movement
-- Virtual Accounts
-- Cross-Border
+Everything profiled for Monoova is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/monoova/](https://apis.io/providers/monoova/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (31)
 
-- **Created:** 2026-07-24
-- **Modified:** 2026-07-24
+- [Monoova Automatcher (Bank Account Receivables) API](https://apis.io/apis/monoova/monoova-automatcher-bank-account-receivables-api/) — <h3> Overview </h3> <p> Having customers paying you by bank transfer might be easy for your customers but contains a reconciliation risk for you. If your…
+- [Monoova BPAY API](https://apis.io/apis/monoova/monoova-bpay-api/) — <h3> Overview </h3> The BPAY APIs do not perform any financial transactions and are used to validate BPAY information that is used in the <a…
+- [Monoova Create Payment Using Token API](https://apis.io/apis/monoova/monoova-create-payment-using-token-api/) — The Create Payment Using Token API from Monoova — 1 operation(s) for create payment using token.
+- [Monoova Financial API](https://apis.io/apis/monoova/monoova-financial-api/) — <h3> Overview </h3> <p> The Financial APIs enable you to process credits and debits, including transferring funds within Monoova to a Ledger Account, an…
+- [Monoova Generate a Bearer Token API](https://apis.io/apis/monoova/monoova-generate-a-bearer-token-api/) — The Generate a Bearer Token API from Monoova — 1 operation(s) for generate a bearer token.
+- [Monoova Generate a Client Session API](https://apis.io/apis/monoova/monoova-generate-a-client-session-api/) — The Generate a Client Session API from Monoova — 1 operation(s) for generate a client session.
+- [Monoova Get Async Request Status API](https://apis.io/apis/monoova/monoova-get-async-request-status-api/) — The Get Async Request Status API from Monoova — 1 operation(s) for get async request status.
+- [Monoova Get Payment Method Token Details API](https://apis.io/apis/monoova/monoova-get-payment-method-token-details-api/) — The Get Payment Method Token Details API from Monoova — 1 operation(s) for get payment method token details.
+- [Monoova Get Transaction By Date Range API](https://apis.io/apis/monoova/monoova-get-transaction-by-date-range-api/) — The Get Transaction By Date Range API from Monoova — 1 operation(s) for get transaction by date range.
+- [Monoova Get Transaction By Id API](https://apis.io/apis/monoova/monoova-get-transaction-by-id-api/) — The Get Transaction By Id API from Monoova — 1 operation(s) for get transaction by id.
+- [Monoova Initiate a Payment API](https://apis.io/apis/monoova/monoova-initiate-a-payment-api/) — Once a payment agreement is created you can trigger payments against it
+- [Monoova Ledger Account API](https://apis.io/apis/monoova/monoova-ledger-account-api/) — Monoova allows virtual ledgers to be created and linked to an Automatcher account number and optional PayID that can be used to track funds received and…
+- [Monoova M Account API](https://apis.io/apis/monoova/monoova-maccount-api/) — <h3> Overview </h3> The mAccount is the name we have given our virtual account. It is at the centre of anything you do with our Payments Engine. In many…
+- [Monoova Manage Payment Agreements API](https://apis.io/apis/monoova/monoova-manage-payment-agreements-api/) — Methods to handle the payment agreement lifecycle. There are 2 ways in which a payment agreement can be amended – unilaterally (no payer approval needed),…
+- [Monoova M Wallet API](https://apis.io/apis/monoova/monoova-mwallet-api/) — <h3> Overview </h3> mWallet is the name we have given to the digital wallet required for our BPAY payments. For any other digital-wallet uses, we recommend…
+- [Monoova Notification Management API](https://apis.io/apis/monoova/monoova-notification-management-api/) — The Notification Management API from Monoova — 4 operation(s) for notification management.
+- [Monoova Pay ID API](https://apis.io/apis/monoova/monoova-payid-api/) — <h3> Overview </h3> <p> A PayID is an alias for a bank account number that makes paying into account easier. A PayID can be an email address, phone number…
+- [Monoova PayTo Async API](https://apis.io/apis/monoova/monoova-payto-async-api-api/) — The `AsyncResponse` is used in operations where the request is accepted, but the processing is not immediate. This response format provides information for…
+- [Monoova Public Endpoints API](https://apis.io/apis/monoova/monoova-public-endpoints-api/) — The Public Endpoints API from Monoova — 3 operation(s) for public endpoints.
+- [Monoova Reconciliation Rules API](https://apis.io/apis/monoova/monoova-reconciliation-rules-api/) — <h3> Overview </h3> <p> This feature enables customers to specify the criteria for accepting incoming NPP and DE payments in real time. The customer will be…
+- [Monoova Reporting API](https://apis.io/apis/monoova/monoova-reporting-api/) — </br><h2>PayTo Reporting</h2> <p> A new report has been added specifically for NPP payments related to PayTo. Monoova’s PayTo NPP receivables – available <a…
+- [Monoova Reports API](https://apis.io/apis/monoova/monoova-reports-api/) — <h3> Overview </h3> The APIs in the reports/v1 section help you keep track of balances and transactions. Payments automation is only helping you relax if…
+- [Monoova Request Refund Transaction API](https://apis.io/apis/monoova/monoova-request-refund-transaction-api/) — The Request Refund Transaction API from Monoova — 1 operation(s) for request refund transaction.
+- [Monoova Security API](https://apis.io/apis/monoova/monoova-security-api/) — <h3> Overview </h3> <p> The security/v1 APIs allows you to manage security tokens. This gives you an alternative to using signIn API KEY for BASIC…
+- [Monoova Subscriptions API](https://apis.io/apis/monoova/monoova-subscriptions-api/) — The endpoints in this section allow subscription and management of webhooks for the purpose of receiving transaction notifications.</br>
+- [Monoova Token API](https://apis.io/apis/monoova/monoova-token-api/) — <h3> Overview </h3> <p> Using tokens is a way of increasing the security around sensitive information. A token can be used to obfuscate debit and credit…
+- [Monoova Tools API](https://apis.io/apis/monoova/monoova-tools-api/) — <h3> Overview </h3> The APIs in the tools/v1/ section represent utilities that you may find useful while consuming the other APIs offered as part of the…
+- [Monoova Update Payment Method Token Status API](https://apis.io/apis/monoova/monoova-update-payment-method-token-status-api/) — The Update Payment Method Token Status API from Monoova — 1 operation(s) for update payment method token status.
+- [Monoova Verify API](https://apis.io/apis/monoova/monoova-verify-api/) — <h3>Overview</h3> <h3>Bank Account Ownership Verification</h3> <p>The purpose of this API is to verify access to a bank account or PayID details, which has…
+- [Monoova Webhooks API](https://apis.io/apis/monoova/monoova-webhooks-api/) — <p> In addition to callable reporting endpoints, webhooks will also be available for state changes for payment agreements and funds received. </p> </br></br>
+- [Monoova Whitelisting for Automatcher (Bank Account Receivables) API](https://apis.io/apis/monoova/monoova-whitelisting-for-automatcher-bank-account-receivables-api/) — <h3> Overview </h3> <p> This feature enables whitelisting of bank accounts when receiving funds in automatcher accounts. Funds received from a…
 
-## APIs
+### Published properties
 
-### Monoova Payments API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Core Payments API (v5.29) to receive, manage, and pay AUD across all Australian payment rails — real-time transfers via NPP/Osko, direct credit and direct debit, BPAY, card payments, and PayID — plus the Automatcher receivables engine, virtual mAccount/mWallet hierarchies, ledger accounts, reconciliation and financial reporting, account verification, payment tokenisation, and webhooks. Authenticated with HTTP Basic auth (API key as the username).
+#### AsyncAPI (1)
 
-- **Human URL:** [https://developer.monoova.com/overview](https://developer.monoova.com/overview)
-- **Base URL:** `https://api.mpay.com.au` (sandbox `https://api.m-pay.com.au`)
+Event-driven and webhook contracts.
 
-#### Properties
+- [Monoova Webhooks](https://apis.io/asyncapis/monoova/monoova-webhooks/)
 
-- [OpenAPI](openapi/monoova-payments.yml)
-- [Documentation](https://developer.monoova.com/overview)
-- [API Reference](https://api-docs.monoova.com/)
+#### MCP servers (1)
 
-### Monoova PayTo API
+Model Context Protocol servers that expose the API to agents.
 
-PayTo API (v1) for the New Payments Platform's mandated account-to-account debit service — create and manage payment agreements (mandates), initiate payments, handle mandate/payment status lifecycles, and receive notifications and webhooks. Authenticated with short-lived (24h) Bearer tokens obtained via HTTP Basic auth.
+- [monoova](https://apis.io/servers/monoova/monoova/)
 
-- **Human URL:** [https://developer.monoova.com/payto](https://developer.monoova.com/payto)
-- **Base URL:** `https://api.monoova.com` (sandbox `https://sand-api.monoova.com`)
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [OpenAPI](openapi/monoova-payto.yml)
-- [Documentation](https://developer.monoova.com/payto)
-- [API Reference](https://api-docs.monoova.com/)
+- [Monoova Agentic Access](https://apis.io/agentic-access/monoova/monoova-agentic-access/)
 
-### Monoova Card Payments API
+#### Collections (3)
 
-Card Payments API (v1) for accepting card payments, including tokenised card flows and webhook notifications for payment events. Authenticated with short-lived (24h) Bearer tokens obtained via HTTP Basic auth.
+Postman and Open Collection request collections.
 
-- **Human URL:** [https://developer.monoova.com/card-payments](https://developer.monoova.com/card-payments)
-- **Base URL:** `https://api.monoova.com` (sandbox `https://sand-api.monoova.com`)
+- [Monoova Card Payments API](https://apis.io/collections/monoova/open-monoova-cc/)
+- [Monoova Payments API](https://apis.io/collections/monoova/open-monoova-payments/)
+- [Monoova PayTo API](https://apis.io/collections/monoova/open-monoova-payto/)
 
-#### Properties
+#### Overlays (3)
 
-- [OpenAPI](openapi/monoova-cc.yml)
-- [Documentation](https://developer.monoova.com/card-payments)
-- [API Reference](https://api-docs.monoova.com/)
+OpenAPI overlays, including conversational phrasing for each operation.
 
-## Common Properties
+- [Monoova Cc Overlay](https://apis.io/overlays/monoova/monoova-cc-overlay/)
+- [Monoova Payments Overlay](https://apis.io/overlays/monoova/monoova-payments-overlay/)
+- [Monoova Payto Overlay](https://apis.io/overlays/monoova/monoova-payto-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Monoova Authentication](https://apis.io/security/monoova/monoova-authentication/)
+- [Monoova Domain Security](https://apis.io/security/monoova/monoova-domain-security/)
+- [Monoova Trust Center](https://apis.io/security/monoova/monoova-trust-center/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.monoova.com/)
-- [Developer Portal](https://developer.monoova.com/)
-- [API Reference](https://api-docs.monoova.com/)
-- [Getting Started](https://developer.monoova.com/getting-started)
-- [Authentication](https://developer.monoova.com/authentication)
-- [Postman](https://www.postman.com/monoova/monoova-api)
-- [Status Page](https://monoova.statuspage.io)
-- [Blog](https://www.monoova.com/blog)
-- [GitHub Organization](https://github.com/monoova)
-- [LinkedIn](https://www.linkedin.com/company/monoova)
-- [Sign Up (Sandbox)](https://sandbox.monoova.com/)
+- [Documentation](https://developer.monoova.com/)
+- [Getting started](https://developer.monoova.com/getting-started)
+- [API reference](https://api-docs.monoova.com/)
+- [Sign up](https://sandbox.monoova.com/)
 - [Support](https://www.monoova.com/contact)
-- [Terms of Use](https://www.monoova.com/terms-of-use)
-- [Privacy Policy](https://www.monoova.com/privacy-policy)
+- [Blog](https://www.monoova.com/blog)
 - [Security](https://www.monoova.com/security)
+- [Compliance](https://www.monoova.com/security)
+- [Terms of service](https://www.monoova.com/terms-of-use)
+- [Privacy policy](https://www.monoova.com/privacy-policy)
+- [GitHub](https://github.com/monoova)
+- [Status](https://monoova.statuspage.io)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 51.2** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 78.6 |
+| Contract quality | 59.8 |
+| Contract governance | 4.5 |
+| Operational transparency | 36.8 |
+| Developer ergonomics | 68.5 |
+| Access clarity | 36.8 |
+
+**Agent readiness 32.4** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | — |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 37.5** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/monoova/](https://apis.io/providers/monoova/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Monoova: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/monoova/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
